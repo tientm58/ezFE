@@ -1,0 +1,30 @@
+<md-dialog aria-label="Group Rate Operation" ng-cloak flex-xs="100" flex-sm="100" flex-gt-sm="60">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'GROUP_RATE_OPERATION' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100" layout-align="center center">
+                <span flex="25">Price</span>
+                <md-input-container flex style="margin-bottom: 0px;">
+                    <label></label>
+                    <input type="text" style="width: 100%;" ng-model="newRoomChargeAmount" ui-number-mask="defaultDecimal">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button ng-click="saveGroupRateOperation()" class="md-primary" ng-disabled="newRoomChargeAmount == null || newRoomChargeAmount.trim() == ''">
+                {{'APPLY' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

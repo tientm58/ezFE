@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+    <script type="text/javascript">
+        //var redirect = window.open('redirect.html');
+        //window.opener.$windowScope.paymentCompleted(location.search);
+        //redirect.$windowScope.paymentCompleted(location.search);
+        //window.close();
+        //console.log("windowScope", localStorage, localStorage.scope);
+        localStorage.onepayPaymentCompletedUrlString = location.search;
+        if (window.location.hostname !== 'localhost') {
+            var parts = location.hostname.split('.');
+            var upperleveldomain = parts.join('.');
+            if (parts.length > 1) {
+                if (window.location.hostname.toLowerCase().indexOf("ezcloudhotel.com") >= 0) {
+                    window.location.href = "http://" + upperleveldomain + "/#/paymentCompleted";
+                } else {
+                    window.location.href = "http://" + window.location.hostname + "/#/paymentCompleted";
+                }
+            } else {
+                if (window.location.protocol !== "http:") {}
+            }
+        } else {
+            window.location.href = "http://localhost:1980/#/paymentCompleted";
+        }
+    </script>
+</body>
+</html>

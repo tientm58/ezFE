@@ -1,0 +1,193 @@
+<style>
+	.disabled {
+		background: #a9aaab !important;
+	}
+
+	.textDiabled {}
+
+	.plan-move {
+		position: relative;
+		top: 26px;
+	}
+
+	.plan-move.plan-move-active {
+		transition: all 0.5s ease;
+		top: 0;
+	}
+
+	.plan-move+div {
+		/* cannot have transition on this element */
+		/*transition: all 1s ease;*/
+		position: relative;
+		top: -26px;
+	}
+
+	.plan-move.plan-move-active+div {
+		transition: all 0.5s ease;
+		position: relative;
+		top: 0;
+	}
+
+	.plan-enter {
+		position: relative;
+		opacity: 0.0;
+		height: 0;
+		left: 100px;
+	}
+
+	.plan-enter.plan-enter-active {
+		transition: all 0.5s ease;
+		opacity: 1.0;
+		left: 0;
+		height: 26px;
+	}
+
+	.whenLargeScreen {
+		margin-left: 12px;
+	}
+
+	.md-list-item.md-2-line .md-list-item-text,
+	md-list-item.md-2-line>._md-no-style .md-list-item-text,
+	md-list-item.md-3-line .md-list-item-text,
+	md-list-item.md-3-line>._md-no-style .md-list-item-text {
+		margin: auto;
+	}
+
+	md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+		height: auto;
+	}
+
+	md-list-item ._md-list-item-inner ._md-secondary-container,
+	md-list-item ._md-secondary-container {
+		height: auto;
+	}
+
+	.ipsum {
+		color: gray;
+		font-size: 0.9em;
+		display: block;
+		padding-top: 6px;
+	}
+
+	.dndDraggingSource {
+		display: none;
+	}
+
+	.dndPlaceholder {
+		/*background-color: #ddd !important;*/
+		min-height: 72px !important;
+		min-width: 100% !important;
+		display: block;
+		position: relative;
+	}
+
+	.list {
+		padding: 12px;
+		margin: 0px 0px;
+		cursor: pointer;
+		min-height: 100px;
+		max-height: 5000px;
+	}
+
+	.list-item {
+		padding-top: 8px;
+		padding-bottom: 8px;
+		box-sizing: border-box;
+		margin: 8px;
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+		padding-left: 15px;
+	}
+</style>
+<md-card style="margin-bottom:30px">
+	<div class="md-padding md-whiteframe-z1" style="position: relative;" layout="row" layout-wrap layout-align="space-between center">
+		<div ng-if="titleOn" flex="70">
+			<span flex class="md-toolbar-tools" style="padding-right: 0px;">
+				<h2>
+					{{'ROOM_TYPE_LIST' | translate}} ({{arrFromRoomTypes.length}})
+				</h2>
+			</span>
+			<md-button class="md-warn md-fab md-mini" ng-click="changeOrderNumber()" ng-if="isRoomTypeChanged" style="position: absolute;right: 60px;bottom: -25px;">
+				<md-icon md-svg-src="img/icons/ic_save_48px.svg"></md-icon>
+				<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+					{{'TOOLTIP_SAVE' | translate}}
+				</md-tooltip>
+			</md-button>
+			<md-button class="md-warn md-fab md-mini" ng-click="createRoomType()" style=" position: absolute; right: 16px; bottom: -25px;">
+				<md-icon md-svg-src="img/icons/ic_add_48px.svg"></md-icon>
+				<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+					{{'NEW_ROOM_TYPE' | translate}}
+				</md-tooltip>
+			</md-button>
+		</div>
+		<span class="ipsum" hide-xs ng-if="titleOn">
+			<md-icon md-menu-origin="" md-svg-src="img/icons/ic_warning_48px.svg"></md-icon>
+			{{'ROOM_TYPE_NOTE' | translate}}
+		</span>
+	</div>
+	<section class="list" dnd-list="arrFromRoomTypes" ng-style="titleOn && {'border':' 1px solid #ddd'}" layout="row" layout-wrap>
+		<div ng-repeat="roomTypeModel in arrFromRoomTypes" ng-if="roomTypesWorking[roomTypeModel.roomType.RoomTypeId].isShow === true"
+		    flex="100" flex-xs="100" class=" padding0" layout="row" layout-align="center start">
+			<!--, 'md-whiteframe-z1': titleOn-->
+			<!--<md-content flex>-->
+			<md-list flex="50" flex-xs="100" ng-if="titleOn" dnd-draggable="roomTypeModel" dnd-effect-allowed="move" dnd-moved="arrFromRoomTypes.splice($index, 1)"
+			    style="padding:0px !important;" class="list-item">
+				<md-list-item class="md-2-line" style="padding: 0px;" ng-class="{ 'disabled' : roomTypeModel.roomType.IsHidden }">
+					<md-button aria-label="Room Type Status" class="md-icon-button launch" style="padding: 0px; margin: auto 0px;" ng-switch
+					    on="roomTypeModel.roomType.IsHidden" ng-click="$event.stopPropagation();changeRoomTypeStatus(roomTypeModel.roomType)">
+						<md-icon md-svg-src="img/icons/ic_play_circle_outline_48px.svg" ng-switch-when="true">
+							<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+								{{'TOOLTIP_ACTIVE' | translate}}
+							</md-tooltip>
+						</md-icon>
+						<md-icon md-svg-src="img/icons/ic_pause_circle_outline_48px.svg" ng-switch-when="false">
+							<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+								{{'TOOLTIP_DEACTIVE' | translate}}
+							</md-tooltip>
+						</md-icon>
+					</md-button>
+					<div class="md-list-item-text" style="padding-left: 10px;">
+						<h3 ng-class="{ 'textDiabled' : roomTypeModel.roomType.IsHidden }">{{ roomTypeModel.roomType.RoomTypeName | translate }} ({{ roomTypeModel.roomType.RoomTypeCode }})</h3>
+						<p style="font-weight: bold" ng-class="{ 'textDiabled' : roomTypeModel.roomType.IsHidden }">{{ roomTypeModel.roomType.Price | currency}}</p>
+					</div>
+
+					<div class="md-secondary" layout="column" layout-align="center center" style="margin: auto 0px;">
+						<md-button aria-label="Edit Room Type" class="md-icon-button launch" style="padding: 0px; margin:auto 0px;" ng-click="goToRoomType(roomTypeModel.roomType,$event)">
+							<md-icon md-svg-src="img/icons/ic_edit_48px.svg"></md-icon>
+							<md-tooltip md-direction="bottom" flex-gt-md="100" hide-xs hide-sm hide-md>
+								{{'EDIT' | translate}}
+							</md-tooltip>
+						</md-button>
+					</div>
+
+					<div class="md-secondary" layout="column" layout-align="center center" style="margin: auto 0px;text-align:center">
+						<md-button aria-label="Show Config Room Type Price" class="md-icon-button launch" style="padding: 0px; margin: auto 0px;"
+						    ng-click="showPlan(roomTypeModel.roomType)">
+							<md-icon md-svg-src="img/icons/ic_local_atm_48px.svg"></md-icon>
+							<md-tooltip md-direction="bottom" flex-gt-md="100" hide-xs hide-sm hide-md>
+								{{'CONFIG_PRICE' | translate}}
+							</md-tooltip>
+						</md-button>
+					</div>
+				</md-list-item>
+			</md-list>
+			<!--</md-content>-->
+			<md-content layout="column" flex ng-if="titleOn == false">
+				<div layout="row" layout-wrap style="padding-top: 12px;padding-bottom: 24px;" ng-if="roomTypesWorking[roomTypeModel.roomType.RoomTypeId].planOn">
+					<div flex-gt-sm="33" flex-xs="100" flex-sm="100" style="" ng-if="($mdMedia('gt-xs') == true) || ($mdMedia('xs') == true && roomTypesWorking[roomTypeModel.roomType.RoomTypeId].planDetailOn == false)">
+						<div ng-include src="'views/templates/planList.tmpl.html'" style="border-top: 1px solid #eee;margin-left: 4px;margin-right: 4px;height: auto;"
+						    class="md-whiteframe-z1">
+						</div>
+					</div>
+					<div flex-gt-xs="40" flex-xs="100" style="" ng-if="($mdMedia('gt-xs') == true && roomTypesWorking[roomTypeModel.roomType.RoomTypeId].planDetailOn == true) || ($mdMedia('xs') == true && roomTypesWorking[roomTypeModel.roomType.RoomTypeId].adjustmentOn == false && roomTypesWorking[roomTypeModel.roomType.RoomTypeId].planDetailOn == true)">
+						<div ng-include src="'views/templates/planDetail.tmpl.html'" style="border-top: 1px solid #eee;margin-left: 4px;margin-right: 4px;"
+						    class="md-whiteframe-z1">
+						</div>
+					</div>
+					<div class="md-whiteframe-z1" flex layout="column" ng-cloak ng-include src="'views/templates/planDetailAdjustment.tmpl.html'"
+					    style="border-top: 1px solid #eee;margin-left: 4px;margin-right: 4px;height: auto;" ng-if="($mdMedia('gt-xs') == true && roomTypesWorking[roomTypeModel.roomType.RoomTypeId].adjustmentOn == true && roomTypesWorking[roomTypeModel.roomType.RoomTypeId].planDetailOn == true) || ($mdMedia('xs') == true && roomTypesWorking[roomTypeModel.roomType.RoomTypeId].adjustmentOn == true)">
+					</div>
+				</div>
+			</md-content>
+		</div>
+	</section>
+</md-card>

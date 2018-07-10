@@ -1,0 +1,148 @@
+<style type="text/css">
+    @media (max-width: 768px) {
+        md-dialog#dialogAddShare {
+            min-width: 100%;
+            min-height: 100%;
+        }
+    }
+
+    md-autocomplete.md-default-theme,
+    md-autocomplete {
+        background: rgb(255, 255, 255);
+    }
+
+    .md-whiteframe-1dp,
+    .md-whiteframe-z1 {
+        box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    .nonePaddingBottom {
+        padding-bottom: 0;
+    }
+
+    md-select {
+        margin-bottom: 11px;
+    }
+</style>
+<md-dialog aria-label="Add Sharer" class="" id="dialogAddShare" layout="row" layout-wrap flex>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{'ADD_SHARER' | translate}}</h2>
+            <md-button ng-if="isUsePassport" class="md-icon-button" onclick="su.open(receivePassportInfo)">
+                <md-icon class="md-inline-list-icon" md-svg-icon="img/icons/ic_account_box_48px.svg">
+                    </ng-md-icon>
+            </md-button>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <form name="addSharer" ng-submit="addSharerInformation()" flex="100" flex-sm="100" flex-xs="100">
+        <md-dialog-content>
+            <button class="hide" id="btn_addSharer"></button>
+            <div class="md-dialog-content nonePaddingBottom" layout="row" layout-wrap flex="100">
+                <div flex="100" flex-sm="100" flex-xs="100">
+                    <div flex="100" layout="row" layout-wrap layout-align="space-between center">
+                        <div flex="45" flex-sm="100" flex-xs="100" layout layout-align="start center">
+                            <md-input-container flex="100" style="margin-bottom: 0px;">
+                                <label>{{'SHARER_NAME'|translate}}</label>
+                                <input type="text" ng-model="sharer.Fullname">
+                            </md-input-container>
+                        </div>
+                        <div flex="45" flex-sm="100" flex-xs="100" layout="row">
+                            <md-select flex ng-model="sharer.Gender" placeholder="{{'GENDER' | translate}}" style="margin-top: 5px;">
+                                <md-select-label style="width:100%"></md-select-label>
+                                <md-option ng-value="0">{{'MALE' | translate}}</md-option>
+                                <md-option ng-value="1">{{'FEMALE' | translate}}</md-option>
+                                <md-option ng-value="2">{{'OTHER' | translate}}</md-option>
+                            </md-select>
+                        </div>
+                    </div>
+                    <div flex="100" layout="row" layout-wrap layout-align="space-between center">
+                        <md-input-container flex-gt-xs="45" flex-xs="100">
+                            <label>{{'IDENTITY_NUMBER'|translate}}</label>
+                            <input type="text" ng-model="sharer.IdentityNumber">
+                        </md-input-container>
+                        <div layout="row" layout-align="start center" flex-gt-xs="45" flex-xs="100">
+                            <span flex="30" style="">{{'BIRTHDAY' | translate}}</span>
+                            <div flex>
+                                <input kendo-date-picker k-ng-model="sharer.Birthday" style="width: 100%;" k-options="DatePickerOption" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div flex="100" layout="row" layout-wrap layout-align="space-between center">
+                        <md-input-container flex-gt-xs="45" flex-xs="100">
+                            <label>{{'MOBILE'|translate}}</label>
+                            <input type="text" ng-model="sharer.Mobile">
+                        </md-input-container>
+                        <md-input-container flex-gt-xs="45" flex-xs="100">
+                            <label>{{'EMAIL'|translate}}</label>
+                            <input type="email" ng-model="sharer.Email">
+                        </md-input-container>
+                    </div>
+                    <div flex="100" layout="row" layout-wrap layout-align="space-between start" style="position: relative;">
+                        <md-input-container flex-gt-xs="45" flex-xs="100">
+                            <label>{{'ADDRESS'| translate}}</label>
+                            <input type="text" ng-model="sharer.Address" />
+                        </md-input-container>
+                        <md-input-container flex-gt-xs="45" flex-xs="100" style="position: absolute;right: 0;width: 100%;">
+                            <label>{{'COUNTRY'| translate}}</label>
+                            <md-autocomplete md-selected-item="selectedCountries" md-search-text-change="searchCountriesTextChange(searchCountriesText)"
+                                md-search-text="searchCountriesText" md-selected-item-change="selectedCountriesChange(item)"
+                                md-items="item in queryCountriesSearch(searchCountriesText)" md-item-text="item.CountryName"
+                                md-min-length="0" md-menu-class="autocomplete-custom-template">
+                                <md-item-template>
+                                    <span class="item-title">
+                                        <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                        <span style="margin: auto;"> {{item.CountryName}} </span>
+                                    </span>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </md-input-container>
+                        <section>
+                            <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+                                ng-if="warningCountry === true">
+                                <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+                                <span style="color: #f44336;">
+                                    {{'COUNTRY_VALUE_FIELD_CAN_NOT_BE_BLANK' | translate}}.
+                                </span>
+                            </fieldset>
+                        </section>
+                    </div>
+                    <md-input-container class="md-block" flex="100">
+                        <label>{{ 'NOTE' | translate }}</label>
+                        <textarea style="width: 100%;" columns="1" rows="5" ng-model="sharer.Note" />
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+    </form>
+    <md-dialog-actions layout="row" style="width: 100%;">
+        <md-button ng-click="cancel()" class="md-primary">
+            {{'CANCEL' | translate}}
+        </md-button>
+        <md-button onclick="jQuery('#btn_addSharer').click()" ng-disabled="(!sharer.Fullname || sharer.Fullname.trim() == '')"
+            class="md-primary">
+            {{'ADD' | translate}}
+        </md-button>
+        <span id="btnSavePassportInfoAddGuestDB" ng-click="saveInfoPassport()" class="hide"></span>
+    </md-dialog-actions>
+</md-dialog>
+<script>
+    function receivePassportInfo(data) {
+        console.log("passport infor",data);
+        var info = angular.copy(data);       
+        
+        FullnameCustomer =  info.LastName + " " + info.FirstName; 
+        Gender = info.Gender;
+        IdentityNumber = info.DocumentNumber;
+        Birthday = info.DateOfBirth;
+        ValidUntil = info.ValidUntil;
+        CountryCode = info.NationalityCode;
+        ImageLocation = info.ImageLocation;
+        
+        document.getElementById('btnSavePassportInfoAddGuestDB').click(); 
+    }
+</script>

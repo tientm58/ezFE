@@ -1,0 +1,52 @@
+<style>
+.verifyMarketCode{
+	margin-top: 3px; color: #f44336; font-weight: bold;font-size: 10px;
+}
+.verifyMarketName{
+	margin-top: 3px; color: #f44336; font-weight: bold;font-size: 10px;
+}
+</style>
+
+<md-dialog aria-label="Add Market" flex-gt-xs="40" flex-xs="98">
+	<form ng-submit="addNewMarket()">
+	<button class="hide" id="btn_add_market"></button>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'ADD_NEW_MARKET' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+				<md-input-container flex="100">
+					<label>{{'MARKET_CODE' | translate}}</label>
+					<input required ng-model="newMarket.MarketCode" ng-change="verifyDuplicate('MARKET_CODE')">
+					<span ng-if="verifyMarketCode" class="verifyMarketCode">
+							{{'MARKET_CODE_ALREADY_IN_USE' | translate}}
+					</span>
+				</md-input-container>
+				<md-input-container flex="100">
+					<label>{{'MARKET_NAME' | translate}}</label>
+					<input required ng-model="newMarket.MarketName" ng-change="verifyDuplicate('MARKET_NAME')">
+					<span ng-if="verifyMarketName" class="verifyMarketName">
+							{{'MARKET_NAME_ALREADY_IN_USE' | translate}}
+					</span>
+				</md-input-container>
+			</div>
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-click="addNewMarket()" onclick="jQuery('#btn_add_market').click()" class="md-primary" ng-disabled="!newMarket.MarketName || newMarket.MarketName.trim() =='' || verifyMarketName == true || !newMarket.MarketCode || newMarket.MarketCode.trim() =='' || verifyMarketCode == true">
+				{{'ADD' | translate}}
+			</md-button>
+		</md-dialog-actions>
+	</form>
+
+</md-dialog>

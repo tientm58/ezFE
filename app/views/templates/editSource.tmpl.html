@@ -1,0 +1,44 @@
+<md-dialog aria-label="Edit Source" flex-gt-xs="40" flex-xs="98">
+	<form ng-submit="editSource()">
+	<button class="hide" id="btn_edit_source"></button>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'EDIT_SOURCE' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+				<md-input-container flex="100">
+					<label>{{'SHORT_CODE' | translate}}</label>
+					<input required ng-model="source.ShortCode" ng-disabled="true">
+				</md-input-container>
+				<md-input-container flex="100">
+					<label>{{'SOURCE_NAME' | translate}}</label>
+					<input required ng-model="source.SourceName" ng-change="verifyDuplicate('SOURCE_NAME')">
+					<span ng-if="verifySourceName" style="margin-top: 3px; color: #f44336; font-weight: bold;font-size: 10px;">
+							{{'SOURCE_NAME_ALREADY_IN_USE' | translate}}
+					</span>
+				</md-input-container>
+				<md-input-container flex="100">
+					<label>{{'REGISTRATION_NUMBER' | translate}}</label>
+					<input required ng-model="source.RegistrationNumber">
+				</md-input-container>
+			</div>
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-click="editSource()" onclick="jQuery('#btn_edit_source').click()" class="md-primary" ng-disabled="!source.SourceName || source.SourceName.trim() =='' || verifySourceName == true || !source.ShortCode || source.ShortCode.trim() =='' || verifySourceCode == true">
+				{{'SAVE' | translate}}
+			</md-button>
+		</md-dialog-actions>
+	</form>
+
+</md-dialog>

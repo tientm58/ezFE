@@ -1,0 +1,193 @@
+<style>
+	input[type=number]::-webkit-inner-spin-button,
+	input[type=number]::-webkit-outer-spin-button {
+		opacity: 1;
+	}
+
+	.md-list-item.md-2-line .md-list-item-text,
+	md-list-item.md-2-line>._md-no-style .md-list-item-text,
+	md-list-item.md-3-line .md-list-item-text,
+	md-list-item.md-3-line>._md-no-style .md-list-item-text {
+		margin: auto;
+	}
+
+	md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+		height: auto;
+	}
+
+	md-list-item ._md-list-item-inner ._md-secondary-container,
+	md-list-item ._md-secondary-container {
+		height: auto;
+	}
+
+	@media (min-width: 600px) {
+		.flex-gt-xs-15,
+		.layout-gt-xs-row>.flex-gt-xs-15,
+		.layout-row>.flex-gt-xs-15 {
+			max-width: 14%;
+		}
+	}
+ .box_list_tab .md-whiteframe-z1{
+margin: 10px;background: #fff;
+ }
+</style>
+
+<div class="md-padding" layout="row" layout-wrap style="">
+	<ul layout layout-align="center center" flex="100" layout-wrap style="margin: 8px 0 8px -8px;padding: 0;position: relative;">
+		<li flex-gt-xs="15" flex-xs="33" style="list-style: none; margin: 0; text-align: center; display: list-item;padding: 0px;">
+			<a class="md-primary md-raised md-button md-default-theme" ng-click="currencyOn = !currencyOn; colorOn = false;languageOn = false; formOn = false;connectivityOn = false;expenditureOn = false;$parent.mInvoiceOn=false"
+			 style="color: #666;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+					  display: block; font-weight: 500; padding: 8px 0;
+  					  text-decoration: none;  background-color: #f6f6f6 !important;
+  					  box-shadow: none !important;
+  					  margin-right: 0; margin-top: 0;
+					  border-bottom: none;border-radius: 3px;" ng-class="{'isHover': currencyOn}">
+				<md-icon ng-class="{'isHover': currencyOn}" style="display: block;height: 36px; width: 36px; color: #666; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"
+				 md-svg-src="img/icons/ic_attach_money_24px.svg">
+				</md-icon>
+				<span class="ng-binding ng-scope" style="text-transform: none;">
+					{{'CURRENCY' | translate}}
+				</span>
+			</a>
+		</li>
+		<li flex-gt-xs="15" flex-xs="33" style="list-style: none;margin: 0;text-align: center; display: list-item;padding: 0px;">
+			<a class="md-primary md-raised md-button md-default-theme" ng-click="colorOn = !colorOn; currencyOn = false;languageOn = false; formOn = false;connectivityOn = false;expenditureOn = false;$parent.mInvoiceOn=false"
+			 style="color: #666;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+					  display: block; font-weight: 500; padding: 8px 0;
+  					  text-decoration: none;  background-color: #f6f6f6 !important;
+  					  box-shadow: none !important;
+  					  margin-right: 0; margin-top: 0;
+					  border-bottom: none;border-radius: 3px;" ng-class="{'isHover': colorOn}">
+				<md-icon ng-class="{'isHover': colorOn}" style="display: block;height: 36px; width: 36px; color: #666; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"
+				 md-svg-src="img/icons/ic_color_lens_24px.svg">
+				</md-icon>
+				<span class="ng-binding ng-scope" style="text-transform: none;">
+					{{'ROOM_VIEW' | translate}}
+				</span>
+			</a>
+		</li>
+
+		<li flex-gt-xs="15" flex-xs="33" style="list-style: none;margin: 0;text-align: center; display: list-item;padding: 0px;">
+			<a class="md-primary md-raised md-button md-default-theme" ng-click="languageOn = !languageOn; currencyOn = false;colorOn = false; formOn = false;connectivityOn = false;expenditureOn = false;$parent.mInvoiceOn=false"
+			 style="color: #666;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+					  display: block; font-weight: 500; padding: 8px 0;
+  					  text-decoration: none;  background-color: #f6f6f6 !important;
+  					  box-shadow: none !important;
+  					  margin-right: 0; margin-top: 0;
+					  border-bottom: none;border-radius: 3px;" ng-class="{'isHover': languageOn}">
+				<md-icon style="display: block;height: 36px; width: 36px; color: #666; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"
+				 md-svg-src="img/icons/ic_schedule_24px.svg" ng-class="{'isHover': languageOn}">
+				</md-icon>
+				<span class="ng-binding ng-scope" style="text-transform: none;">
+					{{'TIME' | translate}}
+				</span>
+			</a>
+		</li>
+
+		<li flex-gt-xs="15" flex-xs="33" style="list-style: none;margin: 0;text-align: center; display: list-item;padding: 0px;">
+			<a class="md-primary md-raised md-button md-default-theme" ng-click="formOn = !formOn; currencyOn = false;languageOn = false; colorOn = false;connectivityOn = false;expenditureOn = false;$parent.mInvoiceOn=false"
+			 style="color: #666;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+					  display: block; font-weight: 500; padding: 8px 0;
+  					  text-decoration: none;  background-color: #f6f6f6 !important;
+  					  box-shadow: none !important;
+  					  margin-right: 0; margin-top: 0;
+					  border-bottom: none;border-radius: 3px;" ng-class="{'isHover': formOn}">
+				<md-icon style="display: block;height: 36px; width: 36px; color: #666; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"
+				 md-svg-src="img/icons/ic_receipt_24px.svg" ng-class="{'isHover': formOn}">
+				</md-icon>
+				<span class="ng-binding ng-scope" style="text-transform: none;">
+					{{'FORM' | translate}}
+				</span>
+			</a>
+		</li>
+
+		<li flex-gt-xs="15" flex-xs="33" ng-if="isHotelUsingThuChiModule" style="list-style: none;margin: 0;text-align: center; display: list-item;padding: 0px;">
+			<a class="md-primary md-raised md-button md-default-theme" ng-click="$parent.expenditureOn = !$parent.expenditureOn; $parent.formOn=false; $parent.currencyOn = false;$parent.languageOn = false; $parent.colorOn = false;$parent.connectivityOn = false;$parent.mInvoiceOn=false"
+			 style="color: #666;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+						  display: block; font-weight: 500; padding: 8px 0;
+							text-decoration: none;  background-color: #f6f6f6 !important;
+							box-shadow: none !important;
+							margin-right: 0; margin-top: 0;
+						  border-bottom: none;border-radius: 3px;" ng-class="{'isHover': $parent.expenditureOn}">
+				<md-icon style="display: block;height: 36px; width: 36px; color: #666; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"
+				 md-svg-src="img/icons/ic_event_note_24px.svg" ng-class="{'isHover': $parent.expenditureOn}">
+				</md-icon>
+				<span class="ng-binding ng-scope" style="text-transform: none;">
+					{{'EXPENDITURE' | translate}}
+				</span>
+			</a>
+		</li>
+
+		<li flex-gt-xs="15" flex-xs="33" ng-if="isHotelUsingMInvoiceModule" style="list-style: none;margin: 0;text-align: center; display: list-item;padding: 0px;">
+			<a class="md-primary md-raised md-button md-default-theme" ng-click="$parent.mInvoiceOn = !$parent.mInvoiceOn; $parent.expenditureOn=false; $parent.formOn=false; $parent.currencyOn = false;$parent.languageOn = false; $parent.colorOn = false;$parent.connectivityOn = false"
+			 style="color: #666;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+						  display: block; font-weight: 500; padding: 8px 0;
+							text-decoration: none;  background-color: #f6f6f6 !important;
+							box-shadow: none !important;
+							margin-right: 0; margin-top: 0;
+						  border-bottom: none;border-radius: 3px;" ng-class="{'isHover': $parent.mInvoiceOn}">
+				<md-icon style="display: block;height: 36px; width: 36px; color: #666; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"
+				 md-svg-src="img/icons/ic_description_24px.svg" ng-class="{'isHover': $parent.mInvoiceOn}">
+				</md-icon>
+				<span class="ng-binding ng-scope" style="text-transform: none;">
+					{{'M_INVOICE' | translate}}
+				</span>
+			</a>
+		</li>
+
+		<li flex-gt-xs="15" flex-xs="33" ng-if="isHotelUsingSmartCardModule" style="list-style: none;margin: 0;text-align: center; display: list-item;padding: 0px;">
+			<a class="md-primary md-raised md-button md-default-theme" ng-click="$parent.connectivityOn = !$parent.connectivityOn; $parent.currencyOn = false;$parent.languageOn = false; $parent.colorOn = false; $parent.formOn = false;$parent.expenditureOn = false;$parent.mInvoiceOn=false"
+			 style="color: #666;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+					  display: block; font-weight: 500; padding: 8px 0;
+  					  text-decoration: none;  background-color: #f6f6f6 !important;
+  					  box-shadow: none !important;
+  					  margin-right: 0; margin-top: 0;
+					  border-bottom: none;border-radius: 3px;" ng-class="{'isHover': connectivityOn}">
+				<md-icon style="display: block;height: 36px; width: 36px; color: #666; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"
+				 md-svg-src="img/icons/ic_credit_card_24px.svg" ng-class="{'isHover': $parent.connectivityOn}">
+				</md-icon>
+				<span class="ng-binding ng-scope" style="text-transform: none;">
+					{{'CONNECTIVITY' | translate}}
+				</span>
+			</a>
+		</li>
+
+	</ul>
+	<div style="width: 100%" class="box_list_tab">
+
+		<div class="md-whiteframe-z1" flex-xs="100" style="" layout="column" layout-align="space-around" ng-cloak ui-view="configSystemCurrency"
+		 ng-if="currencyOn">
+
+		</div>
+		<div class="md-whiteframe-z1" flex-xs="100" style="" layout="column" layout-align="space-around" ng-cloak ui-view="configHotelDisplay"
+		 ng-if="colorOn"></div>
+		<div class="md-whiteframe-z1" flex-xs="100" style="margin-bottom:65px !important;" layout="column" layout-align="space-around"
+		 ng-cloak ui-view="configSystemColor" ng-if="colorOn"></div>
+
+		<div class="md-whiteframe-z1" flex-xs="100" style="min-height:930px !important;" layout="column" layout-align="space-around"
+		 ng-cloak ui-view="configSystemTime" ng-if="languageOn">
+
+		</div>
+
+		<div class="md-whiteframe-z1" flex-xs="100" style="" layout="column" layout-align="space-around" ng-cloak ui-view="configForm"
+		 ng-if="formOn">
+
+		</div>
+
+		<div class="md-whiteframe-z1" flex-xs="100" style="" layout="column" layout-align="space-around" ng-cloak ui-view="configExpenditure"
+		 ng-if="expenditureOn">
+
+		</div>
+
+		<div class="md-whiteframe-z1" flex-xs="100" style="" layout="column" layout-align="space-around" ng-cloak ui-view="configMInvoice"
+		 ng-if="mInvoiceOn">
+
+		</div>
+
+		<div class="md-whiteframe-z1" flex-xs="100" style="margin-bottom:40px;" layout="column" layout-align="space-around"
+		 ng-cloak ui-view="configConnectivity" ng-if="connectivityOn">
+
+		</div>
+	</div>
+
+</div>

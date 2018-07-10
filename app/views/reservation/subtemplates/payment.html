@@ -1,0 +1,379 @@
+<!--<section layout="row" layout-align="space-between start" layout-wrap style="" flex="100">-->
+<style>
+    .disabled {
+        background: #dddddd;
+    }
+
+    .textDiabled {
+        text-decoration: line-through
+    }
+    .md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line>._md-no-style .md-list-item-text, md-list-item.md-3-line .md-list-item-text, md-list-item.md-3-line>._md-no-style .md-list-item-text{
+        margin:auto;
+    }
+    md-list-item ._md-list-item-inner ._md-secondary-container, md-list-item ._md-secondary-container{
+        height: auto;
+    }
+    #heightPayment{
+        min-height: 281px !important;
+        max-height: 3500px !important;
+        overflow-y: hidden !important;
+    }
+    .topform{
+        padding-top: 10px;
+        margin-bottom: 0px;
+    }
+    .statusCode { font-style: italic;font-weight: bold; color: #f44336; }
+  </style>
+<md-card  flex="100" id="heightPayment" ng-if="hasRRIDParam && (room.BookingStatus ==='CHECKIN' || room.BookingStatus ==='OVERDUE' || room.BookingStatus ==='BOOKED' || room.BookingStatus === 'NOSHOW')">
+    <div class="box-header">
+        <div ng-if="isCheckOut === false || room.BookingStatus ==='AVAILABLE'"  layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+            <div flex="85" flex-xs="75">
+            <span  class="sub-title">{{'PAYMENT' | translate}}</span>
+            </div>
+            <div ng-if="!isGroupReservation">
+                <md-button class="md-primary md-fab md-mini" onclick="jQuery('#save_payment').click()">
+                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_ADD_PAYMENT' | translate}}
+                    </md-tooltip>
+                    <md-icon md-svg-src="img/icons/ic_add_24px.svg" style="fill:white"></md-icon>
+                </md-button>
+            </div>
+        </div>
+        <md-divider></md-divider>
+    </div>
+    <md-card-content >
+        <!--<section>-->
+            <form ng-submit="addPayment($event)" class="topform" ng-if="!isGroupReservation"> 
+            <button id="save_payment" ng-disabled="isSubmitPayment" class="hide"></button>
+            <div layout="row" layout-wrap flex="100" layout-align="space-between center">
+                <div layout="row" layout-wrap flex="100" ng-if="room.BookingStatus === 'CHECKIN' || room.BookingStatus ==='OVERDUE'">
+                    <md-checkbox ng-model="showDiscount" aria-label="Show Discount" flex="100" class="md-warn">
+                        {{ 'DISCOUNT_INFORMATION' | translate }}
+                    </md-checkbox>
+                    <fieldset class="standard" flex ng-if="showDiscount">
+                        <div layout="row" layout-align="space-between center" layout-wrap flex="100">
+                            <div flex="30">
+                                <md-checkbox ng-model="room.Foc" aria-label="FOC" style="font-size: 12px;margin-bottom: 0px;">
+                                    <span style="margin: auto 0px;">{{'FREE_OF_CHARGE' | translate}}</span>
+                                </md-checkbox>
+                            </div>
+                            <md-input-container flex="20" style="margin-bottom: 0px;">
+                                <label>{{'DISCOUNT' | translate}}(%)</label>
+                                <input type="number" style="width: 100%;" ng-model="room.DiscountPercentage" min="0" ng-disabled="room.Foc">
+                            </md-input-container>
+
+                            <md-input-container flex="25" style="margin-bottom: 0px;">
+                                <label>{{'DISCOUNT' | translate}}($)</label>
+                                <input type="text" style="width: 100%;" ng-model="room.DiscountFlat" ui-number-mask="defaultDecimal" ng-disabled="room.Foc">
+                            </md-input-container>
+                            <md-button flex="15" class="md-raised md-warn" style="margin: 0px;margin-bottom: 16px;text-transform: none;" ng-click="applyDiscount()">
+                                {{ 'APPLY' | translate }}
+                            </md-button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div layout layout-wrap flex="100">
+                    <md-input-container flex="33">
+                        <label>{{'TYPE' | translate}}:</label>
+                        <md-select ng-model="payment.PaymentTypeName">
+                            <md-option value="NEW_PAYMENT" ng-if="room.BookingStatus !== 'BOOKED' && room.BookingStatus !=='NOSHOW'">{{ 'NEW_PAYMENT'|translate }}</md-option>
+                            <md-option value="REFUND" ng-if="room.BookingStatus !== 'BOOKED' && room.BookingStatus !=='NOSHOW'">{{ 'REFUND'|translate }}</md-option>
+                            <md-option value="DEPOSIT">{{ 'DEPOSIT'|translate }}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex="33">
+                        <label>{{'METHOD' | translate}}</label>
+
+                        <md-select ng-model="payment.PaymentMethodId" >
+                            <md-option ng-repeat="method in paymentMethods | filter:fillterPaymentMethodId" ng-value="method.PaymentMethodId">{{ method.PaymentMethodName | translate}}</md-option>
+                        </md-select>
+
+                    </md-input-container>
+                    <md-input-container flex="33">
+                        <label>{{'CURRENCY' | translate}}</label>
+                        <md-select ng-model="payment.MoneyId">
+                            <md-option ng-repeat="cur in currencies" ng-value="cur.MoneyId">{{ cur.MoneyName}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div ng-if="payment.PaymentMethodId===4" layout layout-wrap flex="100">
+                     <md-input-container style="width: 100%;">
+                        <label>{{'COMPANY' | translate}}</label>
+                        <md-autocomplete md-selected-item="selectedCompanyCityLedger" md-search-text-change="searchCompanyTextChangeCityLedger(searchCompanyTextCityLedger)" md-search-text="searchCompanyTextCityLedger"
+                            md-selected-item-change="selectedCompanyChangeCityLedger(item)" md-items="item in queryCompanySearchCityLedger(searchCompanyTextCityLedger)"
+                            md-item-text="item.CompanyName" md-min-length="0" md-menu-class="autocomplete-custom-template"
+                            >
+                            <md-item-template>
+                                <span class="item-title">
+                                        <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                        <span style="margin: auto;"> {{item.CompanyName}} </span>
+                                </span>
+                            </md-item-template>
+                        </md-autocomplete>
+                    </md-input-container>
+
+                 </div>
+                <div layout layout-wrap flex="100">
+                    <md-input-container flex="33">
+                        <label>{{'AMOUNT' | translate}}</label>
+                        <input type="text" required ng-model="payment.Amount" ui-number-mask="decimal">
+                    </md-input-container>
+                    <md-input-container flex id="description" style="">
+                        <label>{{'DESCRIPTION' | translate}}</label>
+                        <input type="textarea" ng-model="payment.PaymentDescription" md-maxlength="100" maxlength="100"/>
+                    </md-input-container>
+                </div>
+            </div>
+        <!--</section>-->
+            </form>
+            <div id="height100" ng-if="isGroupReservation" flex-gt-sm="100" flex-xs="100" flex-sm="100" style="padding: 10px !important">
+                <span class="statusCode">
+                    {{'PAYMENT_ROOM_IN_GROUP' | translate}} <a style="cursor: pointer;" ng-click="goToReservation()" >{{'HERE1' | translate}}</a>. {{'THANKS' | translate}} !
+                </span>
+            </div>
+        <md-content style="margin-top:-27px;overflow-y:hidden">
+            <div ng-if="Payments==null || Payments.length ===0" style="text-align: center;">
+                <span style="display: inline;
+                             padding: .2em .6em .3em;
+                             font-family: 'Voltaire';
+                             font-size: 90%;
+                             font-weight: bold;
+                             font-style: italic;
+                             text-transform: none;
+                             line-height: 1;
+                             color: #f44336;
+                             text-align: center;
+                             white-space: nowrap;
+                             vertical-align: baseline;
+                             border-radius: .25em;">
+                    {{'NO_PAYMENT_ADDED' | translate}}
+                </span>
+            </div>
+            <md-list ng-if="Payments.length >0">
+                <md-subheader class="md-no-sticky ">{{'PAYMENT_LIST' | translate}}</md-subheader>
+                <md-list-item class="md-3-line showfull _md-no-proxy" ng-repeat="payment in Payments" style="">
+                    <div class="md-list-item-text " layout="column" style="" ng-if="payment.isDeleted">
+                        <p>
+                            <code ng-if="payment.PaymentTypeName === 'DEPOSIT' " style="font-weight: bold;color: dodgerblue;">[{{'DEPOSIT' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT' " style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'REFUND' " style="font-weight: bold;color: #9C27B0;">[{{'REFUND' | translate}}]  </code>
+                            <span style="font-style: italic">{{payment.PaymentDescription}}</span></br>
+                            <span class="text-date">{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</span> {{payment.UserName}}</br>
+                            
+                        </p>
+                        <p>
+                            <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}]  </code>
+                            <span style="font-style: italic">{{payment.DeletedDescription}}</span></br>
+                            <span class="text-date"> {{payment.DeletedDate | date:'dd/MM, HH:mm' }}</span> {{payment.DeletedUserName}} 
+                        </p>
+                    </div>
+                    <div flex="70" class="md-list-item-text  " layout="column" style="" ng-if="!payment.isDeleted">
+                        <h3>
+                            <code ng-if="payment.PaymentTypeName === 'DEPOSIT' " style="font-weight: bold;color: dodgerblue;">[{{'DEPOSIT' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT' " style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'REFUND' " style="font-weight: bold;color: #9C27B0;">[{{'REFUND' | translate}}]  </code>
+<!--														<code ng-if="payment.PaymentTypeName === 'ADJUSTMENT' " style="font-weight: bold;color: #1A237E;">[{{'ADJUSTMENT' | translate}}]  </code>-->
+                            <!-- loinq -->
+
+                            <md-button ng-if="hasRRIDParam" md-no-ink class="md-icon-button" style="height: 24px;margin: 0px; padding: 0px;" ng-click="showPayment($event,payment)">
+                                <md-tooltip md-direction="right" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                    {{'TOOLTIP_RECEIPT_VIEW' | translate}}
+                                </md-tooltip>
+                                <md-icon md-svg-src="img/icons/ic_print_24px.svg" style="height: 24px; width: 24px;color:#666"></md-icon>
+                            </md-button>
+                            <span style="font-style: italic">{{payment.PaymentDescription}}</span>
+                            </br>
+                        </h3>
+                        <h4>{{payment.UserName}}</h4>
+                        <p><span class="text-date">{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</span></p>
+
+                    </div>
+
+                    <p class="md-secondary" ng-class="{ 'textDiabled' : payment.isDeleted }">
+                        {{payment.Amount | currency}}
+                        <span ng-if="payment.AmountInSpecificMoney !== null" style="font-weight: bold;">({{payment.AmountInSpecificMoney | number:payment.MinorUnitInSpecificMoney}}{{payment.MoneyName}})</span>
+                        <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" ng-if="!payment.isDeleted" ng-click="deletePayment($event, payment)" style="cursor: pointer;"></md-icon>
+                    </p>
+                    <!--<md-divider></md-divider>-->
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </md-card-content>
+</md-card>
+
+
+<md-card id="heightPayment" flex="100" style="border-top: 1px solid #eee;" ng-if="!hasRRIDParam" >
+    <section style="">
+        <div layout="row" layout-align="space-between center" style="padding: 16px;">
+            <span style="font-size: 20px; font-weight: 400; line-height: 16px;">{{'PAYMENT' | translate}}</span>
+            <div>
+                <md-button class="md-primary md-fab md-mini" onclick="jQuery('#btn_addDeposit').click()">
+                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_ADD_DEPOSIT' | translate}}
+                    </md-tooltip>
+                    <md-icon md-svg-src="img/icons/ic_add_24px.svg" style="fill:white"></md-icon>
+                </md-button>
+            </div>
+        </div>
+    </section>
+    <md-card-content>
+        <section>
+            <form ng-submit="addDeposit($event)">
+                <button class="hide" ng-disabled="isSubmitDeposit" id="btn_addDeposit"></button>
+                <div layout="row" layout-wrap flex="100" layout-align="space-between center">
+                    <div layout layout-wrap flex="100">
+                        <md-input-container flex="33">
+                            <label>{{'TYPE' | translate}}</label>
+                            <md-select ng-model="deposit.PaymentTypeName">
+                                <md-option value="DEPOSIT">{{ 'DEPOSIT'|translate }}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex="33">
+                            <label>{{'METHOD' | translate}}</label>
+                            <md-select ng-model="deposit.PaymentMethodId">
+                                <md-option ng-repeat="method in paymentMethods  | filter: {PaymentMethodId:'!4'}" ng-value="method.PaymentMethodId">{{ method.PaymentMethodName | translate}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex="33">
+                            <label>{{'CURRENCY' | translate}}</label>
+                            <md-select ng-model="deposit.MoneyId">
+                                <md-option ng-repeat="cur in currencies" ng-value="cur.MoneyId">{{ cur.MoneyName}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <div layout layout-wrap flex="100">
+                        <md-input-container flex="33">
+                            <label>{{'AMOUNT' | translate}}</label>
+                            <input type="text" required ng-model="deposit.Amount" ui-number-mask="decimal" />
+                        </md-input-container>
+                        <md-input-container flex id="description" style="">
+                            <label>{{'DESCRIPTION' | translate}}</label>
+                            <input type="textarea" ng-model="deposit.PaymentDescription" />
+                        </md-input-container>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <section>
+            <div ng-if="paymentList==null || paymentList.length ===0" style="text-align: center;">
+                <span style="display: inline;
+                             padding: .2em .6em .3em;
+                             font-family: 'Voltaire';
+                             font-size: 90%;
+                             font-weight: bold;
+                             font-style: italic;
+                             text-transform: none;
+                             line-height: 1;
+                             color: #f44336;
+                             text-align: center;
+                             white-space: nowrap;
+                             vertical-align: baseline;
+                             border-radius: .25em;">
+                    {{'NO_PAYMENT_ADDED' | translate}}
+                </span>
+            </div>
+            <md-list ng-if="paymentList.length >0">
+                <md-subheader class="md-no-sticky">{{'PAYMENT_LIST' | translate}}</md-subheader>
+                <md-list-item ng-repeat="payment in paymentList" layout="row" flex="100">
+                    <p flex="50">
+                        <span ng-repeat="info in PaymentInfo | filter:{PaymentId: payment.PaymentId}"></span>
+                        <span style="margin: auto;">{{ payment.CreatedDate | date:'dd/MM/yyyy, HH:mm' }}</span>
+                        <span>
+                            </br>
+
+                            <code ng-if="payment.PaymentTypeName === 'DEPOSIT' " style="font-weight: bold;color: dodgerblue;">[ {{'DEPOSIT' | translate}} ]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'DELETED' " style="font-weight: bold;color: #f44336;">[ {{'DELETED' | translate}} ]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT' " style="font-weight: bold;color: #009688;">[ {{'ADDED' | translate}} ]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'REFUND' " style="font-weight: bold;color: #9C27B0;">[ {{'REFUND' | translate}} ]  </code>
+<!--														<code ng-if="payment.PaymentTypeName === 'ADJUSTMENT' " style="font-weight: bold;color: #1A237E;">[{{'ADJUSTMENT' | translate}}]  </code>-->
+
+                        </span>
+
+                        <span style="font-style: italic">{{payment.PaymentDescription}}</span>
+                    </p>
+                    <p class="md-secondary" ng-class="{ 'textDiabled' : payment.RefPaymentId }">
+                        {{payment.Amount | currency}}
+                        <span ng-if="payment.AmountInSpecificMoney" style="font-weight: bold;">({{payment.AmountInSpecificMoney | number:payment.MinorUnitInSpecificMoney}} {{payment.MoneyName}})</span>
+                        <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" ng-click="deleteDeposit($event, payment)" style="cursor: pointer;"></md-icon>
+                    </p>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </section>
+    </md-card-content>
+</md-card>
+
+<md-card id="heightPayment" flex="100" style="border-top: 1px solid #eee;" ng-if="hasRRIDParam && room.BookingStatus !=='CHECKIN' && room.BookingStatus !=='OVERDUE' && room.BookingStatus !=='BOOKED' && room.BookingStatus !=='NOSHOW'">
+    <section style="">
+        <div layout="row" layout-align="space-between center" style="padding: 16px;">
+            <span style="font-size: 20px; font-weight: 400; line-height: 16px;">{{'PAYMENT' | translate}}</span>
+        </div>
+    </section>
+    <md-card-content>
+        <section>
+            <div ng-if="Payments==null || Payments.length ===0" style="text-align: center;">
+                <span style="display: inline;
+                             padding: .2em .6em .3em;
+                             font-family: 'Voltaire';
+                             font-size: 90%;
+                             font-weight: bold;
+                             font-style: italic;
+                             text-transform: none;
+                             line-height: 1;
+                             color: #f44336;
+                             text-align: center;
+                             white-space: nowrap;
+                             vertical-align: baseline;
+                             border-radius: .25em;">
+                    {{'NO_PAYMENT_ADDED' | translate}}
+                </span>
+            </div>
+
+            <md-list ng-if="Payments.length >0" class="md-dense">
+                <md-subheader class="md-no-sticky">{{'PAYMENT_LIST' | translate}}</md-subheader>
+                <md-list-item class="md-3-line" ng-repeat="payment in Payments" layout="row" >
+                    <div class="md-list-item-text" layout="column" style="" ng-if="payment.isDeleted">
+                        <p>
+                            <code ng-if="payment.PaymentTypeName === 'DEPOSIT' " style="font-weight: bold;color: dodgerblue;">[{{'DEPOSIT' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT' " style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'REFUND' " style="font-weight: bold;color: #9C27B0;">[{{'REFUND' | translate}}]  </code>
+                            <span style="font-style: italic">{{payment.PaymentDescription}}</span></br>
+                            {{payment.UserName}}</br>
+                            {{ payment.CreatedDate | date:'dd/MM, HH:mm' }}
+                        </p>
+
+                        <p>
+                            <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}]  </code>
+                            <span style="font-style: italic">{{payment.DeletedDescription}}</span></br>
+                            {{payment.DeletedUserName}}</br>
+                            {{ payment.DeletedDate | date:'dd/MM, HH:mm' }}
+                        </p>
+                    </div>
+                    <div class="md-list-item-text" layout="column" style="" ng-if="!payment.isDeleted">
+                        <h3>
+                            <code ng-if="payment.PaymentTypeName === 'DEPOSIT' " style="font-weight: bold;color: dodgerblue;">[{{'DEPOSIT' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT' " style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'REFUND' " style="font-weight: bold;color: #9C27B0;">[{{'REFUND' | translate}}]  </code>
+                            <md-button ng-if="hasRRIDParam" md-no-ink class="md-icon-button" style="height: 24px;margin: 0px; padding: 0px;" ng-click="showPayment($event,payment)">
+                                <md-tooltip md-direction="right" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                    {{'TOOLTIP_RECEIPT_VIEW' | translate}}
+                                </md-tooltip>
+                                <md-icon md-svg-src="img/icons/ic_print_24px.svg" style="height: 24px; width: 24px;color:#666"></md-icon>
+                            </md-button>
+
+                            <span style="font-style: italic">{{payment.PaymentDescription}}</span></br>
+                        </h3>
+                        <h4>{{payment.UserName}}</h4>
+                        <p>{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</p>
+
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDiabled' : payment.isDeleted }">
+                        {{payment.Amount | currency}}
+                        <span ng-if="payment.AmountInSpecificMoney !== null" style="font-weight: bold;">({{payment.AmountInSpecificMoney | number:payment.MinorUnitInSpecificMoney}} {{payment.MoneyName}})</span>
+                    </p>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </section>
+    </md-card-content>
+</md-card>

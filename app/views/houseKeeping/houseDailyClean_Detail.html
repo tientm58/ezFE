@@ -1,0 +1,369 @@
+﻿<style type="text/css">
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+
+    .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+
+    .table {
+        border-collapse: collapse !important;
+    }
+
+    .table td,
+    .table th {
+        background-color: #fff;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .table>thead>tr>th,
+    .table>tbody>tr>th,
+    .table>tfoot>tr>th,
+    .table>thead>tr>td,
+    .table>tbody>tr>td,
+    .table>tfoot>tr>td {
+        padding: 8px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+
+    .table>thead>tr>th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #ddd;
+        padding: 6px;
+        vertical-align: middle;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .table>caption+thead>tr:first-child>th,
+    .table>colgroup+thead>tr:first-child>th,
+    .table>thead:first-child>tr:first-child>th,
+    .table>caption+thead>tr:first-child>td,
+    .table>colgroup+thead>tr:first-child>td,
+    .table>thead:first-child>tr:first-child>td {
+        border-top: 0;
+    }
+
+    .table>tbody+tbody {
+        border-top: 2px solid #ddd;
+    }
+
+    .table .table {
+        background-color: #fff;
+    }
+
+    table.table-print-sm thead tr th,
+    table.table-print-sm tbody tr td {
+        padding: 1px 1px;
+        font-size: 8pt;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        margin: 0;
+    }
+
+    .table.table-no-border thead tr th,
+    .table.table-no-border tbody tr td,
+    .table.table-no-border tfoot tr td {
+        border: none;
+    }
+
+    .page-print {
+        /* font-family: 'Times New Roman'; */
+        margin: 0 0 0 0;
+        font-size: 8pt;
+        padding-top: 0;
+    }
+
+    .visible-print {
+        visibility: hidden;
+    }
+
+    #footer_page {
+        font-size: 14px;
+        /* width: 100%; */
+    }
+
+    .showOnlyPrint {
+        display: none;
+    }
+
+    .tableHousekeeping th,
+    .tableHousekeeping td {
+        border: 0;
+    }
+
+    .tableHousekeeping td {
+        line-height: 32px !important;
+        font-size: 14px;
+        padding: 0 !important;
+    }
+
+    .tableHousekeeping tr:hover td {
+        background: #f2f2f2 !important;
+    }
+
+    .title_report {
+        text-transform: uppercase;
+        font-size: 20px;
+    }
+
+    .tableHousekeeping th {
+        border-top: 1px solid #ddd !important;
+        font-size: 14px;
+    }
+
+    .HotelName {
+        text-transform: uppercase;
+    }
+
+    .fontweightNormal {
+        font-weight: 400;
+        font-size: 14px;
+    }
+
+    ._md-select-value {
+        border-bottom-width: 0;
+        padding: 0;
+    }
+
+    .border_bottom {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .page {
+        width: 21cm;
+        min-height: 29.7cm;
+        /* padding: 2cm; */
+        padding: 10px;
+        margin: 10px auto;
+        border: 1px #D3D3D3 solid;
+        /* border-radius: 5px; */
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    .hight_line2 {
+        font-style: italic;
+        font-size: 12px;
+        color: #FF9800;
+    }
+
+    .bg_gray_hk {
+        background-color: #f2f2f2 !important;
+    }
+
+    #main_view {
+        background: #f3f3f3;
+    }
+
+    @media print {
+        .page {
+            width: 20cm;
+            min-height: fit-content !important;
+            margin: 1cm auto;
+            padding: 10px;
+            border: 0px #D3D3D3 solid;
+            background: white;
+            box-shadow: 0 0 0;
+            max-height: fit-content;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        md-sidenav,
+        md-toolbar {
+            display: none !important;
+        }
+        #footer_page {
+            width: 99%;
+            position: fixed;
+            bottom: -5px;
+            font-size: 12px;
+            padding: 10px 30px 10px 10px;
+        }
+        .tableHousekeeping th,
+        .tableHousekeeping td {
+            border: 0;
+            font-size: 12px !important;
+        }
+        .md-HideMobile {
+            display: none !important;
+        }
+        .tableHousekeeping th {
+            /* padding: 0 !important; */
+            margin: 0 !important;
+        }
+        .md-selected-hide {
+            border: 0;
+        }
+        .md-selected-hide ._md-select-icon {
+            display: none;
+        }
+        .padding20 {
+            padding: 0 !important;
+        }
+        .showOnlyPrint {
+            display: block;
+        }
+        body{
+            height: fit-content;
+        }
+        #table_f{
+
+        }
+    }
+
+    .vertical-middle {
+        vertical-align: middle;
+    }
+
+    .minHeigtFit {
+        min-height: fit-content !important;
+    }
+
+    .padding20R {
+        padding-right: 20px;
+    }
+
+    .padding20 {
+        padding: 20px;
+    }
+    .lineHeight15{
+        line-height: 15px;
+    }
+    .fontSize12{
+        font-size: 12px;
+    }
+</style>
+<div layout-wrap class="padding10 page minHeigtFit page-break">
+    <div layout="row" flex="100" layout-align="space-between start">
+        <div layout="row" layout-align="start right" flex="35">
+            <div class="padding20 ">
+                <div layout="column" flex="100">
+                    <h4 class="margin00 text-left HotelName showOnlyPrint">{{currentHotel.HotelName}}</h4>
+                    <h4 class="margin00 fontweightNormal showOnlyPrint">{{currentHotel.HotelAddress}}</h4>
+                    <input kendo-date-picker ng-model="arrivalFromString" class="width100p md-HideMobile" k-on-change="changeDate()" k-ng-model="search.ChangeDate"
+                        k-options="DatePickerOption" />
+                </div>
+            </div>
+        </div>
+        <div layout="row" layout-align="start center" flex="45">
+            <div layout="column" flex="100">
+                <h4 class="margin-bottom0 title_report text-center">{{'DAILYCLEAN_DETAILS_DAILY_CLEAN' | translate}}</h4>
+                <h5 class="margin-top0 text-center showOnlyPrint">({{'DATE' | translate}}: {{search.ChangeDate | date:'dd/MM/yyyy'}})</h5>
+            </div>
+        </div>
+        <div flex="20" layout="row" layout-align="start center" layout-wrap>
+            <div layout="row" layout-align="start center" flex="100">
+                <div flex="70" class="padding20">
+
+                    <md-button onclick="window.print()" class="md-HideMobile">
+                        <i class="fa fa-print"></i> {{'PRINT' | translate}}
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout="row" layout-align="space-between start" flex="100" class="minHeigtFit">
+        <table class="table table-responsive tableHousekeeping minHeigtFit" id="table_f">
+            <thead>
+                <tr>
+                    <th width="5%">{{'DAILYCLEAN_DETAILS_ROOM' | translate}}</th>
+                    <th width="15%">{{'DAILYCLEAN_DETAILS_CUSTOMER_NAME' | translate}}</th>
+                    <th width="5%">{{'DAILYCLEAN_DETAILS_PERS' | translate}}</th>
+                    <th width="5%">{{'DAILYCLEAN_DETAILS_ARR' | translate}}</th>
+                    <th width="5%">{{'DAILYCLEAN_DETAILS_DEPP' | translate}}</th>
+                    <th width="9%" class="bg_gray_hk">{{'DAILYCLEAN_DETAILS_SERVICE' | translate}}</th>
+                    <th width="23%">{{'DAILYCLEAN_DETAILS_ORDER_SERVICE' | translate}}</th>
+                    <th width="23%">{{'DAILYCLEAN_DETAILS_NOTE' | translate}}</th>
+                    <th width="10%">{{'DAILYCLEAN_DETAILS_HOUSE_KEEPER' | translate}} </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in lstroomDailyCleans">
+                    <td class="text-center">
+                        <strong>{{item.RoomName}}</strong>
+                    </td>
+                    <td>{{item.Travellers.FullName}}</td>
+                    <td class="text-center">
+                        <span ng-if="item.Booking.Adults > 0">{{item.Booking.Adults}}</span>
+                        <span ng-if="item.Booking.Child > 0">
+                            + {{item.Booking.Child}}
+                        </span>
+                    </td>
+                    <td class="text-center">{{item.Booking.ArrivalDate|date:'dd/MM'}}</td>
+                    <td class="text-center">{{item.Booking.DepartureDate|date:'dd/MM'}}</td>
+                    <td class="text-center bg_gray_hk">
+                        <p ng-if="!item.NoteAR_DEService && item.DailyClean.ServiceCode == 'DE'">DEP</p>
+                        <p ng-if="!item.NoteAR_DEService && item.DailyClean.ServiceCode == 'AR'">ARR</p>
+                        <p ng-if="!item.NoteAR_DEService && item.DailyClean.ServiceCode != 'E' && item.DailyClean.ServiceCode != 'DE' && item.DailyClean.ServiceCode != 'AR'">{{item.DailyClean.ServiceCode}}</p>
+                        <p class="fontSize12" ng-if="item.NoteAR_DEService">({{item.NoteAR_DEService.DEService.Per}}) DEP<br>({{item.NoteAR_DEService.ARService.Per}}) ARR</p>
+                    </td>
+                    <td>
+                        <span ng-repeat="extra in item.ExtraServiceItems">
+                            {{extra.ExtraServiceItemName}}
+                            <br />
+                        </span>
+                    </td>
+                    <td>
+                        <p class="margin0 lineHeight15">{{item.Booking.NoteHouseKeeping}}</p>
+                        <p class="margin0 lineHeight15" ng-if="item.NoteAR_DEService"><span style="color:red;">* </span>
+                            {{item.NoteAR_DEService.DEService.ServiceName}} ({{'TI1' | translate}}: {{item.NoteAR_DEService.DEService.Time}}, {{'PER' | translate}}: {{item.NoteAR_DEService.DEService.Per}}) - {{item.NoteAR_DEService.ARService.ServiceName}} ({{'TI1' | translate}}: {{item.NoteAR_DEService.ARService.Time}}, {{'PER' | translate}}: {{item.NoteAR_DEService.ARService.Per}})
+                        </p>
+                    </td>
+                    <td>
+                        <md-select ng-disabled="!item.DailyClean" flex="33" flex-xs="100" ng-model="item.DailyClean.StaffId" ng-change="roomSelectStaff(item)"
+                            class="margin00 width100p md-selected-hide">
+                            <!-- <md-select-label style="width:100%"></md-select-label> -->
+                            <!-- <md-option value="0">{{'DAILYCLEAN_DETAILS_STAFF' | translate}}</md-option> -->
+                            <md-option ng-repeat="staff in item.staffList" ng-value="staff.StaffId">{{staff.StaffName}}</md-option>
+                        </md-select>
+                    </td>
+                </tr>
+                <tr class="border_bottom">
+                    <td class="text-center">S/FS/ARR/DEP</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-center bg_gray_hk">
+                        <span ng-repeat="total in totalServiceCode" ng-if="total.code != 'E'">{{total.total}}/</span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="hight_line2 margin-bottom20">{{'DESCRIPTION_REPORT_HOUSE_DAILY_CLEAN' | translate}}</div>
+    <div id="footer_page" class="" layout="row" layout-align="space-between start" flex="100">
+        <div flex="50" class="showOnlyPrint">
+            <strong>{{'PRINTED_ON' | translate}}:</strong> {{printInfo.DatePrint | date:'dd/MM/yyyy, HH:mm'}}
+        </div>
+        <div flex="50" class="text-right showOnlyPrint">
+            <strong>{{'PRINTED_USER' | translate}}:</strong> {{printInfo.UserCurrent}}
+        </div>
+    </div>
+</div>

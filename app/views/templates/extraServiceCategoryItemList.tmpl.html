@@ -1,0 +1,49 @@
+<md-dialog aria-label="Item List" style="width: 100%;">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+              <h2>Danh sách item</h2>
+              <span flex></span>
+              <md-button class="md-icon-button" ng-click="cancel()">
+                <ng-md-icon class="md-inline-list-icon" icon="close"></ng-md-icon>
+              </md-button>
+            </div>
+        </md-toolbar>
+    
+        <md-dialog-content>
+           
+            <md-list>
+                <md-list-item ng-repeat = "item in extraServiceItemsByCategory">
+                    <md-input-container>
+                          <label>Tên item</label>
+                          <input type="text" ng-model="item.ExtraServiceItemName">
+                    </md-input-container>
+                     <md-input-container>
+                          <label>Số lượng</label>
+                          <input type="text" ng-model="item.Unit">
+                    </md-input-container>
+                    <md-input-container>
+                          <label>Giá</label>
+                          <input type="text" ng-model="item.Price">
+                    </md-input-container>
+                   <md-button class="" ng-click="doDelete(item)">
+                        <ng-md-icon icon="close"></ng-md-icon>
+                    </md-button>
+                        
+                </md-list-item>
+                 <md-button ng-click="createItem()" class="md-raised md-primary">
+                <ng-md-icon icon="add"></ng-md-icon>
+                <span>Tạo mới</span>
+            </md-button>
+            </md-list>
+        </md-dialog-content>
+        <div class="md-actions" layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+             Hủy
+            </md-button>
+            <md-button ng-click="saveEdit()" class="md-primary">
+              Lưu
+            </md-button>
+        </div>
+    </form>
+</md-dialog>

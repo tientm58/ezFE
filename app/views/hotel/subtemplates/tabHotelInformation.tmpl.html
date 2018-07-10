@@ -1,0 +1,157 @@
+<style>
+    .readOnly {
+        background: #dddddd;
+    }
+
+    .thumbnail {
+        max-width: 200px;
+        max-height: 150px;
+        line-height: 20px;
+        margin-bottom: 5px;
+    }
+
+    md-input-container:not(.md-input-invalid) > md-icon.email {
+        color: green;
+    }
+
+    md-input-container:not(.md-input-invalid) > md-icon.name {
+        color: dodgerblue;
+    }
+
+    md-input-container.md-input-invalid > md-icon.email,
+    md-input-container.md-input-invalid > md-icon.name {
+        color: #f44336;
+    }
+    md-card>:not(md-card-content) img, md-card>img{
+        height: auto !important;
+    }
+    .content-hotel-infor{
+        background-color: white !important;
+    }
+</style>
+ <!--<md-content layout-padding class="md-whiteframe-z1" style="margin: 20px;height: auto;" ng-cloak>
+    <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="hotelInfo.currentHotel.EzReferralCodesList != null && hotelInfo.currentHotel.EzReferralCodesList.length > 0">
+            <span style="font-weight: 600; color: #f44336;">{{'HOTEL_REFERRAL_CODE' | translate}}: {{hotelInfo.currentHotel.EzReferralCodesList[0].Code}}</span>
+            <span style="margin-left: 0px;">{{'REFERRAL_PROGRAM_SHOT_INTRODUCTION' | translate}}
+            
+            <a href="" ng-click="hotelInfo.goToReferralPage()" style="font-size: 0.8em; font-style: italic;">{{'MORE_REFERRAL_PROGRAM_DETAILS' | translate}}</a></span>
+            <div layout="row" layout-align="end center" layout-padding>
+                <div class="col-xs-3">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=
+http%3A%2F%2Fjasonwatmore.com%2Fpost%2F2014%2F08%2F01%2FAngularJS-directives-for-social-sharing-buttons-Facebook-Like-GooglePlus-Twitter-and-Pinterest.aspx
+&display=popup&ref=plugin&src=like&
+app_id=148900532147471">Facebook share</a>
+
+                    <a href="https://www.facebook.com/dialog/feed?app_id=148900532147471&display=popup&link=https://ezcloud.vn&name=Hãy chia sẻ mã giới thiệu {{hotelInfo.currentHotel.EzReferralCodesList[0].Code}} để gia tăng thời hạn sử dụng phần mềm!&caption=&description=Quý khách hàng và khách sạn nhập mã giới thiệu sẽ nhận được 5% số tiền cho lần thanh toán đầu tiên. Hãy chắc chắn rằng khách sạn nhập mã này chưa thanh toán lần nào trên hệ thống&redirect_uri=http://www.facebook.com" >Facebook share 1</a>
+                </div>
+                <div class="col-xs-3">
+                    <div tweet="myModel.Name" tweet-url="myModel.Url"></div>
+                </div>
+                <div class="col-xs-3">
+                    <div google-plus="myModel.Url"></div>
+                </div>
+            </div>
+    </fieldset>
+</md-content>-->
+<md-content class="md-whiteframe-z1" style="margin: 20px;height: auto;" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <span flex class="md-toolbar-tools">
+				<h2>
+					{{'HOTEL_ID' | translate}}: {{ ::hotelInfo.currentHotel.HotelId }}
+				</h2>
+			</span>
+        </div>
+        <md-button class="md-warn md-fab md-mini" onclick="jQuery('#btn_saveHotelChanges').click()"
+                   style=" position: absolute; right: 16px; bottom: -25px;" ng-disabled="!hotelInfo.currentHotel.HotelName || !hotelInfo.currentHotel.HotelEmail" >
+            <md-icon md-svg-src="img/icons/ic_save_48px.svg"></md-icon>
+            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'SAVE_HOTEL' | translate}}
+            </md-tooltip>
+        </md-button>
+    </md-toolbar>
+    <md-content layout-padding class="content-hotel-infor">
+            <form ng-submit="hotelInfo.saveHotelChanges()">
+                <button class="hide" id="btn_saveHotelChanges"></button>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'HOTEL_NAME(REQUIRED)' | translate}}</label>
+                        <!--                        <md-icon md-svg-src="img/icons/ic_domain_48px.svg" class="email"></md-icon>-->
+                        <input type="text" required name="hotelName" ng-model="hotelInfo.currentHotel.HotelName" ng-trim="true" />
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'HOTEL_ADDRESS' | translate}}</label>
+                        <!--                        <md-icon md-svg-src="img/icons/ic_place_48px.svg" class="name"></md-icon>-->
+                        <input type="text"  ng-model="hotelInfo.currentHotel.HotelAddress" />
+                    </md-input-container>
+                </div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'HOTEL_EMAIL(REQUIRED)' | translate}}</label>
+                        <!--                        <md-icon md-svg-src="img/icons/ic_email_48px.svg" class="email"></md-icon>-->
+                        <!-- <input type="text" name="email" required ng-model="hotelInfo.currentHotel.HotelEmail" ng-trim="true" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" /> -->
+                        <input type="text" name="email" required ng-model="hotelInfo.currentHotel.HotelEmail" ng-trim="true" ng-pattern="/^(([^<>()\[\]\.,;:\s@]+(\.[^<>()\[\]\.,;:\s@]+)*)|)@(([^<>()[\]\.,;:\s@]+\.)+[^<>()[\]\.,;:\s@]{2,})$/i" />
+                        <div ng-messages="myForm.email.$error">
+                            <div ng-show="myForm.email.$error.pattern">
+                                {{'EMAIL_NOT_VALID' | translate}}
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'HOTEL_PHONE' | translate}}</label>
+                        <!--                        <md-icon md-svg-src="img/icons/ic_phone_48px.svg" class="name"></md-icon>-->
+                        <input type="text" maxlength="50"  ng-model="hotelInfo.currentHotel.HotelPhone"  />
+                    </md-input-container>
+                </div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'HOTEL_SUB_DOMAIN' | translate}}</label>
+                        <!--                        <md-icon md-svg-src="img/icons/ic_reply_48px.svg" class="name"></md-icon>-->
+                        <input type="text" name="hotelSubDomain" ng-model="hotelInfo.currentHotel.EzCloudSubdomain" />
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'HOTEL_DOMAIN' | translate}}</label>
+                        <!--                        <md-icon md-svg-src="img/icons/ic_reply_all_48px.svg" class="name"></md-icon>-->
+                        <input type="text" ng-model="hotelInfo.currentHotel.HotelDomain" />
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'HOTEL_WEBSITE' | translate}}</label>
+                        <!--                        <md-icon md-svg-src="img/icons/ic_home_48px.svg" class="name"></md-icon>-->
+                        <input type="text" ng-model="hotelInfo.currentHotel.HotelWebsite" />
+                    </md-input-container>
+                </div>
+
+                <div flow-init="{singleFile:true,headers: hotelInfo.headers}" flow-files-submitted="$flow.upload()" flow-file-success="hotelInfo.upload_success($message)" flow-error="hotelInfo.upload_error($message,$flow)" layout="column" layout-align="start center" style="">
+                    <div layout="row" layout-align="start center" class="">
+<!--                        <md-icon md-svg-src="img/icons/ic_image_48px.svg" style="fill: dodgerblue;"></md-icon>-->
+
+                        <span style="padding-left: 15px;">
+                            {{'HOTEL_LOGO' | translate}} ({{::'ONLY_PNG,JPG,JPEG,BMP_FILES_ALLOWED.' | translate}})
+                        </span>
+                    </div>
+                    <div layout="column" layout-align="center center">
+                        <span ng-if="$flow.files.length" style="font-style: italic;">
+                            {{'CLICK_IMAGE_TO_CHANGE' | translate}}
+                        </span>
+                        <span ng-if="!$flow.files.length" style="font-style: italic;">
+                            {{'CLICK_IMAGE_TO_ADD' | translate}}
+                        </span>
+                        <md-card ng-show="!$flow.files.length && hotelInfo.hasHotelLogo === false" flow-btn flow-attrs="{accept:'image/*'}" style="width: 200px;">
+                            <img ng-src="img/noimageselected.png" class="md-card-image" alt="Washed Out">
+                        </md-card>
+                        <md-card ng-show="!$flow.files.length && hotelInfo.hasHotelLogo === true" flow-btn style="width: 320px;">
+                            <img ng-src="{{ hotelInfo.hotelLogoUrl }}" />
+                        </md-card>
+                        <md-card ng-show="$flow.files.length" flow-btn style="width: 320px;">
+                            <img flow-img="$flow.files[0]" />
+                        </md-card>
+                        <md-button ng-show="$flow.files.length || hotelInfo.hasHotelLogo" ng-click="hotelInfo.hasHotelLogo = false; $flow.cancel(); hotelInfo.currentHotel.HotelLogoUrl=null;$event.preventDefault();">
+                            {{'REMOVE' | translate}}
+                        </md-button>
+                    </div>
+                </div>
+            </form>
+
+    </md-content>
+</md-content>

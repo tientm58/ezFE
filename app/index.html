@@ -1,0 +1,781 @@
+<html style="overflow:hidden">
+
+<head>
+	<!--<title>ezCloud Hotel Management System</title>-->
+	<link rel="manifest" href="manifest.json">
+	<link rel="import" href="scanner.html">
+	<!-- Angular Material Dependencies -->
+	<meta name="theme-color" content="rgb(63,81,181)" />
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<!--<script src="lib/TimeLine/js/jquery-1.8.3.js"></script>-->
+	<script src="bower_components/signalr/jquery.signalR.min.js"></script>
+	<script src="bower_components/hammerjs/hammer.min.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-tour/dist/angular-tour-tpls.min.js"></script>
+	<script src="lib/TimeLine/js/jquery-ui-1.9.2.custom.min.js"></script>
+	<script src="lib/TimeLine/js/dateFormat.js"></script>
+	<script src="lib/fibaro.js"></script>
+	<script src="lib/TimeLine/js/jquery.showLoading.js"></script>
+	<script src="lib/TimeLine/js/contextMenu.js"></script>
+	<script src="lib/kendo/js/kendo.all.min.js"></script>
+	<link href="lib/TimeLine/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="lib/kendo/styles/kendo.common.min.css" rel="stylesheet" />
+	<link href="lib/kendo/styles/kendo.material.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="lib/kendo/styles/kendo.default.min.css" />
+	<link rel="stylesheet" href="lib/kendo/styles/kendo.default.mobile.min.css" />
+	<link href="bower_components/angular-tour/dist/angular-tour.css" rel="stylesheet" type="text/css" />
+	<script src="lib/kendo/js/kendo.all.min.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+	<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+	<script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+	<script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+	<script src="bower_components/angular-translate-loader-url/angular-translate-loader-url.min.js"></script>
+	<script src="bower_components/ng-flow/dist/ng-flow-standalone.min.js"></script>
+	<script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+	<script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
+	<script src="bower_components/angular-busy/dist/angular-busy.min.js"></script>
+	<script src="bower_components/ngstorage/ngStorage.min.js"></script>
+	<script src="bower_components/angular-messages/angular-messages.min.js"></script>
+	<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+	<script src="bower_components/angular-material/angular-material.min.js"></script>
+	<!-- <script src="https://cdn.rawgit.com/angular/bower-material/master/angular-material.js"></script> -->
+	<script src="lib/draggableSidenav.js"></script>
+	<script src="lib/inlineEdit/ng-inline-edit.js"></script>
+	<script src="bower_components/selectize/dist/js/standalone/selectize.min.js"></script>
+	<script src="bower_components/angular-material-datetime/dist/md-date-time.js"></script>
+	<script src="bower_components/mdPickers/dist/mdPickers.min.js"></script>
+	<script src="bower_components/angular-wizard/dist/angular-wizard.js"></script>
+	<script src="bower_components/flow.js/dist/flow.min.js"></script>
+	<script src="bower_components/angular-timer/dist/angular-timer.min.js"></script>
+	<script src="bower_components/momentjs/min/moment.min.js"></script>
+	<script src="bower_components/momentjs/min/locales.min.js"></script>
+	<script src="bower_components/humanize-duration/humanize-duration.js"></script>
+	<script src="bower_components/angulartics/dist/angulartics.min.js"></script>
+	<script src="bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js"></script>
+	<script src="bower_components/angular-fcsa-number/src/fcsaNumber.min.js"></script>
+	<script src="bower_components/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+	<script src="bower_components/ng-fastclick/dist/index.min.js"></script>
+	<script src="bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js"></script>
+	<script src="bower_components/angular-timeline/dist/angular-timeline.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+	<!-- <script src="//cdn.ckeditor.com/4.7.1/full/ckeditor.js"></script> -->
+	<script src="bower_components/angular-ckeditor/angular-ckeditor.js"></script>
+	<!-- <script src="bower_components/angular-clipboard/angular-clipboard.js"></script> -->
+
+	<script src="bower_components/material-steppers/dist/material-steppers.min.js"></script>
+	<script src="bower_components/ng-notify/dist/ng-notify.min.js"></script>
+
+	<!--them thu vien cho ckeditor-->
+	<script src="lib/ckeditor/ckeditor.js"></script>
+	<script src="bower_components/angular-ckeditor/angular-ckeditor.js"></script>
+	<script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+	<!-- Project Template Url-->
+
+	<script src="lib/dateFormat.js"></script>
+	<script src="lib/EventKeypress.js"></script>
+	<!-- build:js scripts/app.js -->
+
+	<script src="scripts/app.js"></script>
+	<script src="scripts/notification.js"></script>
+
+	<!-- Controllers -->
+	<script src="lib/TimeLine/js/ezSchedule.js"></script>
+	<script src="scripts/factories/Report/reportFactory.js"></script>
+	<script src="scripts/factories/hotel/configHotelDisplayFactory.js"></script>
+	<script src="scripts/controllers/common/menu.js"></script>
+	<script src="scripts/controllers/homepage.js"></script>
+	<script src="scripts/factories/membership/loginFactory.js"></script>
+	<script src="scripts/controllers/test/uploadtest.js"></script>
+	<script src="scripts/languages/languageItemMissing.js"></script>
+	<script src="scripts/factories/export.js"></script>
+	<script src="scripts/factories/pagination.js"></script>
+	<script src="scripts/controllers/membership/login.js"></script>
+	<script src="scripts/controllers/membership/advancedLogin.js"></script>
+	<script src="scripts/controllers/membership/forgotPassword.js"></script>
+	<script src="scripts/controllers/membership/signup.js"></script>
+	<script src="scripts/controllers/dashboard/home.js"></script>
+	<script src="scripts/controllers/dashboard/timeline.js"></script>
+	<script src="scripts/controllers/dashboard/stats.js"></script>
+	<script src="scripts/controllers/dashboard/logs.js"></script>
+	<script src="scripts/controllers/dashboard/configurationLogs.js"></script>
+	<script src="scripts/controllers/dashboard/IQpromo01.js"></script>
+	<script src="scripts/controllers/dashboard/IQpromo02.js"></script>
+	<script src="scripts/controllers/dashboard/refferralProgram.js"></script>
+	<script src="scripts/controllers/dashboard/refferralProgramArticle2.js"></script>
+	<script src="scripts/controllers/dashboard/refferralProgramDef.js"></script>
+	<script src="scripts/controllers/reports/list.js"></script>
+	<script src="scripts/controllers/reports/report.js"></script>
+	<script src="scripts/controllers/hotel/hotelQuickSettings.js"></script>
+	<script src="scripts/controllers/hotel/config.js"></script>
+	<script src="scripts/controllers/hotel/dashboardConfig.js"></script>
+	<script src="scripts/controllers/hotel/subcontrollers/configHotelInfo.js"></script>
+	<script src="scripts/controllers/hotel/subcontrollers/configHotelOwnerInfo.js"></script>
+	<script src="scripts/controllers/hotel/subcontrollers/configRoomType.js"></script>
+	<script src="scripts/controllers/hotel/subcontrollers/configRoomList.js"></script>
+	<script src="scripts/controllers/hotel/subcontrollers/configFloorList.js"></script>
+	<script src="scripts/controllers/hotel/subcontrollers/configExtraServices.js"></script>
+	<script src="scripts/controllers/hotel/subcontrollers/configStaff.js"></script>
+	<script src="scripts/controllers/hotel/subcontrollers/configSystem.js"></script>
+	<script src="scripts/controllers/hotel/subcontrollers/configBusiness.js"></script>
+	<script src="scripts/controllers/hotel/subcontrollers/configPOS.js"></script>
+	<script src="scripts/controllers/hotel/subcontrollers/configExpenditure.js"></script>
+
+	<script src="scripts/controllers/hotel/hotelSelect.js"></script>
+	<script src="scripts/controllers/hotel/modulePaymentManagement.js"></script>
+	<script src="scripts/controllers/membership/createStaff.js"></script>
+	<script src="scripts/controllers/reservation/walkin.js"></script>
+	<script src="scripts/controllers/walk-in/walk-in.js"></script>
+	<script src="scripts/controllers/walk-in/walk-in.general.reservationRoomDetail.js"></script>
+	<script src="scripts/controllers/walk-in/walk-in.general.customerDetail.js"></script>
+	<script src="scripts/controllers/walk-in/walk-in.general.newReservationRoom.js"></script>
+	<script src="scripts/controllers/walk-in/walk-in.general.newCustomer.js"></script>
+	<script src="scripts/controllers/walk-in/walk-in.options.js"></script>
+	<script src="scripts/controllers/walk-in/walk-in.extraservices.js"></script>
+	<script src="scripts/controllers/walk-in/walk-in.payment.js"></script>
+	<script src="scripts/controllers/walk-in/walk-in.priceList.js"></script>
+	<script src="scripts/controllers/bottom_sheets/room_menu.js"></script>
+	<script src="scripts/controllers/bottom_sheets/room_menu_timeline.js"></script>
+	<script src="scripts/languages/language.js"></script>
+	<script src="scripts/controllers/search/searchController.js"></script>
+	<script src="scripts/controllers/membership/emailConfirm.js"></script>
+	<script src="scripts/controllers/membership/resetPassword.js"></script>
+	<script src="scripts/controllers/front_office/arrivalList.js"></script>
+	<script src="scripts/controllers/front_office/departureList.js"></script>
+	<script src="scripts/controllers/front_office/reservationList.js"></script>
+	<script src="scripts/controllers/front_office/checkoutList.js"></script>
+	<script src="scripts/controllers/front_office/guestList.js"></script>
+	<script src="scripts/controllers/front_office/guestDatabase.js"></script>
+	<script src="scripts/controllers/front_office/guestHistory.js"></script>
+	<script src="scripts/controllers/ChannelManager/CMConfiguration.js"></script>
+	<script src="scripts/controllers/ChannelManager/CMRoomTypeMapping.js"></script>
+	<script src="scripts/controllers/ChannelManager/CMAvailabilityMatrix.js"></script>
+	<script src="scripts/controllers/ChannelManager/CMReservation.js"></script>
+
+	<script src="scripts/controllers/BookingEngine/BEConfiguration.js"></script>
+	<script src="scripts/controllers/BookingEngine/BERoomTypeMapping.js"></script>
+	<script src="scripts/controllers/BookingEngine/BEAvailabilityMatrix.js"></script>
+	<script src="scripts/controllers/BookingEngine/BEReservation.js"></script>
+
+	<script src="scripts/controllers/GroupReservation/newGroup.js"></script>
+	<script src="scripts/controllers/GroupReservation/groupReservation.js"></script>
+	<script src="scripts/controllers/GroupReservation/groupReservationDetail.js"></script>
+	<script src="scripts/controllers/GroupReservation/inhouseGroup.js"></script>
+	<script src="scripts/controllers/GroupReservation/departedGroup.js"></script>
+	<script src="scripts/controllers/GroupReservation/mergeGroup.js"></script>
+	<script src="scripts/controllers/houseKeeping/houseStatus.js"></script>
+	<script src="scripts/controllers/houseKeeping/houseStatusFast.js"></script>
+	<script src="scripts/controllers/houseKeeping/houseDailyClean.js"></script>
+	<script src="scripts/controllers/houseKeeping/houseDailyClean_Detail.controller.js"></script>
+	<script src="scripts/controllers/houseKeeping/houseKeeping_Menu.controller.js"></script>
+	<script src="scripts/controllers/extendedScreen/extendedScreen.js"></script>
+	<script src="scripts/controllers/BackendPayment/paymentCompleted.js"></script>
+	<script src="scripts/controllers/cityLedger/newCityLedgerPayment.js"></script>
+	<script src="scripts/controllers/POS/POSInvoiceController.js"></script>
+	<script src="scripts/controllers/POS/POSInvoiceDetailController.js"></script>
+	<script src="scripts/controllers/POS/POSInvoiceSearchController.js"></script>
+	<script src="scripts/controllers/POS/POSDraftSearchController.js"></script>
+	<script src="scripts/controllers/POS/POSFactory.js"></script>
+
+	<script src="scripts/controllers/receiptPayment/receiptPaymentController.js"></script>
+	<script src="scripts/controllers/cashFunds/cashFundsController.js"></script>
+	<script src="scripts/controllers/receiptPayment/addReceiptController.js"></script>
+	<script src="scripts/controllers/receiptPayment/addPaymentController.js"></script>
+	<script src="scripts/controllers/paymentTypeDetail/paymentTypeDetail.js"></script>
+	<script src="scripts/controllers/bankAccount/bankAccountController.js"></script>
+
+	<script src="scripts/controllers/invoicesReport/invoicesReportController.js"></script>
+	<script src="scripts/controllers/invoicesReport/handoverReportsController.js"></script>
+	<script src="scripts/controllers/invoicesReport/addHandoverController.js"></script>
+	<script src="scripts/controllers/invoicesReport/viewHandoverController.js"></script>
+	<script src="scripts/controllers/invoicesReport/balanceReportsController.js"></script>
+	<script src="scripts/controllers/invoicesReport/invoicesReportDetailsController.js"></script>
+	<script src="scripts/controllers/invoicesReport/receiptdetailsController.js"></script>
+	<script src="scripts/controllers/invoicesReport/paymentdetailsController.js"></script>
+	<script src="scripts/factories/BookingEngine/BEFactory.js"></script>
+	<script src="scripts/controllers/mInvoice/login.js"></script>
+	<script src="scripts/controllers/mInvoice/createMInvoice.js"></script>
+	<script src="scripts/controllers/mInvoice/listMInvoice.js"></script>
+
+	<script src="scripts/controllers/EmailMarketing/EmailConfigController.js"></script>
+	<script src="scripts/controllers/EmailMarketing/EmailConfigDetailController.js"></script>
+	<script src="scripts/controllers/EmailMarketing/EmailLogsController.js"></script>
+	<script src="scripts/controllers/EmailMarketing/EmailTaskController.js"></script>
+	<script src="scripts/controllers/EmailMarketing/EmailTaskDetailController.js"></script>
+	<script src="scripts/controllers/stock/stockController.js"></script>
+	<script src="scripts/controllers/dashboards/home.js"></script>
+	<script src="scripts/factories/receiptPayment/utilsFactory.js"></script>
+	<script src="scripts/factories/receiptPayment/reportExport.js"></script>
+
+	<script src="scripts/factories/mInvoice/mInvoiceFactory.js"></script>
+
+	<!-- Directives -->
+	<script src="scripts/directives/ngRepeatDone.js"></script>
+	<script src="scripts/directives/treeGrid.js"></script>
+	<script src="scripts/directives/treeDropdown.js"></script>
+	<script src="scripts/directives/ezEvent.js"></script>
+	<script src="scripts/directives/fixedHeader.directive.js"></script>
+
+	<!-- Factories -->
+	<script src="scripts/factories/rooms/roomList.js"></script>
+	<script src="scripts/factories/home/homeFactory.js"></script>
+	<script src="scripts/factories/rooms/reservation.js"></script>
+	<script src="scripts/factories/bottom_sheets/roomMenuFactory.js"></script>
+	<script src="scripts/factories/common.js"></script>
+	<script src="scripts/factories/rooms/selectedRoom.js"></script>
+	<script src="scripts/factories/hotel/configFactory.js"></script>
+	<script src="scripts/factories/hotel/hotelFactory.js"></script>
+	<script src="scripts/factories/front_office/frontOfficeFactory.js"></script>
+	<script src="scripts/factories/ChannelManager/CMFactory.js"></script>
+	<script src="scripts/factories/GroupReservation/groupReservationFactory.js"></script>
+	<script src="scripts/factories/houseKeeping/houseKeepingFactory.js"></script>
+	<script src="scripts/factories/smartCard/smartCardFactory.js"></script>
+
+	<script src="scripts/factories/EmailMarketing/emailMarketingFactory.js"></script>
+	<script src="scripts/factories/walkin/walkInFactory.js"></script>
+	<script src="scripts/factories/cityledger/cityledgerFactory.js"></script>
+	<script src="scripts/factories/dashboards/dashboardsFactory.js"></script>
+
+
+	<!-- Shared Features -->
+	<!-- <script src="scripts/sharedFeatures/conflictReservation/ConflictReservationService.js"></script> -->
+	<script src="scripts/sharedFeatures/sharedFeaturesFactory.js"></script>
+	<script src="scripts/sharedFeatures/conflictFeaturesFactory.js"></script>
+	<script src="scripts/sharedFeatures/addExtraServices/addExtraServices.component.js"></script>
+	<script src="scripts/sharedFeatures/addExtraServices/addExtraServices.controller.js"></script>
+	<script src="scripts/sharedFeatures/addExtraServices/addExtraServices.service.js"></script>
+	<script src="scripts/sharedFeatures/cancel/cancel.component.js"></script>
+	<script src="scripts/sharedFeatures/cancel/cancel.controller.js"></script>
+	<script src="scripts/sharedFeatures/cancel/cancel.service.js"></script>
+	<script src="scripts/sharedFeatures/amendStay/amendStay.component.js"></script>
+	<script src="scripts/sharedFeatures/amendStay/amendStay.controller.js"></script>
+	<script src="scripts/sharedFeatures/amendStay/amendStay.service.js"></script>
+	<script src="scripts/sharedFeatures/assignRoom/assignRoom.component.js"></script>
+	<script src="scripts/sharedFeatures/assignRoom/assignRoom.controller.js"></script>
+	<script src="scripts/sharedFeatures/assignRoom/assignRoom.service.js"></script>
+	<script src="scripts/sharedFeatures/conflictReservation/conflictReservation.component.js"></script>
+	<script src="scripts/sharedFeatures/conflictReservation/conflictReservation.controller.js"></script>
+	<script src="scripts/sharedFeatures/conflictReservation/conflictReservation.service.js"></script>
+	<script src="scripts/sharedFeatures/copyReservation/copyReservation.component.js"></script>
+	<script src="scripts/sharedFeatures/copyReservation/copyReservation.controller.js"></script>
+	<script src="scripts/sharedFeatures/copyReservation/copyReservation.service.js"></script>
+	<script src="scripts/sharedFeatures/editCheckInTime/editCheckInTime.component.js"></script>
+	<script src="scripts/sharedFeatures/editCheckInTime/editCheckInTime.controller.js"></script>
+	<script src="scripts/sharedFeatures/editCheckInTime/editCheckInTime.service.js"></script>
+	<script src="scripts/sharedFeatures/editPastCheckOutTime/editPastCheckOutTime.component.js"></script>
+	<script src="scripts/sharedFeatures/editPastCheckOutTime/editPastCheckOutTime.controller.js"></script>
+	<script src="scripts/sharedFeatures/editPastCheckOutTime/editPastCheckOutTime.service.js"></script>
+	<script src="scripts/sharedFeatures/editRoomRate/editRoomRate.component.js"></script>
+	<script src="scripts/sharedFeatures/editRoomRate/editRoomRate.controller.js"></script>
+	<script src="scripts/sharedFeatures/editRoomRate/editRoomRate.service.js"></script>
+	<script src="scripts/sharedFeatures/editNote/editNote.component.js"></script>
+	<script src="scripts/sharedFeatures/editNote/editNote.controller.js"></script>
+	<script src="scripts/sharedFeatures/editNote/editNote.service.js"></script>
+	<script src="scripts/sharedFeatures/editPrice/editPrice.component.js"></script>
+	<script src="scripts/sharedFeatures/editPrice/editPrice.controller.js"></script>
+	<script src="scripts/sharedFeatures/editPrice/editPrice.service.js"></script>
+	<script src="scripts/sharedFeatures/roomMove/roomMove.component.js"></script>
+	<script src="scripts/sharedFeatures/roomMove/roomMove.controller.js"></script>
+	<script src="scripts/sharedFeatures/roomMove/roomMove.service.js"></script>
+	<script src="scripts/sharedFeatures/saveReservation/checkIn.service.js"></script>
+	<script src="scripts/sharedFeatures/saveReservation/book.service.js"></script>
+	<script src="scripts/sharedFeatures/saveReservation/saveReservation.service.js"></script>
+	<script src="scripts/sharedFeatures/saveReservation/checkOut/checkOut.service.js"></script>
+	<script src="scripts/sharedFeatures/saveReservation/checkOut/checkOut.controller.js"></script>
+	<script src="scripts/sharedFeatures/saveReservation/checkOut/checkOut.component.js"></script>
+	<script src="scripts/sharedFeatures/roomRepair/addRoomRepair.component.js"></script>
+	<script src="scripts/sharedFeatures/roomRepair/addRoomRepair.controller.js"></script>
+	<script src="scripts/sharedFeatures/roomRepair/editRoomRepair.component.js"></script>
+	<script src="scripts/sharedFeatures/roomRepair/editRoomRepair.controller.js"></script>
+	<script src="scripts/sharedFeatures/roomRepair/roomRepair.service.js"></script>
+	<script src="scripts/sharedFeatures/unassignRoom/unassignRoom.component.js"></script>
+	<script src="scripts/sharedFeatures/unassignRoom/unassignRoom.controller.js"></script>
+	<script src="scripts/sharedFeatures/unassignRoom/unassignRoom.service.js"></script>
+	<script src="scripts/sharedFeatures/undoCheckIn/undoCheckIn.component.js"></script>
+	<script src="scripts/sharedFeatures/undoCheckIn/undoCheckIn.controller.js"></script>
+	<script src="scripts/sharedFeatures/undoCheckIn/undoCheckIn.service.js"></script>
+	<script src="scripts/sharedFeatures/showBreak/showBreak.component.js"></script>
+	<script src="scripts/sharedFeatures/showBreak/showBreak.controller.js"></script>
+	<script src="scripts/sharedFeatures/showBreak/showBreak.service.js"></script>
+
+	<!-- Directives -->
+	<script src="scripts/directives/ngRepeatDone.js"></script>
+	<!-- Services -->
+	<script src="scripts/services/dialogService.js"></script>
+	<!-- endbuild -->
+	<script src="lib/underscore-min.js"></script>
+	<script src="lib/print.js"></script>
+	<script src="lib/pdfmake.min.js"></script>
+	<script src="lib/html2canvas.min.js"></script>
+	<script src='https://www.google.com/recaptcha/api.js?hl=vi' async defer></script>
+
+	<!-- passport -->
+	<script src="lib/scanner.js"></script>
+
+	<link rel="stylesheet" href="bower_components/selectize/dist/css/selectize.css">
+	<link rel="stylesheet" href="lib/main.css">
+	<!-- <link rel="stylesheet" href="lib/ThemeNormal.css"> -->
+	<link rel="stylesheet" href="bower_components/angular-material-datetime/dist/md-date-time.css">
+	<link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.min.css">
+	<link rel="stylesheet" href="lib/inlineEdit/ng-inline-edit.css">
+	<link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+	<link rel="stylesheet" href="stylesheet/animate.css">
+	<link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css">
+
+	<link rel="stylesheet" href="stylesheet/treeGrid.css">
+	<link rel="stylesheet" href="stylesheet/treeDropdown.css">
+
+	<link rel="stylesheet" href="bower_components/angular-timeline/dist/angular-timeline.css" />
+
+	<link rel="stylesheet" href="bower_components/material-steppers/dist/material-steppers.min.css" />
+
+	<link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css" />
+	<link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />
+	<link href="lib/TimeLine/css/schedule.css" rel="stylesheet">
+	<link href="lib/TimeLine/css/room_view.css" rel="stylesheet">
+	<link href="lib/TimeLine/css/contextMenu.css" rel="stylesheet">
+	<link href="lib/TimeLine/css/main.css" rel="stylesheet">
+	<link href="/stylesheet/main.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link href="ReportViewer/styles/telerikReportViewer-9.2.15.930.css" rel="stylesheet" />
+	<script src="ReportViewer/js/telerikReportViewer-9.2.15.930.min.js"></script>
+	<style type="text/css">
+	</style>
+	<link rel="stylesheet" href="bower_components/angular-wizard/dist/angular-wizard.min.css">
+	<link rel="stylesheet" href="stylesheet/style.css">
+	<!--    <link rel="stylesheet" href="bower_components/angular-wizard/dist/angular-wizard.min.css">-->
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<!-- Site template -->
+
+<body ng-cloak ng-controller="topController" id="mainWrap" ng-app="ezCloud">
+	<title ng-bind="'ezCloud Hotel Management System '+HotelSettings.HotelId +' - ' + HotelSettings.HotelName + ' - '+ user.Fullname"></title>
+	<!--    md-swipe-right="swipeRight()"-->
+	<md-content layout="row" flex ng-controller="LeftCtrl" class="height100" id="ez_wrp">
+
+		<!-- menu starts here -->
+		<md-sidenav ng-class="{'style-toggle-side-nav': toggleSideNav == true,'style-not-toggle-side-nav':toggleSideNav == false }"
+		    style="width:250px ;" ng-click="closeNavRight1()" class="md-sidenav-left  menuNav" md-component-id="left" ng-cloak ng-if="showMenu"
+		    layout="column" md-is-locked-open="$mdMedia('gt-md')" id="left_menu">
+			<!--md-is-locked-open="$mdMedia('gt-md')"-->
+			<header md-theme="default" style="border-right:#2aade3 0.1mm solid">
+				<md-toolbar layout="row" layout-align="start center" id="toolbar">
+					<!--ng-style="toggleSideNav === true ? {'margin-left':'4px'} : {'margin-left':'0px'}"-->
+					<div class="avatar_hote" ng-if="HotelSettings.HotelLogoUrl" style="background-image: url({{HotelSettings.FullHotelLogoUrl}}"></div>
+					<!-- <img ng-cloak ng-if="HotelSettings.HotelLogoUrl" ng-src="{{HotelSettings.FullHotelLogoUrl}}" alt="" style=""> -->
+					<md-icon ng-if="HotelSettings.HotelLogoUrl == null" md-svg-icon="img/Hotel_icon.svg" style="margin:0px;height:45px;width:45px;margin-left:5px"></md-icon>
+					<div layout="column" ng-hide="toggleSideNav == true">
+						<div class="NameHotel">
+							&nbsp;{{HotelSettings.HotelId}} - {{HotelSettings.HotelName | truncate:16 }}
+							<span ng-show="HotelSettings.HotelName.length> 16">...</span>
+						</div>
+					</div>
+				</md-toolbar>
+			</header>
+
+			<md-content role="navigation" flex class="height100 content_left_menu">
+				<div ng-repeat="menu in menus track by menu.name" layout="column" layout-wrap ng-class="{'menu-selected':isSelected(menu)}"
+				    ng-show="isInRole(menu) && (menu.typeCms == dataCMS || menu.typeCms == 'NOTVALUE')">
+					<md-menu md-offset="60 0" style="margin:0px;padding:0px;text-align:left; height: 44px;">
+						<md-button md-no-ink ng-click="closeNav(menu,$mdOpenMenu,$event)" style="width:100%;margin:0px;height:43px" layout="row"
+						    aria-label="{{menu.name | translate}}">
+							<span flex layout="row" class="ng-binding ng-scope">
+								<md-icon class="icon-color" md-svg-icon="{{menu.icon}}" style="fill:#686868;margin:7px;margin-left:9px;display: block;"></md-icon>
+								<span ng-hide="toggleSideNav == true" flex style="text-transform:none;margin-top: 4px;text-align:left;margin-left:9px;font-size: 13px;font-weight: 600;color: #686868;">{{menu.name | translate}}</span>
+								<span ng-if="menu.isNew" ng-hide="toggleSideNav == true" class="custom-label" style="transition: all 0s">{{'NEW' | translate}}</span>
+								<ng-md-icon icon="chevron_right" style="padding-top:9px;fill:#686868" ng-show="menu.submenus && toggleSideNav == false" ng-class="{'toggled':menu.toggle === true,'not-toggled':menu.toggle === false }"></ng-md-icon>
+							</span>
+						</md-button>
+						<md-menu-content ng-show="menu.submenus" width="4" style="min-width:200px;max-height:455px;min-height:40px;overflow-y:hidden;padding:0.3px 0 !important"
+						    class="sub_menu">
+							<md-menu-item ng-class="{'menu-selected':isSelected(submenu)}" class="custom-menu1" style="" flex="100" ng-repeat="submenu in menu.submenus | limitTo:6 track by submenu.name"
+							    ng-show="isInRole(submenu) ">
+								<md-button class="md-ink-ripple md-default-theme" ng-click="closeNav(submenu)">
+									<span layout layout-align="start center">
+										<span>{{submenu.name | translate}}</span>
+									</span>
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+					<div ng-hide="toggleSideNav == true" ng-class="{'submenuToggled':menu.toggle, 'submenu': !menu.toggle}" style="overflow:hidden"
+					    class="sub_menu">
+						<div ng-repeat="submenu in menu.submenus track by submenu.name" flex="100" layout="row" ng-class="{'menu-selected':isSelected(submenu)}"
+						    ng-show="isInRole(submenu)">
+							<md-button flex ng-click="closeNav(submenu)" style="text-align:left;margin-left:24px;height: 36px;margin-top: 0px; margin-bottom: 0px;"
+							    aria-label="{{submenu.name | translate}}">
+								<span flex layout="row" class="ng-binding ng-scope">
+									<md-icon class="icon-color" md-svg-icon="{{submenu.icon}}" style="fill:#686868;margin-top: 6px; margin-left: 8px; margin-right: 16px;display: block;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+									<span flex style="text-transform:none;font-size: 13px;">{{submenu.name | translate}}</span>
+								</span>
+							</md-button>
+						</div>
+					</div>
+					<md-tooltip ng-if="toggleSideNav" md-direction="right">
+						{{menu.name | translate}}
+					</md-tooltip>
+					<!---->
+				</div>
+				<!-- menu report -->
+				<div ng-if="menuReport.isFirst==false" layout="column" layout-wrap ng-class="{'menu-selected':isSelected(menuReport)}" ng-show="isInRole(menuReport)">
+					<md-menu md-offset="60 0" style="" class="padding0">
+						<md-button md-no-ink ng-click="closeNav(menuReport,$mdOpenMenu,$event)" style="width:100%;margin:0px;height:43px" layout="row"
+						    aria-label="{{menuReport.name | translate}}" md-prevent-menu-close="md-prevent-menu-close">
+							<span flex layout="row" class="ng-binding ng-scope" ng-cloak>
+								<md-icon class="icon-color" md-svg-icon="{{menuReport.icon}}" style="fill:#686868;margin:7px;margin-left:9px;display: block;height: 25px; width: 25px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+								<span ng-hide="toggleSideNav == true" flex style="text-transform:none; margin-top: 4px;text-align:left;margin-left:9px;">{{menuReport.name | translate}}</span>
+								<ng-md-icon icon="chevron_right" style="padding-top:9px;fill:#686868" ng-if="menuReport.submenus && toggleSideNav == false"
+								    class="my-animation-hide" ng-class="{'toggled':menuReport.toggle,'not-toggled':menuReport.toggle == false}"></ng-md-icon>
+							</span>
+						</md-button>
+						<md-menu-content width="2" style="min-width:200px;max-height:280px;min-height:40px;overflow-y:hidden;padding:0.3px 0 !important"
+						    class="sub_menu">
+							<div ng-repeat="submenu in menuReport.submenus ">
+								<md-menu-item ng-repeat="submenu1 in submenu.submenus  track by submenu1.name" ng-show="(isInRole(submenu1) && submenu1.isCheck)"
+								    ng-class="{'menu-selected':isSelected(submenu)}" class="custom-menu1" style="" flex="100">
+									<md-button class="md-ink-ripple md-default-theme" ng-click="closeNav(submenu1)">
+										<span layout layout-align="start center">
+											<span>{{submenu1.name | translate}}</span>
+										</span>
+									</md-button>
+								</md-menu-item>
+
+								<md-menu-item ng-if="submenu.name=='MORE'" ng-show="(isInRole(submenu) )" ng-class="{'menu-selected':isSelected(submenu)}"
+								    class="custom-menu1" style="" flex="100">
+									<md-button class="md-ink-ripple md-default-theme" ng-click="closeNav(submenu)">
+										<span layout layout-align="start center">
+											<span>{{submenu.name | translate}}</span>
+										</span>
+									</md-button>
+								</md-menu-item>
+							</div>
+						</md-menu-content>
+					</md-menu>
+					<div ng-hide="toggleSideNav == true" ng-class="{'submenuToggled':menuReport.toggle, 'submenu': !menuReport.toggle}" style="overflow:hidden;"
+					    class="sub_menu">
+						<div style="overflow-y:auto;">
+							<div ng-repeat="submenu in menuReport.submenus ">
+								<div ng-repeat="submenu1 in submenu.submenus " flex="100" layout="row" ng-class="{'menu-selected':isSelected(submenu1)}"
+								    ng-show="(isInRole(submenu1) && submenu1.isCheck)">
+									<md-button flex ng-click="closeNav(submenu1)" style="text-align:left;margin-left:24px;height: 36px;margin-top: 0px; margin-bottom: 0px;"
+									    aria-label="{{submenu1.name | translate}}">
+										<span flex layout="row" class="ng-binding ng-scope">
+
+											<md-icon class="icon-color" md-svg-icon="{{submenu1.icon}}" style="fill:#686868;margin-top: 6px; margin-left: 8px; margin-right: 16px;display: block; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+											<span flex style="text-transform:none;">{{submenu1.name | translate}}</span>
+
+										</span>
+									</md-button>
+								</div>
+								<div ng-if="submenu.name=='MORE'" flex="100" layout="row" ng-class="{'menu-selected':isSelected(submenu)}" ng-show="isInRole(submenu)">
+									<md-button flex ng-click="closeNav(submenu)" style="text-align:left;margin-left:24px;height: 36px;margin-top: 0px; margin-bottom: 0px;"
+									    aria-label="{{submenu.name | translate}}">
+										<span flex layout="row" class="ng-binding ng-scope">
+											<md-icon class="icon-color" md-svg-icon="{{submenu.icon}}" style="fill:#686868;margin-top: 6px; margin-left: 8px; margin-right: 16px;display: block; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+											<span flex style="text-transform:none;">{{submenu.name | translate}}</span>
+										</span>
+									</md-button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<md-tooltip ng-if="toggleSideNav" md-direction="right">
+						{{'REPORTS' | translate}}
+					</md-tooltip>
+				</div>
+				<div ng-if="menuReport.isFirst==true" layout="column" layout-wrap ng-class="{'menu-selected':isSelected({url: '/reportsMore',icon: 'img/file-chart.svg',name: 'REPORTS',color: 'olive',})}"
+				    ng-show="isInRole({url: '/reportsMore',icon: 'img/file-chart.svg',name: 'REPORTS',color: 'olive',})">
+					<md-button md-no-ink ng-click="closeNav({url: '/reportsMore',icon: 'img/file-chart.svg',name: 'REPORTS',color: 'olive',})"
+					    style="text-align:left;margin:0; height: 44px;" layout="row" aria-label="{{'REPORTS' | translate}}">
+						<span flex layout="row" class="ng-binding ng-scope">
+							<md-icon class="icon-color" md-svg-icon="img/file-chart.svg" style="fill:#686868;margin-top: 7px; margin-left: 8px; margin-right: 16px;display: block;height: 25px; width: 25px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+							<span flex style="text-transform:none; margin-top: 5px;" ng-hide="toggleSideNav == true">{{'REPORTS' | translate}}</span>
+						</span>
+					</md-button>
+					<md-tooltip ng-if="toggleSideNav" md-direction="right">
+						{{'REPORTS' | translate}}
+					</md-tooltip>
+				</div>
+				<div ng-if="$mdMedia('gt-md')" layout="column" layout-align="center end" id="footer_left_menu" layout-wrap ng-class="">
+					<md-icon ng-class="{'toggle-icon':toggleSideNav == 'true','not-toggle-icon':toggleSideNav == 'false'} " ng-click="toggleSideNavNavigation('toggle')"
+					    md-svg-icon="img/backburger.svg" ng-style="toggleSideNav === true ? {'margin-right':'18.5px','-ms-transform':'rotate(180deg)','transform':'rotate(180deg)','-webkit-transform':'rotate(180deg)'} : {'margin-right':'10px'}"
+					    style="margin:0px;cursor:pointer;fill:white;margin-right:10px"></md-icon>
+				</div>
+			</md-content>
+		</md-sidenav>
+		<!-- menu ends here -->
+
+		<!-- menu right -->
+		<md-sidenav class="md-sidenav-right menuNav1" md-component-id="right" layout="column">
+			<header md-theme="default">
+				<md-toolbar id="toolbar" layout="row" layout-align="start center" flex>
+					<md-icon flex="20" class="icon-color" md-svg-icon="img/icons/ic_account_circle_24px.svg" style="display: block;height: 40px; width: 40px;margin-left:5px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+					<div flex="80" layout layout-align="start center">
+						<div class="NameHotel" style="color:white">
+							&nbsp;{{user.Fullname | truncate:20}}
+							<span ng-show="user.Fullname.length> 20">...</span>
+						</div>
+					</div>
+				</md-toolbar>
+			</header>
+			<md-divider></md-divider>
+			<md-content>
+				<div layout="column" style="overflow-x: hidden !important;overflow-y: auto ">
+					<div ng-repeat="menu in menus_right " layout="column" layout-wrap ng-class="{'menu-selected':isSelected(menu)}" ng-show="isInRole(menu)">
+						<md-button md-no-ink ng-click="closeNav(menu)" style="text-align:left;margin:0; height: 44px;" layout="row" aria-label="{{menu.name | translate}}">
+							<span flex layout="row" class="ng-binding ng-scope">
+								<md-icon md-svg-icon="{{menu.icon}}" style="margin-left: 9px; margin: 7px;display: block;height: 25px; width: 25px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+								<span flex style="text-transform: none;margin-top: 4px;text-align: left;margin-left: 9px;">{{menu.name | translate}}</span>
+							</span>
+						</md-button>
+					</div>
+					<!--  -->
+					<md-button md-no-ink ng-click="closeNav(Payment_Process);closeNavRight()" ng-class="{'menu-selected':isSelected(Payment_Process)}"
+					    ng-show="isInRole(Payment_Process)" style="text-align:left;margin:0; height: 44px;width:100%" layout="row">
+						<span flex layout="row">
+							<md-icon md-svg-icon="img/icons/ic_attach_money_24px.svg" style="margin-left: 9px; margin: 7px;display: block;height: 25px; width: 25px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+							<span flex style="text-transform: none;margin-top: 4px;text-align: left;margin-left: 9px;">{{'PAYMENT_PROCESS' | translate}}</span>
+						</span>
+					</md-button>
+					<md-button md-no-ink ng-click="closeNav(Hotel_Select);closeNavRight()" aria-label="Hotel_Select" ng-class="{'menu-selected':isSelected(Hotel_Select)}"
+					    ng-show="isInRole(Hotel_Select)" style="text-align:left;margin:0; height: 44px;width:100%" layout="row">
+						<span flex layout="row">
+							<md-icon md-svg-icon="img/icons/ic_storage_24px.svg" style="margin-left: 9px; margin: 7px;display: block;height: 25px; width: 25px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+							<span flex style="text-transform: none;margin-top: 4px;text-align: left;margin-left: 9px;">{{'HOTEL_SELECT' | translate}}</span>
+						</span>
+					</md-button>
+
+					<md-divider style="border-top-width:2px !important"></md-divider>
+					<a style="width:100%;max-height:44px" flex="100" class="style-a" href="tel:{{Supporter.Phone}}" ng-click="closeNavRight()">
+						<md-button md-no-ink ng-click="" style="text-align:left;margin:0; height: 44px;width:100%" layout="row">
+							<span flex layout="row">
+								<md-icon md-svg-icon="img/icons/ic_phone_24px.svg" style="margin-left: 9px; margin: 7px;display: block;height: 25px; width: 25px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+								<span flex style="text-transform: none;font-size: 13px;margin-top: 4px;text-align: left;margin-left: 9px;">{{Supporter.Phone}}</span>
+							</span>
+						</md-button>
+					</a>
+					<a style="" class="style-a" ng-click="closeNavRight()" href="http://help.ezcloudhotel.com/" target="_blank">
+						<md-button md-no-ink ng-click="" style="text-align:left;margin:0; height: 44px;width:100%" layout="row">
+							<span flex layout="row">
+								<md-icon md-svg-icon="img/icons/ic_play_arrow_48px.svg" style="margin-left: 9px; margin: 7px;display: block;height: 25px; width: 25px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+								<span flex style="text-transform: none;font-size: 13px;margin-top: 4px;text-align: left;margin-left: 9px;">{{'HELP' | translate}}</span>
+							</span>
+						</md-button>
+					</a>
+					<md-divider style="border-top-width:2px !important"></md-divider>
+					<md-button ng-if="language =='en'" md-no-ink ng-click="langSwitch('vn');closeNavRight()" style="margin:0; height: 44px;width:100%"
+					    layout="row">
+						<span flex layout="row">
+							<md-icon md-svg-icon="img/Flag_of_Vietnam.svg" style="margin-left: 9px; margin: 7px;display: block;height: 25px; width: 25px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+							<span flex style="text-transform: none;font-size: 13px;margin-top: 4px;text-align: left;margin-left: 9px;">{{'VIETNAMSE' | translate}}</span>
+						</span>
+					</md-button>
+					<md-button ng-if="language =='vn'" md-no-ink ng-click="langSwitch('en');closeNavRight()" style="margin:0; height: 44px;width:100%"
+					    layout="row">
+						<span flex layout="row">
+							<md-icon md-svg-icon="img/Flag_of_the_United_States.svg" style="margin-left: 9px; margin: 7px;display: block;height: 25px; width: 25px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+							<span flex style="text-transform: none;font-size: 13px;margin-top: 4px;text-align: left;margin-left: 9px;">{{'ENGLISH' | translate}}</span>
+						</span>
+					</md-button>
+					<md-button md-no-ink ng-click="doChangePassword();closeNavRight()" style="margin:0; height: 44px;width:100%" layout="row">
+						<span flex layout="row">
+							<md-icon md-svg-icon="img/icons/ic_security_24px.svg" style="margin-left: 9px; margin: 7px;display: block;height: 25px; width: 25px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+							<span flex style="text-transform: none;font-size: 13px;margin-top: 4px;text-align: left;margin-left: 9px;">{{'CHANGE_PASSWORD' | translate}}</span>
+						</span>
+					</md-button>
+					<md-button ng-click="doSignout();closeNavRight()" style="margin:0; height: 44px;width:100%" layout="row">
+						<span flex layout="row">
+							<md-icon md-svg-icon="img/icons/ic_exit_to_app_24px.svg" style="fill:#686868;margin-left: 9px; margin: 7px;display: block;height: 25px; width: 25px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+							<span flex style="text-transform: none;font-size: 13px;margin-top: 4px;text-align: left;margin-left: 9px;">{{'SIGNOUT' | translate}}</span>
+						</span>
+					</md-button>
+					<md-divider></md-divider>
+					<!--  -->
+				</div>
+			</md-content>
+		</md-sidenav>
+		<!-- menu right -->
+		<md-content ng-class="[{backgoundImg:(!showMenu)}]" layout="column" role="main" id="box_main_content" flex style="overflow-y:hidden">
+			<!-- toolbar for guest -->
+			<md-toolbar ng-if="!showMenu&&!extendedScreen" layout="row" layout-align="space-between center" class="md-default-theme"
+			    style="background: transparent;">
+				<div class="md-toolbar-tools" layout="row" layout-align="end center" style="padding-right: 0px;font-size:12px;">
+					<a target="_blank" href="http://ezcloudhotel.com/" style="color:#fff;cursor:pointer">{{'HOME' | translate}}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a target="_blank" href="http://help.ezcloudhotel.com/" style="color:#fff;cursor:pointer">{{'HELP' | translate}}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<span>
+						<md-icon md-svg-icon="img/vietnamflag.svg" style="cursor: pointer; height: 30px;width: 30px;" ng-click="langSwitch('vn')"></md-icon>
+						<md-icon md-svg-icon="img/usaflag.svg" style="cursor: pointer; height: 30px;width: 30px;" ng-click="langSwitch('en')"></md-icon>
+					</span>
+				</div>
+			</md-toolbar>
+			<md-toolbar ng-if="showMenu" flex layout="row" id="toolbar" layout-align="start center" class="md-medium-tall md-default-theme">
+				<!-- OLD MENU -->
+				<img ng-if="$state.current.name=='login'" src="img/logo.svg" style="height:48px"></img>
+				<h1 ng-if="$state.current.name=='login'"> Hotel</h1>
+				<md-button class="md-icon-button launch" style="padding:6px" ng-if="currentState !== 'login' && currentState !== 'home'"
+				    aria-label="{{'GO_BACK' | translate}}">
+					<md-icon md-svg-src="img/icons/ic_arrow_back_48px.svg" style="width:30px;height:30px;margin: auto 8px auto 0px;" ng-click="goBack()"></md-icon>
+				</md-button>
+				<md-button class="md-icon-button md-mini" ng-click="toggleLeft()" aria-label="Toggle" ng-if="!$mdMedia('gt-md') && loggedIn"
+				    aria-label="{{'MENU' | translate}}">
+					<md-icon md-svg-src="img/icons/ic_menu_48px.svg" style=""></md-icon>
+				</md-button>
+				<div flex-gt-md="50" flex-md="50" flex-sm="60" flex-xs="75" layout="row" layout-align="start center" ng-controller="searchController">
+					<md-autocomplete id="customAutoComplete" md-input-name="autocompleteField" translate-cloak flex style="display:none;margin-left:8px"
+					    md-no-cache="true" ng-if="loggedIn && (currentState !== 'emailConfirm' && currentState !== 'signup' && currentState !== 'login')"
+					    md-search-text="searchText" md-items="item in processSearchData(searchText)" md-selected-item="selectedItem" md-min-length=0
+					    md-item-text="item.name" md-search-text-change="null" placeholder="{{'ENTER_SEARCH_QUERY' | translate}}" md-menu-class="autocomplete-custom-template"
+					    md-selected-item-change="clickedSearch(item)">
+						<md-item-template>
+							<span class="item-title">
+								<md-icon style="Fill:{{item.color}}" md-svg-src="{{item.icon}}"></md-icon>
+								<span> {{item.name}}</span>
+							</span>
+						</md-item-template>
+					</md-autocomplete>
+				</div>
+
+				<div flex-gt-md="50" flex-md="55" flex-sm="55" flex-xs="25" id="left" layout style="text-align:right" layout-align="end center"
+					layout-align-xs="center center">
+					<a href="http://pms.ezcloudhotel.com/">
+						<md-icon md-svg-icon="img/icons/ic_settings_backup_restore_24px.svg" style="height:36px;width:36px;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+						<md-tooltip   md-direction="bootom">
+							{{'BACK_TO_OLD_VERSION' | translate}}
+						</md-tooltip>
+					</a>
+					<md-menu md-offset="0 45" style="margin:0px;padding:0px;padding-right: 10px" ng-hide="$mdMedia('xs')">
+						<md-button class="md-ink-ripple md-default-theme" ng-click="openMenu($mdOpenMenu, $event)" style="min-width:20px;margin-right:0px">
+							<div layout layout-align="center center">
+								<div class="position:relative">
+									<md-icon md-svg-icon="img/icons/ic_account_circle_24px.svg" style="height:36px;width:36px;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+								</div>
+								<div hide-sm hide-xs>{{user.Fullname | truncate:16}}
+									<span ng-show="user.Fullname.length> 16" style="color:#fff !important">...</span>
+								</div>
+							</div>
+						</md-button>
+						<md-menu-content width="2">
+							<md-menu-item flex="100">
+								<md-button class="md-ink-ripple md-default-theme" ng-click="doChangePassword()">
+									<span layout layout-align="start center">
+										<md-icon md-svg-icon="img/icons/ic_security_24px.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+										<span>{{'CHANGE_PASSWORD' | translate}}</span>
+									</span>
+								</md-button>
+							</md-menu-item>
+							<md-menu-item flex="100">
+								<md-button class="md-ink-ripple md-default-theme" ng-click="doSignout()">
+									<span layout layout-align="start center">
+										<md-icon md-svg-icon="img/icons/ic_exit_to_app_24px.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+										<span>{{'SIGNOUT' | translate}}</span>
+									</span>
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+
+					<md-menu md-offset="0 40" hide-xs style="margin:0px;padding:0px" hide-md>
+						<md-button style="min-width:45px !important;" aria-label="notification" class="md-ink-ripple md-default-theme" ng-click="openMenu($mdOpenMenu, $event)">
+							<md-icon ng-if="language=='en'" md-svg-icon="img/Flag_of_the_United_States.svg" style="display: block;height: 28px; width: 28px;"></md-icon>
+							<!--  -->
+							<md-icon ng-if="language=='vn'" md-svg-icon="img/Flag_of_Vietnam.svg" style="display: block;height: 28px; width: 28px; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+						</md-button>
+						<md-menu-content width="2">
+							<md-menu-item flex="100">
+								<md-button class="md-ink-ripple md-default-theme" ng-click="langSwitch('vn')">
+									<span layout layout-align="start center">
+										<md-icon md-svg-icon="img/Flag_of_Vietnam.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+										<span>{{'VIETNAMSE' | translate}}</span>
+									</span>
+								</md-button>
+							</md-menu-item>
+							<md-menu-item flex="100">
+								<md-button class="md-ink-ripple md-default-theme" ng-click="langSwitch('en')">
+									<span layout layout-align="start center">
+										<md-icon md-svg-icon="img/Flag_of_the_United_States.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+										<span>{{'ENGLISH' | translate}}</span>
+									</span>
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+					<md-button style="padding-top:7px" class="md-icon-button" aria-label="Read Card" hide-xs ng-click="readCard()" ng-show="currentState == 'home' && currentHotelConnectivities && currentHotelConnectivities.isUsed == true">
+						<md-icon md-svg-icon="img/credit-card-scan.svg" style="fill:#ffffff;height:28px;width:28px"></md-icon>
+					</md-button>
+					<md-menu md-offset="0 40" style="margin:0px;padding:0px" ng-hide="$mdMedia('xs')">
+						<md-button style="min-width:45px !important;" aria-label="Menu" class="md-ink-ripple md-default-theme" ng-click="openMenu($mdOpenMenu, $event)">
+							<md-icon md-menu-origin style="fill:#fff !important;height:28px;width:28px" md-svg-icon="img/icons/ic_format_list_bulleted_24px.svg"></md-icon>
+						</md-button>
+						<md-menu-content width="2">
+							<md-menu-item flex="100" ng-show="isInRole(Payment_Process)">
+								<md-button class="md-ink-ripple md-default-theme" ng-click="closeNav(Payment_Process)">
+									<span layout layout-align="start center">
+										<md-icon md-svg-icon="img/icons/ic_attach_money_24px.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+										<span>{{'PAYMENT_PROCESS' | translate}}</span>
+									</span>
+								</md-button>
+							</md-menu-item>
+							<md-menu-item flex="100" ng-show="isInRole(menus_right[0])">
+								<md-button class="md-ink-ripple md-default-theme" ng-click="Settings()">
+									<span layout layout-align="start center">
+										<md-icon md-svg-icon="img/icons/ic_settings_24px.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+										<span>{{'CONFIGURATION' | translate}}</span>
+									</span>
+								</md-button>
+							</md-menu-item>
+							<md-menu-item flex="100" ng-show="isInRole(Hotel_Select)">
+								<md-button class="md-ink-ripple md-default-theme" ng-click="closeNav(Hotel_Select)">
+									<span layout layout-align="start center">
+										<md-icon md-svg-icon="img/icons/ic_storage_24px.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+										<span>{{'HOTEL_SELECT' | translate}}</span>
+									</span>
+								</md-button>
+							</md-menu-item>
+							<md-menu-item flex="100">
+								<md-button class="md-ink-ripple md-default-theme" ng-click="doChangeTheme()">
+									<span layout layout-align="start center">
+										<md-icon md-svg-icon="img/icons/ic_group_work_24px.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+										<span>{{'THEMES' | translate}}</span>
+									</span>
+								</md-button>
+							</md-menu-item>
+							<md-menu-item flex="100">
+								<md-button class="md-ink-ripple md-default-theme">
+									<a class="style-a" flex href="tel:{{Supporter.Phone}}">
+										<span layout layout-align="start center">
+											<md-icon md-svg-icon="img/icons/ic_phone_24px.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+											<span>{{Supporter.Phone}}</span>
+										</span>
+									</a>
+								</md-button>
+							</md-menu-item>
+							<md-menu-item flex="100">
+								<md-button class="md-ink-ripple md-default-theme">
+									<a class="style-a" href="http://help.ezcloudhotel.com/" target="_blank">
+										<span layout layout-align="start center">
+											<md-icon md-svg-icon="img/icons/ic_play_arrow_48px.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);"></md-icon>
+											<span>{{'HELP' | translate}}</span>
+										</span>
+									</a>
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+					<md-button ng-show="$mdMedia('xs')" ng-hide="$mdMedia('gt-xs')" aria-label="Open demo menu" class="md-icon-button" ng-click="toggleRight()">
+						<md-icon md-menu-origin style="fill:#ffffff;" md-svg-icon="img/backburger.svg"></md-icon>
+					</md-button>
+				</div>
+			</md-toolbar>
+			<md-content class="height100" style="background-color:#ffffff ;padding-bottom: 64px;min-height:100%" flex ui-view layout="column"
+			    id="main_view" cg-busy="{promise:dataLoadingPromise,templateUrl:'views/templates/dataLoadingPromise.tmpl.html',message:'LOADING',backdrop:true}">
+			</md-content>
+		</md-content>
+	</md-content>
+</body>
+
+</html>

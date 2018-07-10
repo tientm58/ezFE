@@ -1,0 +1,120 @@
+<style>
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 50px white inset;
+        /* Change the color to your own background color */
+        -webkit-text-fill-color: black;
+    }
+
+    input:-webkit-autofill:focus {
+        -webkit-box-shadow: /*your box-shadow*/
+         0 0 0 50px white inset;
+        -webkit-text-fill-color: black;
+    }
+
+    .formlogin {
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.67) !important;
+        /* max-height: 521px; */
+        min-height: 468px !important;
+    }
+
+    .topformlogin {
+        background-color: rgba(255, 255, 255, 0.66) !important;
+        position: relative;
+        /*height: 100px;*/
+        /* border-bottom: 1px solid #C2C2C2; */
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 5px;
+    }
+
+    .box {
+        padding: 25px;
+        margin-bottom: 30px;
+        margin-top: 0px;
+    }
+
+    .box-left-login {
+        border-left: 1px solid #A8A9AB;
+        text-align: center;
+    }
+    @media (max-width: 767px) {
+        .formlogin {
+            min-height: 477px;
+        }
+        #chat-application-iframe {
+            display: none;
+        }
+    }
+</style>
+<div layout="column" layout-align="start center" style="background-color: rgba(255, 255, 255, 0);background-size: 100% 100%;
+background-repeat: no-repeat;">
+    <md-card class="formlogin animated zoomIn" style="min-width:350px !important">
+        <md-toolbar class="topformlogin">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <img src="img/ezCloudhotel-bluelogo.svg" style="height: 70%;width: 120px;">
+                <span style="font-size:10px;color: dodgerblue;">{{'VERSION' | translate}}: {{'VERSION_NUMBER' | translate}}</span>
+            </div>
+        </md-toolbar>
+        <form layout="row" ng-submit="doLogin()" layout-xs="column" name="loginForm" layout-align="center" style="padding: 6px;">
+            <div flex="100" flex-xs="100" class="box">
+                <div style="padding-left:6px;padding-right:6px">
+                    <md-input-container flex md-is-error="!loginForm.username.$valid" class="md-icon-float md-block">
+                        <label>{{'USERNAME' | translate}}
+                        </label>
+                        <md-icon md-svg-src="img/icons/ic_person_48px.svg"></md-icon>
+                        <input type="text" ng-model="login.username" required name="username" />
+    
+                        <span ng-messages="loginForm.username.$error">
+                            <span ng-message="required"></span>
+                            <span ng-message="md-maxlength">{{'USERNAME_TOO_LONG' | translate}}</span>
+                            <span ng-message="minlength">{{'USERNAME_TOO_SHORT' | translate}}</span>
+                        </span>
+                    </md-input-container>
+                    <md-input-container flex md-is-error="!loginForm.password.$valid" class="md-icon-float md-block">
+                        <label>{{'PASSWORD' | translate}} </label>
+                        <md-icon md-svg-src="img/icons/ic_lock_48px.svg"></md-icon>
+                        <input required ng-model="login.password" type="password" name="password">
+                        <span ng-messages="loginForm.password.$error">
+                            <span ng-message="required"></span>
+                        </span>
+                    </md-input-container>
+                    <md-autocomplete md-selected-item="selectedItem" md-search-text-change="searchTextChange(searchText)" md-search-text="searchText"
+                        md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchText)" md-item-text="item.HotelName"
+                        md-min-length="0" placeholder="Please select your hotel to login?">
+                        
+                        <md-item-template>
+                            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.HotelName}} - {{item.HotelId}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No hotel matching "{{ctrl.searchText}}" were found.
+                        </md-not-found>
+                    </md-autocomplete>
+                    <md-input-container flex md-is-error="!loginForm.hotelId.$valid" id="hotelID" class="md-icon-float md-block">
+                        <label>{{'HOTEL_ID' | translate}} </label>
+                        <md-icon md-svg-src="img/icons/ic_domain_48px.svg"></md-icon>
+                        <input ng-model="login.hotelId" name="hotelId" id="hotelId">
+                        <span ng-messages="loginForm.hotelId.$error">
+                            <span ng-message="required">*</span>
+                        </span>
+                    </md-input-container>
+                </div>
+                <button class="hide"></button>
+                <div layout="row" layout-wrap layout-align="space-between center" flex="100">
+                    <button class="hide"></button>
+                    <md-button ng-disabled="loginForm.$invalid" class="md-raised md-primary" ng-click="doLogin()" flex="100">
+                        <md-icon md-svg-src="/img/icons/ic_lock_open_48px.svg"></md-icon>
+                        <span flex>{{'LOGIN' | translate}}</span>
+                    </md-button>
+                </div>
+
+                <md-divider></md-divider>
+                <br />
+                <div style="padding-left:6px;padding-right:6px">
+                    <span>{{'DONT_HAVE_AN_ACCOUNT' | translate}}</span>&nbsp;
+                    <a ng-click="transferToSignUp()" style="color:red;cursor:pointer">{{'SIGNUP' | translate}}</a>
+                </div>
+            </div>
+        </form>
+    </md-card>
+</div>

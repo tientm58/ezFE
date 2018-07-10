@@ -1,0 +1,216 @@
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+    md-list-item{
+        max-height: 48px;
+    }
+    ._md-secondary-container{
+        max-height: 48px;
+    }
+</style>
+<div class="md-dialog-content" layout="row" layout-wrap layout-align="space-between start" flex="100" style="padding-bottom: 20px;width: 100%;">
+    <section flex-gt-xs="45" flex-xs="100" flex-sm="100" layout="column" style="padding-bottom: 20px;">
+        <md-list style="padding: 0px;">
+            <md-subheader class="md-no-sticky">{{'NEW_ROOM' | translate}}</md-subheader>
+            <md-list-item>
+                <p>{{ 'ROOM_TYPE' | translate }}</p>
+                <md-select ng-model="newRoom.RoomTypeId" class="md-secondary" ng-change="update();">
+                    <md-select-label style="width:100%"></md-select-label>
+                    <md-option ng-repeat="rt in roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName | translate }}</md-option>
+                </md-select>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'ROOM' | translate }}</p>
+                <md-select ng-model="newRoom.RoomId" class="md-secondary">
+                    <md-select-label style="width:100%"></md-select-label>
+                    <md-option ng-repeat="r in availableRoom | filter: {RoomTypeId:newRoom.RoomTypeId}" ng-value="r.RoomId">{{r.RoomName}}</md-option>
+                </md-select>
+            </md-list-item>
+            <md-list-item ng-if="currentRoom.reservationRoom">
+                <p>{{ 'ARRIVAL' | translate }}</p>
+                <input kendo-date-time-picker class="md-secondary" ng-model="str" ng-disabled="currentRoom.BookingStatus =='CHECKIN' || currentRoom.BookingStatus =='OVERDUE'" k-ng-model="currentRoom.reservationRoom.ArrivalDate" style="width: 100%;" k-options="DateTimePickerOption" />
+            </md-list-item>
+            <md-list-item ng-if="currentRoom.reservationRoom">
+                <p>{{ 'DEPARTURE' | translate }}</p>
+                <input kendo-date-time-picker class="md-secondary" ng-model="str2" ng-disabled="currentRoom.BookingStatus ==='CHECKIN' || currentRoom.BookingStatus ==='OVERDUE'" k-ng-model="currentRoom.reservationRoom.DepartureDate" style="width: 100%;" k-options="DateTimePickerOption" />
+            </md-list-item>
+            <md-list-item ng-if="!currentRoom.reservationRoom">
+                <p>{{ 'ARRIVAL' | translate }}</p>
+                <div flex="60">
+                    <input kendo-date-time-picker ng-model="str" ng-disabled="currentRoom.BookingStatus ==='CHECKIN' || currentRoom.BookingStatus ==='OVERDUE'" k-ng-model="currentRoom.ArrivalDate" style="width: 100%;" k-options="DateTimePickerOption" />
+                </div>
+            </md-list-item>
+            <md-list-item ng-if="!currentRoom.reservationRoom">
+                <p>{{ 'DEPARTURE' | translate }}</p>
+                <div flex="60">
+                    <input kendo-date-time-picker ng-model="str2" ng-disabled="currentRoom.BookingStatus ==='CHECKIN' || currentRoom.BookingStatus ==='OVERDUE'" k-ng-model="currentRoom.DepartureDate" style="width: 100%;" k-options="DateTimePickerOption" />
+                </div>
+            </md-list-item>
+            <div ng-if="currentRoom.BookingStatus=='CHECKIN' || currentRoom.BookingStatus=='OVERDUE' ">
+                <md-list-item>
+                    <p>{{'ROOM_MOVE_REASON' | translate}} ({{'REQUIRED' | translate}})
+                    </p>
+                </md-list-item>
+                <md-list-item>
+                    <md-input-container style="margin: 0px;width: 100%;">
+                        <textarea required ng-model="newRoom.Description" md-maxlength="150" ng-trim="true"></textarea>
+                    </md-input-container>
+                </md-list-item>
+            </div>
+        </md-list>
+        <div layout="column" layout-align="start start" style="padding: 0 16px;">
+            <md-checkbox aria-label="Override Price Rate" ng-model="isSelected" class="md-warn md-align-top-left">
+                {{'OVERRIDE_PRICE_RATE' | translate}}
+            </md-checkbox>
+        </div>
+        <div ng-show="isSelected" layout="column" style="padding: 0 16px;">
+            <div layout="row" layout-wrap layout-align="space-between center">
+                <span flex="20" flex-xs="30">{{ 'PRICE_RATE' | translate }}</span>
+                <md-select flex-xs="70" ng-model="newRoom.RoomPriceId" class="" flex="45" style="">
+                    <md-select-label style="width:100%"></md-select-label>
+                    <md-option ng-repeat="rate in priceRateList" ng-value="rate.RoomPriceId" ng-selected="rate.RoomPriceId.toString() === priceRateList[0].RoomPriceId.toString()">{{ rate.RoomPriceName | translate }}</md-option>
+                </md-select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span flex flex-xs="100">
+                        ({{currentRatePrice | currency}})
+                    </span>
+            </div>
+            <div layout="row" layout-align="space-between center" ng-show="currentRoom.BookingStatus !== 'BOOKED' && currentRoom.BookingStatus !=='NOSHOW' ">
+                <span flex="30">{{ 'ROOM_MOVE_FEE' | translate }}</span>
+                <md-input-container flex="60" style="height: 30px;">
+                    <input type="text" ng-model="newRoom.RoomMoveFee" ui-number-mask="decimal">
+                </md-input-container>
+            </div>
+        </div>
+        <div>
+            <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warning === true">
+                <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+                <span style="color: #f44336;">
+                        {{'ROOM_IS_NOT_AVAILABLE_FOR_SELECTED_DATES' | translate}}. {{'CONFLICT_WITH_RESERVATION' | translate}} {{currentRoom.roomBookingList[0].ReservationRoomId}}
+                    </span>
+            </fieldset>
+        </div>
+    </section>
+    <section flex flex-xs="100" flex-sm="100" ng-if="currentRoom.reservationRoom">
+        <md-list style="padding: 0px;">
+            <md-subheader class="md-no-sticky">{{'CURRENT_ROOM' | translate}}</md-subheader>
+            <md-list-item>
+                <p>{{ 'RES_NO' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.reservationRoom.Reservations.ReservationNumber }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'ROOM' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.RoomName }}({{currentRoom.roomType.RoomTypeCode}})</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'PRICE_RATE' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.RoomPriceName | translate}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'PRICE' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.reservationRoom.Price | currency}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'GUEST' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.reservationRoom.Travellers.Fullname }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'ADULTS' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.reservationRoom.Adults }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'CHILDREN' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.reservationRoom.Child }}</p>
+            </md-list-item>
+        </md-list>
+    </section>
+    <section flex flex-xs="100" flex-sm="100" ng-if="!currentRoom.reservationRoom">
+        <md-list style="padding: 0px;">
+            <md-subheader class="md-no-sticky">{{'CURRENT_ROOM' | translate}}</md-subheader>
+            <md-list-item>
+                <p>{{ 'RES_NO' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.Reservations.ReservationNumber }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'ROOM' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.Rooms.RoomName }}({{currentRoom.RoomTypes.RoomTypeCode}})</p>
+            </md-list-item>
+            <md-list-item ng-if="currentRoom.RoomPriceName">
+                <p>{{ 'PRICE_RATE' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.RoomPriceName | translate }}</p>
+            </md-list-item>
+            <md-list-item ng-if="!currentRoom.RoomPriceName">
+                <p>{{ 'PRICE_RATE' | translate }}</p>
+                <p class="md-secondary" style="font-style: italic;">{{ 'NOT_ASSIGNED' | translate }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'PRICE' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.Price | currency }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'GUEST' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.Travellers.Fullname }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'ADULTS' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.Adults }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'CHILDREN' | translate }}</p>
+                <p class="md-secondary">{{ currentRoom.Child }}</p>
+            </md-list-item>
+        </md-list>
+    </section>
+    <section flex="100">
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warning.MissingRoom === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'MISSING_ROOM._PLEASE_SELECT_A_ROOM_TO_PERFORM_ROOM_MOVE_ACTION' | translate}}.
+            </span>
+        </fieldset>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warning.MissingReason === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'ROOM_MOVE_REASON_CAN_NOT_BE_EMPTY' | translate}}.
+            </span>
+        </fieldset>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warning.Date === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'ARRIVAL_DATE_CAN_NOT_GREATER_THAN_DEPARTURE_DATE' | translate}}.
+            </span>
+        </fieldset>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warning.DepartureDate === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'ARRIVAL_DATE_AND_DEPARTURE_DATE_CAN_NOT_LESS_THAN_CURRENT_TIME' | translate}}.
+            </span>
+        </fieldset>
+    </section>
+</div>
+<md-dialog-actions layout="row">
+    <md-button ng-click="cancel()" class="md-primary">
+        {{'CANCEL' | translate}}
+    </md-button>
+    <md-button ng-if="IsDashboard == 0" ng-click="processRoomMove()" class="md-primary">
+        {{'PROCESS' | translate}}
+    </md-button>
+    <md-button ng-if="IsDashboard == 1" ng-click="processRoomMoveDB()" class="md-primary">
+        {{'PROCESS' | translate}}
+    </md-button>
+</md-dialog-actions>
+

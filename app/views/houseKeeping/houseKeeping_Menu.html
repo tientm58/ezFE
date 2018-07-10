@@ -1,0 +1,22 @@
+﻿<md-bottom-sheet class="md-grid" layout="column" ng-cloak>
+    <md-list flex layout="row" layout-align="start center">
+        <md-list-item ng-repeat="menu in menus">
+            <div>
+                <md-button class="md-grid-item-content" ng-click="listItemClick(menu)">
+                    <md-icon class="md-grid-text" style="text-align:center" md-svg-src="img/icons/{{menu.icon}}"></md-icon>
+                    <div class="md-grid-text" style="white-space:normal">
+                        <span ng-if="menu.name==='CANCEL'">{{ 'CANCEL_RESERVATION' | translate }}</span>
+                        <span ng-if="menu.name!='CANCEL'">{{ menu.name | translate }}</span>
+                    </div>
+                </md-button>
+            </div>
+        </md-list-item>
+        <md-list-item ng-repeat="menuES in menuExtraService">
+            <md-button class="md-grid-item-content" ng-click="listExtraServiceClick(menuES)">
+                <md-icon class="md-grid-text" md-svg-src="img/icons/{{menuES.icon}}"></md-icon>
+                <div class="md-grid-text" style="white-space:normal"> {{ menuES.name | translate }}</div>
+            </md-button>
+        </md-list-item>
+    </md-list>
+
+</md-bottom-sheet>

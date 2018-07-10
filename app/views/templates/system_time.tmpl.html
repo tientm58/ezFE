@@ -1,0 +1,153 @@
+<div class="md-whiteframe-z1 margin0" >
+    <md-toolbar style="margin-top:-20px">
+        <div class="md-toolbar-tools">
+            <span flex class="md-toolbar-tools">
+                <h2>
+                    {{'HOTEL_AND_LOCAL_TIME' | translate}}
+                </h2>
+        </span>
+            <md-button class="md-warn md-fab md-mini" ng-click="saveHotelTimeSettingChanges()" ng-if="isHotelTimeSettingChanged" style=" position: absolute; right: 16px; bottom: -20px; ">
+                <md-icon md-svg-src="img/icons/ic_save_48px.svg"></md-icon>
+                <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                    {{'SAVE_SETTING' | translate}}
+                </md-tooltip>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content style="min-height:100% !important;overflow-y:hidden" class="md-padding">
+        <div>
+            <span class="md-toolbar-tools">
+                <h3>
+                   {{'HOTEL_TIME_SETTINGS' | translate}}
+                </h3>
+            </span>
+            <md-list>
+                <md-subheader class="md-no-sticky">
+                    <span style="font-weight: bold;">{{'FULL_DAY_TIME_SETTINGS' | translate}}</span>
+                </md-subheader>
+                 <md-list-item>
+                    <p style="display: block; padding-left: 16px;">{{'FULL_DAY_CHECK_IN_TIME' | translate}}</p>
+                    <md-input-container class="md-secondary" style="padding-bottom: 0px;margin: 0px;height: 30px;">
+                        <input type="time" step="1" ng-model="hotelTimeSetting.FullDayCheckinTime" />
+                    </md-input-container>
+                </md-list-item>
+                <md-list-item>
+                    <p style="display: block; padding-left: 16px;">{{'FULL_DAY_CHECK_OUT_TIME' | translate}}</p>
+                    <md-input-container class="md-secondary" style="padding-bottom: 0px;margin: 0px;height: 30px;">
+                        <input type="time" step="1" ng-model="hotelTimeSetting.FullDayCheckoutTime" />
+                    </md-input-container>
+                </md-list-item>
+               
+                <md-subheader class="md-no-sticky">
+                    <span style="font-weight: bold;">{{'DAY_NIGHT_TIME_SETTINGS' | translate}}</span>
+                </md-subheader>
+                <md-list-item>
+                    <p style="display: block; padding-left: 16px;">{{'START_TIME' | translate}}</p>
+                    <md-input-container style="margin-bottom: 0px;margin: 0px;height: 30px;" class="md-secondary">
+                        <input type="time" step="1" ng-model="hotelTimeSetting.DayNightStartTime" />
+                    </md-input-container>
+                </md-list-item>
+                <md-list-item>
+                    <p style="display: block; padding-left: 16px;">{{'END_TIME' | translate}}</p>
+                    <md-input-container style="margin: 0px;height: 30px;" class="md-secondary">
+                        <input type="time" step="1" ng-model="hotelTimeSetting.DayNightEndTime" />
+                    </md-input-container>
+                </md-list-item>
+                <md-subheader class="md-no-sticky ">
+                    <span style="font-weight: bold;">{{'NIGHT_AUDIT_TIME_SETTINGS' | translate}}</span>
+                </md-subheader>
+                <md-list-item class=" hide">
+                    <p style="display: block; padding-left: 16px;">{{'NIGHT_AUDIT_TIME' | translate}}</p>
+                    <md-input-container class="md-secondary" style="margin: 0px;height: 30px;">
+                        <input type="time" step="1" ng-model="hotelTimeSetting.NightAuditTime" />
+                    </md-input-container>
+                </md-list-item>
+                <md-list-item >
+                    <p style="display: block; padding-left: 16px;">{{'ROOM_DIRTY_AFTER_NIGHT_AUDIT' | translate}}</p>
+                    <md-checkbox ng-model="hotelTimeSetting.IsRoomDirtyAfterNightAudit" class="md-warn md-secondary">
+                    </md-checkbox>
+                </md-list-item>
+                <md-subheader class="md-no-sticky ">
+                    <span style="font-weight: bold;">{{'CONFIG_PRICE' | translate}}</span>
+                </md-subheader> 
+                <md-list-item class="hide" >
+                    <p style="padding-left: 16px;">{{'OFF_SET_MIN_MAX' | translate}}</p>
+                    <md-checkbox ng-model="hotelTimeSetting.OffSetMinMax" class="md-warn md-secondary">
+                    </md-checkbox>
+                </md-list-item>
+                <md-list-item >
+                    <p style="padding-left: 16px;">{{'IS_USE_SUM_NIGHT' | translate}}</p>
+                    <md-checkbox ng-model="hotelTimeSetting.IsUseSumNight" class="md-warn md-secondary">
+                    </md-checkbox>
+                </md-list-item>
+                <md-list-item ng-show="hotelTimeSetting.IsUseSumNight" >
+                    <p style="padding-left: 16px;">{{'TRANSITION_NIGHT_DAY' | translate}}</p>
+                    <md-input-container class="md-warn md-secondary">
+                        <md-select ng-model="hotelTimeSetting.OptionNightDay" >
+                            <md-option ng-repeat="option in optionNightDays" value='{{option.value}}'>
+                                {{ option.name | translate}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </md-list-item>
+                <md-subheader class="md-no-sticky">
+                    {{'ROUND_UP_MINUTES_TO_1_HOUR' | translate}}
+                </md-subheader>
+                <md-list-item>
+                    <md-input-container style="margin: 0px;" class="">
+                        <input type="number" string-to-number min="0" ng-model="hotelTimeSetting.MinutesToRoundUp" />
+                    </md-input-container>
+                </md-list-item>
+                </md-list-item>
+                <md-subheader class="md-no-sticky">
+                    {{'HOTEL_TIME_IN_OUT' | translate}}
+                </md-subheader>
+                <md-list-item>
+                    <p style="display: block; padding-left: 16px;">{{'USE_TIME_IN_OUT' | translate}}</p>
+                    <md-checkbox ng-model="hotelTimeSetting.UseTimeInOutPrivate" class="md-warn md-secondary">
+                    </md-checkbox>
+                </md-list-item>
+                <md-list-item>
+                    <p style="display: block; padding-left: 16px;">{{'TIME_IN' | translate}}</p>
+                    <md-input-container class="md-secondary" style="padding-bottom: 0px;margin: 0px;height: 30px;">
+                        <input type="time" step="1" ng-model="hotelTimeSetting.TimeInPrivate" ng-disabled="!hotelTimeSetting.UseTimeInOutPrivate" />
+                    </md-input-container>
+                </md-list-item>
+                <md-list-item>
+                    <p style="display: block; padding-left: 16px;">{{'TIME_OUT' | translate}}</p>
+                    <md-input-container class="md-secondary" style="padding-bottom: 0px;margin: 0px;height: 30px;">
+                        <input type="time" step="1" ng-model="hotelTimeSetting.TimeOutPrivate" ng-disabled="!hotelTimeSetting.UseTimeInOutPrivate"/>
+                    </md-input-container>
+                </md-list-item>
+                <md-subheader class="md-no-sticky">
+                    {{'NO_SHOW' | translate}}
+                </md-subheader>
+                <md-list-item>
+                    <p style="display: block; padding-left: 16px;">{{'OFF_NO_SHOW' | translate}}</p>
+                    <md-checkbox ng-model="hotelTimeSetting.IsOffNoShow" class="md-warn md-secondary">
+                    </md-checkbox>
+                </md-list-item>
+            </md-list>
+        </div>
+        <md-divider></md-divider>
+        <div>
+            <span class="md-toolbar-tools">
+                <h3>
+                   {{'LOCALE_TIME_SETTINGS' | translate}}
+                </h3>
+            </span>
+            <div layout="row" layout-align="space-between center" layout-wrap>
+                <md-subheader class="md-no-sticky" flex="100">
+                    {{'TIME_ZONE' | translate}}
+                </md-subheader>
+                <md-input-container style="margin: 0px auto;">
+                    <md-select ng-model="hotelTimeSetting.TimeZoneId" ng-change="getTimeZoneOffset()">
+                        <md-option ng-repeat="timezone in hotelTimeSetting.listTimeZone" value="{{timezone.Id}}">
+                            {{ timezone.DisplayName }}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </div>
+    </md-content>
+</div>

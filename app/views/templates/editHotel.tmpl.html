@@ -1,0 +1,51 @@
+<md-dialog aria-label="Hotel Edit">
+    <form>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>{{::'EDIT_HOTEL' | translate}}</h2>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="cancel()">
+            <ng-md-icon class="md-inline-list-icon" icon="close"></ng-md-icon>
+          </md-button>
+        </div>
+    </md-toolbar>
+    
+    <md-dialog-content>
+    <div layout="column">
+        <md-content md-theme="docs-dark" layout-padding>
+            <form name="editHotelForm">
+                <div layout layout-sm="column">
+                    <md-input-container>
+                      <label>{{::'HOTEL_NAME' | translate}}</label>
+                      <input ng-model="hotelEditing.HotelName">
+                    </md-input-container>
+                     <md-input-container>
+                      <label>{{::'HOTEL_ADDRESS' | translate}}</label>
+                      <input ng-model="hotelEditing.HotelAddress">
+                    </md-input-container>
+                     <md-input-container>
+                      <label>{{::'HOTEL_EMAIL' | translate}}</label>
+                      <input ng-model="hotelEditing.HotelEmail">
+                    </md-input-container>
+                    <md-input-container>
+                      <label>{{::'HOTEL_PHONE_NUMBER' | translate}}</label>
+                      <input ng-model="hotelEditing.HotelPhone">
+                    </md-input-container>
+                </div>
+            </form>
+        </md-content>
+    </div>
+    </md-dialog-content>
+        
+    <div class="md-actions" layout="row">
+        <md-button ng-click="cancel()" class="md-primary">
+          {{::'CANCEL' | translate}}
+        </md-button>
+        <md-button ng-click="saveEdited(hotelEditing)" class="md-primary">
+           {{::'SAVE' | translate}}
+        </md-button>
+        </div>
+        
+    </form>
+    
+</md-dialog>

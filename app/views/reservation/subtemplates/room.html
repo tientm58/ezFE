@@ -1,0 +1,248 @@
+<style>
+    .fabToolbardemoBasicUsage md-fab-toolbar.md-left md-fab-trigger.align-with-text {
+        left: 7px;
+    }
+
+    md-input-container.md-default-theme label,
+    md-input-container.md-default-theme .md-placeholder {
+        color: grey !important;
+        font-weight: bold !important;
+    }
+
+    .text {
+        display: inline;
+        padding: .0em .0em .0em;
+        font-weight: 600;
+        text-transform: none;
+        word-break: break-all;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+
+    .disabled {
+        background: #dddddd;
+    }
+
+    .textDiabled {
+        text-decoration: line-through
+    }
+
+    .container {
+        font-size: 16px;
+        line-height: 16px;
+        height: 32px;
+        overflow: hidden;
+    }
+
+    .show {
+        overflow: visible;
+        height: auto;
+    }
+
+    .test {
+        width: 11em;
+        border: 1px solid #eee;
+        word-wrap: break-word;
+    }
+</style>
+<md-card style="border-top: 1px solid #eee;" ng-cloak>
+    <div class="box-header">
+        <div ng-if="isCheckOut === false || room.BookingStatus ==='AVAILABLE'" layout="row" layout-align="space-between center" class="max-height50"
+            layout-wrap>
+            <div flex="85" flex-xs="75">
+                <span class="sub-title">{{'STAY_INFORMATION' | translate}}</span>
+            </div>
+            <div layout="column" layout-align="center center" ng-if="room.BookingStatus !== 'CHECKOUT' && room.BookingStatus !== 'CANCELLED'"
+                style="margin: auto 0px;">
+                <md-button aria-label="Room Edit" class="md-primary md-fab md-mini launch" ng-click="processAmendStay()" ng-if="room.BookingStatus !== 'CHECKOUT' && room.BookingStatus !== 'CANCELLED'"
+                    style="padding: 0px; margin: 0px;">
+                    <md-icon md-svg-src="img/icons/ic_alarm_add_24px.svg">
+                    </md-icon>
+                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'AMEND_STAY' | translate}}
+                    </md-tooltip>
+                </md-button>
+            </div>
+        </div>
+        <md-divider></md-divider>
+    </div>
+<md-card-content class="md-default-theme" style="height:679px" ng-cloak>
+        <span ng-if="applyPastCheckOut">
+            ({{'ALREADY_APPLY_PAST_CHECKOUT' | translate}})
+        </span>
+        <span ng-if="pastCheckOutReason">
+            {{pastCheckOutReason}}
+        </span>
+        <md-list style="">
+            <md-list-item ng-cloak>
+                <p>
+                    {{ 'RES_NO' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: 500;" ng-bind="reservationNumber">
+                    <!-- {{ reservationNumber }} -->
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="passCodeLock" ng-cloak>
+                <p>
+                    {{ 'PASSCODE_LOCK' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: 500;" ng-bind="passCodeLock">
+                    <!-- {{ reservationNumber }} -->
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="CMBookingId" ng-cloak>
+                <p>
+                    {{ 'BOOKING_ID' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: 500;">
+                    {{ CMBookingId }} ({{ CMChannelRef }})
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="room.BookingStatus == 'CANCELLED'" ng-cloak>
+                <p style="font-weight: bold; color: #f44336;">
+                    {{ 'CANCELLED' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: bold; color: #f44336;">
+                    {{ room.CancelReason }}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="roomInfo.RoomId > 0" ng-cloak>
+                <p>
+                    {{ 'ROOM' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: 500;" ng-bind="roomInfo.RoomName">
+                    <!-- {{ roomInfo.RoomName }} -->
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="roomInfo.RoomId == 0 || roomInfo ==null" ng-cloak>
+                <p>
+                    {{ 'ROOM' | translate }}
+                </p>
+                <p class="md-secondary" layout="row" layout-align="end center" style="font-weight: 500;font-style: italic;">
+                    {{ 'NOT_ASSIGNED' | translate }}
+                    <md-icon md-svg-src="img/icons/ic_add_circle_outline_48px.svg" ng-click="assignRoom()" ng-if="room.BookingStatus !== 'CANCELLED'"
+                        style="cursor: pointer;">
+                    </md-icon>
+                </p>
+            </md-list-item>
+            <md-list-item ng-cloak>
+                <p>
+                    {{ 'ROOM_TYPE' | translate }}
+                </p>
+                <p class="md-secondary">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="changeRoomType()" ng-if="!room.RoomId && (room.BookingStatus === 'BOOKED' || room.BookingStatus === 'NOSHOW')"
+                        style="cursor: pointer;">
+                    </md-icon>
+                    {{ roomTypeInfo.RoomTypeName | translate}}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="room.RoomPriceId" ng-cloak>
+                <p>
+                    {{ 'PRICE_RATES' | translate }}
+                </p>
+                <p class="md-secondary">
+                    <!-- <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="processRoomRateTypeOperation()" ng-if="!room.RoomId && (room.BookingStatus === 'BOOKED' || room.BookingStatus === 'NOSHOW')" style="cursor: pointer;">
+                    </md-icon> -->
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-if="hasRRIDParam && (user.Roles.indexOf('ROLE_HOTEL_STAFF') < 0) && room.BookingStatus !== 'CHECKOUT' && room.BookingStatus !== 'CANCELLED'"
+                        ng-click="processRoomRateTypeOperation($event)" style="cursor: pointer;">
+                    </md-icon>
+                    {{ planInfo.RoomPriceName | translate}}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="room.RoomPriceId >0 && room.BookingStatus !== 'CHECKOUT' && room.BookingStatus !== 'CANCELLED'" ng-cloak>
+                <p>
+                    {{ 'PRICE' | translate }}
+                </p>
+                <p class="md-secondary" ng-if="planInfo.UseHourlyPrice == true || planInfo.UseDayNightPrice == true">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="editPrice()" style="cursor: pointer;">
+                    </md-icon>
+                    {{ roomPriceTemp | currency}}
+                </p>
+                <p class="md-secondary" ng-if="planInfo.UseHourlyPrice == false && planInfo.UseDayNightPrice == false">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="editPrice()" style="cursor: pointer;">
+                    </md-icon>
+                    {{ totalPriceTemp | currency}}
+                </p>
+            </md-list-item>
+            <md-list-item ng-cloak>
+                <p>
+                    {{ 'ARRIVAL' | translate }}
+                </p>
+                <p class="md-secondary">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="editCheckInTime()" ng-if="(user.Roles.indexOf('ROLE_HOTEL_OWNER') >= 0 || user.Roles.indexOf('ROLE_SYS_ADMIN') >= 0 || user.Roles.indexOf('ROLE_HOTEL_MANAGER') >=0) && room.BookingStatus !== 'CHECKOUT' && room.BookingStatus !== 'CANCELLED' && room.BookingStatus !== 'BOOKED' && room.BookingStatus !== 'NOSHOW'"
+                        style="cursor: pointer;">
+                    </md-icon>
+                    {{ room.ArrivalDate | date:'dd/MM/yyyy, HH:mm' }}
+                </p>
+            </md-list-item>
+            <md-list-item ng-cloak>
+                <p>
+                    {{ 'DEPARTURE' | translate }}
+                </p>
+                <p class="md-secondary">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="checkOutInThePast()" ng-if="(user.Roles.indexOf('ROLE_HOTEL_OWNER') >= 0 || user.Roles.indexOf('ROLE_SYS_ADMIN') >= 0 || user.Roles.indexOf('ROLE_HOTEL_MANAGER') >=0) && room.BookingStatus !== 'CHECKOUT' && room.BookingStatus !== 'CANCELLED' && room.BookingStatus !== 'BOOKED' && room.BookingStatus !== 'NOSHOW'"
+                        style="cursor: pointer;">
+                    </md-icon>
+                    {{ room.DepartureDate | date:'dd/MM/yyyy, HH:mm' }}
+                </p>
+            </md-list-item>
+            <md-list-item ng-cloak>
+                <p>
+                    {{ 'ADULT' | translate }}
+                </p>
+                <p class="md-secondary">
+                    {{ room.Adults }}
+                </p>
+            </md-list-item>
+            <md-list-item ng-cloak>
+                <p>
+                    {{ 'CHILDREN' | translate }}
+                </p>
+                <p class="md-secondary">
+                    {{ room.Child }}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="room.Foc == true" ng-cloak>
+                <p>
+                    {{ 'FREE_OF_CHARGE' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: bold; color: #f44336;">
+                    {{'FREE' | translate}}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="room.DiscountPercentage > 0" ng-cloak>
+                <p>
+                    {{ 'PERCENT_OFF' | translate }}
+                </p>
+                <p class="md-secondary">
+                    {{room.DiscountPercentage}} (%)
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="room.DiscountFlat > 0" ng-cloak>
+                <p>
+                    {{ 'MONEY_OFF' | translate }}
+                </p>
+                <p class="md-secondary">
+                    {{room.DiscountFlat | currency}}
+                </p>
+            </md-list-item>
+            <md-list-item ng-cloak>
+                <p>
+                    {{ 'NOTE' | translate }}
+                </p>
+                <p class="md-secondary">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="editNote()" ng-if="room.BookingStatus === 'CHECKIN' || room.BookingStatus === 'BOOKED' "
+                        style="cursor: pointer;">
+                    </md-icon>
+                </p>
+            </md-list-item>
+            <md-list-item ng-cloak>
+                <textarea columns="1" ng-bind="room.Note" ng-disabled="true" rows="5" style="width: 100%; border: none;">
+                </textarea>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+</md-card>

@@ -1,0 +1,544 @@
+<style>
+	.readOnly {
+		background: #dddddd;
+	}
+	
+	.thumbnail {
+		max-width: 200px;
+		max-height: 150px;
+		line-height: 20px;
+		margin-bottom: 5px;
+	}
+	
+	md-input-container:not(.md-input-invalid) > md-icon.email {
+		color: green;
+	}
+	
+	md-input-container:not(.md-input-invalid) > md-icon.name {
+		color: dodgerblue;
+	}
+	
+	md-input-container.md-input-invalid > md-icon.email,
+	md-input-container.md-input-invalid > md-icon.name {
+		color: red;
+	}
+	
+	.steps-indicator {
+		/* ---- steps quantity ---- */
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin: 0;
+		padding: 20px 0 0 0;
+		height: 30px;
+		list-style: none;
+		/* --- http://www.paulirish.com/2012/box-sizing-border-box-ftw/ ---- */
+	}
+	
+	.has-error {
+		/* label classes */
+		display: inline;
+		/*		padding: .2em .6em .3em;*/
+		padding: 0px;
+		font-size: 75%;
+		font-weight: bold;
+		line-height: 1;
+		color: #f44336;
+		text-align: left;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: .25em;
+		/* label danger classes */
+		background-color: #ffffff;
+	}
+	
+	.steps-indicator:before {
+		content: '';
+		position: absolute;
+		color: black;
+		border-bottom: 3px solid yellowgreen;
+	}
+	
+	.steps-indicator:after {
+		content: '';
+		position: absolute;
+		color: black;
+		border-bottom: 3px solid red;
+	}
+	
+	.steps-indicator.steps-2:before {
+		left: calc(100% / 2 / 2);
+		right: calc(100% / 2 / 2);
+	}
+	
+	.steps-indicator.steps-3:before {
+		left: calc(100% / 3 / 2);
+		right: calc(100% / 3 / 2);
+	}
+	
+	.steps-indicator * {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	
+	.steps-indicator li {
+		position: relative;
+		float: left;
+		margin: 0;
+		padding: 0;
+		padding-top: 10px;
+		text-align: center;
+		line-height: 15px;
+	}
+	
+	.steps-indicator li a {
+		/*  color: #808080;*/
+		text-decoration: none;
+		text-transform: none;
+		font-weight: bold;
+		transition: 0.25s;
+		cursor: pointer;
+	}
+	
+	.steps-indicator li a:before {
+		position: absolute;
+		top: -7px;
+		left: calc(50% - 7px);
+		width: 17px;
+		height: 17px;
+		border-radius: 100%;
+		background-color: lightgrey;
+		content: '';
+		transition: 0.25s;
+	}
+	
+	.steps-indicator li a:hover {
+		color: #4d4d4d;
+	}
+	
+	.steps-indicator.steps-2 li {
+		width: calc(100% / 2);
+	}
+	
+	.steps-indicator.steps-3 li {
+		width: calc(100% / 3);
+	}
+	
+	.steps-indicator li.default {
+		pointer-events: none;
+	}
+	
+	.steps-indicator li.default a:hover {
+		color: #808080;
+	}
+	
+	.steps-indicator li.current,
+	.steps-indicator li.editing {
+		pointer-events: none;
+	}
+	
+	.steps-indicator li.current a:before {
+		/*  background-color: dodgerblue;*/
+		content: "\039F";
+		color: yellowgreen;
+		background-color: white;
+		font-size: 1.5em;
+		bottom: -1.6em;
+	}
+	
+	.steps-indicator li.done a:before {
+		background-color: #339933;
+		content: "\2713";
+		color: white
+	}
+	
+	.steps-indicator li.editing a:before {
+		/*  background-color: #ff0000;*/
+		content: "\039F";
+		color: red;
+		background-color: white;
+		font-size: 1.5em;
+		bottom: -1.6em;
+	}
+	
+	input[type=number]::-webkit-inner-spin-button,
+	input[type=number]::-webkit-outer-spin-button {
+		opacity: 1;
+	}
+	
+	.has-error {
+		/* label classes */
+		display: inline;
+		padding: .2em .6em .3em;
+		font-size: 75%;
+		font-weight: bold;
+		line-height: 1;
+		color: #f44336;
+		text-align: left;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: .25em;
+		/* label danger classes */
+		background-color: #ffffff;
+	}
+	
+	md-card>:not(md-card-content) img,
+	md-card>img {
+		height: auto !important;
+	}
+	
+	.md-list-item.md-2-line .md-list-item-text,
+	md-list-item.md-2-line>._md-no-style .md-list-item-text,
+	md-list-item.md-3-line .md-list-item-text,
+	md-list-item.md-3-line>._md-no-style .md-list-item-text {
+		margin: auto;
+	}
+	
+	md-list-item ._md-list-item-inner ._md-secondary-container,
+	md-list-item ._md-secondary-container {
+		height: auto;
+	}
+</style>
+
+<div ng-cloak>
+	<md-content>
+		<md-tabs md-dynamic-height md-border-bottom md-center-tabs md-selected="selectedIndex" style="">
+			<md-tab label="{{ 'GENERAL_INFO' | translate }}">
+				<md-content class="" layout="row" layout-wrap layout-align="center center" style="">
+					<div class="md-padding md-whiteframe-z1" flex-gt-xs="70" flex-xs="90" style="border-top: 1px solid #eee;margin: auto;margin-top: 24px;margin-bottom: 24px;max-height: none;">
+						<div layout="row" layout-align="end end" flex>
+							<md-button class="md-raised md-primary" ng-disabled="HotelCreatingForm.$invalid" ng-click="nextTab();$event.preventDefault()">{{ 'STEP_2' | translate }}</md-button>
+						</div>
+						<form name="HotelCreatingForm" flex>
+							<div layout="row" layout-wrap>
+								<md-input-container flex-xs="100" flex-sm="100" flex-gt-sm="50" md-is-error="!HotelCreatingForm.hotelName.$valid">
+									<label>{{'HOTEL_NAME(REQUIRED)' | translate}}</label>
+									<input type="text" required name="hotelName" ng-model="hotelQuickSettingsData.HotelName">
+								</md-input-container>
+
+								<md-input-container flex-xs="100" flex-sm="100" flex-gt-sm="50" md-is-error="!HotelCreatingForm.hotelAddress.$valid">
+									<label>{{'HOTEL_ADDRESS(REQUIRED)' | translate}}</label>
+									<input type="text" name="hotelAddress" required ng-model="hotelQuickSettingsData.HotelAddress">
+								</md-input-container>
+							</div>
+							<div layout="row" layout-wrap>
+								<md-input-container flex-xs="100" flex-sm="100" flex-gt-sm="50" md-is-error="!HotelCreatingForm.hotelEmail.$valid">
+									<label>{{'HOTEL_EMAIL(REQUIRED)' | translate}}</label>
+									<input type="text" maxlength="50" ng-maxlength="50" name="hotelEmail" required ng-model="hotelQuickSettingsData.HotelEmail" ng-pattern="/^[_a-z0-9A-Z]+(\.[_a-z0-9A-Z]+)*@[a-z0-9A-Z-]+(\.[a-z0-9A-Z-]+)*(\.[a-zA-Z]{2,4})$/">
+									<div ng-messages="HotelCreatingForm.hotelEmail.$error" class="has-Error" style="">
+										<span ng-if="HotelCreatingForm.hotelEmail.$error.pattern">
+							 {{ 'INVALID_EMAIL' | translate }}
+						</span>
+									</div>
+								</md-input-container>
+
+								<md-input-container flex-xs="100" flex-sm="100" flex-gt-sm="50" md-is-error="!HotelCreatingForm.hotelPhone.$valid">
+									<label>{{'HOTEL_PHONE(REQUIRED)' | translate}}</label>
+									<input type="text" maxlength="50" ng-maxlength="50" name="hotelPhone" required ng-model="hotelQuickSettingsData.HotelPhone">
+								</md-input-container>
+							</div>
+
+							<div layout="row" layout-wrap>
+								<md-input-container flex-xs="100" flex-sm="100" flex-gt-sm="50">
+									<label>{{'HOTEL_SUB_DOMAIN' | translate}}</label>
+									<input type="text" name="hotelSubDomain" ng-model="hotelQuickSettingsData.ezCloudSubDomain">
+								</md-input-container>
+								<md-input-container flex-xs="100" flex-sm="100" flex-gt-sm="50">
+									<label>{{'HOTEL_DOMAIN' | translate}}</label>
+									<input type="text" name="hotelDomain" ng-model="hotelQuickSettingsData.HotelDomain">
+								</md-input-container>
+							</div>
+							<div layout="row" layout-wrap>
+								<md-input-container flex-xs="100" flex-sm="100" flex-gt-sm="50">
+									<label>{{'HOTEL_WEBSITE' | translate}}</label>
+									<input type="text" name="hotelWebsite" ng-model="hotelQuickSettingsData.HotelWebsite">
+								</md-input-container>
+
+								<md-select flex-xs="100" flex-sm="100" flex-gt-sm="50" ng-model="hotelQuickSettingsData.HotelSizeId" placeholder="{{ 'HOTEL_SIZE' | translate }}" style="margin-bottom: 44px;">
+									<md-select-label style="width: 100%"></md-select-label>
+									<md-option ng-repeat="hotelSize in hotelSizeList" value="{{hotelSize.HotelSizeId}}">
+										{{hotelSize.HotelSizeName | translate}}
+									</md-option>
+
+								</md-select>
+							</div>
+							<div style="margin: auto 0px;" flow-init="{singleFile:true,headers:headers}" flow-files-submitted="$flow.upload()" flow-file-success="upload_success($message)" flow-error="upload_error($message,$flow)" layout="row" layout-wrap>
+								<div style="" layout="row" flex="100">
+									<span style="color: #444;">
+                                        {{'HOTEL_LOGO' | translate}} ({{'ONLY_PNG,JPG,JPEG,BMP_FILES_ALLOWED' | translate}})
+                                    </span>
+								</div>
+								<div layout="column" layout-align="center center" flex="100">
+									<md-card ng-show="!$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}" style="width: 200px;">
+										<img ng-src="img/noimageselected.png" class="md-card-image" alt="Washed Out">
+									</md-card>
+									<md-card ng-show="$flow.files.length" style="width: 320px;">
+										<img flow-img="$flow.files[0]" ng-src="{{imageUrl}}" />
+									</md-card>
+									<div ng-show="$flow.files.length" layout="row">
+
+										<md-button flow-btn flow-attrs="{accept:'image/*'}" style="text-transform: none;">
+											{{'CHANGE' | translate}}
+										</md-button>
+										<md-button ng-click="$flow.cancel(); removeLogo($event);" style="text-transform: none;">
+											{{'REMOVE' | translate}}
+										</md-button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</md-content>
+
+			</md-tab>
+			<md-tab label="{{'SYSTEM_INFORMATION' | translate}}" ng-disabled="HotelCreatingForm.$invalid">
+
+				<md-content layout="row" layout-wrap layout-align="center center" flex="100" style="margin: 12px auto;">
+					<div class="md-padding md-whiteframe-z1" flex-gt-xs="60" flex-xs="90" style="border-top: 1px solid #eee;margin: auto;margin-top: 24px;margin-bottom: 24px;max-height: auto;min-height:342px !important">
+						<div layout="row" layout-align="end end">
+							<md-button class="md-raised md-primary" ng-disabled="SystemInfoForm.$invalid" ng-click="nextTab();$event.preventDefault()">{{'STEP_3' | translate}}</md-button>
+						</div>
+						<form name="SystemInfoForm" layout="row" layout-wrap flex="100">
+							<span flex="100" style="font-style: italic; color: #f44336;margin-bottom: 12px;">
+								(*){{'THE_DEFAULT_CURRENCY_OF_THE_HOTEL_IS_ONE-TIME_SET_UP_PROCEDURE.YOU_CAN_NOT_RESET_THIS_INFORMATION_ONCE_THE_HOTEL_IS_CREATED' | translate}}
+							</span>
+							<md-input-container flex="100">
+								<label>{{'CHOOSE_HOTEL_DEFAULT_CURRENCY' | translate}}</label>
+								<md-select ng-model="hotelQuickSettingsData.CurrencyId">
+									<md-option ng-repeat="currency in currencyList" value="{{currency.CurrencyId}}" ng-selected="currency.AlphabeticCode === 'VND'">
+										{{currency.AlphabeticCode}} - {{currency.Currency}} ({{currency.Entity}})
+									</md-option>
+								</md-select>
+							</md-input-container>
+							<md-input-container flex="100">
+								<label>{{'CHOOSE_HOTEL_DEFAULT_TIME_ZONE' | translate}}</label>
+								<md-select ng-model="hotelQuickSettingsData.TimeZoneId">
+									<md-option ng-repeat="timeZone in TimeZones" value="{{timeZone.Id}}" ng-selected="timeZone.Id == 'SE Asia Standard Time'">
+										{{ timeZone.DisplayName }}
+									</md-option>
+								</md-select>
+							</md-input-container>
+							<md-input-container flex="100">
+								<label>{{'CHOOSE_HOTEL_EZMARKET' | translate}}</label>
+								<md-select ng-model="hotelQuickSettingsData.EzMarketId">
+									<md-option ng-repeat="market in EzMarkets" value="{{market.EzMarketId}}" ng-selected="market.EzMarketId == 1">
+										{{ market.Name }}
+									</md-option>
+								</md-select>
+							</md-input-container>
+							<!-- sale -->
+							<md-input-container flex="100">
+								<label>{{'CREATED_BY_SALES' | translate}}</label>
+								<md-select ng-model="hotelQuickSettingsData.SalesId">
+									<md-option ng-repeat="sale in Sales" value="{{sale.Id}}" ng-selected="$first">
+										{{ sale.UserName }}
+									</md-option>
+								</md-select>
+							</md-input-container>
+						</form>
+					</div>
+				</md-content>
+			</md-tab>
+			<md-tab label="{{'FLOOR/ROOM' | translate}}" ng-disabled="HotelCreatingForm.$invalid || SystemInfoForm.$invalid">
+				<md-content layout="row" layout-wrap layout-align="center center" flex="100" style="margin: 12px auto;">
+					<div class="md-padding md-whiteframe-z1" flex-gt-xs="60" flex-xs="90" style="border-top: 1px solid #eee;margin: auto;margin-top: 24px;margin-bottom: 24px;max-height: auto;min-height:342px !important">
+						<div layout="row" layout-align="end end">
+							<md-button class="md-raised md-primary" ng-disabled="FloorRoomInfoForm.$invalid || hotelQuickSettingsData.HotelFloorNum * hotelQuickSettingsData.HotelRoomNumPerFloor > 200" ng-click="nextTab();$event.preventDefault()">{{'STEP_4' | translate}}</md-button>
+						</div>
+						<form name="FloorRoomInfoForm" layout="row" layout-wrap flex="100">
+							<span flex="100">
+								<span style="font-weight: bold;">{{'TOTAL_ROOM' | translate}}: {{hotelQuickSettingsData.HotelFloorNum * hotelQuickSettingsData.HotelRoomNumPerFloor}}</span>
+								<span style="color: #f44336;" ng-if="hotelQuickSettingsData.HotelFloorNum * hotelQuickSettingsData.HotelRoomNumPerFloor > 200">({{'TOTAL_MAXIMUM_ROOM_200' | translate}})</span>
+							</span>
+							<md-input-container flex="100" md-is-error="!FloorRoomInfoForm.hotelFloorNum.$valid">
+								<label for="hotelFloorNum">{{'NUMBER_OF_FLOOR' | translate}}</label>
+								<input type="number" required name="hotelFloorNum" ng-model="hotelQuickSettingsData.HotelFloorNum" min="0" ng-keypress="filterValue($event)">
+							</md-input-container>
+
+							<md-input-container flex="100" md-is-error="!FloorRoomInfoForm.hotelRoomNumPerFloor.$valid">
+								<label for="hotelRoomNumPerFloor">{{'ROOM_PER_FLOOR' | translate}}</label>
+								<input type="number" required name="hotelRoomNumPerFloor" ng-model="hotelQuickSettingsData.HotelRoomNumPerFloor" min="0" ng-keypress="filterValue($event)">
+							</md-input-container>
+							
+							
+
+							<md-input-container flex="100" style="height:50px" md-is-error="!FloorRoomInfoForm.hotelRoomDefaultPrice.$valid">
+								<label for="hotelRoomDefaultPrice">{{'ROOM_DEFAULT_PRICE' | translate}}</label>
+								<input type="text" name="hotelRoomDefaultPrice" required ng-model="hotelQuickSettingsData.HotelRoomDefaultPrice" ui-number-mask="decimal">
+							</md-input-container>
+							
+
+
+						</form>
+					</div>
+				</md-content>
+			</md-tab>
+
+			<md-tab label="{{'COMPLETE' | translate}}" ng-disabled="FloorRoomInfoForm.$invalid || HotelCreatingForm.$invalid || SystemInfoForm.$invalid">
+				<div layout="row" class="md-padding md-whiteframe-z1" layout-wrap layout-align="center center" style="margin: 20px;border-top: 1px solid #eee;">
+					<div layout="row" layout-align="end center" style="width: 100%;">
+						<md-button class="md-raised md-primary" ng-click="saveHotel()" ng-disabled="disableSaveBtn">{{'SAVE' | translate}}</md-button>
+					</div>
+					<!--                    <md-content class="" style="width: 100%;">-->
+					<!--                        <form name="Complete" layout="row" layout-wrap flex="100">-->
+					<md-list style="width: 100%;">
+						<md-subheader class="md-no-sticky" style="background-color: #EEEEEE; margin-right: 0px;">
+							{{'A_NEW_HOTEL_WILL_BE_REGISTERED_WITH_LIST_OF_INFORMATION_BELOW.YOU_SHOULD_CHECK_THESE_CAREFULLY_AND_PRESS_SAVE_BUTTON_TO_CREATE_YOUR_NEW_HOTEL' | translate}}
+						</md-subheader>
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex> {{'HOTEL_NAME' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p>
+									<span style="font-weight: bold;">{{hotelQuickSettingsData.HotelName}}</span>
+								</p>
+							</div>
+						</md-list-item>
+						<md-divider></md-divider>
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex>{{'HOTEL_ADDRESS' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p><span style="font-weight: bold;">{{hotelQuickSettingsData.HotelAddress}}</span></p>
+							</div>
+						</md-list-item>
+						<md-divider></md-divider>
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex>{{'HOTEL_EMAIL' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p>
+									<span style="font-weight: bold;">
+										{{hotelQuickSettingsData.HotelEmail}}
+									</span>
+								</p>
+							</div>
+						</md-list-item>
+						<md-divider></md-divider>
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex>{{'HOTEL_PHONE' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p>
+									<span style="font-weight: bold;">
+										{{hotelQuickSettingsData.HotelPhone}}
+									</span>
+								</p>
+							</div>
+						</md-list-item>
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex>{{'HOTEL_DEFAULT_CURRENCY' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p>
+									<span style="font-weight: bold;">
+										{{hotelDefaultCurrency.AlphabeticCode}}
+									</span>
+								</p>
+							</div>
+						</md-list-item>
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex>{{'HOTEL_DEFAULT_TIME_ZONE' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p>
+									<span style="font-weight: bold;">
+										{{hotelDefaultTimeZone.DisplayName}}
+									</span>
+								</p>
+							</div>
+						</md-list-item>
+						<md-divider></md-divider>
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex>{{'HOTEL_FLOOR_NUM' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p>
+									<span style="font-weight: bold;">
+										{{hotelQuickSettingsData.HotelFloorNum}}
+									</span>
+								</p>
+							</div>
+						</md-list-item>
+						<md-divider></md-divider>
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex>{{'HOTEL_ROOM_PER_FLOOR' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p>
+									<span style="font-weight: bold;">
+										{{hotelQuickSettingsData.HotelRoomNumPerFloor}}
+									</span>
+								</p>
+							</div>
+						</md-list-item>
+						<md-divider></md-divider>
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex>{{'HOTEL_ROOM_DEFAULT_PRICE' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p>
+									<span style="font-weight: bold;">
+										{{hotelDefaultCurrency.AlphabeticCode}} {{hotelQuickSettingsData.HotelRoomDefaultPrice}}
+									</span>
+								</p>
+							</div>
+						</md-list-item>
+						<md-divider></md-divider>
+
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex>{{'HOTEL_SUB_DOMAIN' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p>
+									<span style="font-weight: bold;">
+										{{hotelQuickSettingsData.ezCloudSubDomain}}
+									</span>
+								</p>
+							</div>
+						</md-list-item>
+						<md-divider></md-divider>
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex> {{'HOTEL_DOMAIN' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p>
+									<span style="font-weight: bold;">
+										{{hotelQuickSettingsData.HotelDomain}}
+									</span>
+								</p>
+							</div>
+						</md-list-item>
+						<md-divider></md-divider>
+						<md-list-item flex layout layout-wrap>
+							<p flex-xs="100" flex> {{'HOTEL_WEBSITE' | translate}}:</p>
+							<div class="md-list-item-text md-secondary" flex flex-xs="100" layout layout-align="end center">
+								<p>
+									<span style="font-weight: bold;">
+										{{hotelQuickSettingsData.HotelWebsite}}
+									</span>
+								</p>
+							</div>
+						</md-list-item>
+						<md-divider></md-divider>
+						<md-list-item>
+							<p>
+								{{'HOTEL_LOGO' | translate}}:
+							</p>
+							<div class="md-list-item-text md-secondary" ng-if="imageUrl === null">
+								<span style="font-weight: bold;">
+									{{'NOT_SET' | translate}}
+								</span>
+							</div>
+
+						</md-list-item>
+						<md-list-item>
+							<p></p>
+							<div class="md-list-item-text md-secondary">
+								<md-card style="width:160px;" ng-if="imageUrl !== null">
+									<img ng-src="{{imageUrl}}" />
+								</md-card>
+							</div>
+						</md-list-item>
+					</md-list>
+
+
+					<!--                        </form>-->
+
+					<!--                    </md-content>-->
+
+				</div>
+			</md-tab>
+		</md-tabs>
+	</md-content>
+</div>

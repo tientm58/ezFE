@@ -1,0 +1,285 @@
+<style>
+	.CHECKINCODE {
+		background-color: #f44336;
+	}
+
+	.CHECKOUTCODE {
+		background-color: #e91e63;
+	}
+
+	.RESERVATIONCODE {
+		background-color: #2196F3;
+	}
+
+	.md-list-item.md-2-line .md-list-item-text,
+	md-list-item.md-2-line>._md-no-style .md-list-item-text,
+	md-list-item.md-3-line .md-list-item-text,
+	md-list-item.md-3-line>._md-no-style .md-list-item-text {
+		margin: auto;
+	}
+
+	.md-list-item ._md-list-item-inner ._md-secondary-container,
+	md-list-item ._md-secondary-container {
+		height: auto;
+	}
+
+	md-list-item.md-2-line .md-list-item-text p,
+	md-list-item.md-2-line>._md-no-style .md-list-item-text p,
+	md-list-item.md-3-line .md-list-item-text p,
+	md-list-item.md-3-line>._md-no-style .md-list-item-text p {
+		margin-bottom: 4px;
+	}
+
+	.autocompletedemoCustomTemplate .autocomplete-custom-template li {
+		border-bottom: 1px solid #ccc;
+		height: auto !important;
+		padding-top: 8px;
+		padding-bottom: 8px;
+		white-space: normal !important;
+	}
+
+	.autocompletedemoCustomTemplate .autocomplete-custom-template li:last-child {
+		border-bottom-width: 0;
+	}
+
+	.autocompletedemoCustomTemplate .autocomplete-custom-template .item-title,
+	.autocompletedemoCustomTemplate .autocomplete-custom-template .item-metadata {
+		display: block;
+		line-height: 2;
+	}
+
+	.autocompletedemoCustomTemplate .autocomplete-custom-template .item-title md-icon {
+		height: 18px;
+		width: 18px;
+	}
+
+	.heightOption {
+		height: calc(100% - 22%);
+		/*height: 470px !important;*/
+	}
+
+	.wp_scroll {
+		height: 100%;
+		overflow: auto;
+	}
+</style>
+<md-card flex-xs="100" flex-sm="100" flex-gt-sm="33" class="heightOption">
+	<div class="box-header">
+		<div layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+			<div flex="75" flex-xs="75">
+				<span class="sub-title">{{'BUSINESS' | translate}}</span>
+			</div>
+			<div>
+				<md-button ng-if="isBusinessChanged && isAddMarketing" class="md-primary md-fab md-mini" ng-click="saveBusiness()">
+					<md-icon md-svg-src="img/icons/ic_save_48px.svg" aria-label="Save Company"></md-icon>
+				</md-button>
+			</div>
+		</div>
+		<md-divider></md-divider>
+	</div>
+	<md-card-content>
+		<div flex="100" layout-padding layout="row" layout-align="space-between center" class="height60px" style="margin-top: 20px">
+			<md-input-container flex flex-sm="100" flex-xs="100">
+				<label>{{ 'COMPANY' | translate }}</label>
+				<md-autocomplete md-selected-item="selectedCompany" md-search-text-change="searchCompanyTextChange(searchCompanyText)" md-search-text="searchCompanyText"
+				    md-selected-item-change="selectedCompanyChange(item,Group)" md-items="item in queryCompanySearch(searchCompanyText)"
+				    md-item-text="item.CompanyName" md-min-length="0" md-menu-class="autocomplete-custom-template">
+					<md-item-template>
+						<span class="item-title">
+							<md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+							<span style="margin: auto;"> {{item.CompanyName}} </span>
+						</span>
+						<span class="item-metadata">
+							<span class="item-metastat">
+								<strong>{{'CODE' | translate}}:</strong> {{item.CompanyCode}}
+							</span>
+							<span class="item-metastat">
+								<strong>{{'EMAIL' | translate}}:</strong> {{item.CompanyEmail}}
+							</span>
+						</span>
+					</md-item-template>
+				</md-autocomplete>
+			</md-input-container>
+			<md-icon md-svg-src="img/icons/ic_edit_48px.svg" class="size-32 padding0 margin-top5" style="color:rgba(0,0,0,0.54) !important; cursor: pointer;"
+			    aria-label="Edit dialog" ng-click="editBusiness(selectedCompany)" ng-if="isEditMarketing"></md-icon>
+			<md-icon md-svg-src="img/icons/ic_add_box_48px.svg" class="size-32 padding0 margin-top5" style="color:rgba(0,0,0,0.54) !important; cursor: pointer;"
+			    aria-label="Edit dialog" ng-click="addNewCompany()" ng-if="isAddMarketing"></md-icon>
+		</div>
+		<div flex="100" layout-padding layout="row" layout-align="space-between center" class="height60px" style="margin-top: 20px">
+			<md-input-container flex flex-sm="100" flex-xs="100">
+				<label>{{'SOURCE' | translate}}</label>
+				<md-autocomplete ng-disabled="!isAddMarketing" md-selected-item="selectedSource" md-search-text-change="searchSourceTextChange(searchSourceText)"
+				    md-search-text="searchSourceText" md-selected-item-change="selectedSourceChange(item)" md-items="item in querySourceSearch(searchSourceText)"
+				    md-item-text="item.SourceName" md-min-length="0" md-menu-class="autocomplete-custom-template">
+					<md-item-template>
+						<span class="item-title">
+							<md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+							<span style="margin: auto;"> {{item.SourceName}} </span>
+						</span>
+						<span class="item-metadata">
+							<span class="item-metastat">
+								<strong>{{'CODE' | translate}}:</strong> {{item.ShortCode}}
+							</span>
+						</span>
+					</md-item-template>
+				</md-autocomplete>
+			</md-input-container>
+			<md-icon md-svg-src="img/icons/ic_edit_48px.svg" class="size-32 padding0 margin-top5" style="color:rgba(0,0,0,0.54) !important; cursor: pointer;"
+			    aria-label="Edit dialog" ng-click="editBusiness(selectedSource)" ng-if="isEditMarketing"></md-icon>
+			<md-icon md-svg-src="img/icons/ic_add_box_48px.svg" class="size-32 padding0 margin-top5" style="color:rgba(0,0,0,0.54) !important; cursor: pointer;"
+			    aria-label="Edit dialog" ng-click="addNewSource()" ng-if="isAddMarketing"></md-icon>
+		</div>
+		<div flex="100" layout-padding layout="row" layout-align="space-between center" class="height60px" style="margin-top: 20px">
+			<md-input-container flex flex-sm="100" flex-xs="100">
+				<label>{{'MARKET' | translate}}</label>
+				<md-autocomplete ng-disabled="!isAddMarketing" md-selected-item="selectedMarket" md-search-text-change="searchMarketTextChange(searchMarketText)"
+				    md-search-text="searchMarketText" md-selected-item-change="selectedMarketChange(item)" md-items="item in queryMarketSearch(searchMarketText)"
+				    md-item-text="item.MarketName" md-min-length="0" md-menu-class="autocomplete-custom-template">
+					<md-item-template>
+						<span class="item-title">
+							<md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+							<span style="margin: auto;"> {{item.MarketName}} </span>
+						</span>
+						<span class="item-metadata">
+							<span class="item-metastat">
+								<strong>{{'CODE' | translate}}:</strong> {{item.MarketCode}}
+							</span>
+						</span>
+					</md-item-template>
+				</md-autocomplete>
+			</md-input-container>
+			<md-icon md-svg-src="img/icons/ic_edit_48px.svg" class="size-32 padding0 margin-top5" style="color:rgba(0,0,0,0.54) !important; cursor: pointer;"
+			    aria-label="Edit dialog" ng-click="editBusiness(selectedMarket)" ng-if="isEditMarketing"></md-icon>
+			<md-icon md-svg-src="img/icons/ic_add_box_48px.svg" class="size-32 padding0 margin-top5" style="color:rgba(0,0,0,0.54) !important; cursor: pointer;"
+			    aria-label="Edit dialog" ng-click="addNewMarket()" ng-if="isAddMarketing"></md-icon>
+		</div>
+	</md-card-content>
+</md-card>
+<md-card class="heightOption" flex-xs="100" flex-sm="100" flex-gt-sm="33">
+	<div class="box-header">
+		<div layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+			<div flex="85" flex-xs="75">
+				<span class="sub-title">{{'BREAKFAST' | translate}}</span>
+			</div>
+			<div>
+			</div>
+		</div>
+		<md-divider></md-divider>
+	</div>
+	<md-card-content class="wp_scroll">
+		<md-list>
+			<!-- <md-subheader class="md-primary">{{'BREAKFAST' | translate}}</md-subheader> -->
+			<md-list-item ng-if="roomBreakfast.length == 0">
+				<p>{{'NO_BREAKFAST_ADDED' | translate}}</p>
+			</md-list-item>
+			<md-list-item ng-repeat="breakfast in roomBreakfast">
+				<p>{{breakfast.UsedDate | date:'dd/MM/yyyy'}}</p>
+				<md-checkbox class="md-secondary md-warn" ng-model="breakfast.IsBreakfast" ng-disabled="breakfast.IsDisabled || isCheckOut || isCancel"
+				    ng-change="updateBreakfast(breakfast)"></md-checkbox>
+			</md-list-item>
+		</md-list>
+	</md-card-content>
+</md-card>
+
+<md-card class="heightOption" flex>
+	<div class="box-header">
+		<div layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+			<div flex="75" flex-xs="65">
+				<span class="sub-title">{{'REMARK' | translate}}</span>
+			</div>
+			<div>
+				<md-button class="md-primary md-fab md-mini" ng-click="addRemark()" aria-label="addRemark" ng-if="!isCheckOut && !isCancel ">
+					<md-icon md-svg-src="img/icons/ic_add_24px.svg" style="cursor: pointer;"></md-icon>
+				</md-button>
+			</div>
+		</div>
+		<md-divider></md-divider>
+	</div>
+	<md-card-content>
+		<md-list>
+			<!-- <md-subheader class="md-primary">{{'REMARK' | translate}}
+				<md-tooltip md-direction="left" flex-gt-md="100"  hide-xs hide-sm hide-md>
+					{{'TOOLTIP_ADD_REMARK' | translate}}
+				</md-tooltip>
+				<md-icon md-svg-src="img/icons/ic_add_circle_outline_48px.svg" style="cursor: pointer;" ng-if="!isCheckOut && !isCancel " ng-click=addRemark()></md-icon>
+			</md-subheader> -->
+			<md-list-item ng-if="roomRemarks.length == 0">
+				<p>{{'NO_REMARK_ADDED' | translate}}</p>
+			</md-list-item>
+			<md-list-item class="md-3-line" ng-if="roomRemarks.length > 0" ng-repeat="remark in roomRemarks" layout="row" flex="100"
+			    style="padding: 0px;border-bottom: 1px solid #eee;">
+
+				<div class="md-list-item-text" layout="column">
+					<h3 style="font-weight: bold;">
+						<span style="font-style: italic; color: #f44336;" ng-if="remark.IsDeleted">[ {{'DELETED' | translate}} ] </span>{{remark.Description}}
+					</h3>
+					<h4 style="padding-bottom: 6px;">
+						{{remark.CreatedDate | date:'dd/MM/yyyy (HH:mm)'}}
+					</h4>
+					<p ng-if="hasRRIDParam">
+						<span style="color: #fff;padding: 6px;border-radius: 3px;" class="{{remark.RemarkEventCode+'CODE'}}">
+							{{remark.RemarkEventCode | translate}}
+						</span> &nbsp;
+						<span ng-if="remark.IsCompleted" style="background-color: #259b24; color: #fff;padding: 6px;cursor: pointer;border-radius: 3px;"
+						    ng-click="changeRemarkStatus(remark, $event)">
+							{{'COMPLETED' | translate}}
+						</span>
+						<span ng-if="!remark.IsCompleted && (!isCheckOut && !isCancel)" style="background-color: #795548; color: #fff;padding: 6px;cursor: pointer;border-radius: 3px;"
+						    ng-click="changeRemarkStatus(remark, $event)">
+							{{'IN_PROGRESS' | translate}}
+						</span>
+					</p>
+					<p ng-if="!hasRRIDParam">
+						<span style="color: #fff;padding: 6px;border-radius: 3px;" class="{{remark.RemarkEventCode}}">
+							{{remark.RemarkEventCode | translate}}
+						</span> &nbsp;
+						<span ng-if="remark.IsCompleted" style="background-color: #259b24; color: #fff;padding: 6px;border-radius: 3px;">
+							{{'COMPLETED' | translate}}
+						</span>
+						<span ng-if="!remark.IsCompleted" style="background-color: #795548; color: #fff;padding: 6px;border-radius: 3px;">
+							{{'IN_PROGRESS' | translate}}
+						</span>
+					</p>
+				</div>
+
+				<div class="md-secondary" layout="column" layout-align="center center" style="margin: auto 0px;" ng-if="!remark.IsDeleted && hasRRIDParam">
+					<md-button aria-label="Room Edit" ng-if="!isCheckOut && !isCancel" class="md-icon-button launch" style="padding: 0px; margin: 0px;"
+					    ng-click="editRemark(remark, $event)">
+						<md-icon md-svg-src="img/icons/ic_edit_24px.svg" style=""></md-icon>
+					</md-button>
+					<span ng-if="!isCheckOut && !isCancel " style="display: inline;
+						  padding: .2em .6em .3em;
+						  font-size: 50%;
+						  font-weight: bold;
+						  text-transform: uppercase;
+						  line-height: 1;
+						  text-align: left;
+						  white-space: nowrap;
+						  vertical-align: baseline;
+						  border-radius: .25em;">
+						{{'EDIT' | translate}}
+					</span>
+				</div>
+				<div class="md-secondary" layout="column" layout-align="center center" style="margin: auto 0px;" ng-if="!remark.IsDeleted">
+					<md-button aria-label="Room Repair" class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-if="!isCheckOut && !isCancel "
+					    ng-click="$event.stopPropagation();removeRemark(remark)">
+						<md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" style=""></md-icon>
+					</md-button>
+					<span ng-if="!isCheckOut && !isCancel " style="display: inline;
+					  padding: .2em .6em .3em;
+					  font-size: 50%;
+					  font-weight: bold;
+					  text-transform: uppercase;
+					  line-height: 1;
+					  text-align: left;
+					  white-space: nowrap;
+					  vertical-align: baseline;
+					  border-radius: .25em;">
+						{{'REMOVE' | translate}}
+					</span>
+				</div>
+				<!--                <md-divider></md-divider>-->
+			</md-list-item>
+		</md-list>
+	</md-card-content>
+</md-card>

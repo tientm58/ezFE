@@ -1,0 +1,30 @@
+<md-dialog aria-label="Group Amend Stay" ng-cloak flex-xs="100" flex-sm="100" flex-gt-sm="60">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{conflictData.groupFunctionCode | translate}} {{'PROCESS_RESULT' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <span><h4>{{'TOTAL_RESERVATIONS' | translate}} : {{conflictData.totalReservations}}</h4><span>
+                <span><h4>{{'SUCCESSS_RESERVATIONS' | translate}} : {{conflictData.successReservations}}</h4><span>
+                <span ng-if="conflictData.unsuccessReservations > 0"><h4>{{'UNSUCCESS_RESERVATIONS' | translate}}: {{conflictData.unsuccessReservations}}</h4><span>
+                <!-- <span>Reason:</span>
+                <ul>
+                    <li ng-if="conflictData.conflictReservations.length > 0">Conflict Reservation: <span ng-repeat="conflict in conflictData.conflictReservations">{{conflict.ReservationNumber}} </span></li>
+                    <li ng-if="conflictData.conflictRoomRepairs.length > 0">Conflict Room Repair: <span ng-repeat="conflictRepair in conflictData.conflictRoomRepairs">{{conflictRepair.RoomName}} </span></li>
+                </ul> -->
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'OK' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

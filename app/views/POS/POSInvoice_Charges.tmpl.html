@@ -1,0 +1,161 @@
+<style>
+md-optgroup label {
+    display: block;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 16px;
+    font-weight: bold;
+}
+
+.tabsdemoDynamicHeight md-content md-tabs md-tabs-canvas {
+    background: none;
+}
+
+.md-list-item.md-2-line .md-list-item-text,
+md-list-item.md-2-line>._md-no-style .md-list-item-text,
+md-list-item.md-3-line .md-list-item-text,
+md-list-item.md-3-line>._md-no-style .md-list-item-text {
+    margin: auto;
+}
+
+md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+    height: auto;
+}
+
+md-list-item ._md-list-item-inner ._md-secondary-container,
+md-list-item ._md-secondary-container {
+    height: auto;
+}
+
+.md-toolbar-tools {
+    height: 50px;
+}
+.md-subheader.md-default-theme.md-primary, .md-subheader.md-primary {
+    color: #FF9800;
+    text-transform: uppercase;
+    /*font-weight: 600;*/
+}
+.md-subheader ._md-subheader-inner{
+    padding: 5px 5px 5px 16px;
+}
+@media (min-width: 960px){
+    .flex-gt-sm-60, .layout-gt-sm-row>.flex-gt-sm-60, .layout-row>.flex-gt-sm-60, .flex-height { 
+        max-height: 73%; 
+    }
+}
+.input-c{
+    padding-left: 14px;
+}
+</style>
+<md-card style="border-top: 1px solid #eee;" ng-cloak flex-xs="100" flex-sm="100" flex-gt-sm="60">
+    <div flex="100" layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+        <div flex="85" flex-xs="75">
+            <md-input-container class="margin0" flex="100">
+                <label> </label>
+                <input type="search" ng-model="page.searchES" placeholder="{{'FILTER_EXTRA_SERVICE' | translate}}" style="    margin-top: 19px;" />
+            </md-input-container>
+        </div>
+        <div >
+            <md-button class="md-primary md-fab md-mini" style="margin-bottom: 0px;bottom: 0" ng-click="addExtraServices()">
+                <!--{{'ADD' | translate}}-->
+                <md-icon md-svg-src="img/icons/ic_add_24px.svg" style="fill:white"></md-icon>
+            </md-button>
+        </div>
+    </div>
+    <md-divider></md-divider>
+    <md-card-content style="overflow: auto; padding: 0px;">
+        <md-tabs md-selected="0" md-border-bottom md-dynamic-height>
+            <md-tab md-active="true" label="{{'ALL' | translate}}" layout="row" layout-wrap flex="100">
+                <div layout="column" layout-align="center start" ng-repeat="type in extraServices.ExtraServiceTypes" ng-if="type.ExtraServiceTypeName != 'EXTRA_SERVICES'">
+                    <md-subheader style="width:100%" class="md-primary">
+                        {{type.ExtraServiceTypeName | translate}} 
+                    </md-subheader>
+                    <md-list class="" style="width: 100%;">
+                        <md-list-item ng-repeat="item in extraServices.ExtraServiceItems  | filter: page.searchES | orderBy:'Priority'" flex="100" layout="row" layout-align="space-between center" ng-if="item.ExtraServiceTypeId == type.ExtraServiceTypeId">
+                            <p flex="50">
+                                {{item.ExtraServiceItemName | truncate:25}}
+                            </p>
+                            <md-slider flex="40" ng-model="item.quantity" min="1" max="10" step="1"></md-slider>
+                            <div flex="10" layout layout-align="end center">
+                                <input flex type="number" min="1" ng-model="item.quantity" aria-controls="red-slider">
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </md-tab>
+            <md-tab ng-repeat="list in extraServices.ExtraServiceTypes" ng-if="list.IsHide == false && (list.ExtraServiceTypeName!='EXTRA_SERVICES')" label="{{list.ExtraServiceTypeName | translate}}" layout="row" layout-wrap flex="100">
+                <div layout flex="100" layout-align="end end" ng-if="list.ExtraServiceTypeName != 'EXTRA_SERVICES'">
+                    <md-input-container flex="50" style="">
+                        <label></label>
+                        <md-select ng-model="$parent.selectedExtraServiceCategory">
+                            <md-option value="0">{{'ALL_CATEGORY' | translate}}</md-option>
+                            <md-option md-no-ink ng-repeat="extraServiceCategory in extraServices.ExtraServiceCategories" value="{{extraServiceCategory.ExtraServiceCategoryId}}" ng-if="extraServiceCategory.ExtraServiceTypeId == list.ExtraServiceTypeId">{{extraServiceCategory.ExtraServiceCategoryName}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div flex layout="column" layout-align="center start">
+                    <md-list style="width: 100%;">
+                        <md-list-item ng-repeat="item in extraServices.ExtraServiceItems" layout="row" layout-align="space-between center" ng-if="item.ExtraServiceTypeId == list.ExtraServiceTypeId && ((item.ExtraServiceCategoryId == $parent.selectedExtraServiceCategory) || ($parent.selectedExtraServiceCategory == 0))">
+                            <p flex="50">
+                                {{item.ExtraServiceItemName | truncate:25}}
+                            </p>
+                            <md-slider flex="40" ng-model="item.quantity" min="0" max="10" step="1">
+                            </md-slider>
+                            <div flex="10" layout layout-align="end center">
+                                <input flex type="number" min="0" ng-model="item.quantity" aria-controls="red-slider">
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </md-tab>
+            <md-tab label="{{'EXTRA_SERVICE' | translate}}">
+                <form ng-submit="addExtraServices()" ><button class="hide"></button>
+                <div flex="100" layout="row" layout-wrap layout-align="center start" style="padding: 16px;">
+                    <md-input-container flex="100" style="">
+                        <label>{{'EXTRA_SERVICE_NAME' | translate}} ({{'REQUIRED' | translate}})</label>
+                        <input ng-model="extraService_NoItem.RoomExtraServiceDescription" type="text" required>
+                    </md-input-container>
+                    <div flex="100" layout="row" layout-align="space-between center">
+                        <p flex="30">
+                            {{'QUANTITY' | translate}}
+                        </p>
+                        <md-slider flex="60" ng-model="extraService_NoItem.Quantity" min="1" max="10" step="1" aria-controls="red-slider">
+                        </md-slider>
+                        <input style="" flex type="number" min="1" ng-model="extraService_NoItem.Quantity">
+                    </div>
+                    <md-input-container flex="100">
+                        <label>{{'PRICE' | translate}} ({{'REQUIRED' | translate}}) </label>
+                        <input ng-model="extraService_NoItem.Amount" type="text" ui-number-mask="defaultDecimal" required ui-negative-number>
+                    </md-input-container>
+                </div>
+                </form>
+            </md-tab>
+        </md-tabs>
+    </md-card-content>
+</md-card>
+<md-card style="border-top: 1px solid #eee;" class="flex-height auto-overflow" flex>
+    <div>
+        <span class="md-toolbar-tools bg-gray2">
+            {{'EXTRA_SERVICE_LIST' | translate}}
+        </span>
+    </div>
+    <md-divider></md-divider>
+    <md-card-content style="padding: 0px;"  class="auto-overflow">
+        <div layout="row" layout-wrap flex="100" style="width: 100%;">
+            <md-list flex="100">
+                
+                <md-list-item ng-repeat="item in POSModel.Charges" ng-if="item.Quantity > 0" style="">
+                    <p>
+                        <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg " style="height: 21px; width: 21px; margin: auto 0px; cursor: pointer;" ng-click="removeExtraServiceFromItemList(item)"></md-icon>{{item.Name}} <span class="hightline">x {{item.Quantity}}</span>
+                    </p>
+                    <span class="md-secondary">{{item.Quantity * item.Price | currency}}</span>
+                </md-list-item>
+                <md-divider ng-if="chargesTotal > 0"></md-divider>
+                <md-list-item ng-if="chargesTotal > 0">
+                    <p><strong>{{'TOTAL' | translate}}: </p>
+                    <span class="md-secondary" style="font-weight:bold">{{chargesTotal | currency}}</span></strong>
+                </md-list-item> 
+            </md-list> 
+        </div>
+    </md-card-content>
+</md-card>

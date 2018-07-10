@@ -1,0 +1,38 @@
+<md-dialog aria-label="Change Owner Ship" ng-cloak flex-xs="100" flex-sm="100" flex-gt-sm="60">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'CHANGE_OWNERSHIP' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <h1 class="md-title" flex="100">{{'SELECT_A_ROOM_BELOW' | translate}}</h1>
+                <div flex="100">
+                    <md-input-container style="width: 100%;">
+                        <label>{{'ROOM_LIST' | translate}} </label>
+                        <md-select ng-model="selectedReservationRoom">
+                            <md-optgroup>
+                                <md-option ng-value="reservationRoom" ng-repeat="reservationRoom in reservationRoomList">
+                                    {{reservationRoom.Rooms.RoomName}} - {{reservationRoom.Travellers.Fullname}}
+                                </md-option>
+                            </md-optgroup>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button ng-click="saveChangeOwnership()" class="md-primary" ng-disabled="selectedReservationRoom == null">
+                {{'SAVE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

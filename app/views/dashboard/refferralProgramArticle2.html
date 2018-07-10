@@ -1,0 +1,302 @@
+<style>
+    .al-wrap {
+        background: url(img/pattern.jpg) repeat;
+    }
+
+    .x-contaner {
+        max-width: 600px;
+        background-color: #fff;
+        border-radius: 10px;
+        margin: 30px auto;
+        -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+        padding: 50px 30px;
+    }
+
+    .cl {
+        clear: both;
+    }
+
+    .x-contaner-h1 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        color: #666;
+        text-align: center;
+        font-weight: 400;
+        line-height: 30px;
+        position: relative;
+        width: 100%;
+        float: left;
+    }
+
+    .x-contaner-h1 span {
+        font-size: 25px;
+        color: #3e50b4;
+        display: block;
+        font-weight: 700;
+    }
+
+    .x-contaner-h1:after {
+        width: 20px;
+        height: 4px;
+        border-radius: 2px;
+        background-color: #3e50b4;
+        position: absolute;
+        content: "";
+        margin-left: -10px;
+        margin-top: 10px;
+    }
+
+    .x-descript {
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        color: #666;
+        text-align: center;
+        line-height: 24px;
+        width: 100%;
+        float: left;
+    }
+
+    .x-descript strong {
+        color: #3e50b4;
+        font-size: 18px;
+    }
+
+    .x-card-code {
+        font-family: 'Roboto', sans-serif;
+        width: 100%;
+        height: 70px;
+        float: left;
+        background-color: #ccc;
+        color: #fff;
+        border-radius: 10px;
+        padding: 30px 0px;
+        text-align: center;
+        background: rgba(62, 80, 180, 1);
+        background: -moz-linear-gradient(left, rgba(62, 80, 180, 1) 0%, rgba(72, 194, 255, 1) 100%);
+        background: -webkit-gradient(left top, right top, color-stop(0%, rgba(62, 80, 180, 1)), color-stop(100%, rgba(72, 194, 255, 1)));
+        background: -webkit-linear-gradient(left, rgba(62, 80, 180, 1) 0%, rgba(72, 194, 255, 1) 100%);
+        background: -o-linear-gradient(left, rgba(62, 80, 180, 1) 0%, rgba(72, 194, 255, 1) 100%);
+        background: -ms-linear-gradient(left, rgba(62, 80, 180, 1) 0%, rgba(72, 194, 255, 1) 100%);
+        background: linear-gradient(to right, rgba(62, 80, 180, 1) 0%, rgba(72, 194, 255, 1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e50b4', endColorstr='#48c2ff', GradientType=1);
+    }
+
+    .x-card-code small {
+        font-size: 13px;
+        opacity: .6;
+        text-spacing: 1;
+    }
+
+    .x-card-code h2 {
+        font-size: 40px;
+        margin: 0px;
+    }
+
+    .x-text-wrap {
+        width: 100%;
+        float: left;
+        /*font-family: 'Roboto', sans-serif;*/
+        margin-top: 50px;
+        line-height: 24px;
+        text-align: justify;
+    }
+
+    .x-50 {
+        width: 50%;
+        float: left;
+    }
+
+    .x-3e50b4 {
+        color: #3e50b4;
+    }
+
+    .x-3b3b3b {
+        color: #3b3b3b;
+    }
+
+    .x-pp {
+        margin: 0px;
+        font-size: 14px;
+    }
+
+    .x-47b5f7 {
+        color: #47b5f7;
+    }
+
+    .x-btn-share {
+        width: 100%;
+        float: left;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .x-btn {
+        padding: 0px 20px;
+        background-color: #ccc;
+        border-radius: 3px;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        text-decoration: none;
+        color: #fff !important;
+        display: inline-block;
+        height: 36px;
+        line-height: 36px;
+        margin-bottom: 5px;
+    }
+
+    .x-f {
+        background-color: #3b5998;
+    }
+
+    .x-t {
+        background-color: #00aced;
+    }
+
+    .x-g {
+        background-color: #d14836;
+    }
+
+    .x-img-respon {
+        width: 100%;
+        max-height: 270px;
+    }
+
+    .p-r-30 {
+        width: calc( 50% - 30px);
+        padding-right: 30px;
+    }
+
+    @media screen and ( max-width:500px) {
+        .x-contaner {
+            width: 80% !important;
+            margin: 10% auto;
+        }
+        .x-50 {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .x-btn {
+            width: 100%;
+            padding: 0px;
+        }
+    }
+    /* ----- */
+    /*--Default--*/
+</style>
+
+<div class="al-wrap" ng-if="language == 'vn'">
+    <div class="x-contaner">
+        <h1 class="x-contaner-h1">CƠ HỘI NHẬN THÊM NGÀY SỬ DỤNG
+            <span>Share ezCloudhotel - Tặng ngay 100.000VNĐ</span>
+        </h1>
+        <div class="x-descript">
+            <p>
+                Để gửi lời cảm ơn sâu sắc đến khách hàng đang sử dụng phần mềm ezCloudhotel, ezCloud trân trọng triển khai chương trình tri
+                ân khách hàng
+            </p>
+            <strong>"SHARE EZCLOUDHOTEL - NHẬN NGAY 100.000VNĐ"</strong>
+        </div>
+        <div class="x-image">
+            <img ng-src="{{'IMAGE_BANNER_FACEBOOK' | translate}}" style="max-width:100%;margin-top:10px">
+        </div>
+        <div class="x-btn-share">
+            <a ng-click="shareFb()" class="x-btn x-f" style="cursor: pointer;">
+                <i class="fa fa-facebook-square"></i> {{'SHARE_ON_FB' | translate}}</a>
+            <!-- <a ng-click="shareTwitter()" class="x-btn x-t" style="cursor: pointer;">
+                <i class="fa fa-twitter"></i> {{'SHARE_ON_TWITTER' | translate}}</a> -->
+        </div>
+        <div class="x-text-wrap">
+            <div class="x-50 p-r-30">
+                <img class="x-img-respon" src="img/ilusarticle2.png" alt="a">
+            </div>
+            <div class="x-50">
+                <strong class="x-3e50b4">Cách thức tham gia</strong>
+                <br>
+                <p class="x-pp x-3b3b3b">
+                    Từ ngày 23/10/2017, tất cả khách sạn đang sử dụng phần mềm ezCloudhotel sẽ
+                    <span style="color:#2aade3;font-weight:bold">nhận được 100.000VNĐ vào tài khoản phần mềm</span> khi thực hiện đủ các bước sau:
+                    <br>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i> Like Fanpage ezCloudhotel + Like bài viết
+                    <br>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i> Share bài viết ở chế độ công khai với caption: "ezCloudhotel - Phần mềm quản lý khách sạn dễ sử
+                    dụng nhất!"
+                    <br>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i> Inbox Fanpage tên khách sạn muốn được nhận tiền
+                </p>
+            </div>
+        </div>
+        <div class="x-text-wrap" style="margin-top:0 !important;">
+            <div style="width:100%;color: #3e50b4">
+                <b>Lưu ý:</b>
+            </div>
+            <div style="width:100%;">
+                <p class="x-pp x-3b3b3b" style="margin-top:-15px !important;">
+                    <br> - Mỗi khách sạn sẽ được nhận tối đa 200.000VNĐ nếu chia sẻ bằng 2 tài khoản Facebook khác nhau
+                    <br> - Tài khoản Facebook chia sẻ phải là tài khoản của chủ khách sạn hoặc các vị trí tương đương quản lý
+                    <br> - ezCloudhotel sẽ kiểm tra các bước thực hiện trong vòng 2-3 ngày, sau đó sẽ cộng "quà" vào tài khoản
+                    phần mềm của khách sạn
+                </p>
+            </div>
+        </div>
+        <div class="cl"></div>
+    </div>
+</div>
+<div class="al-wrap" ng-if="language == 'en'">
+    <div class="x-contaner">
+        <h1 class="x-contaner-h1">CHANCE TO RECEIVE MORE DAYS OF USE
+            <span>Share ezCloudhotel – Get 100.000VNĐ</span>
+        </h1>
+        <div class="x-descript">
+            <p>
+                To send our deepest thanks to customers using the ezCloudhotel software, ezCloud is honored to launch the customer appreciation
+                program
+            </p>
+            <strong>"SHARE EZCLOUD – GET 100.000 VND"</strong>
+        </div>
+        <div class="x-image">
+            <img ng-src="{{'IMAGE_BANNER_FACEBOOK' | translate}}" style="max-width:100%;margin-top:10px">
+        </div>
+        <div class="x-btn-share">
+            <a ng-click="shareFb()" class="x-btn x-f" style="cursor: pointer;">
+                <i class="fa fa-facebook-square"></i> {{'SHARE_ON_FB' | translate}}</a>
+            <!-- <a ng-click="shareTwitter()" class="x-btn x-t" style="cursor: pointer;">
+                        <i class="fa fa-twitter"></i> {{'SHARE_ON_TWITTER' | translate}}</a> -->
+        </div>
+        <div class="x-text-wrap">
+            <div class="x-50 p-r-30">
+                <img class="x-img-respon" src="img/ilusarticle2.png" alt="a">
+            </div>
+            <div class="x-50">
+                <strong class="x-3e50b4">How to join</strong>
+                <br>
+                <p class="x-pp x-3b3b3b">
+                    From 23/10/2017, all hotels using the ezCloudhotel software will
+                    <span style="color:#2aade3;font-weight:bold">receive 100.000 VND in their software account</span> if they follow the steps as below:
+                    <br>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i> Like Fanpage ezCloudhotel + Like the post
+                    <br>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i> SShare the article publicly with the caption: “ezCloud – the most user-friendly hotel management
+                    software!”
+                    <br>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i> Inbox Fanpage the name of the hotel which wants to receive money
+                </p>
+            </div>
+        </div>
+        <div class="x-text-wrap" style="margin-top:0 !important;">
+            <div style="width:100%;color: #3e50b4">
+                <b>Note:</b>
+            </div>
+            <div style="width:100%;">
+                <p class="x-pp x-3b3b3b" style="margin-top:-15px !important;">
+                    <br> - Each hotel will receive a maximum of 200.000VND if they share by two different Facebook accounts
+                    <br> - The Facebook account must be the account of the hotel owner or the position equivalent to manager
+                    <br> - ezCloudhotel will check the steps taken within 2-3 days, then will add "gift" to your hotel software
+                    account
+                </p>
+            </div>
+        </div>
+        <div class="cl"></div>
+    </div>
+</div>

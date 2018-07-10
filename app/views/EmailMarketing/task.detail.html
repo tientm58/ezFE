@@ -1,0 +1,494 @@
+<style>
+    .top-page {
+        background: url(img/bg-header.png);
+        background-repeat: no-repeat;
+        min-height: 55px;
+        border-radius: 0 !important;
+        background-size: cover;
+    }
+
+    .black_t {
+        color: rgba(255, 255, 255, 0.71);
+        /*font-style: italic;*/
+    }
+
+    .yellow_t {
+        color: #FFEB3B;
+        padding-right: 15px;
+    }
+
+    .margin0 {
+        margin: 0px;
+    }
+
+    .hightline {
+        color: #FF9800;
+    }
+
+    .text-date {
+        color: rgba(2, 2, 2, 0.58) !important;
+        font-style: italic;
+        font-size: 12px !important;
+    }
+
+    .sub-title {
+        text-transform: uppercase;
+        font-weight: 600;
+        color: rgba(58, 56, 56, 0.71);
+        line-height: 50px;
+        /*margin-left: 17px !important;*/
+    }
+
+    .showfull {
+        height: initial !important;
+        background-color: rgba(242, 242, 242, 0.15);
+        margin-bottom: 5px;
+    }
+
+    .box-header {
+        padding-left: 17px;
+        padding-right: 17px;
+        /*background: rgba(242, 242, 242, 0.35) !important;*/
+    }
+
+    #main_view,
+    .bg-gray {
+        /*background: #f2f2f2 !important;*/
+    }
+
+    .md-subheader.md-default-theme,
+    .md-subheader {
+        background-color: rgb(245, 245, 245) !important;
+    }
+
+    .bg-waring {
+        background: #FF5722;
+    }
+
+    .margin-bottom-100 {
+        margin-bottom: 100px;
+    }
+
+    .tabs-menu md-tabs-canvas {
+        background-color: #EEEEEE;
+    }
+
+    .box-config md-input-container {
+        width: 200px;
+    }
+
+    .padding015 {
+        padding: 0 15px;
+    }
+
+    .listbox md-list-item {
+        height: 70px;
+        border-bottom: 1px dashed #dadada;
+    }
+
+    .bg_iii {
+        background-color: rgba(255, 255, 255, 0) !important;
+    }
+
+    .btn_ {
+        margin-top: -20px;
+    }
+
+    .margin0 {
+        margin: 0;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .black_icon md-icon {
+        fill: rgb(33, 33, 33) !important;
+    }
+
+    #main_view,
+    .bg-gray {
+        background: #f3f3f3 !important;
+    }
+
+    .list_icon_big md-icon {
+        width: 60px;
+        height: 60px;
+        padding-bottom: 10px;
+    }
+
+    .list_icon_big md-radio-button {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .list_icon_big md-radio-button ._md-label {
+        color: #888787;
+        font-weight: bold;
+    }
+
+    .list_icon_big md-icon {
+        filter: grayscale(100%);
+    }
+
+    .list_icon_big md-radio-button[aria-checked="true"] md-icon {
+        filter: grayscale(0%);
+    }
+
+    .list_icon_big md-radio-button[aria-checked="true"] ._md-label {
+        color: #545252;
+        font-weight: bold;
+    }
+
+    .list_icon_big .md-ink-ripple {
+        display: none;
+    }
+
+    .list_fields md-list-item {
+        font-size: 14px;
+        min-height: 24px;
+        height: fit-content;
+    }
+
+    .header_feild {
+        margin: 12px 6px 6px 0;
+    }
+
+    .configTaskEmail {
+        margin-left: 100px;
+        margin-top: 20px;
+    }
+
+    .scheduleradio {
+        margin-left: 20px;
+    }
+
+    .schedulediv {
+        margin-top: 40px;
+    }
+
+    .daydiv {
+        margin-top: 20px;
+    }
+
+    .small-icon2 {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .input_date {
+        width: 76px;
+    }
+
+    .icon_email {
+        fill: #757575;
+    }
+
+    .group_radio_cus md-icon {
+        fill: rgb(123, 183, 250);
+    }
+
+    @media screen and (max-width: 600px) {
+        .group_radio_cus md-radio-button {
+            margin: 0 !important;
+        }
+    }
+
+    @media screen and (min-width: 600px) {
+        .marginmb {
+            margin: 0;
+        }
+    }
+
+    .height-fit-content {
+        height: fit-content;
+    }
+
+    .md-subheader ._md-subheader-inner {
+        color: rgba(255, 87, 34, 0.67);
+        font-weight: 600;
+    }
+
+    .heading {
+        padding-left: 8px;
+        color: #444;
+    }
+
+    .fill-gray {
+        fill: rgba(0, 0, 0, 0.54) !important;
+    }
+
+    .item-menu-email {
+        border-bottom: 1px dashed #ddd;
+    }
+
+    .item-menu-email:hover {
+        cursor: pointer;
+        background: #f5f5f5;
+    }
+
+    .item-menu-email .time-text {
+        font-size: 12px;
+        margin-top: 4px;
+        color: #969696;
+    }
+
+    .item-menu-email .time-text2 {
+        font-size: 12px;
+        margin-top: 4px;
+    }
+
+    .md-button {
+        text-transform: capitalize;
+    }
+
+    .list_icon_big md-radio-button[aria-checked="true"] ._md-label {
+        color: rgb(123, 183, 250);
+        font-weight: bold;
+    }
+
+    .item-feild p:hover {
+        cursor: pointer;
+        background: #f2f2f2;
+    }
+
+    .cke_editable {
+        cursor: text;
+        margin: 0 !important;
+    }
+
+    #right-system-feild {
+        height: 684px;
+        overflow: auto;
+        padding-bottom: 20px;
+        background: #fafafa;
+    }
+</style>
+
+<md-content class="tabsdemoDynamicHeight bg_iii ">
+    <!-- Header -->
+    <md-card-content id="height" flex="100">
+        <md-toolbar md-scroll-shrink class="top-page md-primary md-default-theme md-whiteframe-z1 " layout="row">
+            <div layout="row" layout-align="space-between center" flex="100">
+                <div flex-gt-sm="75" flex-xs="75" flex-sm="75" class="md-toolbar-tools" style="height:40px;">
+                    <h1 class="md-headline heading">
+                        <span class="black_t">{{'EMAIL_TASK'|translate}}</span>
+                    </h1>
+                </div>
+                <div style="" flex="60" layout="row" layout-align="end center">
+                    <md-button class="btn-c md-raised " style="" id="btn_back" ng-click="goToTaskList()">
+                        <md-icon md-svg-icon="img/icons/ic_arrow_back_48px.svg" class="small-icon fill-gray md-secondary md-hue-3"></md-icon>
+                        {{'BACK'| translate}}
+                        <md-tooltip md-direction="left" flex-gt-md="100">
+                            Ctrl + B
+                        </md-tooltip>
+                    </md-button>
+
+                    <md-menu class="margin00">
+                        <md-button class="btn-c md-raised normal_btn" ng-click="openMenuLogsEmail($mdOpenMenu, $event)">
+                            <md-icon md-menu-origin md-svg-icon="img/icons/ic_phonelink_48px.svg" class="small-icon fill-gray"></md-icon>
+                            {{'PREVIEW'| translate}}
+                        </md-button>
+                        <md-menu-content width="3" class="content_mennu_email padding0">
+                            <div class="item-menu-email" ng-click="viewDevice('Deskstop', taskEmails)">
+                                <div flex layout='row' layout-padding layout-align="start center">
+                                    <md-icon md-svg-icon="img/icons/ic_desktop_windows_24px.svg" class="margin5 padding0">
+                                    </md-icon>
+                                    <div layout="column">
+                                        <div flex>
+                                            Deskstop
+                                        </div>
+                                        <p class="margin0 time-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-menu-email" ng-click="viewDevice('Tablet', taskEmails)">
+                                <div flex layout='row' layout-padding layout-align="start center">
+                                    <md-icon md-svg-icon="img/icons/ic_tablet_android_24px.svg" class="margin5 padding0">
+                                    </md-icon>
+                                    <div layout="column">
+                                        <div flex>
+                                            Tablet
+                                        </div>
+                                        <p class="margin0 time-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-menu-email" ng-click="viewDevice('Mobile', taskEmails)">
+                                <div flex layout='row' layout-padding layout-align="start center">
+                                    <md-icon md-svg-icon="img/icons/ic_phone_android_24px.svg" class="margin5 padding0">
+                                    </md-icon>
+                                    <div layout="column">
+                                        <div flex>
+                                            Mobile
+                                        </div>
+                                        <p class="margin0 time-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-menu-content>
+                    </md-menu>
+
+                    <md-button class="btn-c md-raised md-warn" onclick="jQuery('#btn_DoSaveEmaillTask').click()">
+                        <md-icon md-svg-icon="img/icons/ic_save_48px.svg" class="small-icon md-secondary md-hue-3"></md-icon>
+                        {{'SAVE'| translate}}
+                        <md-tooltip md-direction="bottom" flex-gt-md="100">
+                            Ctrl + S
+                        </md-tooltip>
+                    </md-button>
+                </div>
+            </div>
+        </md-toolbar>
+    </md-card-content>
+    <!-- Header -->
+
+    <md-content style="" id="height100" class="bg_iii animated fadeIn" ng-cloak>
+        <md-card flex class="margin-bottom50">
+            <md-card-content>
+                <form name="projectForm" ng-submit="DoSaveEmaillTask(taskEmails)" ng-cloak layout-align="space-around center">
+                    <button id="btn_DoSaveEmaillTask" class="hide"></button>
+
+                    <!-- List Type task (Pre arrival, Post departure...) -->
+                    <div>
+                        <md-radio-group ng-model="taskEmails.TypeId" ng-change="SwitchType(taskEmails.TypeId)" class="list_icon_big group_radio_cus"
+                            layout="row" layout-xs="column" layout-align="space-around center">
+                            <md-radio-button ng-repeat="it in avatarData" ng-value="it.typeId" aria-label="{{it.title}}" class="text-center">
+                                <div>
+                                    <md-icon md-svg-icon="{{it.id}}"></md-icon>
+                                </div>
+                                <div>{{it.title | translate}}</div>
+                            </md-radio-button>
+                        </md-radio-group>
+                    </div>
+
+                    <!-- Subject -->
+                    <div flex="100" layout="row" layout-align="center center " class="box-config" layout-wrap="">
+                        <md-input-container flex="60" flex-xs="100" class="md-block">
+                            <label>{{'SUBJECT' | translate}}</label>
+                            <input md-maxlength="120" minlength="5" required md-no-asterisk name="Subject" ng-model="taskEmails.Subject">
+                            <div ng-messages="projectForm.server_name.$error">
+                                <div ng-message="required">This is required.</div>
+                                <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-button ng-click="copyTeamplate()">
+                            <md-icon md-svg-icon="img/icons/ic_content_copy_24px.svg" aria-label="Copy email" class="small-icon md-secondary md-hue-3"></md-icon> {{'COPY_TEMPLATE'| translate}}
+                        </md-button>
+                    </div>
+
+                    <!-- Body and system fields -->
+                    <md-content class="md-padding">
+                        <div layout="row" layout-xs="column" class="height-fit-content">
+
+                            <div flex-xs="100" class="height-fit-content" style="width: 850px;">
+                                <md-content class="md-padding padding0">
+                                    <div ckeditor="ConditionPolicyOption" id="bodyTeamplate" ng-model="taskEmails.Body"></div>
+                                </md-content>
+                            </div>
+
+                            <div flex flex-xs="100" class="height-fit-content" id="right-system-feild">
+                                <!-- <span class="md-toolbar-tools reset-height">
+                                    <h3 class="header_feild font-size12">{{'SYSTEM_FILEDS' | translate}}</h3>
+                                </span>
+                                <span class="md-toolbar-tools reset-height">
+                                    <p class="margin0 font-size12">{{'COPY_ITEM_INTO_FORM' | translate}}</p>
+                                </span> -->
+                                <md-list flex class="list_fields padding-bottom0 padding-top0">
+                                    <md-subheader ng-repeat-start="(key,field) in SystemField" ng-if="taskEmails.TypeId != 4 || key != 'BOOKING_INFORMATION'">{{key | uppercase| translate| uppercase}}</md-subheader>
+                                    <md-list-item class="md-2-line" ng-if="taskEmails.TypeId != 4 || key != 'BOOKING_INFORMATION'">
+                                        <div class="md-list-item-text item-feild" layout="column">
+                                            <p ng-repeat="(keyc,fie) in field" ng-click="appText('['+fie+']')">[{{fie}}]</p>
+                                        </div>
+                                    </md-list-item>
+                                    <md-divider ng-if="2 != $index" ng-repeat-end></md-divider>
+                                </md-list>
+                                <md-list flex class="list_fields padding-top0">
+                                    <md-list-item class="md-2-line">
+                                        <div class="md-list-item-text item-feild" layout="column">
+                                            <p ng-click="wrapTextListRoom()">[listroom] [/listroom]</p>
+                                        </div>
+                                    </md-list-item>
+                                </md-list>
+                            </div>
+                        </div>
+                    </md-content>
+
+                    <!-- Schedule options -->
+                    <md-content class="md-padding">
+                        <div layout="row" layout-xs="column" flex="100">
+                            <div flex="50" flex-xs="100">
+                                <div flex="100" layout="row" layout-xs="column" layout-align="left start" layout-align-xs="left center">
+                                    <md-radio-group ng-model="taskEmails.Status" ng-change="SwitchStatus(taskEmails.Status)" class="list_icon_big group_radio_cus"
+                                        layout="row" layout-xs="column" layout-align="space-around center">
+                                        <!-- <label>{{'SCHEDULE_OPTIONS' | translate}}: </label> -->
+                                        <md-radio-button ng-repeat="it in schedule" ng-value="it.typeId" aria-label="{{it.title}}" class="text-center">
+                                            <div>
+                                                <md-icon class="small-icon2 " md-svg-icon="{{it.id}}"></md-icon>
+                                            </div>
+                                            <div>{{it.title | translate}}</div>
+                                        </md-radio-button>
+                                    </md-radio-group>
+                                </div>
+                                <!-- <div flex="100" layout="row" layout-xs="column" layout-align="left start" ng-if="taskEmails.TypeId!=4 && taskEmails.Status != 2" -->
+                                <div flex="100" layout="row" layout-xs="column" layout-align="left start" ng-if="taskEmails.Status != 2" class="schedulediv">
+                                    <md-radio-group ng-model="taskEmails.TypeStatus" layout="row" layout-xs="column" class="group_radio_cus">
+                                        <!-- <label>{{'SCHEDULE' | translate}}:&nbsp;&nbsp;</label> -->
+                                        <md-radio-button ng-repeat="schedule in avatarData[taskEmails.TypeId-1].schedule" class="md-primary scheduleradio" ng-style="{'display':'inline'}"
+                                            ng-value="schedule.id">
+                                            <div>{{schedule.name | translate}}</div>
+                                        </md-radio-button>
+                                    </md-radio-group>
+                                    <md-input-container class="margin-left10 marginmb input_date">
+                                        <label>{{'DAY'| translate}}</label>
+                                        <input type="number" min="1" required ng-model="taskEmails.Day">
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div flex="50" flex-xs="100" layout-xs="column">
+                                <div flex="100" flex-xs="100" layout="row" layout-xs="column" layout-align="left start">
+                                    <md-input-container flex="100" class="margin-left5">
+                                        <md-icon md-svg-src="img/icons/ic_account_box_48px.svg" class="icon_email"></md-icon>
+                                        <label>{{'SEND_FROM'|translate}}</label>
+                                        <md-select ng-model="taskEmails.HotelEmailConfigId">
+                                            <md-option ng-value="em.HotelEmailConfigId" ng-repeat="em in emails">{{ em.UserName }}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                                <div flex="100" flex-xs="100" layout="row" layout-xs="column" layout-align="left start">
+                                    <md-input-container flex="100" class="margin5">
+                                        <md-icon md-svg-src="img/icons/ic_email_24px.svg" class="icon_email"></md-icon>
+                                        <label>{{'OPTIONAL_ADD_CC' | translate}}</label>
+                                        <input type="email" placeholder="a@gmail.com;b@gmail.com" ng-model="taskEmails.EmailCC">
+                                    </md-input-container>
+                                </div>
+                                <div flex="100" flex-xs="100" layout="row" layout-xs="column" layout-align="left start">
+                                    <md-input-container flex="100" class="margin5">
+                                        <md-icon md-svg-src="img/icons/ic_email_24px.svg" class="icon_email"></md-icon>
+                                        <label>{{'OPTIONAL_ADD_BCC' | translate}}</label>
+                                        <input type="email" placeholder="a@gmail.com;b@gmail.com" ng-model="taskEmails.EmailBCC">
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </div>
+                    </md-content>
+
+                    <!-- checkbox isSendOTA -->
+                    <md-content flex="100" layout="row" layout-align="center center " class="box-config md-padding" layout-wrap="" ng-show="taskEmails.TaskCode == 'BOOKED'">
+                        <!-- ng-show="taskEmails.TaskCode == 'BOOKED'" -->
+                        <md-checkbox ng-model="taskEmails.IsSendOTA" aria-label="isSendOTA" flex="100" flex-xs="100" class="md-block">
+                            {{'ISSENDOTA' | translate}}
+                        </md-checkbox>
+                    </md-content>
+                    <!--  -->
+
+                </form>
+            </md-card-content>
+        </md-card>
+    </md-content>
+
+</md-content>

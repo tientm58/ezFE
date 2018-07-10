@@ -1,0 +1,302 @@
+<style>
+    .CHECKIN {
+        background-color: #f44336;
+    }
+    
+    .CHECKOUT {
+        background-color: #e91e63;
+    }
+    
+    .RESERVATION {
+        background-color: #2196F3;
+    }
+    .DELETE{
+        font-style: italic;
+        color: #f44336;
+    }
+    .INPROCESS{
+        background-color: #795548;
+        color: #fff;
+        padding: 6px;
+        cursor: pointer;
+    }
+    .remark{
+        color: #fff;
+        padding: 6px;
+        width: 90px;
+        text-align: center;
+    }
+    .COMPLETED{
+        background-color: #259b24;
+        color: #fff;
+        padding: 6px;
+        cursor: pointer;
+    }
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+    
+    .md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+    }
+    
+    md-list-item.md-2-line .md-list-item-text p,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text p,
+    md-list-item.md-3-line .md-list-item-text p,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text p {
+        margin-bottom: 4px;
+    }
+    
+    .autocompletedemoCustomTemplate .autocomplete-custom-template li {
+        border-bottom: 1px solid #ccc;
+        height: auto;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        white-space: normal;
+    }
+    
+    .autocompletedemoCustomTemplate .autocomplete-custom-template li:last-child {
+        border-bottom-width: 0;
+    }
+    
+    .autocompletedemoCustomTemplate .autocomplete-custom-template .item-title,
+    .autocompletedemoCustomTemplate .autocomplete-custom-template .item-metadata {
+        display: block;
+        line-height: 2;
+    }
+    
+    .autocompletedemoCustomTemplate .autocomplete-custom-template .item-title md-icon {
+        height: 18px;
+        width: 18px;
+    }
+    
+    .heightOption {
+        /*height: calc(100% - 22%);*/
+        max-height: 450px !important;
+    }
+    .bt-save-company {
+        fill: #e84b3d;
+        margin-right:7px;
+    }
+    md-list-item, md-list-item ._md-list-item-inner{
+        min-height: 40px !important;
+    }
+    md-checkbox.md-default-theme:not([disabled]).md-warn.md-checked ._md-icon, md-checkbox:not([disabled]).md-warn.md-checked ._md-icon{
+        background: #ee0001 !important;
+    }
+    .btn-business{
+        margin-bottom: 8px;
+    }
+    h3{
+        color:black !important; 
+    }
+    h4{
+        color:black !important; 
+    }
+    .custom-card md-card-title+md-card-content{
+        padding-left: 16px !important;
+        padding-right: 12px !important;
+    }
+    .icon28{
+        width: 28px !important;
+        height: 28px !important;
+    }
+    .display-flex{
+        display: flex;
+    }
+    .md-content-remark{
+        max-height: 390px !important;
+        min-height: 100px !important;
+        overflow-y: auto;
+    }
+    .md-whiteframe-1dp, .md-whiteframe-z1{
+        box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12)
+    }
+    .heightBreakFast{
+        height: 390px;
+        min-height: 390px;
+        max-height: 390px;
+        overflow-y: auto;
+    }
+</style>
+<md-card class="heightOption custom-card" flex-xs="100" flex-sm="50" flex-gt-sm="33">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{'BUSINESS' | translate}}
+                <md-icon ng-if="optionCtrl.isBusinessChanged && optionCtrl.isAddMarketing" class="bt-save-company" md-svg-src="img/icons/ic_save_48px.svg" aria-label="Save Company" ng-click="optionCtrl.saveBusiness()">
+                </md-icon>
+            </span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content flex="100">
+        <div flex="100"  layout="row" layout-align="space-between center">
+            <form ng-submit="$event.preventDefault()" flex="80" class="margin-bottom0">
+                <md-input-container class="hide-label full-width margin-top5 margin-bottom5">
+                    <!--<label>{{'COMPANY' | translate}}</label>-->
+                    <md-autocomplete ng-disabled="!optionCtrl.isAddMarketing" md-selected-item="optionCtrl.selectedCompany" md-search-text-change="optionCtrl.searchCompanyTextChange(optionCtrl.searchCompanyText)"
+                        md-search-text="optionCtrl.searchCompanyText" md-selected-item-change="optionCtrl.selectedCompanyChange(item)" md-items="item in optionCtrl.queryCompanySearch(optionCtrl.searchCompanyText)"
+                        md-item-text="item.CompanyName" md-min-length="1" md-menu-class="autocomplete-custom-template" placeholder="{{'COMPANY' | translate}}">
+                        <md-item-template>
+                            <span class="item-title">
+                                <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                <span > {{item.CompanyName}} </span>
+                            </span>
+                            <span class="item-metadata">
+                            <span class="item-metastat">
+                              <strong>{{'CODE' | translate}}:</strong> {{item.CompanyCode}}
+                            </span>
+                            <span class="item-metastat">
+                              <strong>{{'EMAIL' | translate}}:</strong> {{item.CompanyEmail}}
+                            </span>
+                            </span>
+                        </md-item-template>
+                    </md-autocomplete>
+                </md-input-container>
+            </form>
+            <div flex layout="row" layout-align="end end">
+                <md-icon md-svg-src="img/icons/ic_edit_48px.svg" class="btn-business" aria-label="Edit dialog" ng-click="optionCtrl.editBusiness(optionCtrl.selectedCompany)" ng-if="optionCtrl.isEditMarketing"></md-icon>
+                <md-icon md-svg-src="img/icons/ic_add_48px.svg" class="btn-business" aria-label="Edit dialog" ng-click="optionCtrl.addNewCompany()" ng-if="optionCtrl.isAddMarketing"></md-icon>
+            </div>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <form ng-submit="$event.preventDefault()" flex="80" class="margin-bottom0">
+                <md-input-container class="hide-label full-width margin-top5 margin-bottom5">
+                    <md-autocomplete ng-disabled="!optionCtrl.isAddMarketing" md-selected-item="optionCtrl.selectedSource" md-search-text-change="optionCtrl.searchSourceTextChange(optionCtrl.searchSourceText)"
+                        md-search-text="optionCtrl.searchSourceText" md-selected-item-change="optionCtrl.selectedSourceChange(item)" md-items="item in optionCtrl.querySourceSearch(optionCtrl.searchSourceText)"
+                        md-item-text="item.SourceName" md-min-length="0" md-menu-class="autocomplete-custom-template" placeholder="{{'SOURCE' | translate}}">
+                        <md-item-template>
+                            <span class="item-title">
+                                <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                <span > {{item.SourceName}} </span>
+                            </span>
+                            <span class="item-metadata">
+                                <span class="item-metastat">
+                                <strong>{{'CODE' | translate}}:</strong> {{item.ShortCode}}
+                            </span>
+                        </md-item-template>
+                    </md-autocomplete>
+                </md-input-container>
+            </form>
+            <div flex layout="row" layout-align="end end">
+                <md-icon md-svg-src="img/icons/ic_edit_48px.svg" class="btn-business" aria-label="Edit dialog" ng-click="optionCtrl.editBusiness(optionCtrl.selectedSource)" ng-if="optionCtrl.isEditMarketing"></md-icon>
+                <md-icon md-svg-src="img/icons/ic_add_48px.svg" class="btn-business" aria-label="Edit dialog" ng-click="optionCtrl.addNewSource()" ng-if="optionCtrl.isAddMarketing"></md-icon>
+            </div>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <form ng-submit="$event.preventDefault()" flex="80" class="margin-bottom0" >
+                <md-input-container class="hide-label full-width margin-top5 margin-bottom5">
+                    <md-autocomplete ng-disabled="!optionCtrl.isAddMarketing" md-selected-item="optionCtrl.selectedMarket" md-search-text-change="optionCtrl.searchMarketTextChange(searchMarketText)"
+                        md-search-text="optionCtrl.searchMarketText" md-selected-item-change="optionCtrl.selectedMarketChange(item)" md-items="item in optionCtrl.queryMarketSearch(optionCtrl.searchMarketText)"
+                        md-item-text="item.MarketName" md-min-length="0" md-menu-class="autocomplete-custom-template" placeholder="{{'MARKET' | translate}}">
+                        <md-item-template>
+                            <span class="item-title">
+                            <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                            <span > {{item.MarketName}} </span>
+                            </span>
+                            <span class="item-metadata">
+                            <span class="item-metastat">
+                            <strong>{{'CODE' | translate}}:</strong> {{item.MarketCode}}
+                            </span>
+                            </span>
+                        </md-item-template>
+                    </md-autocomplete>
+                </md-input-container>
+            </form>
+            <div flex layout="row" layout-align="end end">
+                <md-icon md-svg-src="img/icons/ic_edit_48px.svg" class="btn-business" aria-label="Edit dialog" ng-click="optionCtrl.editBusiness(optionCtrl.selectedMarket)"
+                    ng-if="optionCtrl.isEditMarketing"></md-icon>
+                <md-icon md-svg-src="img/icons/ic_add_48px.svg" class="btn-business" aria-label="Edit dialog" ng-click="optionCtrl.addNewMarket()" ng-if="optionCtrl.isAddMarketing"></md-icon>
+            </div>
+        </div>
+    </md-card-content>
+</md-card>
+<md-card class="heightOption custom-card" flex-xs="100" flex-sm flex-gt-sm="33">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{'BREAKFAST' | translate}}
+            </span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content class="heightBreakFast">
+        <md-list flex="100">
+            <md-list-item ng-if="optionCtrl.roomBreakfast.length == 0">
+                <p>{{'NO_BREAKFAST_ADDED' | translate}}</p>
+            </md-list-item>
+            <md-list-item flex="100" ng-repeat="breakfast in optionCtrl.roomBreakfast">
+                <p>{{breakfast.UsedDate | date:'dd/MM/yyyy'}}</p>
+                <md-checkbox class="md-secondary md-warn" ng-model="breakfast.IsBreakfast" ng-disabled="breakfast.IsDisabled || isCheckOut || isCancel" ng-change="optionCtrl.updateBreakfast(breakfast)"></md-checkbox>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+</md-card>
+<md-card class="heightOption custom-card" ng-class="{'margin-top6':$mdMedia('sm')}" flex-xs="100" flex-sm="100" flex-gt-sm="30">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{'REMARK' | translate}}
+                <md-icon ng-if="!optionCtrl.isCheckOut && !optionCtrl.isCancel " class="bt-add" md-svg-src="img/icons/ic_add_circle_24px.svg" ng-click="optionCtrl.addRemark()">
+                </md-icon>
+            </span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content flex="100" class="md-content-remark">
+        <md-list class="padding0">
+            <md-list-item ng-if="optionCtrl.roomRemarks.length == 0">
+                <p class="text-black">{{'NO_REMARK_ADDED' | translate}}</p>
+            </md-list-item>
+            <md-list-item ng-class="{'margin-top10':$index > 0}" class="md-3-line" ng-if="optionCtrl.roomRemarks.length > 0" ng-repeat="remark in optionCtrl.roomRemarks" layout="row" flex="100" >
+                <div class="md-list-item-text" layout="column">
+                    <h3>
+                        <span class="DELETE" ng-if="remark.IsDeleted">[ {{'DELETED' | translate}} ] </span>
+                        {{remark.Description}}
+                    </h3>
+                    <h4 class="padding-bottom3">
+                        {{remark.CreatedDate | date:'dd/MM/yyyy (HH:mm)'}}
+                    </h4>
+                    <div ng-if="optionCtrl.hasRRIDParam" class="display-flex">
+                        <div class="{{remark.RemarkEventCode}} remark">
+                            {{remark.RemarkEventCode | translate}}
+                        </div> &nbsp;
+                        <div ng-if="remark.IsCompleted" class="COMPLETED" ng-click="optionCtrl.changeRemarkStatus(remark, $event)">
+                            {{'COMPLETED' | translate}}
+                        </div>
+                        <div ng-if="!remark.IsCompleted && (!optionCtrl.isCheckOut && !optionCtrl.isCancel)" class="INPROCESS"
+                            ng-click="optionCtrl.changeRemarkStatus(remark, $event)">
+                             {{'IN_PROGRESS' | translate}}
+                        </div>
+                    </div>
+                    <div ng-if="!optionCtrl.hasRRIDParam" class="display-flex">
+                        <div class="{{remark.RemarkEventCode}} remark">
+                            {{remark.RemarkEventCode | translate}}
+                        </div> &nbsp;
+                        <div ng-if="remark.IsCompleted" class="COMPLETED">
+                            {{'COMPLETED' | translate}}
+                        </div>
+                        <div ng-if="!remark.IsCompleted" class="INPROCESS">
+                            {{'IN_PROGRESS' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="md-secondary" layout="column" layout-align="center center" ng-if="!remark.IsDeleted && optionCtrl.hasRRIDParam">
+                    <md-button aria-label="Room Edit" ng-if="!optionCtrl.isCheckOut && !optionCtrl.isCancel" class="md-icon-button margin0" ng-click="optionCtrl.editRemark(remark, $event)">
+                        <md-icon class="icon28"  md-svg-src="img/icons/ic_edit_24px.svg" ></md-icon>
+                    </md-button>
+                    <span ng-if="!optionCtrl.isCheckOut && !optionCtrl.isCancel " class="btn-lbl">
+                        {{'EDIT' | translate}}
+                    </span>
+                </div>
+                <div class="md-secondary" layout="column" layout-align="center center" ng-if="!remark.IsDeleted">
+                    <md-button aria-label="Room Remove" class="md-icon-button margin0" ng-if="!optionCtrl.isCheckOut && !optionCtrl.isCancel " ng-click="$event.stopPropagation();optionCtrl.removeRemark(remark)">
+                        <md-icon class="icon28" md-svg-src="img/icons/ic_cancel_24px.svg" ></md-icon>
+                    </md-button>
+                    <span ng-if="!optionCtrl.isCheckOut && !optionCtrl.isCancel " class="btn-lbl">
+                    {{'REMOVE' | translate}}
+                </span>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+</md-card>

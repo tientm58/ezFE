@@ -1,0 +1,312 @@
+<style>
+ .select_view_type { width: 130px; margin-left: 7px; margin-top: 0; margin-bottom: 0; } .isOn { fill: #dddd00; } .isOff {
+fill: #ccc; } .restore { fill: red; } .check { fill: blue; } .call { fill: green; } .report_problem { fill: #afaf00; } .healing
+{ fill: red; } .room-header { background: green; padding: 6px; color: white; font-weight: bold; } .room-content { padding:
+6px; } .room { background: #f5f5f5; border: 1px solid #444; border-radius: 10px; color: black; height: 100px; margin: 2px;
+overflow: hidden; } .add_circle { fill: white; } .REPAIR { background-color: #CFD8DC; color: #607D8B; } .DIRTY { background-color:
+#FFECB3; color: #D2B48C; } .OVERDUE { background-color: #FBE9E7; color: #FF5722; } .BOOKED { background-color: #BBDEFB; color:
+#1E88E5; } .CHECKIN { background-color: #FFEBEE; color: #EF5350; } .AVAILABLE { background-color: #E8F5E9; color: #43A047;
+} /*.CANCELLED { background-color: #CFD8DC; color: #808080; }*/ .NOSHOW { background-color: #F3E5F5; color: #9C27B0; } .text
+{ display: inline; padding: 0em 0em 0em; font-weight: 600; text-transform: none; word-break: break-all; line-height: 1; text-align:
+center !important; white-space: nowrap; vertical-align: baseline; border-radius: .25em; } .whiteBackground { background:
+white; } figcaption { width: 100% } .contentHover { cursor: pointer; } .time { font-weight: 600; margin: 0; } .md-inline-list-icon-label
+{ display: inline-block; padding-left: 10px; padding-right: 10px; margin-top: -10px; height: 24px; vertical-align: middle;
+} .md-grid-item-content { min-height: 80px; } md-icon { margin: 0px; } .md-grid-item-content md-icon { height: 40px; width:
+36px; } .md-grid-text { /*padding-bottom: 5px;*/ } md-list-item, md-list-item .md-list-item-inner { min-height: 48px; } h2
+{ line-height: 36px; padding-top: 10px; } .md-subheader .md-subheader-inner { padding: 0px; } md-toast { background-color:
+#B14141; } md-toast>* { font-weight: bolder; } .md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line>._md-no-style
+.md-list-item-text, md-list-item.md-3-line .md-list-item-text, md-list-item.md-3-line>._md-no-style .md-list-item-text {
+margin: auto; } .md-list-item ._md-list-item-inner ._md-secondary-container, md-list-item ._md-secondary-container { height:
+auto; } .roomName { color: #fff !important; text-decoration: none; } .roomName:hover { color: rgb(141, 220, 255) !important;
+} .bt-status { min-width: 80px; } .bt-status span { color: white; font-size: 0.8em; } .style-group { left: 2px; top: -4px;
+position: absolute; transform: rotate(320deg) scale(1) skew(1deg) translate(0px); -webkit-transform: rotate(320deg) scale(1)
+skew(1deg) translate(0px); -moz-transform: rotate(320deg) scale(1) skew(1deg) translate(0px); -o-transform: rotate(320deg)
+scale(1) skew(1deg) translate(0px); -ms-transform: rotate(320deg) scale(1) skew(1deg) translate(0px); margin-left: -12px;
+height: 15px; width: 27px; } .padding-gt-md { padding-left: 0.5px; } .custom-menu:hover { border-left: black 3px solid; transition:
+all 0s !important; } .custom-menu { max-height: 35px; min-height: 35px; } .width-gt-md { max-width: 23.5% !important; min-width:
+23.5% !important; } .set-width-gt-md { /*width: 257px !important;*/ /* width: 207px !important; */ } .font-size-xs { font-size:
+12px !important; } .text-align-xs-sm-length-1 { text-align: center !important; } .text-align-xs-sm-length-2 { text-align:
+right !important; } .set-style-by-length-1 { text-align: center !important; width: 100%; } .set-style-by-length-2 { text-align:
+left !important; width: 50%; overflow: hidden; } .animate.ng-enter, .animate.ng-leave { -webkit-transition: 400ms cubic-bezier(0.550,
+0.055, 0.675, 0.190) all; -moz-transition: 400ms cubic-bezier(0.550, 0.055, 0.675, 0.190) all; -ms-transition: 400ms cubic-bezier(0.550,
+0.055, 0.675, 0.190) all; -o-transition: 400ms cubic-bezier(0.550, 0.055, 0.675, 0.190) all; transition: 400ms cubic-bezier(0.550,
+0.055, 0.675, 0.190) all; position: relative; display: block; } .animate.ng-leave.animate.ng-leave-active, .animate.ng-enter
+{ -webkit-transform: rotateX(90deg) rotateZ(90deg); -moz-transform: rotateX(90deg) rotateZ(90deg); -ms-transform: rotateX(90deg)
+rotateZ(90deg); -o-transform: rotateX(90deg) rotateZ(90deg); transform: rotateX(90deg) rotateZ(90deg); opacity: 0; height:
+0px; } .animate.ng-enter.animate.ng-enter-active, .animate.ng-leave { -webkit-transform: rotateX(0deg) rotateZ(0deg); -moz-transform:
+rotateX(0deg) rotateZ(0deg); -ms-transform: rotateX(0deg) rotateZ(0deg); -o-transform: rotateX(0deg) rotateZ(0deg); transform:
+rotateX(0deg) rotateZ(0deg); opacity: 1; height: 30px; } ._md-open-menu-container { position: absolute; z-index: 99999999999;
+} .font-size12 { font-size: 12px; } .wrp_search { margin-bottom: -19px; margin-top: 0; } .wrap_btns button { margin-top:
+0; margin-left: 0px; min-width: 80px; } #wr_timeline { height: 100%; } .hex-fit { height: fit-content; } #list-btn-menu:first-of-type
+{ border: 1px solid green; } #list-btn-menu:first-of-type span { color: green; } .box_roomvD_left { width: 60px; min-width:
+fit-content !important; position: relative; overflow: hidden; } .ezwp_box_roomvD { padding: 0px; color: rgba(255, 255, 255,
+0.87); } .ezwp_box_roomvD .RoomLevel { margin: 6px auto; } .ezwp_box_roomvD .RoomLevel span { font-size: 60%; padding: .2em
+.6em .1em; } .ezwp_box_roomvD .b_RN { margin: 5px auto; text-align: center !important; padding-top: 3px; } .ezwp_box_roomvD
+.b_RN span { font-size: 150%; } .ezwp_box_roomvD .f_left { text-align: center; width: 72px !important; } .ezwp_box_roomvD
+.f_left .md-icon-button { height: 21px !important; padding: 0px !important; margin: 0px !important; width: 21px !important;
+} .ezwp_box_roomvD .f_left md-icon { fill: #fff; height: 21px; width: 21px; color: #666; } .ezwp_box_roomvD .box_roomvD_chillrend
+{ width: 100%; font-size: 14px; font-weight: bold; } .ezwp_box_roomvD .box_roomvD_content { width: 100; height: 90px; } .box_filter_field
+{ min-height: 90px; max-height: 5500px; border-bottom: rgba(0, 0, 0, 0.12) thin solid; } .col-left-timeLine th.k-slot-cell
+{ padding-bottom: 0px; /*padding-top: 0px;*/ } .set-width-gt-md { /*width: 257px !important;*/ /* width: 250px !important;
+*/ } .font-size-xs { font-size: 12px !important; } .text-align-xs-sm-length-1 { text-align: center !important; } .text-align-xs-sm-length-2
+{ text-align: right !important; } .set-style-by-length-1 { text-align: center !important; width: 100%; } .set-style-by-length-2
+{ text-align: left !important; width: 50%; overflow: hidden; } .animate.ng-enter, .animate.ng-leave { -webkit-transition:
+400ms cubic-bezier(0.550, 0.055, 0.675, 0.190) all; -moz-transition: 400ms cubic-bezier(0.550, 0.055, 0.675, 0.190) all;
+-ms-transition: 400ms cubic-bezier(0.550, 0.055, 0.675, 0.190) all; -o-transition: 400ms cubic-bezier(0.550, 0.055, 0.675,
+0.190) all; transition: 400ms cubic-bezier(0.550, 0.055, 0.675, 0.190) all; position: relative; display: block; } .animate.ng-leave.animate.ng-leave-active,
+.animate.ng-enter { -webkit-transform: rotateX(90deg) rotateZ(90deg); -moz-transform: rotateX(90deg) rotateZ(90deg); -ms-transform:
+rotateX(90deg) rotateZ(90deg); -o-transform: rotateX(90deg) rotateZ(90deg); transform: rotateX(90deg) rotateZ(90deg); opacity:
+0; height: 0px; } .animate.ng-enter.animate.ng-enter-active, .animate.ng-leave { -webkit-transform: rotateX(0deg) rotateZ(0deg);
+-moz-transform: rotateX(0deg) rotateZ(0deg); -ms-transform: rotateX(0deg) rotateZ(0deg); -o-transform: rotateX(0deg) rotateZ(0deg);
+transform: rotateX(0deg) rotateZ(0deg); opacity: 1; height: 30px; } .box_l_c { background-color: #8d8d8d; } a.roomName {
+font-size: 18px; }.btn_read_card{margin-top: 10px !important;}
+</style>
+
+<md-content style="" id="wr_timeline">
+	<div ng-if="$mdMedia('gt-sm') == true" class="md-padding" layout="row" layout-align="space-between start" layout-wrap style="width: 100%;padding-bottom: 0px;padding-top: 0px;padding-left: 0px;">
+		<div layout="row" class="wrap_btns" flex-gt-xs="80" flex-xs="100" layout-wrap layout-align="start center" style="padding: 5px">
+			<md-button aria-label="{{'ALL' | translate}}" ng-click="changeStatus('')" class="button_all" style="border: 1px solid green;">
+				<span class="text" style="color: green;">{{'ALL' | translate}}
+					<span ng-if="viewType !== 'TIMELINE'">({{countByStatus('')}})</span>
+				</span>
+			</md-button>
+			<md-button ng-if="viewType !== 'TIMELINE'" aria-label="{{'AVAILABLE' | translate}}" style="background-color: {{statusColors['AVAILABLE']}}"
+			    ng-click="changeStatus('AVAILABLE')">
+				<span class="text" style="color: #fff;font-size: 0.8em;">
+					{{'AVAILABLE' | translate}}
+					<span ng-if="viewType !== 'TIMELINE'"> ({{countByStatus('AVAILABLE')}})</span>
+				</span>
+			</md-button>
+			<md-button aria-label="{{'CHECKIN' | translate}}" style="background-color: {{statusColors['CHECKIN']}}" ng-click="changeStatus('CHECKIN')">
+				<span class="text" style="color: #fff;font-size: 0.8em;">
+					{{'CHECKIN' | translate}}
+					<span ng-if="viewType !== 'TIMELINE'"> ({{countByStatus('CHECKIN')}})</span>
+				</span>
+			</md-button>
+			<md-button aria-label="{{'OVERDUE' | translate}}" style="background-color: {{statusColors['OVERDUE']}}" ng-click="changeStatus('OVERDUE')">
+				<span class="text" style="color: #fff;font-size: 0.8em;">
+					{{'OVERDUE' | translate}}
+					<span ng-if="viewType !== 'TIMELINE'"> ({{countByStatus('OVERDUE')}})</span>
+				</span>
+			</md-button>
+			<md-button aria-label="{{'BOOKED' | translate}}" style="background-color: {{statusColors['BOOKED']}}" ng-click="changeStatus('BOOKED')">
+				<span class="text" style="color: #fff;font-size: 0.8em;">
+					{{'BOOKED' | translate}}
+					<span ng-if="viewType !== 'TIMELINE'">({{countByStatus('BOOKED')}})</span>
+				</span>
+			</md-button>
+			<md-button aria-label="{{'NOSHOW' | translate}}" style="background-color: {{statusColors['NOSHOW']}}" ng-click="changeStatus('NOSHOW')">
+				<span class="text" style="color: #fff;font-size: 0.8em;">
+					{{'NOSHOW' | translate}}
+					<span ng-if="viewType !== 'TIMELINE'">({{countByStatus('NOSHOW')}})</span>
+				</span>
+			</md-button>
+			<md-button ng-if="viewType !== 'TIMELINE'" aria-label="{{'DIRTY' | translate}}" style="background-color: {{statusColors['DIRTY']}}"
+			    ng-click="changeStatus('DIRTY')">
+				<span class="text" style="color: #fff;font-size: 0.8em;">
+					{{'DIRTY' | translate}} ({{countByStatus('DIRTY')}})
+				</span>
+			</md-button>
+			<md-button aria-label="{{'REPAIR' | translate}}" style="background-color: {{statusColors['REPAIR']}}" ng-click="changeStatus('REPAIR')">
+				<span class="text" style="color: #fff;font-size: 0.8em;">
+					{{'REPAIR' | translate}}
+					<span ng-if="viewType !== 'TIMELINE'">({{countByStatus('REPAIR')}})</span>
+				</span>
+			</md-button>
+			<md-button ng-if="viewType == 'TIMELINE'" aria-label="{{'CHECKOUT' | translate}}" style="background-color: {{statusColors['CHECKOUT']}}"
+			    ng-click="changeStatus('CHECKOUT')">
+				<span class="text" style="color: #fff;font-size: 0.8em;">
+					{{'CHECKOUT' | translate}}
+				</span>
+			</md-button>
+			<md-input-container class="wrp_search" ng-if="viewType != 'TIMELINE'">
+				<label></label>
+				<input type="search" class="input_search" md-autofocus ng-model="page.room_filter" id="ip_search_room" ng-keyup="filterRoom(page.room_filter)"
+				    placeholder="{{ 'FILTER_ROOM' | translate}} ctrl + s" />
+			</md-input-container>
+		</div>
+		<div layout="row" class="wrap_btns" layout-wrap class="" flex-gt-xs="20" flex-xs="100" style="" layout-align="end center">
+			<div flex="40" layout="row" layout-align="end start">
+				<md-button flex="100" aria-label="{{'READ_CARD' | translate}}" ng-if="currentHotelConnectivites.isUsed" class="btn_read_card btn-c md-raised md-warn"
+				    ng-click="readCard()">
+					<span style="text-align:center; ">{{'READ_CARD' | translate}}</span>
+				</md-button>
+			</div>
+			<md-input-container flex="50" class="font-size12" style="margin: 0px; height: 24px;" ng-if="viewType !=='TIMELINE' ">
+				<md-select ng-model="sortBy" ng-change="changeSortBy(sortBy)">
+					<md-option value="ROOM">{{'ROOM' | translate}}</md-option>
+					<md-option value="FLOOR">{{'FLOOR' | translate}}</md-option>
+					<md-option value="ROOM_TYPE">{{'ROOM_TYPE' | translate}}</md-option>
+				</md-select>
+			</md-input-container>
+			<div style="padding-left: 25px;" flex="60" flex-xs="60">
+				<md-button md-no-ink aria-label="{{ 'VIEW_DETAIL' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;width:30px"
+				    ng-click="changeViewType( 'DETAIL') ">
+					<md-tooltip>{{'VIEW_DETAIL' | translate}}</md-tooltip>
+					<md-icon ng-if="viewType==='DETAIL'" md-svg-icon="img/icons/ic_view_compact_24px.svg" style="fill: #f44336;"></md-icon>
+					<md-icon ng-if="viewType !=='DETAIL'" md-svg-icon="img/icons/ic_view_compact_24px.svg" style="width:26px;height:26px"></md-icon>
+				</md-button>
+				<md-button md-no-ink aria-label="{{ 'VIEW_SIMPLE' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;width:30px"
+				    ng-click="changeViewType( 'SIMPLE') ">
+					<md-tooltip>{{'VIEW_SIMPLE' | translate}}</md-tooltip>
+					<md-icon ng-if="viewType==='SIMPLE' " md-svg-icon="img/icons/ic_view_comfortable_24px.svg " style="fill: #f44336; "></md-icon>
+					<md-icon ng-if="viewType !=='SIMPLE' " md-svg-icon="img/icons/ic_view_comfortable_24px.svg "></md-icon>
+				</md-button>
+				<md-button md-no-ink aria-label="{{ 'VIEW_TIMELINE' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;width:30px"
+				    ng-click="changeViewType( 'TIMELINE') ">
+					<md-tooltip>{{'VIEW_TIMELINE' | translate}}</md-tooltip>
+					<md-icon ng-if="viewType==='TIMELINE' " md-svg-icon="img/icons/ic_tune_24px.svg " style="fill: #f44336; "></md-icon>
+					<md-icon ng-if="viewType !=='TIMELINE' " md-svg-icon="img/icons/ic_tune_24px.svg "></md-icon>
+				</md-button>
+				<md-switch ng-model="isViewDate" style="padding: 0;margin: 0;" ng-change="tranferViewDate()" ng-if="viewType == 'TIMELINE'">
+					{{"VIEW_DATE" | translate}}
+				</md-switch>
+			</div>
+		</div>
+	</div>
+	<div ng-if="$mdMedia('xs') == true || $mdMedia('sm') == true" class="hex-fit smd-padding" layout="row" layout-align="space-between start"
+	    style="width: 100%;">
+		<div flex="50" layout-align="start center">
+			<div layout="row" layout-align="start center">
+				<md-menu md-position-mode="target-right target">
+					<md-button aria-label="Room Status Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<md-icon md-menu-origin md-svg-icon="img/icons/{{selectedItem.icon}}" style="fill: {{selectedItem.color}}"></md-icon>
+					</md-button>
+					<md-menu-content width=" 5 " style="min-width: 280px;max-height: 1000px;">
+						<md-menu-item ng-repeat="item in menuItems ">
+							<md-button ng-click="menuItemClick(item) ">
+								<div layout="row ">
+									<p ng-if="item.name !=='' " flex style="color: {{item.color}}">{{item.name | translate}}</p>
+									<p ng-if="item.name==='' " flex style="color: {{item.color}}">{{'ALL' | translate}}</p>
+									<p style="color: {{item.color}}">&nbsp({{item.quantity}})</p>
+								</div>
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+				<div>
+					<span ng-if="selectedItem.name==='' " style=" ">{{'ALL' | translate}}({{menuItems[0].quantity}})</span>
+					<span ng-if="selectedItem.name !=='' " style="font-weight: bold;color:{{selectedItem.color}} ">{{selectedItem.name | translate}}({{selectedItem.quantity}})</span>
+				</div>
+				<span flex="10"></span>
+				<md-button aria-label="{{'READ_CARD' | translate}}" ng-if="currentHotelConnectivites.isUsed" class="btn-c md-icon-button"
+				    layout="row" layout-align="start center" ng-click="readCard()">
+					<md-icon md-svg-icon="img/icons/ic_credit_card_24px.svg"></md-icon>
+				</md-button>
+			</div>
+			<div layout="column" class="wrap_btns">
+				<span ng-if="currentHotelConnectivites.isUsed" hide-xs>{{'READ_CARD' | translate}}</span>
+				<md-input-container class="select_view_type" ng-if="viewType != 'TIMELINE'">
+					<label></label>
+					<md-select ng-model="sortBy" ng-change="changeSortBy(sortBy)">
+						<md-option value="ROOM">{{'ROOM' | translate}}</md-option>
+						<md-option value="FLOOR">{{'FLOOR' | translate}}</md-option>
+						<md-option value="ROOM_TYPE">{{'ROOM_TYPE' | translate}}</md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+		</div>
+		<div layout="row " class="wrap_btns" layout-wrap class="" flex="50 " style="padding-top: 8px; " layout-align="end center ">
+			<div flex="100 " layout="row" layout-wrap layout-align="end center">
+				<md-input-container style="margin: 0px; ">
+					<label></label>
+					<input type="search" class="input_search" md-autofocus ng-model="page.room_filter" id="ip_search_room" ng-keyup="filterRoom(page.room_filter)"
+					    placeholder="{{ 'FILTER_ROOM' | translate}}  ctrl + s" />
+				</md-input-container>
+			</div>
+
+			<div layout="row " layout-align="end center " flex="100">
+				<div layout="row " layout-align="start center " style="">
+					<md-button md-no-ink aria-label="{{ 'VIEW_DETAIL' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;"
+					    ng-click="changeViewType( 'DETAIL') ">
+						<md-icon ng-if="viewType==='DETAIL' " md-svg-icon="img/icons/ic_view_compact_24px.svg " style="fill: #f44336; "></md-icon>
+						<md-icon ng-if="viewType !=='DETAIL' " md-svg-icon="img/icons/ic_view_compact_24px.svg "></md-icon>
+					</md-button>
+					<md-button md-no-ink aria-label="{{ 'VIEW_SIMPLE' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;"
+					    ng-click="changeViewType( 'SIMPLE') ">
+						<md-icon ng-if="viewType==='SIMPLE' " md-svg-icon="img/icons/ic_view_comfortable_24px.svg " style="fill: #f44336; "></md-icon>
+						<md-icon ng-if="viewType !=='SIMPLE' " md-svg-icon="img/icons/ic_view_comfortable_24px.svg "></md-icon>
+					</md-button>
+					<md-button md-no-ink aria-label="{{ 'VIEW_TIMELINE' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;"
+					    ng-click="changeViewType( 'TIMELINE') ">
+						<md-icon ng-if="viewType==='TIMELINE' " md-svg-icon="img/icons/ic_tune_24px.svg " style="fill: #f44336; "></md-icon>
+						<md-icon ng-if="viewType !=='TIMELINE' " md-svg-icon="img/icons/ic_tune_24px.svg "></md-icon>
+					</md-button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="md-padding" ng-class="[{'hex-fit':!(viewType=='TIMELINE')}]" layout="row" layout-wrap layout-align="start start"
+	    style="padding:7px;padding-top:15px;padding-bottom:55px">
+		<!--FLOOR-->
+		<section flex="100" class="box_filter_field" ng-if="sortBy == 'FLOOR' && viewType !=='TIMELINE' && filterByFloorId(data,floor.FloorId).length > 0"
+		    ng-repeat="floor in floorList | orderBy:'OrderNumber' " layout="column" layout-wrap>
+			<section class="name_field_filter  text-left" layout>
+				{{floor.FloorName }}
+			</section>
+			<span>
+				<section flex layout layout-align="start start" layout-wrap>
+					<md-card ng-class="{'width-gt-md':$mdMedia('gt-md')}" flex-md="30" flex-sm="45" flex-xs="100" ng-repeat="item in filterByFloorId(data,floor.FloorId) | orderBy: 'OrderNumber'  track by item.RoomId"
+					    class="box_l_c" style="height:90px;margin:5px" ng-if=" viewType==='DETAIL' ">
+						<div ng-include src="'views/templates/RoomViewDetail.tmpl.html'"></div>
+					</md-card>
+					<md-card ng-repeat="item in filterByFloorId(data, floor.FloorId) | orderBy: 'OrderNumber'  track by item.RoomId" ng-if="item.FloorId == floor.FloorId && viewType == 'SIMPLE' && sortBy == 'FLOOR'"
+					    class="box_l_c" ng-click="showItemMenu($event,item) " ng-if=" viewType==='SIMPLE' " style="height: 90px;cursor: pointer;margin:5px">
+						<div ng-include src="'views/templates/RoomViewSimple.tmpl.html'"></div>
+					</md-card>
+				</section>
+			</span>
+		</section>
+		<!--ROOMTYPE-->
+		<section flex="100" class="box_filter_field" ng-if="sortBy == 'ROOM_TYPE' && viewType !=='TIMELINE' " ng-repeat="roomType in roomTypes | orderBy:'OrderNumber'" layout-xs="row" layout="column" layout-wrap>
+<section class="name_field_filter text-left" layout>
+				{{roomType.RoomTypeCode }}
+			</section>
+			<span>
+				<section flex layout layout-align="start start" layout-wrap>
+					<md-card ng-class="{'width-gt-md':$mdMedia('gt-md')}" flex-md="30" flex-sm="45" flex-xs="100" ng-repeat="item in filterByRoomTypeId(data, roomType.RoomTypeId) | orderBy: 'OrderNumber' track by item.RoomId"
+					    class="box_l_c" style="height:90px;margin:5px" ng-if=" viewType==='DETAIL' ">
+						<div ng-include src="'views/templates/RoomViewDetail.tmpl.html'"></div>
+					</md-card>
+					<md-card ng-repeat="item in filterByRoomTypeId(data, roomType.RoomTypeId) | orderBy: 'OrderNumber'  track by item.RoomId"
+					    class="box_l_c" ng-click="showItemMenu($event,item) " ng-if=" viewType==='SIMPLE' " style="height: 90px;cursor: pointer;margin:5px">
+						<div ng-include src="'views/templates/RoomViewSimple.tmpl.html'"></div>
+					</md-card>
+				</section>
+			</span>
+		</section>
+		<!--ROOM-->
+		<section flex="100" class="box_filter_field" layout="row" layout-wrap>
+			<md-card flex-md="45" flex-sm="100" flex-xs="100" ng-if="sortBy == 'ROOM' && viewType == 'DETAIL'" ng-class="{'width-gt-md':$mdMedia('gt-md')}"
+			    class="box_l_c" ng-repeat="item in data | orderBy: 'OrderNumber' track by item.RoomId" class="" style="height:90px;">
+				<div ng-include src="'views/templates/RoomViewDetail.tmpl.html'"></div>
+			</md-card>
+			<md-card flex-md="45" flex-sm="100" flex-xs="100" ng-if="viewType == 'SIMPLE' && sortBy == 'ROOM'" ng-repeat="item in data | orderBy: 'OrderNumber'  track by item.RoomId"
+			    class="box_l_c"  ng-click="showItemMenu($event,item)" style="height: 90px;cursor:pointer">
+				<div ng-include src="'views/templates/RoomViewSimple.tmpl.html'"></div>
+			</md-card>
+		</section>
+		<md-card ng-show="viewType == 'TIMELINE'" id="wp_RoomStatus" class="height100" style=" min-height: 450px;">
+			<div ng-include src="'views/templates/roomStatus.tmpl.html'"></div>
+		</md-card>
+	</div>
+	<div class="md-padding box_count_r font-size12" layout="column" layout-wrap layout-align="center center" ng-if="data.length < items.length && viewType!='TIMELINE'">
+		<div style="color: #6b676b;" class="number_page_roomv">{{'SHOW' |translate}} {{data.length}} {{'OF' |translate}} {{items.length}} {{'ROOM' |translate}}</div>
+		<md-button ng-show="viewType!='TIMELINE'" class="md-raised input_search btn-c" ng-click="loadMore()">
+			<md-icon md-svg-icon="img/icons/ic_expand_more_24px.svg "></md-icon>
+			{{'LOAD_MORE' | translate}}
+		</md-button>
+	</div>
+	</div>
+</md-content>
+<script>
+	jQuery("document").ready(function () {
+		if (window.outerHeight >= 1000) {
+			jQuery("#wp_RoomStatus").attr("style", "min-height: 750px;");
+		} else if (window.outerHeight > 800 && window.outerHeight < 900) {
+			jQuery("#wp_RoomStatus").attr("style", "min-height: 550px;");
+		} else if (window.outerHeight > 900 && window.outerHeight < 1000) {
+			jQuery("#wp_RoomStatus").attr("style", "min-height: 650px;");
+		}
+	})
+</script>

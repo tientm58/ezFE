@@ -1,0 +1,231 @@
+<style type="text/css">
+md-list-item[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}
+md-list-item .selected {
+        background-color: #dff0d8;
+        color: #3c763d;
+}
+    md-list[dnd-list],
+  md-list[dnd-list] > md-list-item {
+    position: relative;
+}
+    
+    md-list[dnd-list] {
+    min-height: 75px;
+    padding-left: 0px;
+}
+    
+md-list-item .selected {
+        background-color: #dff0d8;
+        color: #3c763d;
+}
+.dndDraggingSource {
+    display: none;
+}
+md-list-item.md-2-line, md-list-item.md-2-line>._md-no-style{
+    min-height: 30px !important;
+}
+md-list-item, md-list-item ._md-list-item-inner{
+    min-height: 30px !important;   
+}
+/*md-list-item[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}*/
+.md-icon{
+    margin:inherit;
+    color:white;
+    cursor: pointer;
+}
+.md-list-item-text{
+    padding-left: -5px;
+}
+.size-icon{
+    height: 20px;
+    width: 22px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#showmenu:hover{
+    text-decoration: underline
+}
+#showmenu{
+    padding-left:5px; 
+}
+.space{
+  padding-left: 15px
+}
+.CHECKIN {
+    background-color: #FFEBEE;
+    color: #EF5350;
+}
+.hide-box-shadow{
+    box-shadow: none;
+    margin-top: -15px;
+}
+.set-style-by-length-1{
+      text-align: center !important;
+      width: 100%;
+}
+.set-style-by-length-2{
+  text-align: left !important;
+  width: 50%;
+  overflow: hidden;
+}
+.parent_b{
+color:white;width:100%;height:35px ;cursor:pointer;background:#045193;
+}
+.chi_b{
+background:#4CAF50;padding:0px;margin:0px;margin-left:35px;margin-top:5px;height:30px
+}
+</style>
+    <md-toolbar>
+      <span flex class="md-toolbar-tools">
+        <h2>
+          {{'ROOM_VIEW_TEMPLATE' | translate}}
+        </h2>
+      </span>
+        <md-button class="md-warn md-fab md-mini" ng-click="saveTemplate()" style=" position: absolute;right: 16px;bottom: -25px;">
+            <md-icon md-svg-src="img/icons/ic_save_48px.svg"></md-icon>
+            <md-tooltip md-direction="left" hide-xs hide-sm hide-md>
+                {{'SAVE_ROOM_VIEW' | translate}}
+            </md-tooltip>
+        </md-button>
+    </md-toolbar>
+    <md-content  flex="100" layout="column" layout-align="start start" style="min-height:435px;" style="width:100%;" layout-padding ><!-- max-height:435px -->
+          <md-card style="min-height:430px;width:99%;margin-top:0px !important"><!--  -->
+                 <md-card-content  flex="100" layout layout-align="center start" layout-padding layout-wrap>
+                        <!-- preview -->
+                        <div layout="row"  layout-wrap layout-align="start start" style="" flex="100">
+                            <md-card flex="100" style="height:90px;" class="hide-box-shadow">
+                                <md-card-content style="padding: 0px;color: rgba(255,255,255,0.87);" layout="row" flex="100" layout-align="center center">
+                                    <div layout="column "layout-align="start center"  style="background-color:#EF5350" >
+                                        <div style="margin: 6px auto;">
+                                            <span class="text " style="font-size: 60%;padding: .2em .6em .1em; ">STD</span>
+                                        </div>
+                                        <div style="margin: 6px auto;text-align:center !important;width:70px !important;margin-top: 0px;margin-bottom: 0px"  >
+                                            <span class="text " style="font-size: 150%;">101</span>
+                                        </div>
+                                        <div style="text-align:center">
+                                            <md-button class="md-icon-button "  style="height: 24px; " >
+                                                <md-icon md-svg-src="img/icons/ic_local_hotel_24px.svg " style="fill: #fff;height: 24px; width: 24px; color: #666; "></md-icon>
+                                            </md-button>
+                                        </div>
+                                    </div>
+                                    <div style="min-width: 250px;height: 90px;" layout layout-wrap  >
+                                        <div layout="column " class="CHECKIN" layout-align="start center "  style="width: 100%;height:100%;font-size: 14px;word-break: break-all;line-height: 1;white-space: nowrap;font-weight: 600;">
+                                            <div ng-repeat="l in hotelDisplay" ng-if="l.List.length>0" flex="100 " layout="row " layout-align="center center "  style="width: 100%;font-size: 14px">
+                                                <span ng-if="l.List[0]" class="text set-style-by-length-{{l.List.length}}" style="padding-left:3px;" >{{l.List[0].DisplayGroupDetailDesc | truncate:25 }}</span>
+                                                <span ng-if="l.List[1]" class="text set-style-by-length-{{l.List.length}}" style="padding-right:4px">
+                                                  <span ng-if="l.List[1].PropertyColumName!=' '">- </span>
+                                                  {{l.List[1].DisplayGroupDetailDesc | truncate:25}}</span>
+                                            </div>
+                                        </div>
+                                     </div>
+                                </md-card-content>
+                            </md-card>
+                        </div>
+                        <!-- item right -->
+                        <div  flex-xs="100" flex-sm="100" flex-gt-sm="45" dnd-list="hotelDisplay" dnd-allowed-types="[0]">
+                            <div ng-repeat="hd in hotelDisplay " style="margin-bottom:10px" flex="100" dnd-effect-allowed="move" dnd-draggable="hd" dnd-moved="hotelDisplay.splice($index,1)"  dnd-type="0">
+                                <div flex="100" class="parent_b" style="" layout layout-align="start center">
+                                      <div flex="5">
+                                          <md-icon class="md-icon " md-svg-icon="img/icons/ic_unfold_more_18px.svg"></md-icon>
+                                      </div>
+                                   
+                                      <div flex="85" id="showmenu" ng-click="showDisplayGroup(hd.DisplayGroupId)" >
+                                          <span style="">{{hd.DisplayGroupCode | translate}} ({{hd.List.length}})</span>
+                                      </div>
+                                      <div flex="10" style="text-align:center">
+                                           <md-icon ng-click="removeItem(hd.DisplayGroupId,-1)" class="md-icon md-secondary" style="" md-svg-icon="img/icons/ic_refresh_18px.svg"></md-icon>
+                                      </div>
+                                </div>
+                                <div ng-show="hd.Show" flex="100"  style="width:100%;height:80px;border:#355C7D thin solid;box-sizing:border-box;"  layout-align="end center" 
+                                  dnd-list="hd.List"
+                                  dnd-allowed-types="hd.allowedTypes"
+                                  dnd-disable-if="hd.List.length >= 2">
+<md-list-item ng-repeat="item in hd.List" class="md-1-line chi_b"
+                                      dnd-effect-allowed="move"
+                                      dnd-draggable="item"
+                                      dnd-type="item.DisplayGroupId"
+                                      dnd-moved="hd.List.splice($index,1)"
+                                       flex="90" >
+                                          <div class="md-list-item-text" >
+                                              <md-icon ng-click="sortItem(item.DisplayGroupId,$index,'down')" ng-hide="$index==1 || hd.List.length<2" class="md-icon size-icon" md-svg-icon="img/icons/ic_expand_more_18px.svg"></md-icon>   
+                                              <md-icon ng-click="sortItem(item.DisplayGroupId,$index,'up')" ng-hide="$index==0|| hd.List.length<2" class="md-icon size-icon" md-svg-icon="img/icons/ic_expand_less_18px.svg"></md-icon>   
+                                              <span ng-class="{space:hd.List.length<2}" style="color:white;font-size:14px;text-align:center;">{{item.DisplayGroupDetailCode | translate}}</span>
+                                          </div>
+                                          <div class="md-secondary">
+                                              <md-icon ng-click="removeItem(item.DisplayGroupId,$index)" class="md-icon size-icon"   md-svg-icon="img/icons/ic_close_18px.svg" ></md-icon>
+                                          </div>
+                                      </md-list-item> 
+                                </div>
+                              </div>
+                            <!-- <div flex="100" dnd-effect-allowed="move" dnd-draggable="hotelDisplay[1]" dnd-moved="hotelDisplay.splice(0,1)">
+                              <div flex="100" style="color:white;width:100%;height:35px ;cursor:pointer;background:#6C5878;" layout layout-align="start center">
+                                  <div flex="5">
+                                        <md-icon class="md-icon" md-svg-icon="img/icons/ic_unfold_more_18px.svg"></md-icon>
+                                    </div>
+                                    <div flex="85" id="showmenu" ng-click="showDisplayGroup(hotelDisplay[1].DisplayGroupId)">
+                                        <span >{{hotelDisplay[1].DisplayGroupCode | translate}} ({{hotelDisplay[1].List.length}})</span>
+                                    </div>
+                                    <div flex="10" style="text-align:center">
+                                         <md-icon ng-click="removeItem(hotelDisplay[1].DisplayGroupId,-1)" class="md-icon md-secondary" style="" md-svg-icon="img/icons/ic_refresh_18px.svg"></md-icon>
+                                    </div>
+                              </div>
+                              <div flex="100" style="margin-bottom:10px;width:100%;height:80px;border:#6C5878 thin solid;box-sizing:border-box;" 
+                              dnd-list="hotelDisplay[1].List"
+                              dnd-allowed-types="hotelDisplay[1].allowedTypes"
+                              dnd-disable-if="hotelDisplay[1].List.length >= 2"
+                              layout-align="end center" flex="90">
+                                     <md-list-item ng-repeat="item in hotelDisplay[1].List" class="md-1-line"  
+                                    dnd-effect-allowed="move"
+                                    dnd-draggable="item"
+                                    dnd-type="item.DisplayGroupId"
+                                    dnd-moved="hotelDisplay[1].List.splice($index,1)"
+                                     style="background:#857097;padding:0px;margin:0px;margin-left:35px;margin-top:5px;height:30px" flex="90" >
+                                        <div class="md-list-item-text" >
+                                            <md-icon class="md-icon size-icon" md-svg-icon="img/icons/ic_open_with_24px.svg"></md-icon>   
+                                             <span style="color:white;font-size:14px;text-align:center;font-family:myriad pro">{{item.DisplayGroupDetailCode | translate}}</span>
+                                        </div>
+                                        <div class="md-secondary">
+                                            <md-icon ng-click="removeItem(item.DisplayGroupId,$index)" class="md-icon size-icon"   md-svg-icon="img/icons/ic_close_18px.svg" ></md-icon>
+                                        </div>
+                                    </md-list-item> 
+                              </div>
+                            </div> -->
+                        </div>
+                        <!-- item right -->
+                        <div  flex-xs="100" flex-sm="100" flex-gt-sm="40" flex-offset-gt-sm="5">
+                             <div style="width:100%;" ng-repeat="l in listDisplay" ng-show="l.Show">
+                                  <div 
+                                  style="color:white;width:100%;height:35px ;cursor:pointer;background:#355C7D;" layout layout-align="start center">
+                                    <span style="padding-left:10px;">{{l.DisplayGroupCode | translate}}</span>
+                                 </div>
+                                  <div flex="100" 
+                                  dnd-list="l.List"
+                                   dnd-allowed-types="l.allowedTypes"
+ style="margin-bottom:10px;width:100%;min-height:215px;background:#ECF0F5;" lyaout="row" layout-align="end center" layout-padding>
+                                        <md-list-item ng-repeat="item in l.List" class="md-1-line" 
+                                        dnd-effect-allowed="move"
+                                        dnd-draggable="item"
+                                        dnd-type="item.DisplayGroupId"
+                                        dnd-moved="l.List.splice($index,1)"
+                                        style="background:#427199;padding:0px;margin:0px;margin-left:35px;;height:30px;margin-bottom:5px" flex="90" >
+                                            <div class="md-list-item-text" >
+                                                <md-icon class="md-icon size-icon" md-svg-icon="img/icons/ic_open_with_24px.svg"></md-icon>   
+                                                 <span style="color:white;font-size:14px;text-align:center;">{{item.DisplayGroupDetailCode | translate}} ({{item.DisplayGroupDetailDesc}})</span>
+                                            </div>
+                                        </md-list-item> 
+                                 </div>
+                            </div>
+                        </div>
+                 </md-card-content>
+            </md-card>
+    </md-content>
+
+

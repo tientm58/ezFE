@@ -1,0 +1,114 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="lib/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet" />
+<style>
+@media screen and (max-width: 760px){
+
+       .fullscreen-dialog {
+       height:100% !important;
+       width:100% !important;
+       max-height:100%;
+       max-width: 100%;
+       position: absolute;
+       top: 0;
+       left: 0;
+       border-radius: 0;
+   }
+    
+}
+#reportViewer1 {
+    top:61px !important;
+}
+</style>
+<md-dialog aria-label="Invoice" ng-cloak class="fullscreen-dialog" style="width:90%;height:100%" layout="column">
+	<md-toolbar >
+		<div class="md-toolbar-tools">
+			<h2>{{'PRINT_INVOICE' | translate}}</h2>
+			<span flex>{{reservationRoomId}}</span>
+			<md-button class="md-icon-button" ng-click="cancel()">
+				<md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content style="height:100%">
+		<div id="reportViewer1"data-ng-init="init()">
+		</div>
+	</md-dialog-content>
+
+</md-dialog>
+<script type="text/javascript">
+	$.ajaxPrefilter(function (options) {
+		if (!options.beforeSend) {
+			options.beforeSend = function (xhr) {
+				xhr.setRequestHeader('Authorization', 'Bearer ' + JSON.parse(localStorage["ngStorage-session"]).access_token);
+			}
+		}
+	});    
+	$(document).ready(function () {       
+		$("#reportViewer1")
+			.telerik_ReportViewer({
+				// The URL of the service which will serve reports.
+				// The URL corresponds to the name of the controller class (ReportsController).
+				// For more information on how to configure the service please check http://www.telerik.com/help/reporting/telerik-reporting-rest-conception.html.
+				serviceUrl: apiUrl + "api/reports/",
+
+				// The URL for the report viewer template. The template can be edited -
+				// new functionalities can be added and unneeded ones can be removed.
+				// For more information please check http://www.telerik.com/help/reporting/html5-report-viewer-templates.html.
+				templateUrl: 'ReportViewer/templates/telerikReportViewerTemplate-9.2.15.930.html',
+
+				//ReportSource - report description
+				reportSource: {
+
+					// The report can be set to a report file name (trdx report definition)
+					// or CLR type name (report class definition).
+					// report: "Receipt.trdx",
+                    report: HotelFormRoomReceipt,                 
+
+					// Parameters name value dictionary
+					parameters: {
+						Cashier: currentUser.userName,
+                        Language: currentLanguage,
+                        PaymentId : PaymentId
+					}
+				},
+
+				// Specifies whether the viewer is in interactive or print preview mode.
+				// PRINT_PREVIEW - Displays the paginated report as if it is printed on paper. Interactivity is not enabled.
+				// INTERACTIVE - Displays the report in its original width and height without paging. Additionally interactivity is enabled.
+				viewMode: telerikReportViewer.ViewModes.PRINT_PREVIEW,
+
+				// Sets the scale mode of the viewer.
+				// Three modes exist currently:
+				// FIT_PAGE - The whole report will fit on the page (will zoom in or out), regardless of its width and height.
+				// FIT_PAGE_WIDTH - The report will be zoomed in or out so that the width of the screen and the width of the report match.
+				// SPECIFIC - Uses the scale to zoom in and out the report.
+				scaleMode: telerikReportViewer.ScaleModes.FIT_PAGE_WIDTH,
+
+				// Zoom in and out the report using the scale
+				// 1.0 is equal to 100%, i.e. the original size of the report
+				scale: 1.0,
+
+				ready: function () {
+					//this.refreshReport();
+				} 
+                
+
+
+
+				// Uncomment the code below to see the custom parameter editors in action
+				//parameterEditors: [
+				//{
+				//    "match": customMatch,
+				//    "createEditor": createCustomEditor
+				//},
+				//{
+				//    "match": telerikReportViewer.parameterEditorsMatch.SingleSelect,
+				//    "createEditor": createSingleSelectEditor
+				//}]
+			});
+	});
+
+	function getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min)) + min;
+	}
+</script>

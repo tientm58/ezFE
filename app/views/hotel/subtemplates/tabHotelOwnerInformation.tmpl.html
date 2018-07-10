@@ -1,0 +1,108 @@
+<style>
+    .readOnly {
+        background: #dddddd;
+    }
+    
+    .thumbnail {
+        max-width: 200px;
+        max-height: 150px;
+        line-height: 20px;
+        margin-bottom: 5px;
+    }
+    
+    md-input-container:not(.md-input-invalid) > md-icon.email {
+        color: green;
+    }
+    
+    md-input-container:not(.md-input-invalid) > md-icon.name {
+        color: dodgerblue;
+    }
+    
+    md-input-container.md-input-invalid > md-icon.email,
+    md-input-container.md-input-invalid > md-icon.name {
+        color: #f44336;
+    }
+    .content_owner_infor{
+    	background-color: white !important;
+    }
+</style>
+<md-content class="md-whiteframe-z1" style="margin: 20px;height: auto;" ng-cloak>
+    <md-toolbar>
+         <div class="md-toolbar-tools">
+            <span flex class="md-toolbar-tools">
+                <h2>
+                    {{'HOTEL_OWNER' | translate}}: {{HotelOwner.Fullname}}
+                </h2>
+            </span>
+        </div>
+         <md-button class="md-warn md-fab md-mini" onclick="jQuery('#btn_saveHotelOwner').click()" 
+                   style=" position: absolute; right: 16px; bottom: -25px;" ng-disabled="!HotelOwner.Fullname || !HotelOwner.Phone" >
+            <md-icon md-svg-src="img/icons/ic_save_48px.svg"></md-icon>
+            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'SAVE_HOTEL_OWNER' | translate}}
+            </md-tooltip>
+        </md-button>
+    </md-toolbar>
+    <md-content layout-padding class="content_owner_infor">
+          <form ng-submit="saveHotelOwner()">
+                <button class="hide" id="btn_saveHotelOwner"></button>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        
+                       <!--  -->
+                        <div layout="row">
+                          <div flex>
+                                <label>{{'EMAIL' | translate}}</label>
+                                <input type="text" ng-disabled="true" ng-pattern="/^(([^<>()\[\]\.,;:\s@]+(\.[^<>()\[\]\.,;:\s@]+)*)|)@(([^<>()[\]\.,;:\s@]+\.)+[^<>()[\]\.,;:\s@]{2,})$/i" name="hotelName" ng-model="HotelOwner.Email" ng-trim="true" />
+
+                         <div ng-messages="myForm.email.$error">
+                            <div ng-show="myForm.email.$error.pattern">
+                                {{'EMAIL_NOT_VALID' | translate}}
+                            </div>
+                        </div> 
+
+                          </div>
+                       
+                          <div flex> <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="editEmailHotelOwner()" ng-if="user.Roles.indexOf('ROLE_HOTEL_OWNER') >= 0" style="cursor: pointer;">
+                    </md-icon></div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'FULL_NAME' | translate}}</label>
+                        <input type="text" required  ng-model="HotelOwner.Fullname" />
+                    </md-input-container>
+                </div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'PHONE_NUMBER' | translate}}</label>
+                        <input type="text" required ng-model="HotelOwner.Phone" ng-trim="true"  />
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'ADDRESS' | translate}}</label>
+                        <input type="text"  ng-model="HotelOwner.Address"  />
+                    </md-input-container>
+                </div>
+                <div layout-gt-sm="row">
+                    <md-input-container   class="md-block" flex-gt-sm style="transition: margin-top 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);">
+                        <md-select ng-model="HotelOwner.NumberOfHotels" placeholder="{{ 'NUMBER_OF_HOTELS' | translate }}" >
+                            <md-select-label style="width: 100%"></md-select-label>
+                            <md-option value="1">{{'1_HOTEL' | translate}}</md-option>
+                            <md-option value="2">{{'2_HOTELS' | translate}}</md-option>
+                            <md-option value="3">{{'3_HOTELS' | translate}}</md-option>
+                            <md-option value="4">{{'4_HOTELS' | translate}}</md-option>
+                            <md-option value="5">{{'5_HOTELS' | translate}}</md-option>
+                        </md-select>
+                     </md-input-container>
+                     <md-input-container   class="md-block" flex-gt-sm style=" transition: margin-top 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);">
+                        <md-select ng-model="HotelOwner.HotelSizeId" placeholder="{{ 'HOTEL_SIZES' | translate }}" >
+                            <md-select-label style="width: 100%"></md-select-label>
+                            <md-option ng-repeat="hotelSize in hotelSizeList" value="{{hotelSize.HotelSizeId}}">
+                                {{hotelSize.HotelSizeName | translate}}
+                            </md-option>
+                        </md-select>
+                     </md-input-container>
+                 </div>
+            </form>
+    </md-content>
+</md-content>

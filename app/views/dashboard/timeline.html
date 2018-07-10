@@ -1,0 +1,220 @@
+<style>
+    .sidetitle span.isDirty::after {
+        content: " ";
+        background: {{statusColors['DIRTY']}};
+        width: 10px;
+        height: 10px;
+        z-index: 9999;
+        float: right;
+        border-radius: 100px;
+        margin-top: 4px;
+        margin-right: 6px;
+    } 
+ .box_dirty{
+ background: {{statusColors['DIRTY']}}; width: 10px; height: 10px;float: right; border-radius: 100px; margin-top:
+4px; margin-right:
+6px;}
+</style>
+<md-content class="bg-greay" style="" id="wrap-content">
+    <div class="md-padding padding-left-right30" layout="row" layout-wrap layout-align="start start" style="height: auto;s">
+        <!-- <div ng-if="$mdMedia('gt-sm') == true" flex="100" class="md-padding padding0 margin0 margin-bottom7" layout="row"  style=""> -->
+        <div flex="100" class="md-padding padding0 margin0 margin-bottom7" layout="row" id="header-timeline" style="">
+
+            <div flex="100" lex-md="100" layout="row">
+                <div flex="100">
+                    <div flex="100" layout="row" ng-if="$mdMedia('gt-sm') == true || $mdMedia('sm') == true" layout-align="space-between center">
+                        <div flex="80" layout="row">
+                            <div class="margin-right10" layout="row">
+                                <div class=" box-20 gradient-black" md-whiteframe="2" style="background-color: {{statusColors['CHECKIN']}}"></div>
+                                <span class="label-staus" style="color: {{++['CHECKIN']}}">{{'CHECKIN' | translate}}</span>
+                            </div>
+                            <div class="margin-right10" layout="row">
+                                <div class=" box-20 gradient-black" md-whiteframe="2" style="background-color: {{statusColors['OVERDUE']}}"></div>
+                                <span class="label-staus" style="color: {{statusColors['OVERDUE']}}">{{'OVERDUE' | translate}}</span>
+                            </div>
+                            <div class="margin-right10" layout="row">
+                                <div class=" box-20 gradient-black" md-whiteframe="2" style="background-color: {{statusColors['BOOKED']}}"></div>
+                                <span class="label-staus" style="color: {{statusColors['BOOKED']}}">{{'BOOKED' | translate}}</span>
+                            </div>
+                            <div class="margin-right10" layout="row">
+                                <div class=" box-20 gradient-black" md-whiteframe="3" style="background-color: {{statusColors['CHECKOUT']}}"></div>
+                                <span class="label-staus" style="color: {{statusColors['CHECKOUT']}}">{{'CHECKOUT' | translate}}</span>
+                            </div>
+                            <div class="margin-right10" layout="row">
+                                <div class=" box-20 gradient-black" md-whiteframe="3" style="background-color: {{statusColors['NOSHOW']}}"></div>
+                                <span class="label-staus" style="color: {{statusColors['NOSHOW']}}">{{'NOSHOW' | translate}}</span>
+                            </div>
+                            <div class="margin-right10" layout="row">
+                                <div class=" box-20 gradient-black" md-whiteframe="3" style="background-color: {{statusColors['REPAIR']}}"></div>
+                                <span class="label-staus" style="color: {{statusColors['REPAIR']}}">{{'REPAIR' | translate}}</span>
+                            </div>
+                            <div class="margin-right10" layout="row">
+                                <div class=" circle-10 box_dirty margin-top3"></div>
+                                <span class="label-staus text-indigo">{{'ROOM_DIRTY' | translate}}</span>
+                            </div>
+                            <!-- <div class="margin-right10" layout="row">
+                            <div class=" circle-10 bg-red margin-top3"></div>
+                            <span class="label-staus text-indigo">{{'NOT_PAYMENT' | translate}}</span>
+                        </div> -->
+                        </div>
+                        <div flex="20" layout="row" layout-align="end center">
+                            <md-button flex="40" aria-label="{{'READ_CARD' | translate}}" class="btn-c md-raised md-warn margin0" ng-if="currentHotelConnectivites.isUsed"
+                                ng-click="readCard()">
+                                <span style="text-align:center; ">{{'READ_CARD' | translate}}</span>
+                            </md-button>
+                        </div>
+                    </div>
+                    <div flex="100" layout-align="space-between center" layout="row" class="margin-top5 ">
+                        <div flex="80" flex-xs="100" layout="row" layout-align-xs="space-between center" class="margin-top5 ">
+                            <md-button ng-if="$mdMedia('xs') != true" class=" md-raised btn-today " ng-click="changeNowDate() " ng-disabled="checkNow(change_date)
+        ">{{'TODAY' | translate}}</md-button>
+                            <div layout="row" class="paddingc0">
+                                <md-button aria-label="pre" id="pre" class="sm-btn">
+                                    <md-icon md-svg-src="img/icons/ic_keyboard_arrow_left_24px.svg"></md-icon>
+                                </md-button>
+                                <md-datepicker ng-model="change_date" ng-change="changeDate( )" id="change_date" class="padding0"></md-datepicker>
+                                <md-button aria-label="pre" id="next" class="sm-btn">
+                                    <!-- <i class="material-icons">keyboard_arrow_right</i> -->
+                                    <md-icon md-svg-src="img/icons/ic_keyboard_arrow_right_24px.svg"></md-icon>
+                                </md-button>
+                            </div>
+                            <select class="font-sizec12 bg-no-fill no-boder show-only-tablet" ng-model="parameter" ng-change="changeParameter()">
+                                <option value="1"> {{'DAY' | translate}} </option>
+                                <option value="7"> {{'WEEK' | translate}} </option>
+                                <!-- <option value="14" > 2 Week </option> -->
+                                <option value="30"> {{'MONTH' | translate}} </option>
+                            </select>
+                            <div class="btn-numberdays svtop margin-top6 hide-mobile" md-whiteframe="10">
+                                <lnk class="daychange" id="1" title="1"> {{'DAY' | translate}} </lnk>
+                                <lnk class="daychange" id="7" title="7"> {{'WEEK' | translate}} </lnk>
+                                <!-- <lnk class="daychange" id="14" title="14"> 2 Week</lnk>  -->
+                                <lnk class="daychange" id="30" title="30"> {{'MONTH' | translate}} </lnk>
+                            </div>
+                            <md-checkbox ng-if="$mdMedia('xs') != true" ng-model="view_date" class="checkbox_viewdate" ng-click="tranferViewDate(view_date)"
+                                aria-label="Checkbox 1">
+                                {{'VIEW_DATE' | translate}}
+                            </md-checkbox> 
+                        </div>
+                        <div flex="20" layout="row" layout-align="end center" ng-if="$mdMedia('xs') != true">
+                            <div>
+                                <md-button md-no-ink aria-label="{{ 'VIEW_DETAIL' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;"
+                                    ng-click="changeViewType( 'DETAIL') ">
+                                    <md-tooltip>{{'VIEW_DETAIL' | translate}}</md-tooltip>
+                                    <md-icon ng-if="viewType==='DETAIL' " md-svg-icon="img/icons/ic_view_compact_24px.svg " style="fill: #f44336; "></md-icon>
+                                    <md-icon ng-if="viewType !=='DETAIL' " md-svg-icon="img/icons/ic_view_compact_24px.svg "></md-icon>
+                                </md-button>
+                            </div>
+                            <div>
+                                <md-button md-no-ink aria-label="{{ 'VIEW_SIMPLE' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;"
+                                    ng-click="changeViewType( 'SIMPLE') ">
+                                    <md-tooltip>{{'VIEW_SIMPLE' | translate}}</md-tooltip>
+                                    <md-icon ng-if="viewType==='SIMPLE' " md-svg-icon="img/icons/ic_view_comfortable_24px.svg " style="fill: #f44336; "></md-icon>
+                                    <md-icon ng-if="viewType !=='SIMPLE' " md-svg-icon="img/icons/ic_view_comfortable_24px.svg "></md-icon>
+                                </md-button>
+                            </div>
+                            <div>
+                                <md-button md-no-ink aria-label="{{ 'VIEW_TIMELINE' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;"
+                                    ng-click="changeViewType( 'TIMELINE') ">
+                                    <md-tooltip>{{'VIEW_TIMELINE' | translate}}</md-tooltip>
+                                    <md-icon ng-if="viewType==='TIMELINE' " class="text-blue" md-svg-icon="img/icons/ic_tune_24px.svg " style="fill: #f44336; "></md-icon>
+                                    <md-icon ng-if="viewType !=='TIMELINE' " class="text-blue" md-svg-icon="img/icons/ic_tune_24px.svg "></md-icon>
+                                </md-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex="100" layout="row" layout-align-xs="space-between center" ng-if="$mdMedia('xs') == true" class="margin-top5 ">
+                        <md-button class=" md-raised btn-today " ng-click="changeNowDate() " ng-disabled="checkNow(change_date)
+            ">{{'TODAY' | translate}}</md-button>
+
+                        <md-checkbox ng-model="view_date" class="checkbox_viewdate" ng-click="tranferViewDate(view_date)" aria-label="Checkbox 1">
+                            {{'VIEW_DATE' | translate}}
+                        </md-checkbox>
+
+                        <div>
+                            <md-button md-no-ink aria-label="{{ 'VIEW_DETAIL' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;"
+                                ng-click="changeViewType( 'DETAIL') ">
+                                <md-tooltip>{{'VIEW_DETAIL' | translate}}</md-tooltip>
+                                <md-icon ng-if="viewType==='DETAIL' " md-svg-icon="img/icons/ic_view_compact_24px.svg " style="fill: #f44336; "></md-icon>
+                                <md-icon ng-if="viewType !=='DETAIL' " md-svg-icon="img/icons/ic_view_compact_24px.svg "></md-icon>
+                            </md-button>
+                        </div>
+                        <div>
+                            <md-button md-no-ink aria-label="{{ 'VIEW_SIMPLE' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;"
+                                ng-click="changeViewType( 'SIMPLE') ">
+                                <md-tooltip>{{'VIEW_SIMPLE' | translate}}</md-tooltip>
+                                <md-icon ng-if="viewType==='SIMPLE' " md-svg-icon="img/icons/ic_view_comfortable_24px.svg " style="fill: #f44336; "></md-icon>
+                                <md-icon ng-if="viewType !=='SIMPLE' " md-svg-icon="img/icons/ic_view_comfortable_24px.svg "></md-icon>
+                            </md-button>
+                        </div>
+                        <div>
+                            <md-button md-no-ink aria-label="{{ 'VIEW_TIMELINE' | translate}} " class="md-icon-button launch " style="margin: 0px; padding: 0px;height: 24px;"
+                                ng-click="changeViewType( 'TIMELINE') ">
+                                <md-tooltip>{{'VIEW_TIMELINE' | translate}}</md-tooltip>
+                                <md-icon ng-if="viewType==='TIMELINE' " class="text-blue" md-svg-icon="img/icons/ic_tune_24px.svg " style="fill: #f44336; "></md-icon>
+                                <md-icon ng-if="viewType !=='TIMELINE' " class="text-blue" md-svg-icon="img/icons/ic_tune_24px.svg "></md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="boundary" md-whiteframe="3" class="white font-sizec12 padding-left-right15" ng-class="[{'isViewDate':(parameter=='1')},{'isViewMonth':(parameter=='30')}]">
+            <div class="sv_grid tabcontent tabmain container flexouter boxflex" id="room_view">
+                <div id="gridHeader" class="">
+                    <span class="roomtype_title position-relative">
+                        <span id="room_type" class=" position-absolute">
+                            <div class="sm-autocomplete">
+                                <md-autocomplete md-no-cache="true" md-selected-item="" md-search-text-change="" md-search-text="room_type" md-selected-item-change="selectedItemChangeType(item)"
+                                    md-items="item in querySearchtype(room_type)" md-item-text="item.RoomTypeName" md-min-length="0"
+                                    placeholder="{{ 'FILTER_ROOM_TYPE' | translate}}">
+                                    <md-item-template>
+                                        <span md-highlight-text="room_type" md-highlight-flags="^i">{{item.RoomTypeName}}</span>
+                                    </md-item-template>
+                                    <md-not-found>
+                                        {{'NO_FOUND' | translate}}
+                                    </md-not-found>
+                                </md-autocomplete>
+                            </div>
+                            <div class="sm-autocomplete">
+                                <md-autocomplete md-no-cache="true" md-selected-item="ctrl.selectedItem" md-search-text-change="dochange(room_name)" md-search-text="room_name"
+                                    md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(room_name)"
+                                    md-item-text="item.RoomName" md-min-length="0" placeholder="{{ 'FILTER_ROOM' | translate}}">
+                                    <md-item-template>
+                                        <span md-highlight-text="room_name" md-highlight-flags="^i">{{item.RoomName}}</span>
+                                    </md-item-template>
+                                    <md-not-found>
+                                        {{'NO_ROOM_FOUND' | translate}}
+                                    </md-not-found>
+                                </md-autocomplete>
+                            </div>
+                        </span>
+                    </span>
+
+                    <!-- Date Table -->
+                    <ol id="datetable" class="margin-top0" style="float:left">
+                        <ol id="datetable" style="float:left">
+                            <!-- Date Item -->
+                            <!-- End of Date Item -->
+                        </ol>
+                    </ol>
+                    <!-- End of Date Table -->
+                </div>
+                <div id="grid" class="border-table grdControll scroll-pane-grid boxflex" style="float:left">
+                    <div id="tplLeft">
+                    </div>
+                    <span id="tplRight" style="float:left">
+                        <div id="conRight">
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <ul id="myMenu2" class="contextMenu">
+        </ul>
+        <ul id="myMenu" class="contextMenu">
+        </ul>
+    </div>
+    </div>
+</md-content>

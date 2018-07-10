@@ -1,0 +1,50 @@
+<md-dialog style="width:25% !important">
+  <form ng-cloak name="dlgDiscount" ng-submit="save()">
+    <button class="hide" id="btn_save_discount" ng-disabled="dlgDiscount.$invalid"></button>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 style="color:#fff">{{ 'DISCOUNT' | translate }}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div flex="100" layout="row">
+          <md-input-container flex="50" flex-xs="100" flex-sm="100" layout="row">
+            <label>{{ 'DISCOUNT_OPTIONS' | translate }}</label>
+            <md-select ng-model="discountFinal.discountOptions">
+              <md-option ng-value="0">{{ 'PERCENT1' | translate }} (%)</md-option>
+              <md-option ng-value="1">{{ 'CASH' | translate }} </md-option>
+            </md-select>
+          </md-input-container> 
+          <md-input-container ng-if="discountFinal.discountOptions == 0" flex="50" flex-xs="100" flex-sm="100" layout="row">
+            <input id="disNumber" type="number" ng-model="discountFinal.discountNumber" min="0"  max="100" maxlength="3">
+          </md-input-container>
+
+          <md-input-container ng-if="discountFinal.discountOptions == 1" flex="50" flex-xs="100" flex-sm="100" layout="row">
+            <input id="disNumber" ui-number-mask="decimal" name="disCountFlat" ng-model="discountFinal.discountNumberTemp" min="0" max="{{maxDiscountFlat}}">            
+          </md-input-container>
+
+        </div>
+        <div flex="100" layout="row">
+          <md-input-container flex="100" flex-xs="100" flex-sm="100" layout="row">
+            <label>{{ 'DISCOUNT_REASON1' | translate }}</label>
+            <input type="text" id="disReason" required ng-model="discountFinal.discountReason" md-autofocus>
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+    <span flex></span>
+    <md-dialog-action layout="row" style="position:absolute;bottom:0;right:0">      
+      <md-button ng-click="cancel()">
+        {{ 'CANCEL' | translate }}
+      </md-button>
+      <md-button onclick="jQuery('#btn_save_discount').click()">
+        {{ 'SAVE' | translate }}
+      </md-button>
+    </md-dialog-action>
+  </form>
+</md-dialog>

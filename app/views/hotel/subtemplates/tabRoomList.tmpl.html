@@ -1,0 +1,554 @@
+<style>
+	.disabled {
+		background: #a9aaab !important;
+	}
+
+	.repair {
+		background-color: #607D8B;
+		color: #fff;
+	}
+
+	.md-list-item.md-2-line .md-list-item-text,
+	md-list-item.md-2-line>._md-no-style .md-list-item-text,
+	md-list-item.md-3-line .md-list-item-text,
+	md-list-item.md-3-line>._md-no-style .md-list-item-text {
+		margin: auto;
+	}
+
+	md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+		height: auto;
+	}
+
+	md-list-item ._md-list-item-inner ._md-secondary-container,
+	md-list-item ._md-secondary-container {
+		height: auto;
+	}
+
+	.text {
+		display: inline;
+		padding: 0em 0em 0em;
+		font-weight: 600;
+		text-transform: none;
+		word-break: break-all;
+		line-height: 1;
+		text-align: center !important;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: .25em;
+	}
+
+	;
+	.selected {
+		background-color: red;
+		color: #3c763d;
+	}
+
+	.dndDraggingSource {
+		display: none;
+	}
+
+	;
+	/*.dndPlaceholder {
+		display: block;
+		min-height: 200px !important;
+		min-width: 200px !important;
+		width:200px;
+	};*/
+
+	.ipsum {
+		color: gray;
+		font-size: 0.9em;
+		display: block;
+		padding-top: 6px;
+	}
+
+	.dndPlaceholder {
+		background-color: #ddd !important;
+		min-height: 90px !important;
+		min-width: 70px;
+		display: block;
+		position: relative;
+		margin-top: 6px;
+	}
+
+	.list {
+		padding: 12px;
+		margin: 24px 0px;
+	}
+
+	.list-item {
+		box-sizing: border-box;
+		margin: 8px;
+		background-color: #43a047;
+		;
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+		cursor: pointer;
+		width: 80px;
+		height: 90px;
+	}
+
+	.list-item-mobile {
+		box-sizing: border-box;
+		margin: 8px;
+		background-color: #E8F5E9;
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+	}
+
+	#order_room {
+		height: auto;
+		padding-top: 0px;
+		margin-bottom: 20px;
+	}
+
+	.btn_active {
+		padding: 6px;
+		margin: auto;
+		cursor: pointer;
+		border-radius: 3px;
+	}
+
+	.btn_inactive {
+		padding: 6px;
+		margin: auto;
+		cursor: pointer;
+		border-radius: 3px;
+	}
+
+	.btn_option {
+		min-height: 0px;
+		height: 32px;
+		margin: 0px;
+	}
+
+	.order_room_page {
+		border-bottom: rgba(0, 0, 0, 0.12) thin solid;
+		min-height: 90px;
+		max-height: 5000px;
+	}
+
+	.floor_name {
+		width: 60px;
+		max-width: 60px;
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+	.room_div {
+		width: 100%;
+		background-color: rgb(67, 160, 71);
+	}
+
+	.room_code_div {
+		margin: 6px auto;
+	}
+
+	#room_code {
+		font-size: 60%;
+		padding: .2em .6em .1em;
+	}
+
+	.room_name_div {
+		margin: 5px auto;
+		text-align: center !important;
+		padding-top: 3px;
+	}
+
+	#room_name {
+		font-size: 150%;
+	}
+
+	.label_list {
+		font-size: 14px !important;
+		font-weight: bold !important;
+		background-color: #f5f5f5 !important;
+		color: #fb8d6a;
+	}
+
+	.roome-name-text {
+		display: inline;
+		padding: 0em 0em 0em;
+		font-weight: 600;
+		text-transform: none;
+		word-break: break-all;
+		line-height: 1;
+		text-align: center !important;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: .25em;
+		font-size: 150%;
+		color: #E8F5E9;
+		overflow: hidden;
+	}
+
+	.btn-icon {
+		fill: #fff;
+		height: 23px;
+		width: 23px;
+		color: #666;
+	}
+
+	.sort-room-frame {
+		position: relative;
+	}
+
+	.sort-room-text {
+		padding-right: 0px;
+	}
+
+	.btn-back {
+		background-color: rgb(57, 73, 171) !important;
+	}
+
+	.list-room-frame {
+		position: relative;
+	}
+
+	.list-room-text {
+		padding-right: 0px;
+	}
+
+	.btn-sort-room {
+		margin-left: 16px;
+		background-color: #ff5722 !important;
+		color: white !important;
+	}
+
+	.filter-room {
+		margin-bottom: 0px;
+		margin-top: 20px;
+	}
+
+	.btn-new-room {
+		position: absolute;
+		right: 16px;
+		bottom: -25px;
+	}
+
+	.div-room-item {
+		width: 80px;
+		height: 90px;
+	}
+
+	.div-room-item-1 {
+		margin-top: 0px;
+		min-width: 100%;
+	}
+
+	.div-room-item-3 {
+		text-align: center;
+	}
+
+	.room-type-code-text {
+		font-size: 60%;
+		text-align: center !important;
+		padding-top: 7px;
+		color: #E8F5E9;
+	}
+
+	md-menu-content {
+		min-height: 50px;
+		max-height: 350px;
+	}
+
+	.room-list-sort {
+		height: 90px;
+		cursor: pointer;
+		margin: 6px !important;
+	}
+
+	.room-list-sort-content {
+		padding: 0px;
+		color: rgba(255, 255, 255, 0.87);
+	}
+
+	.div-btn-booked {
+		text-align: center;
+		width: 70px !important;
+	}
+
+	.button-booked {
+		height: 21px;
+		padding: 0px;
+		margin: 0px;
+		width: 21px !important;
+	}
+
+	.icon-booked {
+		fill: #fff;
+		height: 21px;
+		width: 21px;
+		color: #666;
+	}
+	.HideBtn{
+		display: none;
+	}
+	md-list-item.list-item:hover .HideBtn{
+		display: inline-block !important;
+	}
+</style>
+<md-card ng-if="viewSortRoom">
+	<div class="md-padding md-whiteframe-z1 sort-room-frame" layout="row" layout-wrap layout-align="space-between start">
+		<div flex="70">
+			<span class="md-toolbar-tools sort-room-text">
+				<h3>
+					{{'ARRANGE_ROOM' | translate}}
+				</h3>
+			</span>
+		</div>
+		<div layout="row" layout-align="end start" flex>
+			<md-button aria-label="{{'BACKS' | translate}}" class="md-raised md-primary btn-back" ng-click="ViewArrangeRoom()">
+				<span>{{'BACK' | translate}}</span>
+			</md-button>
+			<md-button aria-label="{{'SAVE_ARRANGE_ROOM' | translate}}" class="md-raised md-warn" ng-click="SaveArrangeRoom()">
+				<span>{{'SAVE_ARRANGE_ROOM' | translate}}</span>
+			</md-button>
+		</div>
+		<span flex="100" class="ipsum">
+			<md-icon md-menu-origin="" md-svg-src="img/icons/ic_warning_48px.svg">
+			</md-icon>
+			{{'ARRANGE_ROOM_NOTE' | translate}}
+		</span>
+	</div>
+</md-card>
+<md-card ng-if="!viewSortRoom" style=" overflow: auto;">
+	<div class="md-padding md-whiteframe-z1 list-room-frame" layout="row" layout-align="space-between center">
+		<div flex="70">
+			<span class="md-toolbar-tools list-room-text">
+				<h3>
+					{{'ROOM_LIST' | translate}} ({{rooms.length}})
+				</h3>
+			</span>
+			<md-button class="btn-sort-room" aria-label="{{'ARRANGE_ROOM' | translate}}" class="md-raised md-warn" ng-click="ViewArrangeRoom()"
+			 layout="row" layout-align="center center">
+				<md-icon md-svg-src="img/icons/ic_sort_24px.svg" flex="20" class="btn-icon"></md-icon>
+				<span flex="80"> {{'ARRANGE_ROOM' | translate}}</span>
+			</md-button>
+		</div>
+		<div layout="row" layout-align="end center" flex>
+			<div flex="100">
+				<md-input-container class="filter-room">
+					<label></label>
+					<input type="search" ng-model="room_filter" placeholder="{{'FILTER_ROOM' | translate}}" ng-change="filter_Rooms(room_filter)" />
+				</md-input-container>
+				<md-button class="md-warn md-fab md-mini btn-new-room" ng-click="createRoom()">
+					<md-icon md-svg-src="img/icons/ic_add_24px.svg"></md-icon>
+					<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+						{{'NEW_ROOM' | translate}}
+					</md-tooltip>
+				</md-button>
+			</div>
+		</div>
+	</div>
+
+	<div class="pc" hide show-gt-md>
+
+		<md-list layout="column" ng-repeat="(key, value) in rooms | groupBy: 'roomTypes.RoomTypeName'">
+			<md-subheader class="label_list">{{'ROOM_TYPE' | translate}}: {{ key }} ({{value.length}})</md-subheader>
+			<div layout="row" layout-wrap>
+				<md-list-item ng-repeat="room in value | orderBy:'room.OrderNumber' " class="list-item" ng-class="{ 'disabled' : room.room.IsHidden, 'repair': room.HouseStatus ==='REPAIR' }">
+
+					<div layout="column" layout-align="center center" class="div-room-item">
+						<!-- Dòng 1 -->
+						<div layout="row" layout-align="center" flex="30" class="div-room-item-1">
+							<div flex="25">
+
+							</div>
+
+							<div flex="50" class="room-type-code-text">
+								{{ room.roomTypes.RoomTypeCode }}
+							</div>
+
+							<div flex="25" ng-disabled="room.room.IsHidden == true">
+								<md-menu md-position-mode="target-right target" md-offset="0 -5">
+									<md-icon aria-label="Open demo menu" ng-click="openMenu($mdOpenMenu, $event)" style="margin: 0px;" class="btn-icon" md-menu-origin
+									 md-svg-icon="img/icons/ic_more_vert_24px.svg">
+									</md-icon>
+									<md-menu-content width="4">
+										<md-menu-item ng-repeat="item in menu">
+											<md-button ng-click="menuItemClick(item,room,$event)">
+												<div layout="row" flex>
+													<p flex>{{item.name | translate}}</p>
+													<md-icon md-menu-align-target md-svg-icon="img/icons/{{item.icon}}" style="margin: auto 3px auto 0;"></md-icon>
+												</div>
+											</md-button>
+										</md-menu-item>
+									</md-menu-content>
+								</md-menu>
+							</div>
+						</div>
+						<!-- Dòng 2 -->
+						<div class="roome-name-text" flex="40">{{ room.room.RoomName }}
+							<md-tooltip md-direction="top">
+								{{'ROOM' | translate}}: {{ room.room.RoomName }}
+							</md-tooltip>
+						</div>
+						<!-- Dòng 3 -->
+						<div flex="30" class="div-room-item-3" layout="row">
+							<div flex="100">
+								<span ng-if="currentHotelConnectivities && room.room.UseLock" ng-click="changeRoomUseLock(room.room, $event)">
+									<md-tooltip md-direction="bottom">
+										{{'USE_SMART_LOCK' | translate}}
+									</md-tooltip>
+									<md-icon class="btn-icon" md-svg-src="img/icons/ic_lock_open_24px.svg" role="button">
+									</md-icon>
+								</span>
+								<span ng-if="currentHotelConnectivities && !room.room.UseLock" class="HideBtn" ng-click="changeRoomUseLock(room.room, $event)">
+									<md-tooltip md-direction="bottom">
+										{{'USE_SMART_LOCK' | translate}}
+									</md-tooltip>
+									<md-icon class="btn-icon" md-svg-src="img/icons/ic_lock_outline_24px.svg" role="button">
+									</md-icon>
+								</span>
+
+								<span ng-class="{'HideBtn': currentHotelConnectivities && room.room.UseLock}">
+									<md-tooltip md-direction="bottom">
+										{{'ROOM_HISTORIES' | translate}}
+									</md-tooltip>
+									<md-icon class="btn-icon" md-svg-src="img/icons/ic_info_24px.svg" role="button" ng-click="showRoomHistories(room.room, $event)">
+									</md-icon>
+								</span>
+
+								<span ng-if="room.room.IsHidden === false" class="HideBtn" ng-click="changeRoomStatus(room.room, $event)">
+									<md-tooltip md-direction="bottom">
+										{{'ACTIVE' | translate}}
+									</md-tooltip>
+									<md-icon class="btn-icon" md-svg-icon="img/icons/ic_pause_circle_outline_48px.svg"></md-icon>
+								</span>
+
+								<span class="HideBtn" ng-if="room.room.IsHidden === true" ng-click="changeRoomStatus(room.room, $event)">
+									<md-tooltip md-direction="bottom">
+										{{'INACTIVE' | translate}}
+									</md-tooltip>
+									<md-icon class="btn-icon" md-svg-icon="img/icons/ic_play_circle_outline_48px.svg"></md-icon>
+								</span>
+
+							</div>
+						</div>
+					</div>
+				</md-list-item>
+			</div>
+		</md-list>
+	</div>
+
+	<div class="mobie" hide-gt-md>
+		<md-list layout="column" ng-repeat="(key, value) in rooms | groupBy: 'roomTypes.RoomTypeName'">
+			<md-subheader class="label_list">{{'ROOM_TYPE' | translate}}: {{ key }} ({{value.length}})</md-subheader>
+			<md-list-item ng-repeat="room in value | orderBy:'room.OrderNumber' " class="md-2-line list-item-mobile"
+			 ng-class="{ 'disabled' : room.room.IsHidden, 'repair': room.HouseStatus ==='REPAIR' }">
+				<div class="md-list-item-text" layout="row">
+
+					<p style="padding-top: 4px;padding-bottom: 4px; margin-left: 0px;" layout="column" layout-align="center">
+						<md-button ng-if="currentHotelConnectivities && room.room.UseLock" class="btn_active md-icon-button launch" ng-click="changeRoomUseLock(room.room, $event)">
+							<md-icon md-svg-icon="img/icons/ic_lock_open_48px.svg"></md-icon>
+						</md-button>
+
+						<md-button ng-if="currentHotelConnectivities && !room.room.UseLock" class="btn_active md-icon-button launch" ng-click="changeRoomUseLock(room.room, $event)">
+							<md-icon md-svg-icon="img/icons/ic_lock_outline_48px.svg"></md-icon>
+						</md-button>
+
+						<md-button ng-if="room.room.IsHidden === false" class="btn_active md-icon-button launch" ng-click="changeRoomStatus(room.room, $event)">
+							<md-icon md-svg-icon="img/icons/ic_pause_circle_outline_48px.svg"></md-icon>
+						</md-button>
+
+						<md-button ng-if="room.room.IsHidden === true" class="btn_inactive md-icon-button launch" ng-click="changeRoomStatus(room.room, $event)">
+							<md-icon md-svg-icon="img/icons/ic_play_circle_outline_48px.svg"></md-icon>
+						</md-button>
+
+						<md-button class="btn_option md-icon-button" ng-click="showRoomHistories(room.room, $event)">
+							<md-icon md-svg-src="img/icons/ic_info_24px.svg"></md-icon>
+						</md-button>
+					</p>
+					<div layout="column" layout-align="center">
+						<h3 ng-class="{ 'textDiabled' : room.room.IsHidden }">{{'ROOM' | translate}}: {{ room.room.RoomName }}
+							<span ng-if="room.HouseStatus ==='REPAIR'" style="color: #fff; font-weight: bold;">{{ 'REPAIR' | translate }}</span>
+						</h3>
+						<h4 ng-class="{ 'textDiabled' : room.room.IsHidden }">{{'ROOM_TYPE' | translate}}: {{ room.roomTypes.RoomTypeName }}</h4>
+					</div>
+				</div>
+				<div class="md-secondary" layout="row" style="margin: auto 0px;" layout-padding>
+					<md-menu md-position-mode="target-right target" md-offset="0 -5">
+						<md-button ng-disabled="room.room.IsHidden == true" aria-label="Open demo menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)"
+						 style="margin: 0px;">
+							<md-icon md-menu-origin md-svg-icon="img/icons/ic_more_vert_24px.svg"></md-icon>
+						</md-button>
+						<md-menu-content width="4">
+							<md-menu-item ng-repeat="item in menu">
+								<md-button ng-click="menuItemClick(item,room,$event)">
+									<div layout="row" flex>
+										<p flex>{{item.name | translate}}</p>
+										<md-icon md-menu-align-target md-svg-icon="img/icons/{{item.icon}}" style="margin: auto 3px auto 0;"></md-icon>
+									</div>
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+					<!--<div layout="column" layout-align="center center" style="margin: auto 0px;">
+					<md-button aria-label="Room Edit" class="md-icon-button launch" style="min-height: 0px; height: 32px; margin: 0px;" ng-click="goToRoom(room.room,$event)">
+						<md-icon md-svg-src="img/icons/ic_edit_24px.svg" style=""></md-icon>
+					</md-button>
+					<span style="display: inline;
+						  padding: .2em .6em .3em;
+						  font-size: 50%;
+						  font-weight: bold;
+						  text-transform: uppercase;
+						  line-height: 1;
+						  text-align: left;
+						  white-space: nowrap;
+						  vertical-align: baseline;
+						  border-radius: .25em;">
+						{{'EDIT' | translate}}
+					</span>
+				</div>
+
+				<div layout="column" layout-align="center center" style="margin: auto 0px;">
+					<md-button aria-label="Room Repair" class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="$event.stopPropagation();roomRepair(room,$event)">
+						<md-icon md-svg-src="img/icons/ic_format_paint_24px.svg" style=""></md-icon>
+					</md-button>
+					<span style="display: inline;
+					  padding: .2em .6em .3em;
+					  font-size: 50%;
+					  font-weight: bold;
+					  text-transform: uppercase;
+					  line-height: 1;
+					  
+					  text-align: left;
+					  white-space: nowrap;
+					  vertical-align: baseline;
+					  border-radius: .25em;">
+					{{'MAINTENANCE_BLOCK' | translate}}
+				</span>
+				</div>-->
+				</div>
+			</md-list-item>
+		</md-list>
+	</div>
+</md-card>
+
+<!---->
+<div class="md-padding" id="order_room" layout="row" layout-wrap layout-align="space-between start" ng-if="viewSortRoom">
+	<div ng-repeat="(floorIndex,floor) in list.listFloor " ng-if="floor.IsActive == true" class="order_room_page" layout flex="100">
+		<section class="floor_name" layout layout-align="center center">
+			{{floor.FloorName}}
+		</section>
+		<section dnd-list="floor.ListRoom" dnd-horizontal-list="true" flex layout layout-align="start start" layout-wrap dnd-list="floor.ListRoom">
+			<md-card class="room-list-sort" dnd-draggable="room" dnd-moved="floor.ListRoom.splice($index, 1)" dnd-effect-allowed="move"
+			 dnd-selected="list.selected = room" ng-class="{'selected': list.selected === room}" ng-repeat="room in floor.ListRoom ">
+				<md-card-content class="room-list-sort-content" layout="row " flex="100 ">
+					<div layout="column " layout-align="start center " class="room_div">
+						<div class="room_code_div">
+							<span class="text" id="room_code">{{room.roomTypes.RoomTypeCode}}</span>
+						</div>
+						<div class="room_name_div">
+							<span class="text " id="room_name">{{room.room.RoomName}}</span>
+						</div>
+						<div class="div-btn-booked">
+							<md-button class="md-icon-button btn-booked" aria-label="BOOKED">
+								<md-icon md-svg-src="img/icons/ic_event_available_24px.svg " class="icon-booked"></md-icon>
+							</md-button>
+						</div>
+					</div>
+				</md-card-content>
+			</md-card>
+		</section>
+	</div>
+</div>

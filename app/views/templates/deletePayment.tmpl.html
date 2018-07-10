@@ -1,0 +1,33 @@
+<md-dialog aria-label="DELETE_PAYMENT">
+    <!--<form name="deletePayment">-->
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'DELETE_PAYMENT' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <form name="deletePayment" ng-submit="processDelete()">
+                <button id="btn_processDelete" class="hide"></button>
+                <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                    <md-input-container flex="100">
+                        <label>{{'REASON_TO_DELETE_PAYMENT' | translate}} ({{'REQUIRED' | translate}})</label>
+                        <input type="text" name="deleteReason" md-autofocus required ng-model="deleteReason" required minlength="3" md-maxlength="50" maxlength="50"/>
+                    </md-input-container>
+                </div>
+            </form>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button onclick="jQuery('#btn_processDelete').click()" class="md-primary" ng-disabled="!deleteReason || deleteReason.trim() === ''">
+                {{'DELETE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    <!--</form>-->
+</md-dialog>

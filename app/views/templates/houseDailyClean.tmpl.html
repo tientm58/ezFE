@@ -1,0 +1,123 @@
+﻿<style>
+    .custom-event {
+        color: #fff;
+        text-shadow: 0 1px 0 #000;
+        background: green;
+        height: 70px;
+        padding-left: 4px;
+        padding-top: 4px;
+    }
+
+    .k-tooltip-content {
+        text-align: left;
+    }
+
+    #scheduler {
+        margin: 0;
+        padding: 0;
+        border-width: 0;
+        height: 77%;
+    }
+
+    .k-event {
+        background: none;
+        min-width: 20px !important;
+    }
+
+    .k-state-active a {
+        background: rgba(33, 150, 243, 0.52) !important;
+    }
+
+    .k-scheduler-footer {
+        /* make them invisible */
+        display: none;
+        /* prevent height and paddings from influencing the size calculations */
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .k-scheduler-table tr {
+        height: 18px !important;
+        font-size: 13px !important;
+    }
+
+    .k-state-default {
+        font-size: 14px !important;
+    }
+
+    .k-group {
+        font-size: 14px !important;
+    }
+
+    .k-reset k-header k-scheduler-views {
+        position: initial !important;
+    }
+
+    .k-widget.k-tooltip {
+        font-size: 13px !important;
+        width: 150px !important;
+        min-height: 70px !important;
+    }
+
+    .k-header {
+        background: #3f51b5;
+    }
+
+    .day_Sat, .day_Sun {
+        /*background: #f1f1f1 !important;*/
+        color: #3f51b5;
+    }
+</style>
+
+<div kendo-tooltip k-options="{position:'top'}" id="wrap_scheduler" k-content="theContent" k-filter="'.k-event'" class="k-group">
+    <div id="scheduler"></div>
+    <!-- <div ng-click="autoScrollTop()" kendo-scheduler id="scheduler" k-options="schedulerOptions" k-data-source="schedulerData"></div> -->
+</div>
+
+<script id="template" type="text/x-kendo-template">
+
+    #var scheduler = target.closest("[data-role=scheduler]").data("kendoScheduler");#
+    #var uid = target.attr("data-uid");#
+
+    #if (scheduler) {#
+    #var model = schedulerDataok.filter(function( item, index, op ){#
+    #if( item.uid ==  uid ){#
+    #return true;#
+    #}#
+    #return false;#
+    #})#
+    #model = model[0];#
+    #console.log("membell check hover", model, uid);#
+    #if(model) {#
+    #if(model.BookingStatus==null){#
+    <strong>#=model.title#<br /></strong>
+    <strong><img src="img/icons/ic_flight_land_24px.svg" alt="Smiley face"> </strong> #=kendo.format('{0:dd/MM HH:mm}',model.RepairStartDate)#
+    <br />
+    <strong><img src="img/icons/ic_flight_takeoff_24px.svg" alt="Smiley face"> </strong> #=kendo.format('{0:dd/MM HH:mm}',model.RepairEndDate)#
+    #if (model.RepairReason) {#
+    <br />
+    #=model.RepairReason#
+    #}#
+    #} else{#
+    <strong></strong>#=model.title#
+    <br />
+    <strong><img src="img/icons/ic_flight_land_24px.svg" alt="Smiley face"> </strong> #=kendo.format('{0:dd/MM HH:mm}',model.ArrivalDate )#
+    <br />
+    <strong><img src="img/icons/ic_flight_takeoff_24px.svg" alt="Smiley face"> </strong> #=kendo.format('{0:dd/MM HH:mm}',model.DepartureDate )#
+    <br />
+    {{'ADULTS' | translate}} / {{'CHILD' | translate}}: #=model.AdultsMax# / #=model.ChildMax#
+    <br />
+    <strong>{{'RES_NO_REPORT' | translate}}: #=model.Reservations.ReservationNumber# - #=model.BookingStatus#</strong>
+    <br />
+
+    #}#
+    #if (model.Note) {#
+
+    #=model.Note#
+    #}#
+    #} else {#
+    <strong>No event data is available</strong>
+    #}#
+    #}#
+</script>

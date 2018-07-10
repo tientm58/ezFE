@@ -1,0 +1,46 @@
+<md-dialog aria-label="CM ChannelList">
+	<form>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{ 'LIST_OTA' | translate }}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<md-table-container ng-if="listFinal.length > 0">
+                <table md-table md-row-select="true" multiple="true" md-progress="promise">
+                    <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                        <tr md-row>
+                            <th md-column class="text-center">
+                                <span>{{ 'ORDER_OTA' | translate }}</span>
+                            </th>
+                            <th md-column class="text-center">
+                                <span>{{ 'NAME_OTA' | translate }}</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-auto-select="true" ng-repeat="channel in listFinal">
+                            <td md-cell class="text-center" style="font-size: 15px !important">{{$index + 1}}</td>
+                            <td md-cell class="text-center" style="font-size: 15px !important">{{channel.channelname}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <div ng-if="listFinal.length == 0">
+                <h4 style="color: red;margin: 30px"><i>{{ 'NO_OTA' | translate }}</i></h4>
+            </div>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{ 'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-click="save()" class="md-primary">
+				{{ 'UPDATE_OTA' | translate}}
+			</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>

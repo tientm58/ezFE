@@ -1,0 +1,66 @@
+<style>
+	/*md-autocomplete[md-floating-label] md-input-container {
+		padding-bottom: 0px;
+		margin: 0px;
+	}
+    .md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line>._md-no-style .md-list-item-text, md-list-item.md-3-line .md-list-item-text, md-list-item.md-3-line>._md-no-style .md-list-item-text{
+        margin:auto;
+    }
+    .md-list-item ._md-list-item-inner ._md-secondary-container, md-list-item ._md-secondary-container{
+        height: auto;
+    }*/
+</style> 
+<md-dialog aria-label="MERGE" flex-sm="98" flex-xs="98" flex-gt-sm="50">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'MERGE_GROUP' | translate}} ({{listLeader.length}})</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()" aria-label="cancel" >
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg"  style="fill: white;"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+		  	<div class="md-dialog-content" flex="100">
+		  		 <div layout="row" layout-align="start center" flex="100">
+                    <div layout="row" layout-align="center center" flex="35">
+                        <span flex="" style="margin: auto;">{{'GUEST_LEADER' | translate}}</span>
+                    </div>
+                    <div flex>
+                        <md-input-container style="width:100%" >
+	                        <label>{{'SELECT_LEADER' | translate}}</label>
+	                        <md-select ng-model="ReservationIdLeader">
+	                            <md-option ng-value="0">{{'LEADER' | translate}}</md-option>
+	                            <md-option ng-repeat="leader in listLeader" value="{{leader.ReservationId}}">
+	                            	{{leader.Travellers.Fullname}} -
+	                            	<span ng-if="leader.Rooms">{{leader.Rooms.RoomName}}</span>
+	                            	<span>({{leader.RoomTypes.RoomTypeName}})</span>
+	                        	</md-option>
+	                        </md-select>
+	                    </md-input-container>
+                    </div>
+                </div>
+				<!-- <div layout flex="100" layout-align="center start">
+					<section flex="20">
+						<span>{{'GUEST_LEADER' | translate}}</span>
+					</section>
+                    <md-input-container flex="70" style="" >
+                        <label>{{'SELECT_CATEGORY' | translate}}</label>
+                        <md-select ng-model="selectedExtraServiceCategory" ng-init="selectedExtraServiceCategory=0" >
+                            <md-option value="0">{{'ALL_CATEGORY' | translate}}</md-option>
+                            <md-option md-no-ink ng-repeat="extraServiceCategory in extraservice.ExtraServiceCategories" value="{{extraServiceCategory.ExtraServiceCategoryId}}" ng-if="extraServiceCategory.ExtraServiceTypeId==list.ExtraServiceTypeId">{{extraServiceCategory.ExtraServiceCategoryName}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div> -->
+			</div>	
+		</md-dialog-content>
+		<md-dialog-actions layout="row" >
+	      	<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<span flex></span>
+			<md-button ng-click="MergeGroup()" aria-label="merge" ng-disabled="ReservationIdLeader == 0" class="md-primary">
+				{{'MERGE' | translate}}
+			</md-button>
+	    </md-dialog-actions>
+</md-dialog>

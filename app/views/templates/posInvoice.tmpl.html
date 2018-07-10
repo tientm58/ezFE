@@ -1,0 +1,59 @@
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+     .md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line>._md-no-style .md-list-item-text, md-list-item.md-3-line .md-list-item-text, md-list-item.md-3-line>._md-no-style .md-list-item-text{
+        margin:auto;
+    }
+    md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner{
+        height: auto;
+    }
+    md-list-item ._md-list-item-inner ._md-secondary-container, md-list-item ._md-secondary-container{
+        height: auto;
+    }
+</style>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <span flex class="md-toolbar-tools">
+                <h2>
+                    {{'POS_INVOICE_SETTING' | translate}}
+                </h2>
+        </span>
+        <md-button class="md-warn md-fab md-mini" ng-click="savePOSConfig()"  style=" position: absolute; right: 16px; bottom: -25px; ">
+            <md-icon md-svg-src="img/icons/ic_save_48px.svg"></md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content style="margin: 20px 0px;overflow-y:hidden">
+    <div>
+        <md-list>
+            <span class="md-toolbar-tools">
+                <h3>
+                   {{'INVOICE_SETTINGS' | translate}}
+                </h3>
+            </span>
+            <md-list-item >
+                <p> {{'PAGE_SIZE' | translate}}</p>
+                <div style="margin-bottom: 16px;margin-right: 50px;" class="md-secondary">
+                     <md-select ng-model="POSConfigModel.InvoiceType">
+                        <md-option  ng-repeat="size in invoicePageSize" value="{{size}}">
+                            {{size | translate}}
+                        </md-option>
+                    </md-select>
+                </div>
+            </md-list-item>
+            <md-list-item >
+                <p> {{'THE_NUMBER_OF_DAYS_AUTOMATICALLY_SET_TO_CLEAR_THE_DRAFT' | translate}}</p>
+                <div style="margin-bottom: 16px;margin-right: 50px;" class="md-secondary">
+                     <md-select ng-model="POSConfigModel.NumberOfDateToRemoveDrafBill">
+                        <md-option  ng-repeat="day in numberOfDays" value="{{day}}">
+                            {{day}}
+                        </md-option>
+                    </md-select>
+                </div>
+            </md-list-item>
+        </md-list>
+    </div>
+
+</md-content>

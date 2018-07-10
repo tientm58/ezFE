@@ -1,0 +1,57 @@
+<md-dialog aria-label="CM Register">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    {{'CHANNEL_MANAGER_MAPPING' | translate}}
+                </h2>
+                <span flex="">
+                </span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="Close dialog" md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;">
+                    </md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" flex="100" layout="row" layout-wrap="">
+            	<span flex="100">
+            		{{'ROOM_TYPE_MAPPING_FOR' | translate}} <span style="font-weight: 500; font-style: italic;">{{roomType.RoomType.RoomTypeName | translate}}</span>
+            	</span>
+                <!-- <md-list flex="100">
+                    <md-list-item ng-repeat="roomType in availableRoomTypeMapping">
+                    	<md-checkbox class="md-warn" ng-model="roomType.IsSelected" ng-disabled="roomType.IsDisabled"></md-checkbox>
+                        <p>
+                            {{roomType.CMRoomTypeName}}
+                            <span style="font-style: italic;" ng-if="roomType.IsCurrentRoomType == false && roomType.RoomTypeMappedId != null && roomType.RoomTypeMappedName != null">
+                            	({{'MAPPED_TO' | translate}} {{roomType.RoomTypeMappedName}})
+                            </span>
+                            <span style="font-style: italic;" ng-if="roomType.IsCurrentRoomType == true">
+                            	({{'ALREADY_MAPPED' | translate}})
+                            </span>
+                        </p>
+                    </md-list-item>
+                </md-list> -->
+                <md-radio-group ng-model="resultIndex" style="padding-top: 12px;">
+                    <md-radio-button class="md-warn" ng-disabled="roomType.IsDisabled" ng-repeat="roomType in availableRoomTypeMapping" ng-value="roomType.CMRoomTypeId">
+                        {{roomType.CMRoomTypeName}}
+                        <span style="font-style: italic;" ng-if="roomType.IsCurrentRoomType == false && roomType.RoomTypeMappedId != null && roomType.RoomTypeMappedName != null">
+                                ({{'MAPPED_TO' | translate}} {{roomType.RoomTypeMappedName | translate}})
+                            </span>
+                            <span style="font-style: italic;" ng-if="roomType.IsCurrentRoomType == true">
+                                ({{'ALREADY_MAPPED' | translate}})
+                            </span>
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button class="md-primary" ng-click="cancel()">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button class="md-primary" ng-click="saveRoomTypeMapping()">
+                {{'SAVE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

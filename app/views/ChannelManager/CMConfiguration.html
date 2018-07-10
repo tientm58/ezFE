@@ -1,0 +1,207 @@
+<style>
+	h3 {
+		margin: 20px 20px;
+		font-size: 20px;
+		font-weight: 300;
+		line-height: 40px;
+		letter-spacing: -1px;
+		display: block;
+		color: #666;
+		font-family: 'Open Sans', sans-serif;
+		-webkit-margin-before: 1em;
+		-webkit-margin-after: 1em;
+		-webkit-margin-start: 0px;
+		-webkit-margin-end: 0px;
+	}
+	
+	.ipsum {
+		color: gray;
+		font-size: 0.9em;
+		display: block;
+		padding-top: 6px;
+	}
+	
+	.hintMenu {
+		font-size: 0.9em;
+		line-height: 19px;
+	}
+	
+	#height {
+		min-height: 200px !important;
+		max-height: 15000px !important;
+		overflow-y: auto;
+	}
+	.channel{
+		position: absolute;
+		top: 0px;
+		right: 0px;
+	}
+</style>
+<div layout="row" id="height" layout-margin ng-cloak="">
+	<md-card id="height" layout="row" layout-padding="" layout-wrap="" flex="100">
+		<md-card-content id="height" flex="100">
+			<div flex="100" style="position: relative">
+				<h4>
+					{{'CHANNEL_MANAGER_PROFILE'|translate}}
+				</h4>
+				<md-button ng-if="CMConfiguration" class="md-raised md-primary channel" ng-click="openListChannel()">
+					{{'LIST_OTA'|translate}}
+				</md-button>
+				<div flex="100" ng-if="CMConfiguration == null  || CMConfiguration.CMUser == null || CMConfiguration.CMPassword == null || CMConfiguration.CMPropertyId == null || CMConfiguration.CMServiceUrl == null"
+					style="text-align: center;">
+					<span style="font-style: italic; font-weight: bold;">
+                    {{'YOUR_HOTEL_IS_NOT_REGISTERED_TO_A_CHANNEL_MANAGER'|translate}}
+                </span>
+					<div flex="100" layout="row" layout-align="end end">
+						<md-button class="md-raised md-primary" ng-click="CMRegister()">
+							{{'REGISTER' | translate}}
+						</md-button>
+					</div>
+				</div>
+				<div flex="100" layout="row" layout-align="start start" layout-wrap="" ng-if="CMConfiguration != null" style="text-align: center;">
+					<div flex-gt-sm="45" flex-sm="100" flex-xs="100" layout="column" layout-align="start start" layout-margin="">
+						<span>
+                        	<b>{{'USER_NAME' | translate}}</b> : {{CMConfiguration.CMUser}}
+                    	</span>
+						<span>
+                       	 	<b>{{'PASSWORD' | translate}}</b> : {{CMConfiguration.CMPassword}}
+                    	</span>
+					</div>
+					<div flex-gt-sm="50" flex-sm="100" flex-xs="100" layout="column" layout-align="start start" layout-margin="">
+						<span>
+                        	<b>{{'PROPERTY_ID' | translate}}</b> : {{CMConfiguration.CMPropertyId}}
+                  		</span>
+						<span ng-if="dataCMS !== 'CMSITEMINDER'">
+                        	<b>{{'SERVICE_URL' | translate}}</b> : {{CMConfiguration.CMServiceUrl}}
+						</span>
+						<span ng-if="dataCMS === 'CMSITEMINDER'">
+                        	<b>{{'REQUESTOR_ID' | translate}}</b> : {{CMConfiguration.CMServiceUrl}}
+                    	</span>
+					</div>
+				</div>
+				<div flex="100" layout="row" layout-align="end end">
+					<md-button ng-if="CMConfiguration" class="md-raised md-warn" ng-click="CMRegister()">
+						<span>
+                            {{'EDIT'|translate}}
+                        </span>
+					</md-button>
+					<md-button ng-if="CMConfiguration" class="md-raised" style="background-color:#f44336;color:white;" ng-click="CMDeregister()">
+						<span>{{'DEREGISTER'|translate}}</span>
+					</md-button>
+				</div>
+			</div>
+			<div ng-if="CMConfiguration" flex="100">
+				<b>
+                {{'SELECT_ALLOTMENT_TYPE' | translate}}
+                <md-menu md-offset="35 -10" md-prevent-menu-close="md-prevent-menu-close">
+                    <span>
+                        <md-icon md-menu-origin="" md-svg-src="img/icons/ic_info_outline_48px.svg" ng-click="openMenu($mdOpenMenu, $event)" style="padding: 0px;margin-top:-2px;cursor: pointer;">
+                        </md-icon>
+                    </span>
+                    <md-menu-content style="width:400px" layout layout-padding class="hintMenu">
+                        <span>{{'ALLOTMENT_TYPE_NOTE' | translate}}
+                        </span>
+                    </md-menu-content>
+                </md-menu>
+                </b>
+				<div layout-margin>
+					<md-radio-group class="md-warn" ng-model="CMConfiguration.IsLastRoomAvailable">
+						<md-radio-button ng-value="true" class="md-align-top-left" style="margin-bottom:11px">
+							{{'LAST_ROOM_AVAILABLE' | translate}}<br/>
+							<span class="ipsum" style="line-height: 20px;">
+                        {{'LAST_ROOM_AVAILABLE_NOTE' | translate}}
+                        </span>
+						</md-radio-button>
+						<md-radio-button ng-value="false" style="margin-top:10px" class="md-align-top-left">
+							{{'PROPERTY_ALLOTMENT' | translate}}<br/>
+							<span class="ipsum">
+                        {{'PROPERTY_ALLOTMENT_NOTE' | translate}}
+                        </span>
+						</md-radio-button>
+
+					</md-radio-group>
+				</div>
+				<div ng-if="CMConfiguration" flex="100">
+				<b>
+                {{'SOURCE'| translate}}
+                 <md-menu md-offset="35 -10" md-prevent-menu-close="md-prevent-menu-close">
+                    <span>
+                        <md-icon md-menu-origin="" md-svg-src="img/icons/ic_info_outline_48px.svg" ng-click="openMenu($mdOpenMenu, $event)" style="padding: 0px;margin-top:-2px;cursor: pointer;">
+                        </md-icon>
+                    </span>
+                    <md-menu-content style="width:400px" layout layout-padding class="hintMenu">
+                        <span> {{'SOURCE_NOTE' | translate}}
+                        </span>
+                    </md-menu-content>
+                </md-menu>
+            </b>
+				<md-input-container style="width: 95%;">
+					<md-autocomplete md-selected-item="selectedSource" md-search-text-change="searchSourceTextChange(searchSourceText)" md-search-text="searchSourceText"
+						md-selected-item-change="selectedSourceChange(item)" md-items="item in querySourceSearch(searchSourceText)" md-item-text="item.SourceName"
+						md-min-length="0" md-menu-class="autocomplete-custom-template">
+						<md-item-template>
+							<span class="item-title" ng-style="!item.IsAvailable && {'text-decoration':'line-through'}">
+                                 <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                    <span style="margin: auto"> {{item.SourceName}}</span>
+							</span>
+							<span class="item-metadata">
+                                <span class="item-metastat" ng-style="!item.IsAvailable && {'text-decoration':'line-through'}" >
+                                  <strong >{{'CODE' | translate}}:</strong> {{item.ShortCode}}
+                                </span>
+							</span>
+						</md-item-template>
+					</md-autocomplete>
+				</md-input-container>
+			</div>
+				<!---->
+				<b>
+                {{'SELECT_ASSIGN_TYPE' | translate}}
+                <md-menu md-offset="35 -10" md-prevent-menu-close="md-prevent-menu-close">
+                    <span>
+                        <md-icon md-menu-origin="" md-svg-src="img/icons/ic_info_outline_48px.svg" ng-click="openMenu($mdOpenMenu, $event)" style="padding: 0px;margin-top:-2px;cursor: pointer;">
+                        </md-icon>
+                    </span>
+                    <md-menu-content style="width:400px" layout layout-padding class="hintMenu">
+                        <span>{{'ASSIGN_TYPE_NOTE' | translate}}
+                        </span>
+                    </md-menu-content>
+                </md-menu>
+                </b>
+				<div layout-margin>
+					<md-radio-group class="md-warn" ng-model="CMConfiguration.IsAutoAssignRoom">
+						<md-radio-button ng-value="false" style="margin-top:10px" class="md-align-top-left">
+							{{'OPTION_DO_NOT_AUTO_ASSIGN_ROOM' | translate}}
+						</md-radio-button>
+						<md-radio-button ng-value="true" class="md-align-top-left" style="margin-bottom:11px">
+							{{'OPTION_AUTO_ASSIGN_ROOM' | translate}}
+						</md-radio-button>
+						 <md-menu-content  layout layout-padding class="hintMenu">
+                        <span class="ipsum" style="line-height: 20px;padding-left: 22px; font-size: 14px;">
+                        {{'AUTO_ASSIGN_ROOM_1' | translate}}
+                        </br></br>
+                        {{'AUTO_ASSIGN_ROOM_2' | translate}}
+                        </br>
+                        {{'AUTO_ASSIGN_ROOM_3' | translate}}
+                        </br>
+                        {{'AUTO_ASSIGN_ROOM_4' | translate}}
+                        </span>
+
+                    </md-menu-content>
+						
+					</md-radio-group>
+				</div>
+			</div>
+			<section flex="100" layout layout-align="start start">
+				<section flex-xs="100" class="ipsum" flex-gt-xs="80">
+					<md-icon md-menu-origin="" md-svg-src="img/icons/ic_warning_48px.svg">
+					</md-icon>{{'CMCONFIGURATION_NOTE' | translate}}
+				</section>
+				<section flex-xs="100" flex-gt-xs="20" layout layout-align="end start">
+					<md-button style="margin-top:0px" ng-click="UpdateCMRegister()" class="md-raised md-primary" ng-if="CMConfiguration">
+						{{'SAVE' | translate}}
+					</md-button>
+				</section>
+			</section>
+		</md-card-content>
+	</md-card>
+</div>

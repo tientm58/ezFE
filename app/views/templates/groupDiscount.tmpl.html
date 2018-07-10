@@ -1,0 +1,44 @@
+<md-dialog aria-label="Group Discount" ng-cloak flex-xs="100" flex-sm="100" flex-gt-sm="60">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'GROUP_DISCOUNT' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <!-- <h1 class="md-title" flex="100">Select a room below</h1> -->
+                <div layout="row" layout-align="center center" layout-wrap flex="100">
+                    <div flex="30">
+                        <md-checkbox ng-model="discountModel.foc" aria-label="FOC" style="font-size: 12px;margin-bottom: 0px;">
+                            <span style="margin: auto 0px;">{{'FREE_OF_CHARGE' | translate}}</span>
+                        </md-checkbox>
+                    </div>
+                    <md-input-container flex="30" style="margin-bottom: 0px;">
+                        <label>{{'DISCOUNT' | translate}}(%)</label>
+                        <input type="number" style="width: 100%;" ng-model="discountModel.discountPercentage" min="0" ng-disabled="discountModel.foc">
+                    </md-input-container>
+                    <md-input-container flex="30" style="margin-bottom: 0px;">
+                        <label>{{'DISCOUNT' | translate}}($)</label>
+                        <input type="text" style="width: 100%;" ng-model="discountModel.discountFlat" ui-number-mask="defaultDecimal" ng-disabled="discountModel.foc">
+                    </md-input-container>
+                    <!-- <md-button flex="15" class="md-raised md-warn" style="margin: 0px;margin-bottom: 16px;text-transform: none;" ng-click="applyDiscount()">
+                        {{ 'APPLY' | translate }}
+                    </md-button> -->
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button ng-click="saveGroupDiscount()" class="md-primary">
+                {{'APPLY' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

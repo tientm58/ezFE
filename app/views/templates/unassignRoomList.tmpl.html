@@ -1,0 +1,139 @@
+<style>
+	md-dialog-content{
+		width: 100%;
+	}
+	table,thead,tbody{
+		width: 98%;
+	}
+	tr{
+		width: 100%;
+		text-align: center;
+	}
+
+</style>
+<md-dialog aria-label="Unassign Room" flex-sm="70" flex-gt-md="70" flex-xs="100" flex-md="75" ng-cloak>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'UNASSIGN_ROOM_LIST' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content >
+			<md-list flex  layout-margin >
+					<md-list-item class="md-3-line" flex="100" ng-repeat="result in ListUnassign" layout="row" layout-align="start center" style="padding: 0px; ">
+						<div   layout="column"  layout-align="center center" style="background-color: {{result.Color}};padding: 0px; margin-top: auto; margin-bottom: auto; margin-right: 8px;width:72px !important;">
+							<div style="margin: 5px auto; " >
+								<span class="text" style="font-size: 60%;padding: .2em .6em .1em; color: #fff;">{{result.RoomTypes.RoomTypeCode}}</span>
+							</div>
+							<div  style="margin: 5px auto;width:60px !important;text-align:center !important" ng-if="!result.Rooms">
+								<span class="text" style="font-size: 130%;color: #fff">N.A</span>
+							</div>
+							<div style="text-align:center;;width:72px !important" ng-style="result.Reservations.IsGroup && {'text-align':'left'}">
+                                <md-button ng-if="result.Reservations.IsGroup == true" class="md-icon-button"  style="height: 21px;padding:0px;margin:0px;width:21px !important " aria-label="{{result.BookingStatus | translate}} ">
+                                    <md-icon md-svg-src="img/icons/ic_group_24px.svg" style="fill: {{result.Reservations.Color}};height: 21px; width: 21px; color: #666; "></md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button"  style="height: 21px;padding:0px;margin:0px;width:21px !important " aria-label="{{result.BookingStatus | translate}}">
+                                    <md-icon ng-if="result.BookingStatus=='BOOKED'" md-svg-src="img/icons/ic_event_available_24px.svg" style="fill: #fff;height: 24px; width: 24px; color: #666;"></md-icon>
+									<md-icon ng-if="result.BookingStatus=='NOSHOW'" md-svg-src="img/icons/ic_event_busy_24px.svg" style="fill: #fff;height: 24px; width: 24px; color: #666;"></md-icon>
+                                </md-button>
+                                <md-button ng-if="result.Reservations.IsGroup == true && result.IsGroupMaster == true" class="md-icon-button"  style="height: 21px;padding:0px;margin:0px;width:21px !important " aria-label="{{result.BookingStatus | translate}} ">
+                                    <md-icon md-svg-src="img/icons/ic_flag_24px.svg" style="fill: #fff;height: 21px; width: 21px; color: #666; "></md-icon>
+                                </md-button>
+                            </div>
+							<!-- <div  style="margin: 5px auto; ">
+								<md-icon ng-if="result.BookingStatus=='BOOKED'" md-svg-src="img/icons/ic_event_available_24px.svg" style="fill: #fff;height: 24px; width: 24px; color: #666;"></md-icon>
+								<md-icon ng-if="result.BookingStatus=='NOSHOW'" md-svg-src="img/icons/ic_event_busy_24px.svg" style="fill: #fff;height: 24px; width: 24px; color: #666;"></md-icon>
+							</div> -->
+						</div>
+						<div flex-gt-md="90" flex-md="80"  flex-xs="60" flex-sm="80" flex class="md-list-item-text" layout="row" style="" layout-wrap>
+							<h3 flex="100" style="font-weight: bold;">{{'RES_NO' | translate}}.{{result.Reservations.ReservationNumber}} 
+								<span hide-xs>- {{ result.CreatedDate | date:'dd/MM(HH:mm)' }} | </span>
+                                <span hide-xs ng-if="result.BookingStatus !== 'CANCELLED'">
+								{{'RATE' | translate}}: <span ng-if="result.RoomPrices">{{ result.RoomPrices.RoomPriceName | translate }}</span><span ng-if="!result.RoomPrices">{{'NOT_ASSIGNED' | translate}}</span></span>
+                                <span hide-xs ng-if="result.BookingStatus === 'CANCELLED'" style="font-weight: bold; color: #f44336;">
+                                    {{'REASON' | translate}}: {{result.CancelReason}}
+                                </span> 
+                            </h3>
+							<h4 flex="100">{{ result.Travellers.Fullname }} 
+								<span hide-xs>| {{ result.ArrivalDate | date:'dd/MM/yyyy HH:mm' }} - {{ result.DepartureDate | date:'dd/MM/yyyy HH:mm' }}</span>
+							</h4>
+							<p flex="100" hide-xs>
+								<span>
+                                    <span style="font-weight: bold;">{{'NOTE' | translate}}:</span> <span style="font-style:italic;">{{result.Note}}</span>
+								</span>
+							</p>
+						</div>
+						<div flex-gt-md="45" flex-md="10"  flex-xs="25" flex-sm="10" flex layout="row" layout-align="end center" style="margin: auto 0px;">
+							<md-menu md-position-mode="target-right target" md-offset="0 -5">
+								<md-button aria-label="Open demo menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" style="margin: 0px;">
+									<md-icon md-menu-origin md-svg-icon="img/icons/ic_forward_24px.svg"></md-icon>
+								</md-button>
+								<md-menu-content width="4" style="min-height:50px;max-height:350px">
+									<md-menu-item ng-repeat="item in result.MenuItems">
+										<md-button ng-click="menuItemClick(item, result)">
+											<div layout="row" flex>
+												<p flex ng-if="item.name==='CANCEL'">{{'CANCEL_RESERVATION' | translate}}</p>
+                                              <p flex ng-if="item.name!='CANCEL'">{{item.name | translate}}</p>
+												<md-icon md-menu-align-target md-svg-icon="img/icons/{{item.icon}}" style="margin: auto 3px auto 0;"></md-icon>
+												 </div>
+										</md-button>
+									</md-menu-item>
+								</md-menu-content>
+							</md-menu>
+							</div>
+					</md-list-item>
+				</md-list>
+			<!-- <table  flex="100" layout-margin layout-padding>
+				<thead flex="100">
+					<tr  flex="100">
+						<th  flex="5">{{'RES' | translate}}</th>
+						<th flex="30">{{'GUEST' | translate}}</th>
+						<th flex="5">{{'ROOM_TYPE' | translate}}</th>
+						<th flex="15">{{'ARRIVAL' | translate}}</th>
+						<th flex="15">{{'DEPARTURE' | translate}}</th>
+						<th  flex="25">{{'ACTION' | translate}}</th>
+					</tr>
+				</thead>
+				<tbody >
+					<tr style="border-bottom:gray thin solid;" ng-repeat="list in ListUnassign" flex="100">
+						<td  flex="5">{{list.Reservations.ReservationNumber}}</td>
+						<td flex="30">{{list.Travellers.Fullname | truncate:22}}<span ng-show="list.Travellers.Fullname> 22">...</span></td>
+						<td flex="5">{{list.RoomTypes.RoomTypeCode | translate | uppercase}}</td>
+						<td flex="15">{{list.ArrivalDate | date:'dd/MM/yyyy HH:mm'}}</td>
+						<td flex="15">{{list.DepartureDate | date:'dd/MM/yyyy HH:mm'}}</td>
+						<td flex="25" >
+							<md-button ng-repeat="item in MenuItems" hide-xs hide-sm md-no-ink ng-click="menuItemClick(item,list)"  class="md-icon-button launch " style="margin: 0px; padding: 0px;height:24px !important;width:24px !important" >
+								<md-tooltip hide-sm hide-xs hide-md>{{item.name | translate}}</md-tooltip>
+								<md-icon  md-svg-icon="img/icons/{{item.icon}}"></md-icon>
+							</md-button>
+							<md-menu hide-gt-sm show-xs show-sm md-position-mode="target-right target" md-offset="0 -5">
+								<md-button aria-label="Open demo menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" style="margin: 0px;">
+									<md-icon md-menu-origin md-svg-icon="img/icons/ic_forward_24px.svg"></md-icon>
+								</md-button>
+								<md-menu-content width="4" style="min-height:50px;max-height:350px">
+									<md-menu-item ng-repeat="item in MenuItems">
+										<md-button ng-click="menuItemClick(item,list)">
+											<div layout="row" flex>
+												<p flex ng-if="item.name==='CANCEL'">{{'CANCEL_RESERVATION' | translate}}</p>
+                                              	<p flex ng-if="item.name!='CANCEL'">{{item.name | translate}}</p>
+												<md-icon md-menu-align-target md-svg-icon="img/icons/{{item.icon}}" style="margin: auto 3px auto 0;"></md-icon>
+											</div>
+										</md-button>
+									</md-menu-item>
+								</md-menu-content>
+							</md-menu>
+						</td>
+					</tr>
+
+				</tbody>
+			</table> -->
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+		</md-dialog-actions>
+</md-dialog>

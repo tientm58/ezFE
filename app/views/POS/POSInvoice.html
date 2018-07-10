@@ -1,0 +1,879 @@
+<style>
+    #main_view,
+    .bg-gray {
+        background: #f2f2f2 !important;
+    }
+
+    .md-tabs-margin {
+        margin-top: -40px !important;
+    }
+
+    .md-card-footer-position {
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-bottom: 3px !important;
+        padding: 0 !important;
+        top: 0 !important;
+        color: #3b3b3b !important;
+        text-align: center !important;
+    }
+
+    .md-card-content-size {
+        width: auto !important;
+        margin: auto;
+        font-weight: bold;
+        color: #000 !important;
+    }
+
+    tr th {
+        background-color: #eaeaea !important;
+        height: 25px !important;
+        font-size: 13px !important;
+        text-align: center;
+        color: #3b3b3b !important;
+    }
+
+    tr td {
+        text-align: center;
+        font-size: 14px !important;
+        padding: 5px;
+    }
+
+    .table_payment td {
+        padding: 10px;
+    }
+
+    tr:hover {
+        background-color: #EEEEEE !important;
+    }
+
+    table,
+    thead,
+    tbody {
+        border-collapse: collapse !important;
+        width: 100% !important;
+        width: -webkit-fill-available !important;
+    }
+
+    .layout-relative {
+        position: relative !important;
+        min-height: 30px !important;
+    }
+
+    .search-position {
+        position: absolute !important;
+        top: -8px !important;
+        right: 10px !important;
+        font-size: 13px !important;
+    }
+
+    .label-position {
+        font-size: 15px !important;
+        color: #0082ca !important;
+        position: absolute !important;
+        top: 10px !important;
+        left: 10px !important;
+    }
+
+    .md-card-setting {
+        overflow: hidden;
+        text-align: center;
+        font-size: 13px !important;
+        background-color: #dfeffc;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border-radius: 5px;
+        height: 66px !important;
+        overflow: hidden;
+        width: 122px !important;
+    }
+
+    .md-card-setting:active {
+        background-color: #4a87bc7d;
+    }
+
+    .input-setting-left {
+        font-size: 13px !important;
+        margin-bottom: 0 !important;
+    }
+
+    .input-setting-left-select {
+        font-size: 13px !important;
+        margin: 0 0 0 0 !important;
+    }
+
+    .input-setting-right-select {
+        font-size: 13px !important;
+        width: 100%;
+        margin: 0 10px 5px 0 !important;
+    }
+
+    .input-setting-right-time {
+        font-size: 13px !important;
+        width: 100% !important;
+        margin: 0 0 0 0 !important;
+    }
+
+    .bill-name {
+        font-weight: bold !important;
+        font-size: 13px !important;
+        margin-top: 5px !important;
+        margin-left: 25px !important;
+    }
+
+    .bill-icon-product {
+        transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1) !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    .bill-time {
+        padding-left: 25px !important;
+        line-height: 25px !important;
+        font-size: 13px !important;
+    }
+
+    .total-list {
+        font-weight: bold !important;
+        font-size: 13px !important;
+        padding: 2px !important;
+    }
+
+    .total-detail {
+        font-size: 13px !important;
+        padding-left: 20px;
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+        padding-right: 2px !important;
+    }
+
+    .btn-payment {
+        right: 0;
+        bottom: 0;
+        background-color: rgb(30, 136, 229) !important;
+        font-size: 13px !important;
+        position: absolute !important;
+    }
+
+    .content-setting {
+        padding-bottom: 20px !important;
+        overflow: auto !important;
+    }
+
+    .content-list-view {
+        min-height: auto !important;
+        height: auto !important;
+        padding-left: 30px !important;
+        padding-top: 15px !important;
+        /* padding-bottom: 55px !important; */
+        overflow: auto !important;
+        background-color: #fff !important;
+    }
+
+    .content-list-card {
+        padding-right: 6px !important;
+        padding-left: 6px !important;
+        padding-top: 0px !important;
+        overflow: auto !important;
+    }
+
+    .content-list-card-listservice {
+        min-height: 220px;
+        max-height: 225px;
+        margin-top: 0;
+    }
+
+    .payment-tabs-overflow {
+        height: 100% !important;
+        overflow: auto !important;
+    }
+
+    .overflow-auto {
+        display: block !important;
+        overflow: auto !important;
+    }
+
+    a.md-default-theme:not(.md-button),
+    a:not(.md-button) {
+        color: black;
+    }
+
+    .footer-left {
+        position: absolute !important;
+        right: 13px !important;
+        top: 5px !important;
+    }
+
+    .md-divider-position {
+        padding-bottom: 2px !important;
+    }
+
+    md-tabs.md-default-theme .md-tab.md-active,
+    md-tabs .md-tab.md-active,
+    md-tabs.md-default-theme .md-tab.md-active md-icon,
+    md-tabs .md-tab.md-active md-icon,
+    md-tabs.md-default-theme .md-tab.md-focused,
+    md-tabs .md-tab.md-focused,
+    md-tabs.md-default-theme .md-tab.md-focused md-icon,
+    md-tabs .md-tab.md-focused md-icon {
+        color: #0082ca !important
+    }
+
+    md-tabs.md-default-theme .md-tab,
+    md-tabs .md-tab {
+        /* color: #3b3b3b !important; */
+    }
+
+    a.md-default-theme:not(.md-button),
+    a:not(.md-button) {
+        color: #000;
+    }
+
+    .label-text {
+        color: #3b3b3b !important;
+    }
+
+    .view-price {
+        position: absolute;
+        font-size: 11px;
+        bottom: -66px;
+        width: 100%;
+        text-align: center;
+        background-color: rgba(51, 122, 183,
+        0.82);
+        color: #fff;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
+    .view-price md-icon {
+        color: white;
+    }
+
+    .view-name {
+        position: absolute;
+        top: 0;
+        left: 5px;
+        font-size: 13px;
+        -webkit-line-clamp: 2;
+        line-height: 1.2em;
+        align-items: center;
+        padding-top: 14px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-align: center;
+        width: 92%;
+        color: #3b3b3b;
+        justify-content: center;
+        height: 30px;
+    }
+
+    .height-card-content {
+        min-height: 700px;
+        background-color: #fff !important;
+        max-height: 90% !important;
+        overflow: hidden;
+    }
+
+    .toolbar-listservice {
+        padding-right: 0px;
+        position: relative;
+        min-height: 48px;
+        max-height: 48px;
+        line-height: 27px;
+    }
+
+    .toolbar-listservice-btn {
+        line-height: 31px !important;
+    }
+
+    .md-divider-right {
+        /* border-bottom-style: ridge !important; */
+    }
+
+    .tab-payment {
+        max-height: 230px !important;
+    }
+
+    .btn-payment {
+        position: absolute;
+        top: -32px;
+        right: -4px;
+        background-color: #2aade3 !important;
+        width: 28px !important;
+        height: 28px !important;
+        min-height: 28px !important
+    }
+
+    .icon-payment {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+    }
+
+    md-card:focus {
+        outline: none;
+        border: 0;
+    }
+
+    .md-card-item:hover {
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, .2) !important;
+    }
+
+    md-card:after {
+        background: blue !important;
+        opacity: 0;
+        transition: all 0.8s;
+    }
+
+    .btn-number-service {
+        width: 23px !important;
+        height: 25px !important;
+        min-width: 23px !important;
+        min-height: 20px !important;
+        position: relative !important;
+        box-sizing: border-box !important;
+        border-radius: 4px !important;
+        border: 1px solid #dcdcdc !important;
+        background: #fff !important;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, .26) !important;
+    }
+
+    .btn-number-service:hover {
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26) !important;
+    }
+
+    .span-add-sub {
+        font-size: 16px !important;
+        position: absolute !important;
+        top: -1px;
+        right: 3px !important;
+        color: #3b3b3b !important;
+        height: 24px !important;
+        width: 15px !important;
+    }
+
+    .text-number-service {
+        border: 1px solid #ccc0;
+        background: #fff;
+        font-size: 13px;
+        box-sizing: border-box;
+        width: 35px;
+        height: 25px;
+        text-align: center;
+    }
+
+    input.inp_number::-webkit-inner-spin-button,
+    input.inp_number::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    md-icon {
+        outline: none;
+        border: 0;
+    }
+
+    .k-picker-wrap .k-input {
+        font-size: 13px !important;
+    }
+
+    .md-card-content-view {
+        text-align: left;
+        padding: 0 !important;
+        position: relative;
+    }
+
+    .md-card-content-payment {
+        padding-top: 0px;
+        overflow: auto
+    }
+
+    .payment {
+        font-size: 15px !important;
+        color: #0082ca !important;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    .payment-info {
+        font-size: 13px;
+        max-height: 166px;
+    }
+
+    .payment-info-left {
+        height: 100% !important;
+        position: relative;
+    }
+
+    .payment-info-right-detail * {
+        font-size: 12px !important;
+    }
+
+    .payment-info-left-name {
+        margin: 15px;
+        position: absolute !important;
+        width: 80%
+    }
+
+    .payment-info-left-method {
+        position: absolute !important;
+        left: 15px;
+        top: 65px;
+        width: 80% !important;
+    }
+
+    .payment-info-right {
+        height: 100% !important;
+    }
+
+    .payment-info-right-detail {
+        max-height: 26.13px !important;
+        min-height: 26.13px !important;
+    }
+
+    .payment-info-right-span {
+        position: absolute;
+        left: 10px;
+        top: 5px;
+    }
+
+    .padding-top-5 {
+        padding-top: 5px;
+    }
+
+    .position-relative {
+        position: relative
+    }
+
+    .width-100 {
+        width: 100%;
+    }
+
+    .height-120 {
+        height: 120px !important;
+    }
+
+    .borderBottom {
+        border-bottom: 1px solid #ddd;
+    }
+
+    #selected-services {
+        max-height: 225px;
+        min-height: 125px;
+    }
+
+    #selected-services::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    #selected-services::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    #selected-services::-webkit-scrollbar-thumb {
+        background-color: #528fc3;
+        border-radius: 5px;
+    }
+
+    .colum_price {
+        position: relative;
+    }
+
+    .colum_price md-icon {
+        position: absolute;
+        top: 10px;
+        right: -16px;
+    }
+
+    .input_price_selected {
+        border: none;
+        text-align: right;
+        max-width: 90px;
+        top: 7px;
+        right: 15px;
+        line-height: 22px;
+        background: #f2f2f200;
+    }
+
+    .icon_price_selected {
+        transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+        height: 10px;
+        width: 10px
+    }
+
+    .colum_quantity button {
+        margin: 0;
+        border-radius: 0 !important;
+    }
+
+    .colum_quantity * {
+        float: right;
+    }
+
+    #table_service_selected tbody tr:nth-of-type(odd) {
+        background-color: rgba(134, 134, 134, 0.05);
+    }
+
+    @media screen and (max-width: 640px) {
+        .height-card-content {
+            /* max-height: 100% !important; */
+            min-height: 590px !important;
+        }
+        .padding_mb {
+            padding: 0;
+        }
+        #selected-services {
+            max-height: 125px;
+        }
+        .colum_price md-icon {
+            position: absolute;
+            top: 10px;
+            right: -11px;
+        }
+        .layout-relative {
+            position: relative !important;
+            min-height: 45px !important;
+            line-height: 29px;
+        }
+        .toolbar-listservice-btn {
+            min-width: 60px;
+        }
+        .min-height-fit-content{
+            min-height: fit-content !important;
+        }
+    }
+</style>
+<md-content class="bg-gray content-setting">
+    <div layout="row" layout-xs="column" layout-sm="column">
+        <md-card flex flex-gt-sm="60" flex-xs="100" flex-sm="100" flex="100" layout="column" class="height-card-content min-height-fit-content" style="overflow:hidden">
+            <div class="layout-relative" layout="row" layout-xs="column">
+                <div flex class="label-position ">
+                    {{ 'EXTRA_SERVICE_LIST' | translate | truncate:20}}
+                </div>
+                <div flex>
+                    <md-input-container class="search-position">
+                        <md-icon md-svg-icon="img/icons/ic_search_24px.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);" aria-hidden="true">
+                        </md-icon>
+                        <label class="ng-binding" for="">{{ 'SEARCH' | translate }} </label>
+                        <input type="search" ng-model="page.searchES" class="ng-pristine ng-valid md-input ng-empty ng-touched" id="" aria-invalid="false">
+                        <div class="md-errors-spacer"></div>
+                    </md-input-container>
+                </div>
+            </div>
+            <md-card-content flex class="padding0 min-height-fit-content">
+                <md-tabs md-selected="0" md-border-bottom md-dynamic-height>
+                    <md-tab md-active="true" label="{{'ALL' | translate}}" layout="row" layout-wrap flex="100">
+                        <div class="md-padding layout-wrap flex-100 content-list-view padding0" flex="100" layout="row" layout-align="start start" layout-wrap="">
+                            <md-card style="cursor:pointer;" ng-repeat="item in extraServices.ExtraServiceItems | filter: { 'specialName':page.searchES} | orderBy:'Priority'"
+                                ng-if="type.ExtraServiceTypeName != 'EXTRA_SERVICES'" flex-gt-sm="16.66" flex-md="30" flex-sm="45"
+                                flex-xs="40" class="ng-scope md-card-setting md-card-item" ng-click="addExtraServices(item,$index)">
+                                <md-card-content class="md-card-content-view">
+                                    <div class="view-price">
+                                        {{item.Price | number}} {{defaultCurrency.MoneyName}}
+                                        <md-icon ng-show="item.IsChangeable" md-svg-icon="img/icons/ic_mode_edit_24px.svg" ng-click="" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);height:8px;width:8px;padding-bottom:3px"
+                                            aria-hidden="true">
+                                        </md-icon>
+                                    </div>
+                                    <div class="view-name">
+                                        {{item.ExtraServiceItemName | truncate:25}}{{item.ExtraServiceItemName.length > 20? "..." : ""}}
+                                    </div>
+                                </md-card-content>
+                            </md-card>
+                        </div>
+                    </md-tab>
+                    <md-tab ng-repeat="list in extraServices.ExtraServiceTypes" ng-if="list.IsHide == false && (list.ExtraServiceTypeName!='EXTRA_SERVICES') && (list.ExtraServiceTypeName!='WORK_ORDER')"
+                        label="{{list.ExtraServiceTypeName | translate}}" layout="row" layout-wrap flex="100">
+                        <div class="md-padding layout-wrap flex-100 content-list-view" flex="100" layout="row" layout-align="start start" layout-wrap="">
+                            <md-card style="cursor:pointer;" ng-click="addExtraServices(item,$index)" ng-repeat="item in extraServices.ExtraServiceItems | filter: { 'specialName':page.searchES} | orderBy:'Priority'"
+                                ng-if="item.ExtraServiceTypeId == list.ExtraServiceTypeId && ((item.ExtraServiceCategoryId == $parent.selectedExtraServiceCategory) || ($parent.selectedExtraServiceCategory == 0))"
+                                flex-gt-sm="16.66" flex-md="30" flex-sm="45" flex-xs="40" class="ng-scope md-card-setting md-card-item">
+                                <md-card-content class="md-card-content-view">
+                                    <div class="view-price">
+                                        {{item.Price | number}} {{defaultCurrency.MoneyName}}
+                                        <md-icon ng-show="item.IsChangeable" md-svg-icon="img/icons/ic_mode_edit_24px.svg" ng-click="" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);height:8px;width:8px;padding-bottom:3px"
+                                            aria-hidden="true">
+                                        </md-icon>
+                                    </div>
+                                    <div class="view-name">
+                                        {{item.ExtraServiceItemName | truncate:25}}
+                                    </div>
+                                </md-card-content>
+
+                            </md-card>
+                        </div>
+                    </md-tab>
+                    <md-tab label="{{'EXTRA_SERVICE' | translate}}">
+                        <form ng-submit="addExtraServices()">
+                            <button class="hide"></button>
+                            <div flex="100" layout="row" layout-wrap style="padding: 16px;">
+                                <md-input-container flex="100" flex-xs="100" flex-sm="100" class="input-setting-right-time width-100" style="top:-2px;">
+                                    <label class="ng-binding">{{'EXTRA_SERVICE_NAME' | translate}} ({{'REQUIRED' | translate}})</label>
+                                    <input ng-model="extraService_NoItem.RoomExtraServiceDescription" type="text" md-maxlength="200" maxlength="200" class="ng-pristine ng-valid md-input ng-empty ng-touched"
+                                        aria-invalid="false" required>
+                                </md-input-container>
+                                <md-input-container flex="50" flex-xs="100" flex-sm="100" class="input-setting-right-time width-100" style="top:-2px;">
+                                    <label class="ng-binding">{{'QUANTITY' | translate}}</label>
+                                    <input ng-model="extraService_NoItem.Quantity" type="number" min="1" class="ng-pristine ng-valid md-input ng-empty ng-touched"
+                                        aria-invalid="false" required ui-negative-number>
+                                </md-input-container>
+                                <md-input-container flex="50" flex-xs="100" flex-sm="100" class="input-setting-right-time width-100" style="top:-2px;">
+                                    <label class="ng-binding">{{'PRICE' | translate}} ({{'REQUIRED' | translate}}) </label>
+                                    <input ng-model="extraService_NoItem.Amount" type="text" ui-number-mask="defaultDecimal" class="ng-pristine ng-valid md-input ng-empty ng-touched"
+                                        aria-invalid="false" required ui-negative-number>
+                                </md-input-container>
+                                <md-button flex="10" class="btn-c md-primary md-raised md-button ng-scope md-ink-ripple" ng-click="addExtraServices()" aria-hidden="true"
+                                    onmousedown="" style="right: 0;position: absolute;bottom: 0;">
+                                    <span style="font-size:10px !important">{{'ADD' | translate}}</span>
+                                </md-button>
+                            </div>
+                        </form>
+                    </md-tab>
+                </md-tabs>
+            </md-card-content>
+        </md-card>
+        <md-card flex flex-gt-sm="40" flex-xs="100" flex-sm="100" flex="100" class="height-card-content">
+            <div layout="column" layout-fill>
+                <div class="md-toolbar-tools toolbar-listservice borderBottom">
+                    <div flex class="label-position">
+                        {{ 'EXTRA_SERVICE_CHOOSEN' | translate }}
+                        <span ng-if="POSModel.Charges.length>0">({{POSModel.Charges.length}})</span>
+                    </div>
+                    <span flex></span>
+                    <div>
+                        <md-button class="btn-c   md-raised md-button ng-scope md-ink-ripple toolbar-listservice-btn" ng-click="reset()">
+                            <md-icon md-svg-src="img/icons/ic_refresh_24px.svg"></md-icon>
+                            <span hide-xs style="font-size:10px !important">{{ 'RESET' | translate }}</span>
+                        </md-button>
+                        <md-button class="btn-c md-warn md-raised md-button ng-scope md-ink-ripple toolbar-listservice-btn" ng-click="chooseInvoice(RoomInfo.ReservationRoomId)"
+                            aria-hidden="true" onmousedown="">
+                            <md-icon md-svg-icon="img/icons/ic_save_24px.svg" aria-hidden="true"></md-icon>
+                            <span hide-xs style="font-size:10px !important">{{ 'SAVE_INVOICE1' | translate }}</span>
+                        </md-button>
+                    </div>
+                </div>
+                <md-card-content class="content-list-card content-list-card-listservice" id="selected-services">
+                    <table id="table_service_selected">
+                        <tbody>
+                            <tr ng-repeat="item in POSModel.Charges">
+                                <td width="40%" class="text-left padding_mb">{{item.Name|limitTo:20}}{{item.Name.length > 20? "..." : ""}}</td>
+                                <td width="10%" class="colum_price padding_mb">
+                                    <input ui-number-mask="decimal" ng-model="item.Price" class="input_price_selected" ng-min="0" ng-readonly="!item.IsChangeable"
+                                        ng-change="changePrice(item)">
+                                    <md-icon ng-show="item.IsChangeable" md-svg-icon="img/icons/ic_mode_edit_24px.svg" class="icon_price_selected" aria-hidden="true">
+
+                                    </md-icon>
+                                    <md-tooltip ng-if="item.IsChangeable" md-direction="right" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                        {{'IS_CHANGEABLE' | translate}}
+                                    </md-tooltip>
+                                </td>
+                                <td width="35%" class="colum_quantity padding_mb">
+                                    <md-button class="md-warn md-raised md-button ng-scope md-ink-ripple btn-number-service" ng-click="addServiceToList(item)"
+                                        aria-hidden="true" ng-mousedown="mouseDownAdd(item)" ng-mouseup="mouseUpAdd()" ng-mouseleave="mouseLeaveAdd()">
+                                        <md-icon md-svg-src="img/icons/ic_add_24px.svg" class="span-add-sub"></md-icon>
+                                    </md-button>
+                                    <input required type="text" class="text-number-service inp_number" ng-min="0" ng-model="item.Quantity" ng-change="changeAmount()"
+                                        ng-keypress="checkValidNumber($event,item)">
+
+                                    <md-button class="padding_mbmd-warn md-raised md-button ng-scope md-ink-ripple btn-number-service" ng-click="subServiceToList(item)"
+                                        aria-hidden="true" ng-mousedown="mouseDownSub(item)" ng-mouseup="mouseUpSub()" ng-mouseleave="mouseLeaveSub()">
+                                        <md-icon md-svg-src="img/icons/ic_remove_24px.svg" class="span-add-sub"></md-icon>
+                                    </md-button>
+                                </td>
+                                <td style="text-align: right" hide-xs  hide-sm hide-md width="10%">{{(item.Price * item.Quantity) | currency:""}}</td>
+                                <td width="5%">
+                                    <md-icon md-svg-icon="img/icons/ic_highlight_remove_24px.svg" ng-click="removeExtraServiceFromItemList(item)" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);cursor:pointer"
+                                        aria-hidden="true">
+                                    </md-icon>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-card-content>
+                <md-divider class="md-divider-right"></md-divider>
+                <md-tabs md-selected="0" md-border-bottom md-dynamic-height class="tab-payment">
+                    <md-tab md-active="true" label="{{ 'PAYMENT' | translate }}" layout="column" layout-wrap flex="100" class="payment-tabs-overflow">
+                        <md-card-content class="md-card-content-payment">
+                            <form id="PaymentForm" name="PaymentForm" class="margin0" ng-submit="addPOSPayment()">
+                                <button class="hide" id="BtnPaymentForm" ng-disabled="PaymentForm.$invalid"></button>
+                                <div flex="100" layout="row" layout-align="space-between center" class="padding-top-5">
+                                    <div flex="35" flex-xs="100" flex-sm="100" layout="row" class="position-relative">
+                                        <md-input-container class="input-setting-left-select width-100">
+                                            <label class="label-text">{{ 'METHOD' | translate }}</label>
+                                            <md-select ng-model="payment.PaymentMethodId">
+                                                <md-option ng-repeat="method in paymentMethods" ng-value="method.PaymentMethodId" ng-selected="method.PaymentMethodName.toLowerCase() == 'cash'">{{ method.PaymentMethodName | translate }}</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                    <div flex="20" flex-xs="100" flex-sm="100" layout="row" class="position-relative">
+                                        <md-input-container class="input-setting-left-select width-100">
+                                            <label class="label-text">{{ 'CURRENCY' | translate }}</label>
+                                            <md-select ng-model="payment.MoneyId">
+                                                <md-select-label></md-select-label>
+                                                <md-option ng-repeat="cur in currencies" ng-value="cur.MoneyId">{{ cur.MoneyName }}</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                    <md-input-container flex="35" flex-xs="100" class="input-setting-right-time width-100" style="top:12px">
+                                        <label class="ng-binding label-text">{{ 'PAY_AMOUNT' | translate }}</label>
+                                        <input type="text" ng-disabled="POSModel.Charges.length == 0 || payment.AmountTemp == 0" ng-model="payment.Amount" id="tmp_amount" class="ng-pristine ng-valid md-input ng-empty ng-touched" aria-invalid="false"
+                                            onClick="this.select()" ui-number-mask="decimalEdit">
+                                    </md-input-container>
+                                </div>
+                                <div flex="100" layout="row" layout-align="space-between center" class="padding-top-5">
+                                    <!-- <div flex="35" flex-xs="100" class="input-setting-left width-100" style="margin-top:-25px">
+                                        <input kendo-date-time-picker ng-model="fromString" k-ng-model="payment.CreatedDate" style="width: 100%;" k-options="DateTimePickerOption"
+                                            required/>
+                                    </div> -->
+                                    <md-input-container flex="90" flex-xs="100" flex-sm="100" class="input-setting-right-time width-100" style="top:-2px;">
+                                        <label class="ng-binding label-text">{{ 'DESCRIPTION1' | translate }}</label>
+                                        <input type="text" ng-model="txtMota" value="" class="ng-pristine ng-valid md-input ng-empty ng-touched" aria-invalid="false">
+                                    </md-input-container>
+                                    <md-input-container flex="5" flex-xs="100" class="input-setting-right-time" ng-if="POSModel.Charges.length > 0">
+                                        <md-button id="btnPayment" ng-show="payment.Amount != 0 && RoomInfo.ReservationRoomId == 0" class="md-fab md-warn md-mini btn-payment"
+                                            ng-click="" aria-hidden="true" onclick="jQuery('#BtnPaymentForm').click()">
+                                            <md-tooltip>{{ 'PAYMENT' | translate }}</md-tooltip>
+                                            <md-icon md-svg-src="img/icons/ic_add_24px.svg" class="icon-payment"></md-icon>
+                                        </md-button>
+                                    </md-input-container>
+                                </div>
+                                <div ng-if="payment.PaymentMethodId == 4" flex="100" layout="row" layout-align="space-between center" style="margin-top:-25px">
+                                    <md-input-container style="width: 100%;">
+                                        <label class="label-text">{{ 'COMPANY' | translate }}</label>
+                                        <md-autocomplete md-selected-item="selectedCompanyCityLedger" md-search-text-change="searchCompanyTextChangeCityLedger(searchCompanyTextCityLedger)"
+                                            md-search-text="searchCompanyTextCityLedger" md-selected-item-change="selectedCompanyChangeCityLedger(item)"
+                                            md-items="item in queryCompanySearchCityLedger(searchCompanyTextCityLedger)" md-item-text="item.CompanyName"
+                                            md-min-length="0" md-menu-class="autocomplete-custom-template" style="font-size:13px !important">
+                                            <md-item-template>
+                                                <span class="item-title">
+                                                    <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                                    <span style="margin: auto;"> {{item.CompanyName}} </span>
+                                                </span>
+                                            </md-item-template>
+                                        </md-autocomplete>
+                                    </md-input-container>
+                                </div>
+                            </form>                            
+                        </md-card-content>
+                    </md-tab>
+                    <md-tab md-active="false" label="{{ 'PAYMENT_LIST' | translate }}" layout="row" layout-wrap flex="100">
+                        <md-card-content class="content-list-card height-120">
+                            <table ng-if="POSModel.Payments.length > 0" class="table_payment">
+                                <tbody>
+                                    <tr ng-repeat="payment in POSModel.Payments">
+                                        <td style="text-align: left;padding-left:5px !important;width:65%">{{payment.CreatedDate | date:'dd/MM/yyyy, HH:mm'}}</td>
+                                        <td style="text-align: right;width:30%">{{payment.Amount | currency}}
+                                            <span ng-if="payment.AmountInSpecificMoney != 0 && payment.AmountInSpecificMoney != null">({{payment.AmountInSpecificMoneyString}})</span>
+                                        </td>
+                                        <td style="width:5%">
+                                            <md-icon md-svg-icon="img/icons/ic_highlight_remove_24px.svg" ng-click="removePOSPayment(payment)" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);cursor:pointer"
+                                                aria-hidden="true">
+                                            </md-icon>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table ng-if="!(POSModel.Payments.length > 0)" class="table_payment">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">
+                                            {{'PAYMENT_NOT_FOUND' | translate}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-card-content>
+                    </md-tab>
+                </md-tabs>
+                <!-- <md-divider class="md-divider-right"></md-divider>  -->
+
+                <div class="md-toolbar-tools toolbar-listservice borderBottom">
+                    <div flex class="label-position">
+                        {{ 'LINE_TOTAL' | translate }}
+                    </div>
+                    <span flex></span>
+                </div>
+
+                <div flex layout="row" class="payment-info">
+                    <div flex="40" layout="column" class="payment-info-left">
+                        <md-input-container class="input-setting-left payment-info-left-name">
+                            <label class="ng-binding label-text">{{ 'CUSTOMER_NAME1' | translate }}(*)</label>
+                            <input type="text" ng-model="POSModel.ContactInformation.Fullname" ng-init="Anonymus" class="ng-pristine ng-valid md-input ng-empty ng-touched"
+                                aria-invalid="false">
+                        </md-input-container>
+                        <md-input-container class="input-setting-right-select payment-info-left-method">
+                            <label class="label-text">{{ 'PAY_OPTIONS' | translate }}</label>
+                            <md-select ng-model="RoomInfo.ReservationRoomId" ng-change="selectRoom()">
+                                <md-option ng-value="0" selected="selected">{{ 'PAYMENT_COUNTER' | translate }}</md-option>
+                                <md-option ng-repeat="room in rooms" ng-value="room.ReservationRoomId">{{ room.RoomName }} - {{ room.Traveller.Fullname }}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <div flex="60" layout="column" layout-align="start stretch" class="payment-info-right">
+                        <div flex="100" layout="row" class="payment-info-right-detail">
+                            <div flex="50" class="position-relative">
+                                <span class="payment-info-right-span">
+                                    <b>{{ 'TOTAL_CHARGES' | translate }}: </b>
+                                </span>
+                            </div>
+                            <div flex="50" class="position-relative">
+                                <span class="footer-left">{{chargesTotal | currency:"":CurrencyOk.MinorUnit}} {{defaultCurrency.MoneyName}}</span>
+                            </div>
+                        </div>
+                        <div flex="100" layout=row class="payment-info-right-detail" ng-show="RoomInfo.ReservationRoomId==0 && chargesTotal > 0">
+                            <div flex="50" class="position-relative">
+                                <span class="payment-info-right-span" style="cursor:pointer">
+                                    <a ng-click="showDiscount(discount,payment)" id="discountTag">
+                                        <b>{{ 'DISCOUNT' | translate }}
+                                            <span ng-if="discount.discountOptions == 0">({{discount.discountNumber}}%)</span>: </b>
+                                        <md-icon md-svg-icon="img/icons/ic_mode_edit_24px.svg" style="transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);height:10px;width:10px"
+                                            aria-hidden="true">
+                                        </md-icon>
+                                    </a>
+                                </span>
+                            </div>
+                            <div flex="50" class="position-relative">
+                                <span class="footer-left">{{discount.discountAmount | currency:"":CurrencyOk.MinorUnit}} {{defaultCurrency.MoneyName}}</span>
+                            </div>
+                        </div>
+                        <div flex="100" layout=row class="payment-info-right-detail position-relative" ng-show="RoomInfo.ReservationRoomId==0 && chargesTotal > 0">
+                            <span class="payment-info-right-span" style="font-size:12px" title="{{POSModel.DiscountReason}}">
+
+                                <i>({{ 'DISCOUNT_REASON' | translate }}: {{discount.discountReason | truncate:25}})</i>
+
+                            </span>
+                        </div>
+                        <div flex="100" layout=row class="payment-info-right-detail" ng-show="RoomInfo.ReservationRoomId==0">
+                            <div flex="50" class="position-relative">
+                                <span class="payment-info-right-span">
+                                    <b>{{ 'TOTAL_PAYMENTS' | translate }}: </b>
+                                </span>
+                            </div>
+                            <div flex="50" class="position-relative">
+                                <span class="footer-left">{{paymentsTotal | currency:"":CurrencyOk.MinorUnit}} {{defaultCurrency.MoneyName}}</span>
+                            </div>
+                        </div>
+                        <div flex="100" layout=row class="payment-info-right-detail" ng-show="RoomInfo.ReservationRoomId==0">
+                            <div flex="50" class="position-relative">
+                                <span class="payment-info-right-span">
+                                    <b style="color:#ec1c24">{{ 'BALANCE' | translate }}: </b>
+                                </span>
+                            </div>
+                            <div flex="50" class="position-relative">
+                                <span class="footer-left" style="color:#ec1c24">{{payment.AmountTemp | currency:"":CurrencyOk.MinorUnit}} {{defaultCurrency.MoneyName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-card>
+    </div>
+</md-content>

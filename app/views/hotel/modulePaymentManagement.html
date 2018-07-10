@@ -1,0 +1,511 @@
+<style>
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+
+    .md-list-item .md-list-item-inner .md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+        /*          margin: 0px;*/
+    } 
+    md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+        margin: 0px;
+    }
+
+    .readOnly {
+        background: #dddddd;
+    } 
+    .one {
+        padding: 10px;
+    }
+
+    #customers td,
+    #customers th {
+        border: 1px solid #ddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    table#customers {
+        /*font-size: 16px;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+    }
+
+    .margin-bottom100 {
+        margin-bottom: 80px;
+    }
+
+    .thumbnail {
+        max-width: 200px;
+        max-height: 150px;
+        line-height: 20px;
+        margin-bottom: 5px;
+    }
+
+    md-input-container:not(.md-input-invalid)>md-icon.email {
+        color: green;
+    }
+
+    md-input-container:not(.md-input-invalid)>md-icon.name {
+        color: dodgerblue;
+    }
+
+    md-input-container.md-input-invalid>md-icon.email,
+    md-input-container.md-input-invalid>md-icon.name {
+        color: red;
+    }
+
+    .steps-indicator {
+        /* ---- steps quantity ---- */
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        padding: 20px 0 0 0;
+        height: 30px;
+        list-style: none;
+        /* --- http://www.paulirish.com/2012/box-sizing-border-box-ftw/ ---- */
+    }
+
+    .has-error {
+        /* label classes */
+        display: inline;
+        /*      padding: .2em .6em .3em;*/
+        padding: 0px;
+        font-size: 75%;
+        font-weight: bold;
+        line-height: 1;
+        color: #f44336;
+        text-align: left;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+        /* label danger classes */
+        background-color: #ffffff;
+    }
+
+    .steps-indicator:before {
+        content: '';
+        position: absolute;
+        color: black;
+        border-bottom: 3px solid yellowgreen;
+    }
+
+    .steps-indicator:after {
+        content: '';
+        position: absolute;
+        color: black;
+        border-bottom: 3px solid red;
+    }
+
+    .steps-indicator.steps-2:before {
+        left: calc(100% / 2 / 2);
+        right: calc(100% / 2 / 2);
+    }
+
+    .steps-indicator.steps-3:before {
+        left: calc(100% / 3 / 2);
+        right: calc(100% / 3 / 2);
+    }
+
+    .steps-indicator * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .steps-indicator li {
+        position: relative;
+        float: left;
+        margin: 0;
+        padding: 0;
+        padding-top: 10px;
+        text-align: center;
+        line-height: 15px;
+    }
+
+    .steps-indicator li a {
+        /*  color: #808080;*/
+        text-decoration: none;
+        text-transform: none;
+        font-weight: bold;
+        transition: 0.25s;
+        cursor: pointer;
+    }
+
+    .steps-indicator li a:before {
+        position: absolute;
+        top: -7px;
+        left: calc(50% - 7px);
+        width: 17px;
+        height: 17px;
+        border-radius: 100%;
+        background-color: lightgrey;
+        content: '';
+        transition: 0.25s;
+    }
+
+    .steps-indicator li a:hover {
+        color: #4d4d4d;
+    }
+
+    .steps-indicator.steps-2 li {
+        width: calc(100% / 2);
+    }
+
+    .steps-indicator.steps-3 li {
+        width: calc(100% / 3);
+    }
+
+    .steps-indicator li.default {
+        pointer-events: none;
+    }
+
+    .steps-indicator li.default a:hover {
+        color: #808080;
+    }
+
+    .steps-indicator li.current,
+    .steps-indicator li.editing {
+        pointer-events: none;
+    }
+
+    .steps-indicator li.current a:before {
+        /*  background-color: dodgerblue;*/
+        content: "\039F";
+        color: yellowgreen;
+        background-color: white;
+        font-size: 1.5em;
+        bottom: -1.6em;
+    }
+
+    .steps-indicator li.done a:before {
+        background-color: #339933;
+        content: "\2713";
+        color: white
+    }
+
+    .steps-indicator li.editing a:before {
+        /*  background-color: #ff0000;*/
+        content: "\039F";
+        color: red;
+        background-color: white;
+        font-size: 1.5em;
+        bottom: -1.6em;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    .has-error {
+        /* label classes */
+        display: inline;
+        padding: .2em .6em .3em;
+        font-size: 75%;
+        font-weight: bold;
+        line-height: 1;
+        color: #f44336;
+        text-align: left;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+        /* label danger classes */
+        background-color: #ffffff;
+    } 
+    #height100 {
+        min-height: 50px !important;
+        max-height: 5500px !important;
+        overflow-y: hidden !important;
+    }
+    .height {
+        height: 100% !important;
+        /*min-height:100% !important;*/
+    } 
+
+    .md-secondary {
+        margin: auto;
+    }
+
+    .perday {
+        font-size: 12px;
+        margin-top: -9px;
+        padding-top: 0;
+        /*color: #FF9800;*/
+    }
+
+    .total_text {
+        font-weight: bold;
+        color: #ff6d3f;
+    }
+
+    .bg-gray {
+        background-color: #f2f2f2 !important;
+    }
+
+    .bg-white {
+        background: white;
+    }
+
+    .padding0 {
+        padding: 0;
+    }
+
+    .al-wrap {
+        background: url(img/pattern.jpg) repeat;
+    }
+    #wrap_pm {
+        height: 100%;
+    }
+    #wrap_pm md-tabs-content-wrapper {
+        background: rgb(243, 243, 243);
+    }
+
+    .title-page {
+        font-size: 20px !important;
+    }
+
+    .error_p {
+        background-color: #f3f3f3;
+        color: #797474;
+    } 
+
+    .pageSizeCss {
+        margin-left: 5px;
+        text-align: center;
+    }
+
+    .height100per {
+        height: 100%;
+    }
+    .height-fit{
+        height: fit-content;
+    }
+</style>
+<md-content id="wrap_pm">
+    <md-tabs md-border-bottom md-center-tabs md-selected="selectedIndex" class="height">
+        <md-tab label="{{ 'MODULE_MANAGEMENT' | translate }}" id="height100" style="min-height: 100px;max-height: 5000px;">
+            <md-content class="height100per md-padding bg-gray al-wrap" id="bodypm_" layout="row" layout-wrap layout-align="center start">
+                <div flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                    <span flex="100" style="margin: 8px;" class="title-page">{{'TOTAL_HOTEL_ROOMS' | translate}}: {{hotelRooms}} | {{'REMAINING_DAYS' | translate}}:
+                        <span class="total_text">{{remainingDays}}</span>
+                    </span>
+                    <!-- <span flex="100" style="margin: 8px;">{{'REMAINING_DAYS' | translate}}: {{remainingDays}}</span> -->
+                </div>
+                <div flex="100" layout="row" layout-xs="column" layout-align="space-between start" layout-align-xs="start start">
+                    <div flex-xs="100" class="height-fit" flex="50">
+                        <md-list flex="100" class="padding0">
+                            <md-list-item ng-repeat="module in allHotelModules" class="md-whiteframe-z1 md-4-line" ng-class="[{'md-4-line': module.moduleDiscount != null},{'bg-white':module.hotelModule[0].Status}]"
+                                style="margin-bottom: 15px;">
+                                <div class="md-list-item-text" ng-if="module.moduleDiscount != null">
+                                    <h3>{{module.module.ModuleName}}</h3>
+                                    <p>{{'DISCOUNT' | translate}}: {{module.moduleDiscount.StartDate | date: 'dd/MM/yyyy'}}
+                                        - {{module.moduleDiscount.EndDate | date: 'dd/MM/yyyy'}}</p>
+                                    <p class="perday">{{hotelRooms}} {{'ROOM' | translate}}/ {{'DAY' | translate}}: {{module.moduleRangePrice.AmountPerDay
+                                        | currency:(CurrencyMarket.AlphabeticCode+" "):CurrencyMarket.MinorUnit}}</p>
+                                </div>
+                                <div class="md-list-item-text" ng-if="module.moduleDiscount == null">
+                                    <h3>{{module.module.ModuleName}}</h3>
+                                    <p class="perday">{{module.TotalRoom}} {{'ROOM' | translate}}/ {{'DAY' | translate}}: {{ ((module.moduleRangePrice.AmountPerDay==null)?0:module.moduleRangePrice.AmountPerDay)
+                                        | currency:(CurrencyMarket.AlphabeticCode+" "):CurrencyMarket.MinorUnit}}</p>
+                                </div>
+                                <md-switch aria-label="Switch" class="md-warn md-secondary" ng-model="module.hotelModule[0].Status"
+                                    ng-disabled="true" style="margin: auto 0px;">
+                                </md-switch>
+                            </md-list-item>
+                        </md-list>
+                    </div>
+                    <div flex-xs="100" class="height-fit"  flex="45"> 
+                        <md-content class="md-padding md-whiteframe-z1 " layout="row" flex="100" layout-wrap>
+                            <div flex="100" layout="row" layout-align="space-between center">
+                                <div layout="column">
+                                    <span style="margin-left: 0px;">{{'TOTAL' | translate}}:
+                                        <span ng-if="!isPaymentOption" class="total_text">{{totalPayment | currency:(CurrencyMarket.AlphabeticCode+" "):CurrencyMarket.MinorUnit}}</span>
+                                        <span ng-if="isPaymentOption">
+                                            <span>{{CurrencyMarket.AlphabeticCode}}</span>
+                                            <md-input-container style="margin-bottom: 0px;">
+                                                <label></label>
+                                                <input type="text" ng-model="$parent.paymentOption" ui-number-mask="CurrencyMarket.MinorUnit" focus-me="isPaymentOption"
+                                                />
+                                            </md-input-container>
+                                        </span>
+                                    </span>
+                                    <span style="margin-left: 0px;margin-bottom: 5px;">
+                                        <a href="" ng-click="goToPricePage()" style="font-size: 0.8em; font-style: italic;">{{'MORE_PRICE_DETAILS' | translate}}</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div flex="100">
+                                <md-radio-group ng-model="paymentByTime" style="padding: 0px;padding-bottom: 6px;">
+                                    <md-radio-button value="3_MONTH_PAYMENT" class="md-warn">{{'3_MONTH' | translate}}</md-radio-button>
+                                    <md-radio-button value="6_MONTHS_PAYMENT" class="md-warn">{{'6_MONTHS' | translate}} </md-radio-button>
+                                    <md-radio-button value="12_MONTHS_PAYMENT" class="md-warn">{{'12_MONTHS' | translate}} </md-radio-button>
+                                    <md-radio-button value="24_MONTHS_PAYMENT" class="md-warn">{{'24_MONTHS' | translate}} </md-radio-button>
+                                    <md-radio-button value="OPTION" ng-if="CurrencyMarket.AlphabeticCode == 'VND'" class="md-warn">{{'OPTION_MINIMUM_AMOUNT_EQUALS_TO_THE_SUM_OF_3_MONT_PAYMEN' | translate}} </md-radio-button>
+                                </md-radio-group>
+                            </div>
+                            <div flex="100">
+                                <md-button ng-if="CurrencyMarket.AlphabeticCode == 'VND'" class="md-raised md-warn" ng-click="processHotelBackendPayment()">{{'ONE_PAY_PAYMENT' | translate}}</md-button>
+                                <md-button class="md-raised" ng-click="showDetailMethodPayment()">
+                                    {{'OTHER_PAYMENT' | translate}}
+                                </md-button>
+                            </div>
+                        </md-content>
+                    </div>
+                </div>
+                <md-content class="md-padding md-whiteframe-z2" ng-if="showPayment" layout="row" flex="100" style="min-height: 100px;max-height: 5000px;"
+                    layout-wrap>
+                    <div flex="100" layout="row" layout-align="space-between center">
+                        <i>
+                            <b ng-if="CurrencyMarket.AlphabeticCode == 'VND'">{{'CURRENTYLY_EZCLOUD_SUPPORTS_PAYMENT_THROUGH' | translate}}</b>
+                            <b ng-if="CurrencyMarket.AlphabeticCode != 'VND'">{{'CURRENTYLY_EZCLOUD_SUPPORTS_PAYMENT_THROUGH1' | translate}}</b>
+                        </i>
+                    </div>
+
+                    <div ng-if="CurrencyMarket.AlphabeticCode == 'VND'" flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        <b>
+                            <u>{{'ONEPAY_GATEWAY' | translate}}</u>({{'RECOMENDED' | translate}}): </b> {{'ONEPAY_IS_LEADING_ONLINE'
+                        | translate}}
+                        <a ng-if="CurrencyMarket.AlphabeticCode == 'VND'" href="http://onepay.com.vn/home/en.html" target="_blank"> {{'VIEW_MORE' | translate}} </a>
+
+                    </div>
+
+                    <div ng-if="CurrencyMarket.AlphabeticCode == 'VND'" flex="100" style="padding: 8px;padding-left: 10px;" layout="row" layout-wrap>
+                        <b>
+                            <i>{{'PAYMENT_ONLINE_WILL_BRING_THE' | translate}} </i>
+                        </b>
+                    </div>
+                    <div ng-if="CurrencyMarket.AlphabeticCode == 'VND'" flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        + {{'AFTER_PAYMENT_SUCCESSFUL' | translate}}
+                    </div>
+                    <div ng-if="CurrencyMarket.AlphabeticCode == 'VND'" flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        + {{'SOFTWARE_USAGE_TIME_WILL_BE_EXTENDED' | translate}}
+                    </div>
+                    <div ng-if="CurrencyMarket.AlphabeticCode == 'VND'" flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        + {{'THE_SYSTEM_SUPPORTS_PAYMENT_VIA_MANY' | translate}}
+                    </div>
+                    <div ng-if="CurrencyMarket.AlphabeticCode == 'VND'" flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        + {{'HAVE_THE_OPPORTUNITY_TO_RECEIVE_SPECIAL_OFFERS' | translate}}
+                    </div>
+
+
+
+                    <div ng-if="CurrencyMarket.AlphabeticCode == 'VND'" flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        <md-button class="md-raised md-warn" ng-click="processHotelBackendPayment()">{{'ONE_PAY_PAYMENT' | translate}}</md-button>
+                    </div>
+                    <div flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        <div layout="row">
+                            <b>
+                                <u>{{'BY_BANK_TRANSFER' | translate}}</u>: </b> {{'YOU_CAN_TRANSFER_MONEY_TO_EZCLOUD' | translate}}</div>
+                    </div>
+                    <div flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        <div layout="row">+ {{'RECEIVER' | translate}}: {{'EZCLOUD_GLOBAL_TECHNOLOGY_JSC' | translate}}</div>
+                    </div>
+                    <div flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        <div layout="row">+ {{'ACCOUNT_NUMBER' | translate}}: 0611001912163 </div>
+                    </div>
+                    <div flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        <div layout="row">+ {{'OPEN_AT' | translate}}: {{'FOREIGN_TRADE_OF_VIETNAM' | translate}} </div>
+                    </div>
+                    <div flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        <div layout="row">+ {{'CONTEN' | translate}}: {{'PAYMENT_FOR' | translate}} </div>
+                    </div>
+
+
+                    <div flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        <b>
+                            <u>{{'DIRECT_PAYMENT' | translate}}</u>:</b>{{'YOU_GO_TO_EZCLOUD_OFFICE_TO_COMPLETE_PAYMENT_PROCESS'
+                        | translate}}
+                    </div>
+                    <div flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        + {{'EZCLOUD_ADDRESS' | translate}}: {{'16TH_FLOOR_LADECO_BUILDING' | translate}}
+                    </div>
+                    <div flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        + {{'EZCLOUD_HOTLINE' | translate}}: 1900 6159
+                    </div>
+
+
+
+                    <div flex="100" style="padding: 8px;padding-left: 0px;" layout="row" layout-wrap>
+                        {{'IF_YOU_WANT_TO_REQUEST_A_RED_BILL_PLEASE_CONTACT' | translate}}
+                    </div>
+
+                </md-content>
+
+            </md-content>
+        </md-tab>
+        <md-tab label="{{'PAYMENT_MANAGEMENT' | translate}}" style="">
+            <md-content layout="column" class="md-padding   al-wrap" layout-align="center center" style="margin: 0" id="height100">
+
+                <md-card style="border-top: 1px solid #eee;width: 98%;margin: 0; padding-bottom: 0;" id="height100">
+                    <md-card-content style="padding: 0px;" id="height100">
+                        <md-list id="height100">
+                            <md-list-item ng-repeat="hc in HotelAccounts" ng-if="hc.Account !== null" class="md-2-line">
+                                <div class="md-list-item-text">
+                                    <h3 class="title-page">{{hc.Hotel.HotelName}}</h3>
+                                    <p>{{'HOTEL_ID' | translate}}: {{hc.Hotel.HotelId}}</p>
+                                </div>
+                                <p class="md-secondary">{{'AMOUNT' | translate}}:
+                                    <span class="total_text">{{hc.Account.Amount | currency:(CurrencyMarket.AlphabeticCode+" "):CurrencyMarket.MinorUnit}}</span>
+                                    </br> {{'PROMOTIONAL_AMOUNT' | translate}}:
+                                    <span class="total_text">{{hc.Account.AmountFee | currency:(CurrencyMarket.AlphabeticCode+" "):CurrencyMarket.MinorUnit}}</span>
+                                </p>
+                            </md-list-item>
+                        </md-list>
+                        <div class="one" style="margin-bottom:20px;margin-top: -40px;">
+                            <div layout="row" layout-sm="column" layout-align="left center" layout-wrap style="margin-bottom: -15px;">
+                                <p>{{'ITEMS_PER_PAGE'|translate}}:</p>
+                                <md-select ng-model="pageSize" class="pageSizeCss" ng-change="resetCurrentPage()">
+                                    <md-option>
+                                        <b>30</b>
+                                    </md-option>
+                                    <md-option selected="selected">
+                                        <b>50</b>
+                                    </md-option>
+                                    <md-option>
+                                        <b>70</b>
+                                    </md-option>
+                                </md-select>
+                            </div>
+                            <div class="table-responsive-vertical shadow-z-1">
+                                <table id="customers" style="width: 100%;">
+                                    <thead>
+                                        <th>{{'ID' | translate}}</th>
+                                        <th>{{'DATE_TIME' | translate}}</th>
+                                        <th>{{'DESCRIPTION' | translate}}</th>
+                                        <th>{{'STATUS' | translate}}</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="log in PaymentLogs | startFrom:currentPage*pageSize | limitTo:pageSize track by $index" ng-class="[{'error_p':(log.Status==3)}]">
+                                            <td>{{log.EzPaymentLogsId}}</td>
+                                            <td>{{log.CreatedDate | date:'dd/MM/yyyy, HH:mm'}}</td>
+                                            <td>{{log.Description}}</td>
+                                            <td>{{log.message | translate}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                                <md-button class="md-raised" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">{{'PREVIOUS'|translate}}</md-button>
+                                {{currentPage+1}}/{{numberOfPages()}}
+                                <md-button class="md-raised" ng-disabled="currentPage >= totalRecord/pageSize - 1" ng-click="currentPage=currentPage+1">{{'NEXT'|translate}}</md-button>
+                            </div>
+                        </div>
+
+                    </md-card-content>
+                </md-card>
+
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</md-content>
+<!--</div>-->

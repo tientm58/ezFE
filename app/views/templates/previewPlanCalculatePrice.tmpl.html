@@ -1,0 +1,327 @@
+<style>
+.final {
+    color: #f44336;
+    font-weight: bold;
+}
+</style>
+<md-dialog aria-label="Plan List Preview">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{'PREVIEW_PLAN_LIST' | translate}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon class="md-inline-list-icon" md-svg-icon="img/icons/ic_close_48px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+            <div flex="100" layout="row" layout-wrap>
+                <div layout="row" layout-align="start center" flex="100" style="padding-bottom: 12px;">
+                    <span flex="30" style="">{{'START_DATE' | translate}}</span>
+                    <div flex>
+                        <input kendo-date-time-picker ng-model="startString" k-ng-model="preview.startDate" style="width: 100%;" k-options="DateTimePickerOption" />
+                    </div>
+                </div>
+                <div layout="row" layout-align="start center" flex="100" style="padding-bottom: 12px;">
+                    <span flex="30" style="">{{'END_DATE' | translate}}</span>
+                    <div flex>
+                        <input kendo-date-time-picker ng-model="endString" k-ng-model="preview.endDate" style="width: 100%;" k-options="DateTimePickerOption" />
+                    </div>
+                </div>
+                <div layout="row" layout-align="space-between center" flex="100">
+                    <md-input-container flex="45">
+                        <label>{{ 'ADULTS' | translate }}</label>
+                        <input type="number" string-to-number ng-model="preview.adults" />
+                    </md-input-container>
+                    <md-input-container flex="45">
+                        <label>{{ 'CHILDREN' | translate }}</label>
+                        <input type="number" string-to-number ng-model="preview.children" />
+                    </md-input-container>
+                </div>
+                <md-button class="md-primary md-raised" ng-click="previewCalculatePlanList()">
+                    {{'CALCULATE' | translate}}
+                </md-button>
+            </div>
+            <section layout="column" layout-align="start center" ng-if="resultShow" style="padding-bottom: 20px;width: 100%;">
+                <span class="md-whiteframe-z1" style="padding: 16px; background-color: #f44336; color: white; font-size: 150%">
+                    {{ result.totalPrice | currency }}
+                </span>
+                <span style="padding-top: 12px; padding-bottom: 12px;" ng-if="result.totalHour > 24">
+                    <span style="font-weight: bold;">{{'TOTAL_TIME' | translate}}:</span> {{result.month}} {{'MONTHS' | translate}}, {{result.week}} {{'WEEKS' | translate}}, {{result.day}} {{'DAYS' | translate}}, {{result.hour}} {{'HOURS' | translate}}
+                </span>
+                <span style="padding-top: 12px; padding-bottom: 12px;" ng-if="result.totalHour <= 24">
+                    <span style="font-weight: bold;">{{'TOTAL_TIME' | translate}}:</span> {{result.month}} {{'MONTHS' | translate}}, {{result.week}} {{'WEEKS' | translate}}, 0 {{'DAYS' | translate}}, {{result.totalHour}} {{'HOURS' | translate}}
+                </span>
+                <md-list style="width: 100%;">
+                    <md-list-item class="md-whiteframe-z1" ng-repeat="formula in result.planListConstantlyFormula" style="width: 100%;margin-bottom: 12px;" layout="column" layout-align="center start">
+                        <section style="width: 100%; padding-bottom: 0px;" layout="row" layout-align="space-between center">
+                            <md-list style="width: 100%;padding-bottom: 0px;">
+                                <md-list-item class="md-2-line">
+                                    <div class="md-list-item-text" style="padding: 8px 0; padding-bottom: 0px;">
+                                        <h3 style="font-weight: bold;">
+                                            {{ formula.FormulaPeriod }} {{formula.FormulaUnit | translate}}
+                                        </h3>
+                                        <p>
+                                            <code style="font-weight: bold; color: dodgerblue">
+                                                {{ formula.ValueAfter - formula.ValueBefore | currency}}
+                                            </code>
+                                        </p>
+                                    </div>
+                                    <div class="md-list-item-text" layout="column" layout-align="center end" style="padding: 8px 0; padding-bottom: 0px;">
+                                        <h3 style="font-weight: bold;">
+                                            {{ 'CURRENT_TOTAL' | translate }}
+                                        </h3>
+                                        <p>
+                                            <code style="font-weight: bold; color: #f44336">
+                                                {{ formula.ValueAfter | currency}}
+                                            </code>
+                                        </p>
+                                    </div>
+                                </md-list-item>
+                            </md-list>
+                        </section>
+                        <section style="width: 100%;">
+                            <div layout="row" layout-align="end center">
+                                <md-button ng-href="" target="_blank" ng-click="showDetail = !showDetail" style="text-transform: none;margin: 0px;">
+                                    {{ 'DETAIL' | translate }}
+                                </md-button>
+                            </div>
+                        </section>
+                        <section class="md-padding" ng-if="showDetail" style="padding-top: 0px;">
+                            <span style="font-weight: bold;">
+                                {{ 'RANGE' | translate}}: {{ formula.Range.Start | date:'dd/MM (HH:mm)' }} - {{ formula.Range.End | date:'dd/MM (HH:mm)' }}
+                                </br>
+                                <!--{{ 'PLAN' | translate}}: {{formula.Plan.RoomPriceName}}
+                                </br>-->
+                                {{ 'PRICE_BEFORE' | translate }}:<code style="font-size: 120%;">{{ formula.ValueBefore | currency }}</code>
+                            </span>
+                            </br>
+                            <span style="color: #f44336;font-weight: bold;">
+                                {{ 'CURRENT_TOTAL' | translate }} :
+                                </br>
+                                <code style="text-align: center;font-size: 120%;font-weight: bold;">{{ formula.ValueBefore }} + {{ formula.ValueAfter - formula.ValueBefore }} = {{ formula.ValueAfter | currency }}</code>
+                            </span>
+                            </br>
+                        </section>
+                    </md-list-item>
+                    <md-list-item class="md-whiteframe-z1" style="width: 100%;padding-left: 0px; padding-right: 0px;margin-bottom: 12px;" layout="column" layout-align="center start" ng-if="result.planListFullDayFormula !== null && result.planListFullDayFormula.length > 0 && result.totalHour > 0">
+                        <section style="width: 100%; padding-bottom: 0px;" layout="row" layout-align="space-between center">
+                            <md-list style="width: 100%;padding-bottom: 0px;">
+                                <md-list-item class="md-2-line">
+                                    <div class="md-list-item-text" style="padding: 8px 0; padding-bottom: 0px;">
+                                        <h3 style="font-weight: bold;">
+                                    {{ result.day }} {{'DAY(S)' | translate}}
+                                </h3>
+                                        <p>
+                                            <code style="font-weight: bold; color: dodgerblue">
+                                        {{ result.planListFullDayFormula[result.planListFullDayFormula.length - 1].formula.ValueAfter - result.planListFullDayFormula[0].formula.ValueBefore| currency}}
+                                    </code>
+                                        </p>
+                                    </div>
+                                    <div class="md-list-item-text" layout="column" layout-align="center end" style="padding: 8px 0; padding-bottom: 0px;">
+                                        <h3 style="font-weight: bold;">
+                                            {{ 'CURRENT_TOTAL' | translate }}
+                                        </h3>
+                                        <p>
+                                            <code style="font-weight: bold; color: #f44336">
+                                        {{ result.planListFullDayFormula[result.planListFullDayFormula.length - 1].formula.ValueAfter | currency }}
+                                    </code>
+                                        </p>
+                                    </div>
+                                </md-list-item>
+                            </md-list>
+                        </section>
+                        <section style="width: 100%;">
+                            <div layout="row" layout-align="end center">
+                                <md-button ng-href="" target="_blank" ng-click="showDetailFullDay = !showDetailFullDay" style="text-transform: none;margin: 0px;">
+                                    {{ 'DETAIL' | translate }}
+                                </md-button>
+                            </div>
+                        </section>
+                        <section class="md-padding" ng-if="showDetailFullDay" style="padding-top: 0px;">
+                            <ul style="padding-left: 24px;">
+                                <li ng-repeat="fullDayFormula in result.planListFullDayFormula" style="padding-top: 8px; padding-bottom: 8px;">
+                                    <span style="font-weight: bold;">
+                                        {{ 'RANGE' | translate}}: {{ fullDayFormula.range.Start | date:'dd/MM (HH:mm)' }} - {{ fullDayFormula.range.End | date:'dd/MM (HH:mm)' }}
+                                        </br>
+                                        {{ 'PRICE_BEFORE' | translate }}:<code style="font-size: 120%;">{{ fullDayFormula.formula.ValueBefore | currency }}</code>
+                                    </span>
+                                    </br>
+                                    <span>
+                                        {{ fullDayFormula.formula.Name | translate}} : <code style="font-size: 120%;font-weight: bold;">{{ fullDayFormula.formula.FormulaValue | currency }}</code>
+                                        </br>
+                                    </span>
+                                    <span ng-if="fullDayFormula.formula.FormulaEarlyCheckIn" ng-repeat="(key,value) in fullDayFormula.formula.FormulaEarlyCheckIn">
+                                        {{ 'EARLY_CHECKIN' | translate }}: <code ng-if="key<=24" style="font-size: 120%;font-weight: bold;">{{ key }} {{ 'HOUR(S)' | translate}} - {{ value | currency }}</code>
+                                        <code ng-if="key > 24" style="font-size: 120%;font-weight: bold;">{{'EXCEEDS_THE_MAXIMUM_VALUE' | translate}}. {{'APPLYING_FULL_DAY_RICE' | translate}} - {{ value | currency }}</code>
+                                        </br>
+                                    </span>
+                                    <span ng-if="fullDayFormula.formula.FormulaLateCheckOut" ng-repeat="(key,value) in fullDayFormula.formula.FormulaLateCheckOut">
+                                        {{ 'LATE_CHECKOUT' | translate }}:
+                                        <code ng-if="key <= 24" style="font-size: 120%;font-weight: bold;">{{ key }} {{ 'HOUR(S)' | translate}} - {{ value | currency }}</code>
+                                        <code ng-if="key > 24" style="font-size: 120%;font-weight: bold;">{{'EXCEEDS_THE_MAXIMUM_VALUE' | translate}}. {{'APPLYING_FULL_DAY_RICE' | translate}} - {{ value | currency }}</code>
+                                        </br>
+                                    </span>
+                                    <span ng-repeat="(key,value) in fullDayFormula.formula.PlanDetail">
+                                        {{ value.name | translate }}:
+                                        <code ng-if="value.Unit == 'HOUR'" style="font-size: 120%;font-weight: bold;">{{ preiod }} {{ 'HOUR(S)' | translate}} - {{ value.price | currency }}</code>
+                                        <code  ng-if="value.Unit == 'DAY'" style="font-size: 120%;font-weight: bold;">{{'APPLYING_FULL_DAY_RICE' | translate}} - {{ value.price | currency }}</code>
+                                        </br>
+                                    </span>
+                                    
+                                    <span>
+                                        {{ 'RANGE_PRICE' | translate }}:
+                                        <code style="font-size: 120%;font-weight: bold;">{{ (fullDayFormula.formula.ValueAfter - fullDayFormula.formula.ValueBefore) | currency}}</code>
+
+                                        </br>
+                                    </span>
+                                    <span style="font-weight: bold;">
+                                        {{ 'CURRENT_TOTAL' | translate }}:
+                                        </br>
+                                        <code style="text-align: center;font-size: 120%;font-weight: bold;">{{ fullDayFormula.formula.ValueAfter | currency }}</code>
+                                    </span>
+                                    </br>
+                                </li>
+                            </ul>
+                        </section>
+                    </md-list-item>
+                    <md-list-item class="md-whiteframe-z1" style="width: 100%;margin-bottom: 12px;" layout="column" layout-align="center start" ng-if="result.planListHourlyFormula !== null && result.totalHour <= 24">
+                        <section style="width: 100%; padding-bottom: 0px;" layout="row" layout-align="space-between center">
+                            <md-list style="width: 100%;padding-bottom: 0px;">
+                                <md-list-item class="md-2-line">
+                                    <div class="md-list-item-text" style="padding: 8px 0; padding-bottom: 0px;">
+                                        <h3 style="font-weight: bold;">
+                                            {{ result.totalHour }} {{'HOUR(S)' | translate}}
+                                        </h3>
+                                        <p>
+                                            <code style="font-weight: bold; color: dodgerblue">
+                                                {{ result.planListHourlyFormula.finalHourlyFormula.ValueAfter - result.planListHourlyFormula.finalHourlyFormula.ValueBefore| currency}}
+                                            </code>
+                                        </p>
+                                    </div>
+                                    <div class="md-list-item-text" layout="column" layout-align="center end" style="padding: 8px 0; padding-bottom: 0px;">
+                                        <h3 style="font-weight: bold;">
+                                            {{ 'CURRENT_TOTAL' | translate }}
+                                        </h3>
+                                        <p>
+                                            <code style="font-weight: bold; color: #f44336">
+                                                {{ result.planListHourlyFormula.finalHourlyFormula.ValueAfter | currency }}
+                                            </code>
+                                        </p>
+                                    </div>
+                                </md-list-item>
+                            </md-list>
+                        </section>
+                        <section style="width: 100%;">
+                            <div layout="row" layout-align="end center">
+                                <md-button ng-href="" target="_blank" ng-click="showDetailHourly = !showDetailHourly" style="text-transform: none;margin: 0px;">
+                                    {{ 'DETAIL' | translate }}
+                                </md-button>
+                            </div>
+                        </section>
+                        <section class="md-padding" ng-if="showDetailHourly" style="padding-top: 0px;">
+                            <span style="font-weight: bold;">
+                                {{ 'RANGE' | translate}}: {{ result.planListHourlyFormula.finalHourlyFormula.Range.Start | date:'dd/MM (HH:mm)' }} - {{ result.planListHourlyFormula.finalHourlyFormula.Range.End | date:'dd/MM (HH:mm)' }}
+                                </br>
+                                <!--{{ 'PLAN' | translate}}: {{::result.planListHourlyFormula.finalHourlyFormula.Plan.RoomPriceName}}
+                                </br>-->
+                                {{ 'PRICE_BEFORE' | translate }}:<code style="font-size: 120%;">{{ result.planListHourlyFormula.finalHourlyFormula.ValueBefore | currency }}</code>
+                            </span>
+                            </br>
+                            <ul style="padding-left: 24px;">
+                                <li ng-repeat="hourlyFormula in result.planListHourlyFormula.availableHourlyFormula" style="padding-top: 8px; padding-bottom: 8px;">
+                                    <div ng-if="hourlyFormula.Name !== 'DAY_NIGHT_PRICE'">
+                                        <span>
+                                        {{ hourlyFormula.Name | translate }} : <code style="font-size: 120%;font-weight: bold;">{{ hourlyFormula.FormulaValue | currency }}</code>
+                                        </br>
+                                    </span>
+                                        <span ng-if="hourlyFormula.FormulaEarlyCheckIn" ng-repeat="(key,value) in hourlyFormula.FormulaEarlyCheckIn">
+                                        {{ 'EARLY_CHECKIN' | translate }}: <code ng-if="key<=24" style="font-size: 120%;font-weight: bold;">{{ key }} {{ 'HOUR(S)' | translate}} - {{ value | currency }}</code>
+                                        <code ng-if="key > 24" style="font-size: 120%;font-weight: bold;">{{'EXCEEDS_THE_MAXIMUM_VALUE' | translate}}. {{'APPLYING_FULL_DAY_RICE' | translate}} - {{ value | currency }}</code>
+                                        </br>
+                                    </span>
+                                        <span ng-if="hourlyFormula.FormulaLateCheckOut" ng-repeat="(key,value) in hourlyFormula.FormulaLateCheckOut">
+                                        {{ 'LATE_CHECKOUT' | translate }}:
+                                            <code ng-if="key <= 24" style="font-size: 120%;font-weight: bold;">{{ key }} {{ 'HOUR(S)' | translate}} - {{ value | currency }}</code>
+                                        <code ng-if="key > 24" style="font-size: 120%;font-weight: bold;">{{'EXCEEDS_THE_MAXIMUM_VALUE' | translate}}. {{'APPLYING_FULL_DAY_RICE' | translate}} - {{ value | currency }}</code>
+                                        </br>
+                                    </span>
+                                        <span style="font-weight: bold;" ng-class="{'final': hourlyFormula.ValueAfter === result.planListHourlyFormula.finalHourlyFormula.ValueAfter && hourlyFormula.Name === result.planListHourlyFormula.finalHourlyFormula.Name}">
+                                        {{ 'CURRENT_TOTAL' | translate }}:
+                                        <code style="text-align: center;font-size: 120%;font-weight: bold;">{{ hourlyFormula.ValueAfter | currency }}</code>
+                                    </span>
+                                        </br>
+                                    </div>
+                                    <div ng-if="hourlyFormula.Name === 'DAY_NIGHT_PRICE'">
+                                        <span>
+                                        {{ hourlyFormula.Name | translate }} : <code style="font-size: 120%;font-weight: bold;">{{ hourlyFormula.FormulaValue | currency }}</code>
+                                        </br>
+                                    </span>
+                                        <span ng-if="hourlyFormula.FormulaEarlyCheckIn" ng-repeat="(key,value) in hourlyFormula.FormulaEarlyCheckIn">
+                                        {{ 'EARLY_CHECKIN' | translate }}:
+                                            <code ng-if="key <= 24" style="font-size: 120%;font-weight: bold;">{{ key }} {{ 'HOUR(S)' | translate}} - {{ value | currency }}</code>
+                                            <code ng-if="key > 24" style="font-size: 120%;font-weight: bold;">{{'EXCEEDS_THE_MAXIMUM_VALUE' | translate}}. {{'APPLYING_DAY_NIGHT_RICE' | translate}} - {{ value | currency }}</code>
+                                        </br>
+                                    </span>
+                                        <span ng-if="hourlyFormula.FormulaLateCheckOut" ng-repeat="(key,value) in hourlyFormula.FormulaLateCheckOut">
+                                        {{ 'LATE_CHECKOUT' | translate }}:
+                                            <code ng-if="key <= 24" style="font-size: 120%;font-weight: bold;">{{ key }} {{ 'HOUR(S)' | translate}} - {{ value | currency }}</code>
+                                            <code ng-if="key > 24" style="font-size: 120%;font-weight: bold;">{{'EXCEEDS_THE_MAXIMUM_VALUE' | translate}}. {{'APPLYING_DAY_NIGHT_RICE' | translate}} - {{ value | currency }}</code>
+                                        </br>
+                                    </span>
+                                    <span ng-repeat="(key,value) in hourlyFormula.PlanDetail">
+                                        {{ value.name | translate }}:
+                                        <code ng-if="value.Unit == 'HOUR'" style="font-size: 120%;font-weight: bold;">{{ value.preiod }} {{ 'HOUR(S)' | translate}} - {{ value.price | currency }}</code>
+                                        <code  ng-if="value.Unit == 'DAY'" style="font-size: 120%;font-weight: bold;">{{'APPLYING_FULL_DAY_RICE' | translate}} - {{ value.price | currency }}</code>
+                                        </br>
+                                    </span>
+                                        <span style="font-weight: bold;" ng-class="{'final': hourlyFormula.ValueAfter === result.planListHourlyFormula.finalHourlyFormula.ValueAfter && hourlyFormula.Name === result.planListHourlyFormula.finalHourlyFormula.Name }">
+                                        {{ 'CURRENT_TOTAL' | translate }}:
+                                        <code style="text-align: center;font-size: 120%;font-weight: bold;">{{ hourlyFormula.ValueAfter | currency }}</code>
+                                    </span>
+                                        </br>
+                                    </div>
+                                    <!-- <div ng-if="hourlyFormula.Name === 'DAY_NIGHT_PRICE' && result.planListHourlyFormula.dropDayNightFormula ">
+                                        <span>
+                                        {{ hourlyFormula.Name | translate }} :
+                                        </br>
+                                    </span> {{'CAN_NOT_APPLY_CALCULATING_WITH_DAY_NIGHT_FORMULA_DUE_TO_EARLY_CHECKIN_OR_LATE_CHECKOUT_VALUE_EXCEEDS_THE_MAXIMUM_VALUE' | translate}}
+                                    </div> -->
+                                </li>
+                            </ul>
+                        </section>
+                    </md-list-item>
+                    <md-list-item class="md-whiteframe-z1" style="width: 100%;padding-left: 0px; padding-right: 0px;padding-bottom: 12px;" layout="column" layout-align="space-between center" ng-if="result.extraAdults.Extra > 0 || result.extraChildren.Extra > 0">
+                        <section class="md-padding" layout="row" layout-align="space-between center" style="width: 100%;" ng-if="result.extraAdults.Extra > 0">
+                            <span style="font-weight: bold">{{'EXTRA_ADULTS' | translate}}: {{ result.extraAdults.Extra }}</span>
+                            <span style="font-weight: bold">{{'PRICE' | translate}}:<code style="font-size: 120%;"> {{ result.extraAdults.ExtraPrice | currency }}</code></span>
+                        </section>
+                        <section class="md-padding" layout="row" layout-align="space-between center" style="width: 100%;" ng-if="result.extraChildren.Extra > 0">
+                            <span style="font-weight: bold">{{'EXTRA_CHILDREN' | translate}}: {{ ::result.extraChildren.Extra }}</span>
+                            <span style="font-weight: bold">{{'PRICE' | translate}}:<code style="font-size: 120%;"> {{ result.extraChildren.ExtraPrice | currency }}</code></span>
+                        </section>
+                        <section class="md-padding" layout="column" layout-align="center start" style="width: 100%;">
+                            <span>
+                                {{ 'TOTAL_EXTRA_TRAVELLER_PRICE' | translate }}:
+                                <code style="font-size: 120%;font-weight: bold;">
+                                    {{ (result.extraAdults.ExtraPrice + result.extraChildren.ExtraPrice) | currency}}
+                                </code>
+                                        </br>
+                            </span>
+                            <span style="font-weight: bold;">
+                                {{ 'CURRENT_TOTAL' | translate }}:
+                                <code style="text-align: center;font-size: 120%;font-weight: bold;color: #f44336;">{{ result.totalPrice | currency }}</code>
+                            </span>
+                        </section>
+                    </md-list-item>
+                </md-list>
+            </section>
+        </div>
+    </md-dialog-content>
+    <div class="md-actions" layout="row">
+        <md-button ng-click="cancel()" class="md-primary">
+            {{'CANCEL' | translate}}
+        </md-button>
+    </div>
+</md-dialog>

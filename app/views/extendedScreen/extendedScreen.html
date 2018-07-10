@@ -1,0 +1,31 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="lib/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet" />
+<style>
+    #reportViewer {
+     /*top:61px !important;*/
+     height:100%;
+     width:100% !important;
+     min-width: 100% !important;
+    }
+    .trv-pages-area.interactive .trv-page-container .trv-page-wrapper .trv-report-page{
+        margin-right:auto;
+        margin-left:auto;
+    }
+    md-content{
+        padding-bottom:0px !important;
+    }
+    .footer{
+        display:none;
+    }
+</style>
+<div id="reportViewer">
+</div>
+<script type="text/javascript">
+        $.ajaxPrefilter(function (options) {
+            if (!options.beforeSend) {
+                options.beforeSend = function (xhr) {
+                    xhr.setRequestHeader('Authorization','Bearer ' + JSON.parse( localStorage["ngStorage-session"]).access_token);
+                }
+            }
+        });
+</script>

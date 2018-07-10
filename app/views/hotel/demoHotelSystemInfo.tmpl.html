@@ -1,0 +1,69 @@
+<md-dialog aria-label="{{SYSTEM_INFO | translate}}" ng-cloak flex-xs="90" flex-sm="90" flex-gt-sm="60">
+	<form>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'SYSTEM_INFO' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+				<form name="SystemInfoForm" layout="row" layout-wrap flex="100">
+					<span flex="100" style="font-style: italic; color: #f44336;margin-bottom: 12px;">
+						(*){{'THE_DEFAULT_CURRENCY_OF_THE_HOTEL_IS_ONE-TIME_SET_UP_PROCEDURE.YOU_CAN_NOT_RESET_THIS_INFORMATION_ONCE_THE_HOTEL_IS_CREATED'
+						| translate}}
+					</span>
+					<md-input-container flex="100">
+						<label>{{'CHOOSE_HOTEL_DEFAULT_CURRENCY' | translate}}</label>
+						<md-select ng-model="demoHotel.CurrencyId">
+							<md-option ng-repeat="currency in Currencies" value="{{currency.CurrencyId}}" ng-selected="currency.AlphabeticCode === 'VND'">
+								{{currency.AlphabeticCode}} - {{currency.Currency}} ({{currency.Entity}})
+							</md-option>
+						</md-select>
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'CHOOSE_HOTEL_DEFAULT_TIME_ZONE' | translate}}</label>
+						<md-select ng-model="demoHotel.TimeZoneId">
+							<md-option ng-repeat="timeZone in TimeZones" value="{{timeZone.Id}}" ng-selected="timeZone.Id == 'SE Asia Standard Time'">
+								{{ timeZone.DisplayName }}
+							</md-option>
+						</md-select>
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'CHOOSE_HOTEL_EZMARKET' | translate}}</label>
+						<md-select ng-model="demoHotel.EzMarketId">
+							<md-option ng-repeat="market in EzMarkets" value="{{market.EzMarketId}}" ng-selected="market.EzMarketId == 1">
+								{{ market.Name }}
+							</md-option>
+						</md-select>
+					</md-input-container>
+					<!-- sale -->
+					<md-input-container flex="100">
+						<label>{{'CREATED_BY_SALES' | translate}}</label>
+						<md-select ng-model="demoHotel.SalesId">
+							<md-option ng-repeat="sale in Sales" value="{{sale.Id}}" ng-selected="$first">
+								{{ sale.UserName }}
+							</md-option>
+						</md-select>
+					</md-input-container>
+					
+				</form>
+
+			</div>
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-click="createDemoHotel()" class="md-primary">
+				{{'CREATE_DEMO_HOTEL' | translate}}
+			</md-button>
+		</md-dialog-actions>
+
+	</form>
+
+</md-dialog>

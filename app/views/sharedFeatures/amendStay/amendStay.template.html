@@ -1,0 +1,284 @@
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+
+    .font2 {
+        font-size: 11px;
+        margin: 0;
+    }
+
+    p {
+        margin: 0;
+    }
+</style>
+<md-checkbox ng-show="amendStayCtrl.isShowApplyCheckOutInThePast && (amendStayCtrl.user.Roles.indexOf('ROLE_HOTEL_OWNER') >= 0 || amendStayCtrl.user.Roles.indexOf('ROLE_SYS_ADMIN') >= 0 || amendStayCtrl.user.Roles.indexOf('ROLE_HOTEL_MANAGER') >=0)"
+    ng-model="amendStayCtrl.applyCheckOutInThePast" ng-change="amendStayCtrl.isCheckChange()" aria-label="Checkbox 1" flex="100"
+    style="margin: 10px 0px 0px 20px;">
+    {{'APPLY_CHECKOUT_IN_THE_PAST_PAST' | translate}}
+</md-checkbox>
+<div class="md-dialog-content" layout="row" layout-wrap flex="100" ng-show="amendStayCtrl.applyCheckOutInThePast == true">
+    <div layout="row" layout-align="start center" flex="100">
+        <span flex="25" style="">{{'DEPARTURE' | translate}}</span>
+        <div flex>
+            <input kendo-date-time-picker ng-model="amendStayCtrl.str2" k-ng-model="amendStayCtrl.newDepartureDate" min="amendStayCtrl.CurrentArrivalDate"
+                style="width: 100%;" k-options="amendStayCtrl.DateTimePickerOption" />
+        </div>
+    </div>
+    <md-input-container flex="100">
+        <label>{{'REASON(REQUIRED)' | translate}}</label>
+        <input type="text" ng-model="amendStayCtrl.PastCheckOutReason">
+    </md-input-container>
+</div>
+<section ng-show="amendStayCtrl.applyCheckOutInThePast == true">
+    <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+        ng-if="amendStayCtrl.warningMissingReason === true">
+        <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+        <span style="color: #f44336;">
+            {{'PAST_CHECKOUT_REASON_CAN_NOT_BE_EMPTY' | translate}}.
+        </span>
+    </fieldset>
+    <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+        ng-if="amendStayCtrl.warningInvalidDepartureDate === true">
+        <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+        <span style="color: #f44336;">
+            {{'INVALID_DEPARTURE_DATE' | translate}}.
+        </span>
+    </fieldset>
+</section>
+<div class="md-dialog-content" layout="row" ng-show="amendStayCtrl.applyCheckOutInThePast == false" layout-wrap layout-align="space-between center"
+    flex="100" style="padding-bottom: 20px;width: 100%;padding-top: 0 !important;">
+    <section flex-gt-xs="45" flex-xs="100" style="width: 100%;" layout="column" layout-align="center center">
+        <div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+            <span style="font-weight: 600" flex="30">
+                {{'RES_NO' | translate}}
+            </span>
+            <span flex>
+                {{ amendStayCtrl.currentRoom.Reservations.ReservationNumber }}
+            </span>
+        </div>
+        <div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+            <span style="font-weight: 600" flex="30">{{'ROOM' | translate}}</span>
+            <span flex>{{amendStayCtrl.currentRoom.Rooms.RoomName}} ({{amendStayCtrl.currentRoom.RoomTypes.RoomTypeName | translate}})</span>
+        </div>
+        <div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+            <span style="font-weight: 600" flex="30">
+                {{'GUEST' | translate}}
+            </span>
+            <span flex>
+                {{amendStayCtrl.currentRoom.Travellers.Fullname}}
+            </span>
+        </div>
+        <div layout="row" layout-align="start center" style="margin: 8px auto;width: 100%;">
+            <span style="font-weight: 600" flex="30">
+                {{'ARRIVAL' | translate}}
+            </span>
+            <div flex="60" ng-if="amendStayCtrl.currentRoom.BookingStatus == 'BOOKED'">
+                <input kendo-date-time-picker ng-model="amendStayCtrl.str" k-ng-model="amendStayCtrl.currentRoom.ArrivalDate" ng-disabled="false"
+                    style="font-size:16px;width: 100%;" k-options="amendStayCtrl.DateTimePickerOption" />
+            </div>
+            <div flex="60" ng-if="amendStayCtrl.currentRoom.BookingStatus === 'CHECKIN' || amendStayCtrl.currentRoom.BookingStatus === 'OVERDUE' ">
+                <input kendo-date-time-picker ng-model="amendStayCtrl.str" k-ng-model="amendStayCtrl.currentRoom.ArrivalDate" ng-disabled="true"
+                    style="font-size:16px;width: 100%;" k-options="amendStayCtrl.DateTimePickerOption" />
+            </div>
+            <div flex="60" ng-if="amendStayCtrl.currentRoom.BookingStatus === 'NOSHOW'">
+                <input kendo-date-time-picker ng-model="amendStayCtrl.str" k-ng-model="amendStayCtrl.currentRoom.ArrivalDate" min="amendStayCtrl.currentRoom.ArrivalDate"
+                    style="font-size:16px;width: 100%;" k-options="amendStayCtrl.DateTimePickerOption" />
+            </div>
+            <md-icon flex md-svg-src="img/icons/ic_edit_24px.svg" ng-click="amendStayCtrl.editCheckInTime()" ng-if="amendStayCtrl.isRole() && amendStayCtrl.currentRoom.BookingStatus !== 'CANCELLED' && amendStayCtrl.currentRoom.BookingStatus !== 'BOOKED' && amendStayCtrl.currentRoom.BookingStatus !== 'NOSHOW'"
+                style="cursor: pointer;border: 0;outline: none">
+            </md-icon>
+        </div>
+        <div layout="row" layout-align="start center" style="margin: 8px 0;width: 100%;">
+            <span style="font-weight: 600" flex="30">
+                {{'DEPARTURE' | translate}}
+            </span>
+            <div flex="60">
+                <input name="departureDate" kendo-date-time-picker ng-model="amendStayCtrl.str2" k-ng-model="amendStayCtrl.currentRoom.DepartureDate"
+                    min="amendStayCtrl.arrival" style="font-size:16px;width: 100%;" k-options="amendStayCtrl.DateTimePickerOption"
+                />
+            </div>
+        </div>
+        <div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+            <span style="font-weight: 600" flex="30">
+                {{'ADULT' | translate}}
+            </span>
+            <div flex>
+                <md-input-container style="padding: 0px;">
+                    <input type="number" ng-min="amendStayCtrl.adults" ng-model="amendStayCtrl.currentRoom.Adults" style="width: 80%;" />
+                </md-input-container>
+            </div>
+
+        </div>
+        <div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+            <span style="font-weight: 600" flex="30">
+                {{'CHILDREN' | translate}}
+            </span>
+            <div flex>
+                <md-input-container style="padding: 0px;">
+                    <input type="number" ng-min="amendStayCtrl.childs" ng-model="amendStayCtrl.currentRoom.Child" style="width: 80%;" />
+                </md-input-container>
+            </div>
+
+        </div>
+    </section>
+
+    <section flex-gt-xs="45" flex-xs="100" style="width: 100%;" layout="column">
+        <fieldset layout="column" layout-align="center center" class="standard">
+            <div layout="row" layout-align="center center" style="margin: 12px auto;">
+                <span style="font-weight: 600; color: #f44336">
+                    {{'PREV_RESERVATION' | translate}}
+                    <span>| {{'RES_NO' | translate}} {{amendStayCtrl.previousReservation.ReservationNumber}}
+                    </span>
+                </span>
+            </div>
+            <md-divider></md-divider>
+            <div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+                <span style="font-weight: 600" flex="40">
+                    {{'GUEST' | translate}}
+                </span>
+                <span flex ng-if="amendStayCtrl.previousReservation.TravellerName">
+                    {{amendStayCtrl.previousReservation.TravellerName}}
+                </span>
+                <span flex ng-if="!amendStayCtrl.previousReservation.TravellerName">
+                    -
+                </span>
+            </div>
+            <div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+                <span style="font-weight: 600" flex="40">
+                    {{'ARRIVAL' | translate}}
+                </span>
+                <span flex ng-if="amendStayCtrl.previousReservation.ArrivalDate">
+                    {{ amendStayCtrl.previousReservation.ArrivalDate | date:'dd/MM/yyyy, HH:mm' }}
+                </span>
+                <span flex ng-if="!amendStayCtrl.previousReservation.ArrivalDate">
+                    -
+                </span>
+            </div>
+            <div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+                <span style="font-weight: 600" flex="40">
+                    {{'DEPARTURE' | translate}}
+                </span>
+                <span flex ng-if="amendStayCtrl.previousReservation.DepartureDate">
+                    {{ amendStayCtrl.previousReservation.DepartureDate | date:'dd/MM/yyyy, HH:mm' }}
+                </span>
+                <span flex ng-if="!amendStayCtrl.previousReservation.DepartureDate">
+                    -
+                </span>
+
+            </div>
+        </fieldset>
+
+        <fieldset layout="column" layout-align="center center" class="standard" style="">
+            <div layout="row" layout-align="center center" style="margin: 12px auto;">
+                <span style="font-weight: 600; color: dodgerblue">
+                    {{'NEXT_RESERVATION' | translate}}
+                    <span> | {{'RES_NO' | translate}} {{amendStayCtrl.nextReservation.ReservationNumber}}
+                    </span>
+                </span>
+            </div>
+            <md-divider></md-divider>
+            <div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+                <span style="font-weight: 600" flex="40">
+                    {{'GUEST' | translate}}
+                </span>
+                <span flex ng-if="amendStayCtrl.nextReservation.TravellerName">
+                    {{amendStayCtrl.nextReservation.TravellerName}}
+                </span>
+                <span flex ng-if="!amendStayCtrl.nextReservation.TravellerName">
+                    -
+                </span>
+            </div>
+            <div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+                <span style="font-weight: 600" flex="40">
+                    {{'ARRIVAL' | translate}}
+                </span>
+                <span flex ng-if="amendStayCtrl.nextReservation.ArrivalDate">
+                    {{amendStayCtrl.nextReservation.ArrivalDate | date:'dd/MM/yyyy, HH:mm' }}
+                </span>
+                <span flex ng-if="!amendStayCtrl.nextReservation.ArrivalDate">
+                    -
+                </span>
+            </div>
+            <div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+                <span style="font-weight: 600" flex="40">
+                    {{'DEPARTURE' | translate}}
+                </span>
+                <span flex ng-if="amendStayCtrl.nextReservation.DepartureDate">
+                    {{amendStayCtrl.nextReservation.DepartureDate | date:'dd/MM/yyyy, HH:mm' }}
+                </span>
+                <span flex ng-if="!amendStayCtrl.nextReservation.DepartureDate">
+                    -
+                </span>
+            </div>
+        </fieldset>
+    </section>
+    <section>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+            ng-if="amendStayCtrl.warningDate === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'ARRIVAL_DATE_CAN_NOT_GREATER_THAN_DEPARTURE_DATE' | translate}}.
+            </span>
+        </fieldset>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+            ng-if="amendStayCtrl.invalidDate === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'INVALID_DATE' | translate}}.
+            </span>
+        </fieldset>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+            ng-if="amendStayCtrl.warning === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'ROOM_IS_NOT_AVAILABLE_FOR_SELECTED_DATES' | translate}}.
+            </span>
+        </fieldset>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+            ng-if="amendStayCtrl.warningDepartureDate === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'DEPARTURE_DATE_CAN_NOT_LESS_THAN_CURRENT_TIME' | translate}}.
+            </span>
+        </fieldset>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+            ng-if="amendStayCtrl.warningArrivalDate === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'ARRIVAL_DATE_CAN_NOT_LESS_THAN_CURRENT_TIME' | translate}}.
+            </span>
+        </fieldset>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+            ng-if="amendStayCtrl.warningNumberCustomer == true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'MISSING_NUMBER_CUSTOMER._PLEASE_TYPE_NUMBER_OF_CUSTOMER_AT_LEAST_ONE' | translate}}.
+            </span>
+        </fieldset>
+    </section>
+</div>
+<md-dialog-actions layout="row">
+    <md-button ng-click="amendStayCtrl.cancel()" class="md-primary">
+        {{'CANCEL' | translate}}
+    </md-button>
+    <md-button ng-if="amendStayCtrl.IsDashboard == 0" ng-click="amendStayCtrl.saveAmendStay()" class="md-primary">
+        {{'AMEND' | translate}}
+    </md-button>
+    <md-button ng-if="amendStayCtrl.IsDashboard == 1" ng-click="amendStayCtrl.saveAmendStayFO()" class="md-primary">
+        {{'AMEND' | translate}}
+    </md-button>
+</md-dialog-actions>

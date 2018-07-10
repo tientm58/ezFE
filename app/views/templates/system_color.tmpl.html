@@ -1,0 +1,35 @@
+<!--<md-content flex-gt-xs="80" flex-xs="100" class="md-whiteframe-z1">-->
+    <md-toolbar>
+        <span flex class="md-toolbar-tools">
+				<h2>
+					{{'COLOR_PATTERN' | translate}}
+				</h2>
+			</span>
+        <md-button class="md-warn md-fab md-mini" ng-click="saveStatusColorList()" ng-if="isStatusColorListChanged" style=" position: absolute;
+                           right: 16px;
+								   bottom: -25px;">
+            <md-icon md-svg-src="img/icons/ic_save_48px.svg"></md-icon>
+            <md-tooltip md-direction="left" hide-xs hide-sm hide-md>
+                {{'SAVE_PATTERN' | translate}}
+            </md-tooltip>
+        </md-button>
+
+    </md-toolbar>
+    <md-content class="md-padding">
+        <md-list>
+            <md-list-item ng-repeat="statusColor in statusColorList">
+                <p>{{statusColor.StatusCode | translate}}</p>
+                <div class="md-secondary"> 
+                    <md-tooltip md-direction="left" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_CHANGE_COLOR' | translate}}
+                    </md-tooltip>
+                    <input  type="color" ng-model="statusColor.ColorCode" value="{{statusColor.ColorCode}}" />
+                    <md-button class="md-primary " ng-click="setDefaultColor(statusColor)" style="text-transform: none;">{{'DEFAULT' | translate}}</md-button>
+                </div>
+
+            </md-list-item>
+        </md-list>
+    </md-content>
+
+
+<!--</md-content>-->

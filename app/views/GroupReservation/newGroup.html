@@ -1,0 +1,1270 @@
+<style>
+	.fabToolbardemoBasicUsage md-fab-toolbar.md-left md-fab-trigger.align-with-text {
+		left: 7px;
+	}
+	md-input-container.md-default-theme label,
+	md-input-container.md-default-theme .md-placeholder {
+		color: grey !important;
+		font-weight: bold !important;
+	}
+	.none_paddingTop {
+		padding-top: 0;
+	}
+	md-autocomplete.md-default-theme,
+	md-autocomplete {
+		background: rgb(255, 255, 255);
+	}
+	.md-autocomplete-suggestions li {
+		line-height: 12px;
+	}
+	.k-datetimepicker .k-picker-wrap .k-icon {
+		margin: 6px 2px;
+	}
+	.k-i-calendar {
+		background-position: -32px -176px !important;
+	}
+
+	.k-i-clock {
+		background-position: -32px -192px !important;
+	}
+	.md-whiteframe-z1{
+		box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);	
+	}
+	.k-picker-wrap .k-icon {
+		margin: 6px 2px;
+	}
+	.marginTop2 {
+		margin-top: -7px;
+	}
+	#height100{
+		min-height: 50px !important;
+		max-height: 5500px !important;
+		overflow-y: hidden;
+	}
+	.md-stepper-indicator.md-active .md-stepper-number, .md-stepper-indicator.md-completed .md-stepper-number{
+		background-color: #3598dc !important;
+	}
+	.set-style-md-toolbar{
+		min-height: 40px !important;
+		max-height: 40px !important;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		background-color: #3598dc !important;
+	}
+	md-list-item{
+		height: 40px !important;
+	}
+	table,thead,tbody{
+		border-collapse:collapse;
+		width: 100%
+	}
+
+	tr td{
+		height: 40px;
+		text-align: center;
+		font-size: 15px;
+	}
+	tr th{
+		height: 55px;
+		color:#686868;
+		background-color: #f6f6f6;
+		font-size: 15px;
+	}
+	tr{
+		width:100%;
+	}
+	.height-md-card{
+		min-height: 100px !important;
+		max-height: 5000px !important; 
+		overflow-y:hidden;
+	}
+	.md-stepper-icon{
+		margin-top: 2px;
+	}
+	.vertical-align td{
+		vertical-align:baseline;
+		border-bottom:grey thin solid;
+	}
+	md-icon{
+		cursor: pointer;
+	}
+	.warning-text{
+		 font-style: italic;font-weight: bold; color: #f44336;
+	}
+	.warning-text1{
+		 display: inline;
+	     padding: .2em .6em .3em;
+	     font-family: 'Voltaire';
+	     font-size: 90%;
+	     font-weight: bold;
+	     font-style: italic;
+	     text-transform: none;
+	     line-height: 1;
+	     color: #f44336;
+	     text-align: center;
+	     white-space: nowrap;
+	     vertical-align: baseline;
+	     border-radius: .25em;
+	}
+	.edit-value{
+		/*text-decoration:underline;*/
+		cursor:pointer
+	}
+	.bt-comfirm{
+		background-color: #259b24; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;
+	}
+	.bt-cancel{
+		background-color: #f44336; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;
+	}
+	.step-body{
+		width:100%;max-height: 90%;
+	}
+	.margin-bottom-0{
+		margin-bottom: 0px;
+	}
+	.height-groupInfo{
+		min-height:461px;
+	}
+	.bt-back-step{
+		text-align:left;
+	}
+	.bt-next-step{
+		text-align:right;
+	}
+	#Leader{
+		padding-top:15px;padding-left:20px;
+	}
+	.not_availability{
+		background-color:lightgray;
+	}
+	.disabled-md-menu{
+		pointer-events:none;
+	}
+	md-card{
+		border-top: 1px solid #eee;
+	}
+	@media (max-width: 600px) {
+    	.md-steppers-content{
+    		min-height: 100%;
+    	}
+	}
+	/*custom md stepper*/
+	.md-steppers-header-region{
+		display:none;
+	}
+	
+	.custom-stepper-indicator{
+		height: 60px;
+	}
+	.custom-stepper-number{
+		width:24px;
+		height:24px;
+		margin:0 8px;
+		border-radius:24px;
+		background-color:#fff;
+		color:#1199CD ;
+		transition:all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+		font-size:12px;
+		line-height:24px;
+		text-align:center;
+		font-weight: bold;
+		padding:0px;
+	}
+	.custom-stepper-title{
+		transition:all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+		font-size:14px;
+		line-height:24px;
+		color:#fff ;
+		padding: 8px;
+		padding-top:10px;
+		padding-left: 0px;
+	}
+	.custom-stepper-title1::after{
+		width:100px;
+		height:2px;
+		margin-top:10px;
+		position:absolute;
+		background-color:#fff;
+		content: " ";
+	}
+	.custom-stepper-line{
+		border: #fff 1px solid;
+	}
+	.custom-stepper-back{
+		height: 55px;
+	}
+	.custom-stepper-back span{
+		color:rgb(238, 238, 238);
+		font-size: 14px;
+		padding-top: 4px;
+	}
+	.custom-stepper-back md-icon{
+		fill:#1199CD;
+		height: 36px;
+		width: 36px;
+		-ms-transform: rotate(180deg);
+		transform: rotate(180deg);
+		-webkit-transform: rotate(180deg);
+	}
+	.custom-stepper-next{
+		height: 55px;
+	}
+	.custom-stepper-next span{
+		color:rgb(238, 238, 238);
+		font-size: 14px;
+		padding-top: 4px;
+	}
+	.custom-stepper-next md-icon{
+		fill:#1199CD;
+		height: 36px;
+		width: 36px;
+
+	}
+	margin-bottom25px{
+		margin-bottom: 25px;
+	}
+	.icon-confirm{
+		height: 36px !important;
+		width: 36px !important;
+	}
+	#search{
+		margin: 8px;
+	}
+	.height53{
+		height: 53px;
+	}
+	.md-list-item-text{
+		margin:0px !important;
+	}
+	md-list-item.md-3-line, md-list-item.md-3-line>._md-no-style{
+		/*min-height: 68px;*/
+		min-height: 75px;
+	}
+	.md-secondary{
+		fill:#686868;
+	}
+	md-list-item h5{
+		-webkit-margin-before:0.33em;
+		-webkit-margin-after:0.13em;
+		color:#686868;
+	}
+	md-list-item span{
+		font-size: 12.5px;
+	}
+	/*md-list-item p{
+		font-size: 12.5px;
+	}*/
+	.md-subhead{
+		padding-top:0px !important;
+	}
+	tr th{
+		background-color:#d9edf7;
+		height: 40px;
+	}
+	.bt-group-add{
+		background:rgba(17, 153, 204, 0.89) !important;
+	}
+	.width90{
+		width:90%;
+	}
+	.md-text-active{
+		color:yellow;
+	}
+	.md-bg-active{
+		background:yellow;
+	}
+	.md-icon-active{
+		fill:#1199CD;
+	}
+	.md-subhead{
+		color:#686868 !important;
+		font-size:11.5px !important;
+	}
+	.my-tr{
+		border-bottom:rgba(128, 128, 128, 0.41) 1px solid;
+		color:#686868;
+	}
+	.size-32{
+		height: 32px;
+		width:32px;
+	}
+	md-input-container.md-default-theme .md-input, md-input-container .md-input{
+		border-color:rgba(128, 128, 128, 0.41)
+	}
+	md-autocomplete md-autocomplete-wrap{
+		height: 31px !important;
+	}
+	/*.hide-label label{
+		display: none;
+	}*/
+	
+	md-autocomplete{
+		margin-left: 0px !important; 
+	}
+	input[type=color] { 
+		width:90px;float: right;margin-top:5px;
+	}
+	md-select{
+		margin:0px !important;
+	}
+	.min-height400{
+		min-height: 400px;
+	}
+	md-input-container{
+		margin:inherit !important;
+	}
+	md-checkbox.md-default-theme.md-checked ._md-icon:after, md-checkbox.md-checked ._md-icon:after{
+		border-color:white !important;
+	}
+	.AllBreakfast{
+		margin-bottom: 0px;margin-left:2px !important;
+	}
+	
+	.icon-more{
+		fill:rgba(255,87,34,0.87);height: 30px;width: 30px;margin-top:-5px
+	}
+	.icon-secondary{
+		margin: auto 3px auto 0;margin-right:15px
+	}
+	.md-menu-height{
+		min-height:50px;max-height:350px
+	}
+	.custom-td{
+		text-align:center;padding:0px;
+	}
+	.tr-border-bottom{
+		border-bottom:rgba(128, 128, 128, 0.41) thin solid;
+	}
+	.custom-card-header{
+		font-size:13px;text-transform:uppercase;font-weight:bold;color:#7f7f7f;border-bottom:rgba(128, 128, 128, 0.41) 1px solid;padding-bottom:5px
+	}
+	.md-headline md-icon{
+		fill:#1199CD;
+		width:36px;
+		height:36px
+	}
+	.height130px{
+		height: 130px !important;
+	}
+	md-checkbox.md-default-theme:not([disabled]).md-primary.md-checked ._md-icon, md-checkbox:not([disabled]).md-primary.md-checked ._md-icon{
+		background-color:#1199CD !important;
+	}
+	.stepper-line-active{
+		border-color: yellow;
+	}
+	.custom-header{
+		padding-left: 0px !important;
+	}
+	.layout-gt-lg-row>md-divider, .layout-gt-md-row>md-divider, .layout-gt-sm-row>md-divider, .layout-gt-xs-row>md-divider, .layout-lg-row>md-divider, .layout-md-row>md-divider, .layout-row>md-divider, .layout-sm-row>md-divider, .layout-xl-row>md-divider, .layout-xs-row>md-divider{
+		border-top-width:1px !important;
+	}
+	.max-height60{
+		max-height:60px !important;
+	}
+	.bt-search-customer{
+		height:22px;width:22px;float:right;fill:#807e80
+	}
+	.div-button-next-back{
+		margin-bottom: 0px;
+		margin-left: 18px;
+		margin-right: 18px;
+		box-shadow: none !important;
+	}
+	.autocomplete-custom-template li {
+  		border-bottom: 1px solid #ccc !important;
+  		height: auto !important;
+  		white-space: normal !important;
+	}
+	.div-md-icon{
+		height: 56px !important; 
+		border-radius: 50% !important; 
+		background: yellow !important;
+		box-shadow: 0 2px 5px 0 rgba(0,0,0,.26) !important;
+	}
+</style>
+<div flex="100" class="custom-header" layout="row" layout-align="space-between start">
+	<div flex-gt-sm="10" flex-sm flex-xs="20" class="custom-stepper-back" >
+		<div ng-show="currentStep > 0" flex="100" layout-align="center center" layout="column">
+			<span  flex="100" layout-align="center center">{{'BACK' | translate}}</span>
+			<div class="div-md-icon"><md-icon ng-click="backStep()" flex="100" class="icon-greay" md-svg-src="img/icons/ic_keyboard_arrow_right_24px.svg" ></md-icon></div>
+		</div>
+	</div>
+	<div flex-gt-sm="70" flex-sm="85" flex-xs="60" layout="row" layout-align="end center">
+		<div ng-hide="($mdMedia('xs') && currentStep != 0)" flex="20" flex-xs="75" class="custom-stepper-indicator" layout="row" layout-align="start center" >
+			<div class="custom-stepper-number md-bg-active">
+				<span ng-show="currentStep == 0">1</span>
+				<md-icon ng-show="currentStep > 0" class="md-icon-active" md-svg-src="img/icons/ic_done_24px.svg" ></md-icon>	
+			</div>
+			<div class="custom-stepper-title md-text-active" >
+				{{'AVAILABILITY' | translate}}
+				</div>
+			<div class="custom-stepper-line" ng-class="{'stepper-line-active' : currentStep >= 1 }" hide-xs flex></div>
+		</div>
+		<div ng-hide="($mdMedia('xs') && currentStep != 1)" flex="30" flex-xs="80" class="custom-stepper-indicator" layout="row" layout-align="start center">
+			<div  class="custom-stepper-line" ng-class="{'stepper-line-active' : (currentStep <= 3 && currentStep > 0) }" hide-xs flex></div>
+			<div  class="custom-stepper-number" ng-class="{'md-bg-active':currentStep >= 1}">
+				<span ng-show="currentStep <= 1">2</span>
+				<md-icon ng-show="currentStep > 1" class="md-icon-active" md-svg-src="img/icons/ic_done_24px.svg" ></md-icon>	
+			</div>
+			<div class="custom-stepper-title" ng-class="{'md-text-active':currentStep >= 1}">{{'GROUP_INFORMATION' | translate}}</div>
+			<div class="custom-stepper-line" ng-class="{'stepper-line-active' : currentStep >= 2 }" hide-xs flex></div>
+		</div>
+		<div ng-hide="($mdMedia('xs') && currentStep != 2)" flex="30" flex-xs="80" class="custom-stepper-indicator" layout="row" layout-align="start  center">
+			<div  class="custom-stepper-line" ng-class="{'stepper-line-active' : (currentStep <= 3 && currentStep > 1) }" hide-xs flex></div>
+			<div  class="custom-stepper-number" ng-class="{'md-bg-active':currentStep >= 2}">
+				<span ng-show="currentStep <= 2" >3</span>
+				<md-icon ng-show="currentStep > 2" class="md-icon-active" md-svg-src="img/icons/ic_done_24px.svg" ></md-icon>	
+			</div>
+			<div  class="custom-stepper-title" ng-class="{'md-text-active':currentStep >= 2}">{{'GUEST_INFORMATION' | translate}}</div>
+			<div  class="custom-stepper-line" ng-class="{'stepper-line-active' : currentStep >= 3 }" hide-xs flex></div>
+		</div>
+		<div ng-hide="($mdMedia('xs') && currentStep != 3)" flex="20" flex-xs="75" class="custom-stepper-indicator" layout="row" layout-align="start center">
+			<div  class="custom-stepper-line" hide-xs flex ng-class="{'stepper-line-active' : (currentStep <= 3 && currentStep > 2) }"></div>
+			<div  class="custom-stepper-number" ng-class="{'md-bg-active':currentStep == 3}">4</div>
+			<div  class="custom-stepper-title" ng-class="{'md-text-active':currentStep >= 3}">{{'PAYMENT' | translate}}</div>
+		</div>
+	</div>
+	<div  flex-gt-sm="10" flex-sm flex-xs="20" class="custom-stepper-next" >
+		<div ng-show="currentStep == 0 && RoomSelected.length !=0" flex="100" layout-align="center center" layout="column">
+			<span  flex="100" layout-align="center center">{{'NEXT' | translate}}</span>
+			<div class="div-md-icon"><md-icon  ng-click="nextStep()" flex="100" md-svg-src="img/icons/ic_keyboard_arrow_right_24px.svg" ></md-icon></div>
+		</div>
+		<div ng-show="currentStep == 1 && Leader.Fullname != null && Leader.Fullname != ''" flex="100" layout-align="center center" layout="column">
+			<span  flex="100" layout-align="center center">{{'NEXT' | translate}}</span>
+			<div class="div-md-icon"><md-icon  ng-click="nextStep()" flex="100" md-svg-src="img/icons/ic_keyboard_arrow_right_24px.svg" ></md-icon></div>
+		</div>
+		<div ng-show="currentStep == 2" flex="100" layout-align="center center" layout="column">
+			<span  flex="100" layout-align="center center">{{'NEXT' | translate}}</span>
+			<div class="div-md-icon"><md-icon  ng-click="nextStep()" flex="100" md-svg-src="img/icons/ic_keyboard_arrow_right_24px.svg" ></md-icon></div>
+		</div>
+		<div ng-show="currentStep == 3" flex="100" layout-align="center center" layout="column">
+			<span  flex="100" layout-align="center center">{{'CONFIRM' | translate}}</span>
+			<div class="div-md-icon"><md-icon ng-click="ComfirmReservation()" class="icon-confirm" ng-click="" flex="100" md-svg-src="img/icons/ic_done_24px.svg" ></md-icon></div>
+		</div>
+	</div>
+</div>
+<md-stepper id="Stepper-Group" md-vertical="false" md-linear="true" md-alternative="alternative" md-mobile-step-text="false" >
+		<md-step md-label="{{'AVAILABILITY' | translate}}">
+
+
+		<!-- đoạn thừa để đấy test -->
+          <!--  <md-step-body class="step-body bg-greay" layout="row" layout-wrap layout-align="space-around start">
+            	<md-content class="bg-greay" flex="100" layout-align="space-between start"  layout-wrap layout="row" id="height100">
+					<div flex-gt-sm="70" flex-sm="100" flex-xs="100" layout-padding id="height100">
+						<md-card ng-class="{'margin-left0': ($mdMedia('xs') || $mdMedia('sm'))}" flex="100" class="custom-card height-md-card">
+							<md-card-title >
+								<md-card-title-text>
+									<span class="md-headline">{{'SEARCH_INFORMATION_ROOM' | translate}}</span>
+								</md-card-title-text>
+							</md-card-title>
+							<md-card-content>
+								<section layout="row" layout-align="start center" layout-wrap flex="100" >
+									<section flex-xs="100" flex-sm="100" flex-md="80" flex-gt-md="85" layout="row" layout-align="space-between end" layout-align-xs="space-between center" layout-wrap>
+										<section  flex-gt-sm="33" flex-sm="33" flex-xs="100" layout-align="end end">
+											<md-select flex="90" ng-model="search.RoomTypeId" ng-change="updateRoom()" placeholder="{{'SELECT_ROOM_TYPE' | translate}}" class="margin0">
+												<md-select-label ></md-select-label>
+												<md-option ng-value="0">{{'SELECT_TYPE' | translate}}</md-option>
+												<md-option ng-repeat="rt in roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName }}</md-option>
+											</md-select>
+										</section>
+										<div class="custom-input-datetime" flex-gt-sm="33" flex-sm="33" flex-xs="100" layout="column" layout-align="center center" >
+											<section > {{'ARRIVAL_DATE' | translate}}</section>
+											<div>
+												<input class="width-input-datetime" kendo-date-time-picker ng-model="fromString" min="currentDay" k-ng-model="search.From" k-options="DateTimePickerOption"/>
+											</div>
+										</div>
+										<div class="custom-input-datetime" flex-gt-sm="33" flex-sm="33" flex-xs="100" layout="column" layout-align="center center" >
+											<section> {{'DEPARTURE_DATE' | translate}}</section>
+											<div>
+												<input class="width-input-datetime" kendo-date-time-picker ng-model="toString" k-ng-model="search.To" min="currentDay"  min="search.From" k-options="DateTimePickerOption" />
+											</div>
+										</div>
+									</section>
+									<section flex-xs="100" flex-sm="100"  flex-md flex-gt-md layout="row" layout-align-gt-md="center end" layout-align="start end"  class="height53">
+										<md-button id="search" class="md-warn md-raised" ng-click="SearchAvailability()">
+											{{'SEARCH' | translate}}
+										</md-button>
+									</section>
+								</section>
+							</md-card-content>
+						</md-card>
+						<md-card ng-class="{'margin-left0': ($mdMedia('xs') || $mdMedia('sm'))}" flex="100" class="custom-card height-md-card">
+							<md-card-title class="padding-bottom0-important">
+								<md-card-title-text flex="100">
+									<span style="max-height: 30px;" class="md-headline">{{'AVAILABILITY' | translate}}</span>
+								</md-card-title-text>
+							</md-card-title>
+							<md-card-content class="padding-top0"  layout-padding>
+									<div ng-if="ListAvailability.length ===0" class="text-center">
+										<span class="warning-text">
+											{{'NO_AVAILABILITY' | translate}}
+										</span>
+									</div>
+									<table ng-if="ListAvailability.length > 0" >
+										<thead >
+											<tr>
+												<th flex="10" >{{'TYPE' | translate}}</th>
+												<th flex="5">{{'ROOM_RATE' | translate}}</th>
+												<th flex="15" >{{'PRICE'  | translate}} ({{defaultCurrency.MoneyName}})</th>
+												<th flex="5" >{{'AVAILABILITY' | translate}}</th>
+												<th flex="5" hide-xs>{{'ADULT' | translate}}</th>
+												<th flex="5" hide-xs>{{'CHILDREN' | translate}}</th>
+												<th flex="5">{{'QUANTITY' | translate}}</th>
+												<th flex ></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="my-tr" ng-class="{'not_availability':rt.RoomAvailability <= 0 }" ng-repeat="rt in ListAvailability" ng-disabled="rt.RoomAvailability <= 0 ">
+												<td flex="10" class="text-bold">{{rt.RoomTypeCode}}</td>
+												<td flex="5">
+													<md-select ng-disabled="rt.RoomAvailability <= 0" aria-label="RoomPriceId" ng-model="rt.RoomPriceId" ng-change="changePrice(rt)">
+														<md-option ng-repeat="price in rt.RoomPricesList" value="{{price.RoomPriceId}}" ng-if="price.IsActive == true" >
+														{{price.RoomPriceName | translate}}
+														</md-option>
+												</td>
+												<td flex="15" class="text-bold">
+													<md-menu  md-offset="0 30" md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+														<span class="edit-value" ng-class="{'disabled-md-menu':rt.RoomAvailability <= 0 }"  ng-click="openEditPrice($mdOpenMenu, $event, rt)"  >
+															<span>{{rt.Price | number:defaultCurrency.CurrencyInfo.MinorUnit}}</span>
+														</span>
+														<md-menu-content width="4">
+															<md-menu-item flex="100">
+																<md-input-container flex="50" style="">
+																	<label></label>
+																	<input type="text" class="autoFocus" required ng-model="$root.PriceTmp" ui-number-mask="decimal">
+																</md-input-container>
+																<span flex="25" ng-click="savePrice(rt)" class="bt-comfirm">
+																	{{'CONFIRM' | translate}}
+																</span>
+																<span flex class="bt-cancel" ng-click="">
+																	{{'CANCEL' | translate}}
+																</span>
+															</md-menu-item>
+														</md-menu-content>
+													</md-menu>
+												</td>
+												<td flex="5" class="text-bold">{{rt.RoomAvailability}}</td>
+												<td flex="5" hide-xs>
+													<md-select class="width90" flex="100" ng-disabled="rt.RoomAvailability <= 0 " aria-label="Adult" ng-model="rt.DefaultAdults" >
+														<md-option ng-repeat="quantity in [] | range:10" ng-value="{{$index + 1}}" >
+														{{$index + 1}}
+														</md-option>
+													</md-select>
+												</td>
+												<td flex="5" hide-xs>
+													<md-select class="width90"  ng-disabled="rt.RoomAvailability <= 0" aria-label="Children" ng-model="rt.DefaultChilds" >
+														<md-option ng-repeat="quantity in [] | range:11" ng-value="{{$index }}" >
+														{{$index}}
+														</md-option>
+													</md-select>
+												</td>
+												<td flex="5">
+													<md-select class="width90" ng-disabled="rt.RoomAvailability <= 0" aria-label="Quantity" ng-model="rt.Quantity" >
+														<md-option ng-repeat="quantity in [] | range:rt.RoomAvailability" value="{{$index + 1}}" ng-selected="$index == 0">
+														{{$index + 1}}
+														</md-option>
+													</md-select>
+												</td>
+												<td flex="10">
+													<md-button class="bt-group-add md-fab md-mini md-primary" ng-click="addRoom(rt)" aria-label="Add" >
+														<md-icon md-svg-src="img/icons/ic_add_24px.svg" class="white-icon"></md-icon>
+														<md-tooltip hide-xs hide-sm hide-md>{{'ADD' | translate}}</md-tooltip>
+													</md-button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+							</md-card-content>
+						</md-card>
+					</div>
+					<div flex-gt-sm flex-sm="100" flex-xs="100" layout-padding class="padding-left0" id="height100">
+						<md-card flex="100" class="custom-card height-md-card margin-bottom25" >
+							<md-card-title>
+								<md-card-title-text>
+									<span class="md-headline">{{'ROOM_SELECT' | translate}} ({{RoomSelected.length}})</span>
+									<span class="md-subhead" ng-if="RoomSelected.length > 0">
+										<span ng-repeat="(key, value) in RoomSelected | groupBy:'RoomTypeCode'">
+											{{key}} ({{value.length}})
+											 &nbsp;
+										</span>
+									</span>
+								</md-card-title-text>
+							</md-card-title>
+							<md-card-content style="min-height:160px" class="padding-top0-important">
+								<md-list ng-if="RoomSelected.length > 0" style="padding-top:0px">
+									<md-list-item ng-repeat="room in RoomSelected" class="md-3-line" style="padding-left:1px;width:99%">
+										<div class="md-list-item-text" layout="column">
+										<h5>{{room.RoomTypeCode}} - {{room.Price | currency}}</h5>
+										<span>{{room.ArrivalDate | date:'dd/MM/yyyy HH:mm'}} - {{room.DepartureDate | date:'dd/MM/yyyy HH:mm'}}</span>
+										<p>{{room.Adults}} {{'ADULT' | translate}},{{room.Child}} {{'CHILDREN' | translate}}
+											<span hide-xs>,{{room.Nights}} {{'NIGHTS' | translate}} </span></p>
+										</div>
+										<md-icon md-menu-origin="" aria-label="removeRoom" class="md-secondary" ng-click="removeRoom($index)"  md-svg-src="img/ic_trash_36px.svg" >
+											<md-tooltip hide-xs hide-sm hide-md>{{'REMOVE' | translate}}</md-tooltip>
+										</md-icon>
+										<md-divider ></md-divider>
+									</md-list-item>
+								</md-list>
+							</md-card-content>
+						</md-card>
+					</div> -->
+
+            <md-step-body class="step-body" layout="row" layout-wrap layout-align="space-around start">
+            	<md-content flex="100" layout-align="space-between start"  layout-wrap layout="row" id="height100">
+                    <md-card flex="100" style="">
+			            <md-card-content style="">
+			                <section layout="row" layout-align="center center" layout-wrap flex="100">
+			                    <section flex-xs="100" flex-sm="100" flex-gt-sm="85" flex-md="100" layout="row" layout-align="space-between end" layout-wrap>
+			                    	<section flex-gt-sm="30" flex-sm="50" flex-xs="50" style="margin-bottom:20px;" >
+			                    		<md-select  ng-model="search.RoomTypeId" ng-change="updateRoom()" placeholder="{{'SELECT_ROOM_TYPE' | translate}}" style="margin-top: 0px;width:80%">
+			                            	<md-select-label ></md-select-label>
+			                             	<md-option ng-value="0">{{'SELECT_TYPE' | translate}}</md-option>
+			                            	<md-option ng-repeat="rt in roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName }}</md-option>
+			                        	</md-select>
+			                    	</section>
+			                        <div flex-gt-sm="35" flex-sm="50" flex-xs="50" layout="row" layout-align="space-between center" layout-wrap style="margin: 0px 0px 20px 0px;">
+			                            <div layout="row" layout-align="start center" flex="100">
+			                                <span flex="35" style="margin: auto;"> {{'ARRIVAL_DATE' | translate}}</span>
+			                                <div flex>
+			                                    <input kendo-date-time-picker ng-model="fromString" min="currentDay" k-ng-model="search.From" style="width: 100%;" k-options="DateTimePickerOption" />
+			                                </div>
+			                            </div>
+			                        </div>
+			                        <div flex-gt-sm="35" flex-sm="50" flex-xs="50" layout="row" layout-align="space-between center" layout-wrap style="margin: 0px 0px 20px 0px;">
+			                            <div layout="row" layout-align="start center" flex="100">
+			                                <span flex="35" style="margin: auto;"> {{'DEPARTURE_DATE' | translate}}</span>
+			                                <div flex>
+			                                    <input kendo-date-time-picker ng-model="toString" k-ng-model="search.To" min="currentDay" style="width: 100%;" min="search.From" k-options="DateTimePickerOption" />
+			                                </div>
+			                            </div>
+			                        </div>
+			                    </section>
+			                    <section flex-xs="100" flex-sm="100" flex-gt-sm="15" flex-md="100" layout="row" layout-align-xs="end end" layout-wrap style="margin-top: -20px">
+			                        <md-button id="search" class="md-warn md-raised" ng-click="SearchAvailability()">
+			                            {{'SEARCH' | translate}}
+			                        </md-button>
+			                	</section>
+			                </section>
+			            </md-card-content>
+			        </md-card>
+			        <section  flex-gt-sm="70" flex-sm="100" flex="100" style="margin-top:5px" class="height-md-card">
+				        <md-card flex="100" class="height-md-card">
+					        <section>
+								<div layout="row" layout-align="space-between center" style="">
+									<span flex class="md-toolbar-tools"> <h2>{{'AVAILABILITY' | translate}}</h2> </span>
+								</div>
+							</section>
+				        	<md-card-content style="padding:8px;padding-top:0px !important">
+					        		<div ng-if="ListAvailability.length ===0" style="text-align: center;">
+						                <span class="warning-text">
+						                    {{'NO_AVAILABILITY' | translate}}
+						                </span>
+						            </div>
+				        			<table ng-if="ListAvailability.length > 0" >
+				        				<thead >
+				        					<tr>
+				        						<th flex="10">{{'TYPE' | translate}}</th>
+				        						<th flex="5">{{'ROOM_RATE' | translate}}</th>
+				        						<th flex="15">{{'PRICE'  | translate}} ({{defaultCurrency.MoneyName}})</th>
+				        						<!-- <th flex="10">{{'ARRIVAL_DATE' | translate}}</th>
+				        						<th flex="10">{{'DEPARTURE_DATE' | translate}}</th> -->
+				        						<th flex="5">{{'AVAILABILITY' | translate}}</th>
+				        						<th flex="5" hide-xs>{{'ADULT' | translate}}</th>
+				        						<th flex="5" hide-xs>{{'CHILDREN' | translate}}</th>
+				        						<th flex="5">{{'QUANTITY' | translate}}</th>
+				        						<th flex ></th>
+				        					</tr>
+				        				</thead>
+				        				<tbody>
+				        					<tr  ng-class="{'not_availability':rt.RoomAvailability <= 0 }" ng-repeat="rt in ListAvailability" ng-disabled="rt.RoomAvailability <= 0 ">
+				        						<td flex="10">{{rt.RoomTypeCode}}</td>
+				        						<td flex="5">
+				        							<md-select ng-disabled="rt.RoomAvailability <= 0" aria-label="RoomPriceId" ng-model="rt.RoomPriceId" ng-change="changePrice(rt)">
+											          <md-option ng-repeat="price in rt.RoomPricesList| orderBy:'Priority'" value="{{price.RoomPriceId}}" ng-if="price.IsActive == true" ng-selected="price.RoomPriceId.toString() === getDefaultPrice(rt.RoomPricesList)">
+											          	{{price.RoomPriceName | translate}}
+											          </md-option>
+											          <!-- ng-selected="$index == 0" -->
+    											</td>
+    											<td flex="15">
+				        							<md-menu  md-offset="0 30" md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+                                                        <span class="edit-value" ng-class="{'disabled-md-menu':rt.RoomAvailability <= 0 }"  ng-click="openEditPrice($mdOpenMenu, $event, rt)"  >
+                                                            <span>{{rt.Price | number:defaultCurrency.CurrencyInfo.MinorUnit}}</span>
+                                                        </span>
+                                                        <md-menu-content width="4">
+                                                            <md-menu-item flex="100">
+                                                                <md-input-container flex="50">
+                                                                    <label></label>
+                                                                    <input type="text" class="autoFocus" required ng-model="$root.PriceTmp" ui-number-mask="decimal">
+                                                                </md-input-container>
+                                                                <span flex="25" ng-click="savePrice(rt)" class="bt-comfirm">
+                                                                    {{'CONFIRM' | translate}}
+                                                                </span>
+                                                                <span flex class="bt-cancel" ng-click="">
+                                                                    {{'CANCEL' | translate}}
+                                                                </span>
+                                                            </md-menu-item>
+                                                        </md-menu-content>
+                                                    </md-menu>
+				        						</td>
+				        						<!-- <td flex="10">{{rt.ArrivalDate | date:'dd/MM/yyyy, HH:mm'}}</td>
+				        						<td flex="10">{{rt.DepartureDate | date:'dd/MM/yyyy, HH:mm'}} </td> -->
+				        						<td flex="5">{{rt.RoomAvailability}}</td>
+				        						<td flex="5" hide-xs>
+				        							<md-select flex="100" ng-disabled="rt.RoomAvailability <= 0 " aria-label="Adult" ng-model="rt.DefaultAdults" >
+				        							<!-- ng-selected="$index == 0" -->
+											          <md-option ng-repeat="quantity in [] | range:10" ng-value="{{$index + 1}}" >
+											          	{{$index + 1}}
+											          </md-option>
+											        </md-select>
+				        							<!-- <md-menu  md-offset="0 30" md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+                                                        <span class="edit-value" ng-class="{'disabled-md-menu':rt.RoomAvailability == 0}" ng-click="openEditAdultChidren($mdOpenMenu, $event, rt.DefaultAdults)"  >
+                                                            <span>{{rt.DefaultAdults}}</span>
+                                                        </span>
+                                                        <md-menu-content width="4" >
+                                                            <md-menu-item flex="100" >
+                                                                <md-input-container flex="50" style="">
+                                                                    <label></label>
+                                                                    <input  class="autoFocus" numbers-only ng-model="$root.ValueTemp" type="text">
+                                                                </md-input-container>
+                                                                <span flex="25"  ng-click="saveAdultChidren(rt,'SAVE_DEFAULT_ADULT')" class="bt-comfirm">
+                                                                    {{'CONFIRM' | translate}}
+                                                                </span>
+                                                                <span flex ng-click="" class="bt-cancel">
+                                                                    {{'CANCEL' | translate}}
+                                                                </span>
+                                                            </md-menu-item>
+                                                        </md-menu-content>
+                                                    </md-menu> -->
+				        						</td>
+				        						<td flex="5" hide-xs>
+				        							<!-- <md-menu  md-offset="0 30" md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+                                                        <span class="edit-value" ng-class="{'disabled-md-menu':rt.RoomAvailability == 0}" ng-click="openEditAdultChidren($mdOpenMenu, $event, rt.DefaultChilds)" >
+                                                            <span>{{rt.DefaultChilds}}</span>
+                                                        </span>
+                                                        <md-menu-content width="4">
+                                                            <md-menu-item flex="100">
+                                                                <md-input-container flex="50" style="">
+                                                                    <label></label>
+                                                                    <input  class="autoFocus" numbers-only ng-model="$root.ValueTemp" type="text">
+                                                                </md-input-container>
+                                                                <span flex="25" ng-click="saveAdultChidren(rt,'SAVE_DEFAULT_CHILDREN')" class="bt-comfirm">
+                                                                    {{'CONFIRM' | translate}}
+                                                                </span>
+                                                                <span flex="" ng-click="" class="bt-cancel">
+                                                                    {{'CANCEL' | translate}}
+                                                                </span>
+                                                            </md-menu-item>
+                                                        </md-menu-content>
+                                                    </md-menu> -->
+                                                    <md-select  ng-disabled="rt.RoomAvailability <= 0" aria-label="Children" ng-model="rt.DefaultChilds" >
+                                                    <!-- ng-selected="$index == 0" -->
+											          <md-option ng-repeat="quantity in [] | range:11" ng-value="{{$index }}" >
+											          	{{$index}}
+											          </md-option>
+											        </md-select>
+				        						</td>
+				        						<td flex="5">
+				        							<md-select  ng-disabled="rt.RoomAvailability <= 0" aria-label="Quantity" ng-model="rt.Quantity" >
+											          <md-option ng-repeat="quantity in [] | range:rt.RoomAvailability" value="{{$index + 1}}" ng-selected="$index == 0">
+											          	{{$index + 1}}
+											          </md-option>
+											        </md-select>
+    											</td>
+				        						<td flex="10">
+				        							<md-button ng-click="addRoom(rt)" class="md-raised md-primary">{{'ADD' | translate}}</md-button>
+				        						</td>
+				        					</tr>
+				        				</tbody>
+				        			</table>
+				        	</md-card-content>
+				    	</md-card>
+			        </section>
+			        <section  flex-gt-sm="30" flex-sm="100" flex="100" style="margin-top:5px;;margin-bottom:40px" class="height-md-card">
+				        <md-card flex="100" class="height-md-card">
+				        	<section>
+								<div layout="row" layout-align="space-between center" style="">
+									<span flex class="md-toolbar-tools"> <h2>{{'ROOM_SELECT' | translate}} ({{RoomSelected.length}})</h2> </span>
+								</div>
+							</section>
+				        	<md-card-content style="padding-top:0px !important" >
+				        		<md-list ng-if="RoomSelected.length > 0" style="padding-top:0px">
+				        			<md-list-item ng-repeat="room in RoomSelected" class="md-3-line" style="padding-left:1px;width:99%">
+							          <div class="md-list-item-text" layout="column">
+							            <h3>{{room.RoomTypeCode}} - {{room.Price | currency}}</h3>
+							            <h4>{{room.ArrivalDate | date:'dd/MM/yyyy HH:mm'}} - {{room.DepartureDate | date:'dd/MM/yyyy HH:mm'}}</h4>
+							            <p>{{room.Adults}} {{'ADULT' | translate}},{{room.Child}} {{'CHILDREN' | translate}},{{room.Nights}} {{'NIGHTS' | translate}} </p>
+							          </div>
+							          <md-icon md-menu-origin="" aria-label="removeRoom" class="md-secondary" ng-click="removeRoom($index)"  md-svg-src="img/icons/ic_highlight_remove_48px.svg" >
+									          <md-tooltip hide-xs hide-sm hide-md>{{'REMOVE' | translate}}</md-tooltip>
+     							      </md-icon>
+							          <md-divider ></md-divider>
+							        </md-list-item>
+				        		</md-list>
+				        	</md-card-content>
+				    	</md-card>
+			        </section>
+			        
+			    </md-content>
+            </md-step-body>
+        </md-step>
+        <md-step md-label="{{'GUEST_INFORMATION' | translate}}">
+            <md-step-body layout="row" layout-align="space-between start" class="step-body">
+            	<md-content flex="100" class="bg-greay" layout-align="space-between start" layout="row" layout-wrap id="height100" class="margin-bottom25px" layout-margin>
+					<md-card flex-gt-sm="50" flex-sm="100" flex-xs="100"  class="custom-card">
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline">{{'GROUP_INFORMATION' | translate}}
+									<input type="color" ng-model="Reservation.Color" value="{{Reservation.Color}}}"/>
+								</span>
+							</md-card-title-text>
+						</md-card-title>
+						<md-card-content class="min-height400">
+							<div flex="100" layout-padding layout="row" layout-align="space-between center" class="height65px">
+								<md-input-container flex flex-sm="100" flex-xs="100" class="marginTop2">
+									<label>{{ 'COMPANY' | translate }}</label> 
+									<md-autocomplete 
+									 md-selected-item="selectedCompany" md-search-text-change="searchCompanyTextChange(searchCompanyText)" md-search-text="searchCompanyText" md-selected-item-change="selectedCompanyChange(item,Group)" md-items="item in queryCompanySearch(searchCompanyText)" md-item-text="item.CompanyName" md-min-length="0" md-menu-class="autocomplete-custom-template" >
+										<md-item-template>
+											<span class="item-title">
+						            			<md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+						            			<span> {{item.CompanyName}} </span>
+											</span>
+											<span class="item-metadata">
+					            				<span class="item-metastat">
+					              					<strong>{{'CODE' | translate}}:</strong> {{item.CompanyCode}}
+					            				</span>
+												<span class="item-metastat">
+					              					<strong>{{'EMAIL' | translate}}:</strong> {{item.CompanyEmail}}
+					            				</span>
+											</span>
+										</md-item-template>
+									</md-autocomplete>
+								</md-input-container>
+								<md-icon md-svg-src="img/icons/ic_add_box_48px.svg" class="size-32 padding0" aria-label="Edit dialog" ng-click="addNewCompany()"></md-icon>
+							</div>
+							<div flex="100" layout-padding layout="row" layout-align="space-between center" class="height65px">
+								<md-input-container flex flex-sm="100" flex-xs="100" class="marginTop2">
+									<label>{{ 'SOURCE' | translate }}</label> 
+									<md-autocomplete
+									 md-selected-item="selectedSource" md-search-text-change="searchSourceTextChange(searchSourceText)" md-search-text="searchSourceText" md-selected-item-change="selectedSourceChange(item)" md-items="item in querySourceSearch(searchSourceText)" md-item-text="item.SourceName" md-min-length="0" md-menu-class="autocomplete-custom-template">
+										<md-item-template>
+											<span class="item-title">
+					            				<md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+					            				<span style="margin: auto;"> {{item.SourceName}} </span>
+											</span>
+											<span class="item-metadata">
+					            				<span class="item-metastat">
+					              					<strong>{{'CODE' | translate}}:</strong> {{item.ShortCode}}
+					            				</span>
+											</span>
+										</md-item-template>
+									</md-autocomplete>
+								</md-input-container>
+								<md-icon md-svg-src="img/icons/ic_add_box_48px.svg" class="size-32 padding0" aria-label="Edit dialog" ng-click="addNewSource()" ></md-icon>
+							</div>
+							<div flex="100" layout-padding layout="row" layout-align="space-between center" class="height65px">
+								<md-input-container flex flex-sm="100" flex-xs="100" class="marginTop2">
+									<label>{{ 'MARKET' | translate }}</label> 
+									<md-autocomplete
+									 md-selected-item="selectedMarket" md-search-text-change="searchMarketTextChange(searchMarketText)" md-search-text="searchMarketText" md-selected-item-change="selectedMarketChange(item)" md-items="item in queryMarketSearch(searchMarketText)" md-item-text="item.MarketName" md-min-length="0" md-menu-class="autocomplete-custom-template">
+										<md-item-template>
+											<span class="item-title">
+					           					 <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+					            				<span style="margin: auto;"> {{item.MarketName}} </span>
+											</span>
+											<span class="item-metadata">
+					           					 <span class="item-metastat">
+					              					<strong>{{'CODE' | translate}}:</strong> {{item.MarketCode}}
+					           					 </span>
+											</span>
+										</md-item-template>
+									</md-autocomplete>
+								</md-input-container>
+								<md-icon md-svg-src="img/icons/ic_add_box_48px.svg" class="size-32 padding0" aria-label="Edit dialog" ng-click="addNewMarket()" ></md-icon>
+							</div>
+							<div flex="100" layout-padding layout="row" layout-align="space-between center" class="height65px">
+								<md-input-container flex="100" class="margin-bottom-0 margin-top0 hide-label" >
+									<textarea placeholder="{{'NOTE' | translate}}" style="width: 100%;" columns="1" rows="5" ng-model="Reservation.Note" />
+								</md-input-container>
+							</div>
+						</md-card-content>
+					</md-card>
+					<md-card flex-gt-sm flex-sm="auto" flex-xs="100" class="custom-card height-groupInfo" >
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline">{{'CUSTOMER_LEADER' | translate}}
+								</span>
+							</md-card-title-text>
+						</md-card-title>
+	            		<md-card-content class="min-height400">
+	            			<div flex="100" layout-padding layout="row" layout-align="space-between center" class="height65px">
+								<md-input-container flex="55" class="margin-bottom-0 margin-top0 padding-top0" >
+									<label>{{'CUSTOMER_NAME'|translate}}</label>
+									<input type="text" ng-model="Leader.Fullname" />
+									<md-icon md-menu-origin="" ng-click="searchCustomerLeader()" class="bt-search-customer" aria-label="Search Customer"  md-svg-src="img/icons/ic_search_24px.svg" >
+	        						</md-icon>
+								</md-input-container>
+								<div flex-offset-xs="5" flex-offset-gt-xs="10" flex="35" flex-xs="40" class="padding-top0-important" style="height: 62px">
+									<md-select class="selectC" flex ng-model="Leader.Gender" placeholder="{{'GENDER' | translate}}" style="float:right;width: 100%">
+										<md-select-label ></md-select-label>
+										<md-option ng-value="0">{{'MALE' | translate}}</md-option>
+										<md-option ng-value="1">{{'FEMALE' | translate}}</md-option>
+										<md-option ng-value="2">{{'OTHER' | translate}}</md-option>
+									</md-select>
+								</div>
+							</div>
+							<div flex="100" layout-padding layout="row" ng-class="{'height130px' : $mdMedia('xs')}" layout-align="space-between center" layout-wrap class="height65px">
+								<div flex="55" flex-xs="100" class="custom-input-datetime padding-top0 padding-left0" style="max-height:none" >
+									<section>{{'BIRTHDAY' | translate}}</section>
+									<div>
+										<input kendo-date-picker ng-model="dateString" k-ng-model="Leader.Birthday" class="width-input-date" k-options="DatePickerOption" />
+									</div>
+								</div>
+								<div flex-offset-gt-xs="10" flex="35" flex-xs="100">
+									<md-input-container style="padding-top:8px;float:right;width: 100%" flex-sm="100" flex-xs="100" class="margin-bottom-0">
+										<label>{{'IDENTITY_NUMBER'|translate}}</label>
+										<input type="text" ng-model="Leader.IdentityNumber" />
+									</md-input-container>
+								</div>
+							</div>
+							<div flex="100" layout-padding layout="row" ng-class="{'height130px' : $mdMedia('xs')}" layout-align="space-between center" layout-wrap class="height65px">
+								<md-input-container  flex="55" flex-xs="100" >
+									<label>{{'EMAIL'|translate}}</label>
+									<input type="text" ng-model="Leader.Email" />
+								</md-input-container>
+								<div flex-offset-gt-xs="10" flex="35" flex-xs="100">
+									<md-input-container style="width: 100%;float: right">
+										<label>{{'MOBILE'|translate}}</label>
+										<input type="text" ng-model="Leader.Mobile"  />
+									</md-input-container>
+								</div>
+							</div>
+							<div flex="100" layout-padding layout="row" ng-class="{'height130px' : $mdMedia('xs')}" layout-align="space-between center" layout-wrap class="height65px">
+								<md-input-container flex="55"  flex-xs="100">
+									<label>{{'ADDRESS'| translate}}</label>
+									<input type="text" ng-model="Leader.Address" />
+								</md-input-container>
+								<md-input-container flex="45" flex-sm="100" flex-xs="100" class="marginTop2">
+									<label>{{ 'COUNTRY' | translate }}</label>
+									<!-- <md-select ng-model="Leader.CountryId" placeholder="{{'COUNTRY' | translate}}">
+										<md-select-label style="width:100%"></md-select-label>
+										<md-option value="0">{{ 'COUNTRY' | translate }}</md-option>
+										<md-option ng-repeat="country in countries" ng-selected="country.CountryName == 'Vietnam'" ng-value="country.CountryId">{{country.CountryName}}</md-option>
+									</md-select> -->
+								<md-autocomplete md-selected-item="selectedCountries" md-search-text-change="searchCountriesTextChange(searchCountriesText)" md-search-text="searchCountriesText"
+	                                        md-selected-item-change="selectedCountriesChange(item)" md-items="item in queryCountriesSearch(searchCountriesText)"
+	                                        md-item-text="item.CountryName" md-min-length="0" md-menu-class="autocomplete-custom-template"
+	                                        >
+	                                        <md-item-template>
+	                                            <span class="item-title">
+	                                                    <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+	                                                    <span style="margin: auto;"> {{item.CountryName}} </span>
+	                                            </span>
+	                                        </md-item-template>
+	                            </md-autocomplete>
+
+								</md-input-container>
+							</div>
+							<div flex="100" layout-padding layout="row" layout-align="space-between center" class="height65px">
+								<md-input-container flex="100">
+										<label>{{'NOTE' | translate}}</label>
+										<textarea style="width: 100%;" columns="1" rows="5" ng-model="Leader.Note" />
+								</md-input-container>
+							</div>
+	            		</md-card-content>
+	            	</md-card>
+        		</md-content>  
+            </md-step-body>
+        </md-step>
+        <md-step md-label="{{'GROUP_INFORMATION' | translate}}">
+            <md-step-body layout="row" layout-align="space-around start" class="step-body">
+				<md-content class="bg-greay" id="height100" flex="100" layout-align="space-between start" layout="row" layout-wrap layout-margin>
+					<md-card class="custom-card height-md-card"  flex="100" >
+						<md-card-title class="padding-bottom0-important">
+							<md-card-title-text>
+								<span class="md-headline">{{'GROUP_INFORMATION' | translate}} </span>
+							</md-card-title-text>
+						</md-card-title>
+						<md-card-content  class="padding-right10">
+							<div ng-if="ListAvailability.length ===0" class="text-center">
+								<span class="warning-text">
+									{{'NO_AVAILABILITY' | translate}}
+								</span>
+							</div>
+							<table ng-if="RoomSelected.length > 0" >
+								<thead >
+									<tr class="vertical-align" >
+										<th flex="5">{{'LEADER' | translate}}</th>
+										<th flex="10" layout-align="center center" >
+											<div style="display:flex" layout-align="center center">
+												<span>{{'BREAKFAST' | translate}}</span>
+												<md-checkbox class="AllBreakfast md-primary" ng-change="CheckAllBreakfast(IsAllBreakfast)" ng-model="IsAllBreakfast" aria-label="AllBreakfast"></md-checkbox>
+											</div>
+										</th>
+										<th flex="10" hide-xs>{{'ROOM_TYPE' | translate}}</th>
+										<th flex="10" hide-xs>{{'ARRIVAL_DATE' | translate}}</th>
+										<th flex="10" hide-xs>{{'DEPARTURE_DATE' | translate}}</th>
+										<th flex="5" hide-sm>{{'ADULT' | translate}}</th>
+										<th flex="5" hide-sm>{{'CHILDREN' | translate}}</th>
+										<th flex="20" flex-sm="30">{{'GUEST_NAME' | translate}}</th>
+										<th flex="10" hide-xs>{{'IDENTITY_NUMBER' | translate}}</th>
+										<th flex >{{'ADD' | translate}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="room in RoomSelected" class="tr-border-bottom" >
+										<td id="Leader">
+											<md-radio-group ng-model="room.IsGroupMaster" class="md-warn" ng-click="SetLeader($index)">
+												<md-radio-button aria-label="Leader" ng-value="true"></md-radio-button>
+											</md-radio-group>
+										</td>
+										<td class="padding-top15">
+											<md-checkbox ng-model="room.IsBreakfast" class="md-primary" aria-label="Breakfast"></md-checkbox>
+										</td>
+										<td hide-xs>{{room.RoomTypeCode}}</td>
+										<td hide-xs>
+											<span hide-sm>{{room.ArrivalDate | date:'dd/MM/yyyy, HH:mm'}}</span>
+											<span hide-gt-sm>{{room.ArrivalDate | date:'dd/MM, HH:mm'}}</span>
+										</td>
+										<td hide-xs>
+											<span hide-sm>{{room.DepartureDate | date:'dd/MM/yyyy, HH:mm'}}</span>
+											<span hide-gt-sm>{{room.DepartureDate | date:'dd/MM, HH:mm'}}</span>
+										</td>
+										<td hide-sm>
+											<md-menu md-offset="0 30" md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+												<span class="edit-value" ng-click="openEditAdultChidren($mdOpenMenu, $event, room.Adults)"  >
+													<span>{{room.Adults}}</span>
+												</span>
+												<md-menu-content width="4">
+													<md-menu-item flex="100">
+														<md-input-container flex="50" style="">
+															<label></label>
+															<input  class="autoFocus" numbers-only ng-model="$root.ValueTemp" type="text">
+														</md-input-container>
+														<span flex="25" ng-click="saveAdultChidren(room,'SAVE_ADULT')" class="bt-comfirm">
+															{{'CONFIRM' | translate}}
+														</span>
+														<span flex class="bt-cancel" ng-click="">
+															{{'CANCEL' | translate}}
+														</span>
+													</md-menu-item>
+												</md-menu-content>
+											</md-menu>
+										</td>
+										<td hide-sm>
+											<md-menu md-offset="0 30" md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+												<span class="edit-value" ng-click="openEditAdultChidren($mdOpenMenu, $event, room.Child)" >
+													<span>{{room.Child}}</span>
+												</span>
+												<md-menu-content width="4">
+													<md-menu-item flex="100">
+														<md-input-container flex="50" style="">
+															<label></label>
+															<input  class="autoFocus" numbers-only ng-model="$root.ValueTemp" type="text">
+														</md-input-container>
+														<span flex="25" ng-click="saveAdultChidren(room,'SAVE_CHILDREN')" class="bt-comfirm">
+															{{'CONFIRM' | translate}}
+														</span>
+														<span flex class="bt-cancel" ng-click="">
+															{{'CANCEL' | translate}}
+														</span>
+													</md-menu-item>
+												</md-menu-content>
+											</md-menu>
+										</td>
+										<td>
+											<span ng-if="room.Travellers.Fullname">{{room.Travellers.Fullname | truncate:22}}
+												<span ng-show="room.Travellers.Fullname.length == 22">...</span>
+											</span>
+											<span ng-if="room.Travellers.Fullname == null">N/A</span>
+											<md-icon md-menu-origin="" style="float:right" ng-click="addCustomer(room)" aria-label="Add Customer"  md-svg-src="img/icons/ic_group_add_24px.svg" >
+											</md-icon>
+											<md-icon md-menu-origin="" ng-click="searchCustomer(room)" style="height:22px;width:22px;float:right" aria-label="Search Customer"  md-svg-src="img/icons/ic_search_24px.svg" >
+											</md-icon>
+										</td>
+										<td hide-xs>
+											<span ng-if="room.Travellers.IdentityNumber">{{room.Travellers.IdentityNumber | truncate:22}}</span>
+											<span ng-if="room.Travellers.IdentityNumber == null">N/A</span>
+										</td>
+										<td class="custom-td" >
+											<md-menu md-position-mode="target-right target" md-offset="0 -5" class="margin-top0">
+												<md-button aria-label="Open demo menu" class="md-icon-button margin0" ng-click="openMenu($mdOpenMenu, $event)">
+													<md-icon class="icon-more" md-menu-origin md-svg-icon="img/icons/ic_more_vert_24px.svg"></md-icon>
+												</md-button>
+												<md-menu-content width="4" class="md-menu-height">
+													<md-menu-item>
+														<md-button ng-click="removeRoom($index)">
+															<div layout="row" flex>
+																<p flex >{{'REMOVE' | translate}}</p>
+																<md-icon class="icon-secondary" md-menu-align-target md-svg-icon="img/icons/ic_highlight_remove_48px.svg" style=""></md-icon>
+															</div>
+														</md-button>
+													</md-menu-item>
+													<md-menu-item ng-if="RoomSelected.length > 1 && $index < (RoomSelected.length -1)">
+														<md-button ng-click="copyReservation(room,$index)">
+															<div layout="row" flex>
+																<p flex >{{'COPY' | translate}}</p>
+																<md-icon class="icon-secondary"  md-menu-align-target md-svg-icon="img/icons/ic_content_copy_48px.svg" style=""></md-icon>
+															</div>
+														</md-button>
+													</md-menu-item>
+												</md-menu-content>
+											</md-menu>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</md-card-content>
+					</md-card>
+				</md-content>
+            </md-step-body>
+        </md-step>
+        <md-step md-label="{{'PAYMENT' | translate}}">
+            <md-step-body class="step-body" layout="row" layout-wrap layout-align="space-around start">
+            	<md-content class="bg-greay" id="height100" flex="100" layout-align="space-between start" layout-wrap layout="row" layout-margin>
+	                <md-card class="custom-card height-md-card" flex-gt-sm="50" flex-sm="100" flex-xs="100" >
+						<md-card-title>
+							<md-card-title-text flex="100" >
+								<span class="md-headline">{{'PAYMENT' | translate}}
+									<md-icon md-svg-src="img/ic-postpayment_24px.svg" style="" ng-click="addDeposit()">
+									<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+										{{'TOOLTIP_ADD_PAYMENT' | translate}}
+									</md-tooltip>
+									</md-icon>
+								</span>
+							</md-card-title-text>
+						</md-card-title>
+	                	<md-card-content class="md-default-theme none_paddingTop">
+	                		<section flex="100" layout-margin >
+					            <div layout="row" layout-wrap flex="100" layout-align="start center">
+					                <div layout ng-class="{'margin0' : $mdMedia('xs')}" flex="100" layout-margin layout-align-md="start center" layout-align="space-between center">
+					                    <md-input-container flex="30">
+					                        <label>{{'TYPE' | translate}}</label>
+					                        <md-select ng-model="deposit.PaymentTypeName">
+					                            <md-option value="DEPOSIT">{{ 'DEPOSIT'|translate }}</md-option>
+					                        </md-select>
+					                    </md-input-container>
+					                    <md-input-container flex="30">
+					                        <label>{{'METHOD' | translate}}</label>
+					                        <md-select ng-model="deposit.PaymentMethodId">
+					                            <md-option ng-repeat="method in paymentMethods  | filter: {PaymentMethodId:'!4'}" ng-value="method.PaymentMethodId">{{ method.PaymentMethodName | translate}}</md-option>
+					                        </md-select>
+					                    </md-input-container>
+					                    <md-input-container flex="30">
+					                        <label>{{'CURRENCY' | translate}}</label>
+					                        <md-select ng-model="deposit.MoneyId">
+					                            <md-option ng-repeat="cur in currencies" ng-value="cur.MoneyId">{{ cur.MoneyName}}</md-option>
+					                        </md-select>
+					                    </md-input-container>
+					                </div>
+					                <div layout ng-class="{'margin0' : $mdMedia('xs'),'margin-top6': $mdMedia('xs') }" layout-wrap flex="100" class="max-height60" layout-margin layout-align="space-between center">
+					                    <md-input-container flex="30">
+					                        <label>{{'AMOUNT' | translate}}</label>
+					                        <input type="text" ng-model="deposit.Amount" ui-number-mask="decimal" />
+					                    </md-input-container>
+					                    <md-input-container flex flex-xs="65">
+					                        <label>{{'DESCRIPTION' | translate}}</label>
+					                        <input type="textarea" ng-model="deposit.PaymentDescription" />
+					                    </md-input-container>
+					                </div>
+					            </div>
+					        </section>
+					        <section flex="100" ng-show="paymentList.length > 0">
+								<div flex="100" class="custom-card-header">
+									{{'PAYMENT_LIST' | translate}}
+								</div>
+					            <md-list >
+					                <md-list-item class="custom-list-payment" layout="row" flex="100" ng-repeat="payment in paymentList">
+										<div flex="70" class="md-list-item-text" layout="column" >
+											<h3>
+												<code >[{{'DEPOSIT' | translate}}]  </code>
+												<span >
+													{{payment.PaymentDescription | truncate:35}}
+													<span ng-if="payment.PaymentDescription.length >= 35">...</span>
+												</span> 
+												</br>
+											</h3>
+											<h4 >{{user.userName}}</h4>
+											<p >{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</p>
+										</div>
+										<p class="md-secondary">
+											{{payment.Amount | currency}}
+											<md-icon md-svg-src="img/ic_trash_36px.svg" ng-click="deleteDeposit(payment)" ></md-icon>
+										</p>
+				               			<md-divider></md-divider>
+					                </md-list-item>
+					            </md-list>
+					        </section>
+	                	</md-card-content>
+	            	</md-card>
+	            	<md-card class="custom-card height-md-card margin-bottom25" flex-gt-sm="auto" flex-sm="100" flex-xs="100">
+						<md-card-title>
+							<md-card-title-text>
+								<span class="md-headline">{{'SUMMARY' | translate}} ({{RoomSelected.length}})</span>
+								<span class="md-subhead" ng-if="RoomSelected.length > 0">
+									<span ng-repeat="(key, value) in RoomSelected | groupBy:'RoomTypeCode'">
+										{{key}} ({{value.length}})
+											&nbsp;
+									</span>
+								</span>
+							</md-card-title-text>
+						</md-card-title>
+	            		<md-card-content style="padding-top:0px !important">
+	            			<md-list ng-if="RoomSelected.length > 0" style="padding-top:0px">
+								<md-list-item ng-repeat="room in RoomSelected" class="md-3-line" style="padding-left:1px;width:99%">
+									<div class="md-list-item-text" layout="column">
+									<h5>{{room.RoomTypeCode}} - {{room.Price | currency}}</h5>
+									<span>{{room.ArrivalDate | date:'dd/MM/yyyy HH:mm'}} - {{room.DepartureDate | date:'dd/MM/yyyy HH:mm'}}</span>
+									<p>{{room.Adults}} {{'ADULT' | translate}},{{room.Child}} {{'CHILDREN' | translate}}
+										<span hide-xs>,{{room.Nights}} {{'NIGHTS' | translate}}</span> </p>
+									</div>
+									<md-icon md-menu-origin="" aria-label="removeRoom" class="md-secondary" ng-click="removeRoom($index)"  md-svg-src="img/ic_trash_36px.svg" >
+										<md-tooltip hide-xs hide-sm hide-md>{{'REMOVE' | translate}}</md-tooltip>
+									</md-icon>
+									<md-divider ></md-divider>
+								</md-list-item>
+							</md-list>
+
+	            			<section  flex="100" layout="row" layout-align="space-between center" layout-wrap style=" ">
+	            				   <span flex="25" style="color:gray">{{'NOTE' | translate}}</span>
+				             	   <textarea columns="1" ng-bind="Reservation.Note" ng-disabled="true" rows="4" style="width: 100%; border: none;"></textarea>
+	            			</section>
+	            			<md-list >
+	            				<md-list-item   class="md-1-line" style="min-height:35px">
+									<div class="md-list-item-text" layout="column">
+										<h5>{{'COMPANY' | translate}}</h5>
+									</div>
+									<p class="md-secondary" >
+										<span ng-if="!selectedCompany">N/A</span>
+										<span>{{selectedCompany.CompanyName | truncate:40 }}</span>
+										<span ng-show="selectedCompany.CompanyName.length == 40">...</span>
+									</p>
+								</md-list-item>
+								<md-list-item   class="md-1-line" style="min-height:35px">
+									<div class="md-list-item-text" layout="column">
+										<h5>{{'SOURCE' | translate}}</h5>
+									</div>
+									<p class="md-secondary" >
+										<span ng-if="!selectedSource">N/A</span>
+										<span>{{selectedSource.SourceName | truncate:40}}</span>
+										<span ng-show="selectedSource.SourceName.length == 40">...</span>
+									</p>
+								</md-list-item>
+								<md-list-item   class="md-1-line" style="min-height:35px">
+									<div class="md-list-item-text" layout="column">
+										<h5>{{'MARKET' | translate}}</h5>
+									</div>
+									<p class="md-secondary" >
+										<span ng-if="!selectedMarket">N/A</span>
+										<span>{{selectedMarket.MarketName | truncate:40}}</span>
+										<span ng-show="selectedMarket.MarketName.length == 40">...</span>
+									</p>
+								</md-list-item>
+							</md-list>
+	            		</md-card-content>
+	            	</md-card>
+	            </md-content>
+            </md-step-body>
+        </md-step>
+</md-stepper>
+

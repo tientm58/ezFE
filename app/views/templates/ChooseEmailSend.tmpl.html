@@ -1,0 +1,159 @@
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+
+    .listbox md-list-item {
+        height: 48px;
+        border-bottom: 1px dashed #dadada;
+    }
+
+    .truncatedemoBasicUsage #fake-app {
+        position: relative;
+        height: 400px;
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid #333;
+    }
+
+    .truncatedemoBasicUsage #fake-app .sidebar {
+        position: absolute;
+        width: 50px;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background-color: #333;
+    }
+
+    .truncatedemoBasicUsage #fake-app .sidebar md-icon {
+        display: block;
+        color: #ddd;
+        margin-top: 15px;
+    }
+
+    .truncatedemoBasicUsage #fake-app .app-body {
+        position: absolute;
+        left: 50px;
+        right: 100px;
+        top: 0;
+        bottom: 0;
+        background-color: white;
+        padding: 10px;
+        overflow: auto;
+    }
+
+    .truncatedemoBasicUsage #fake-app .rightbar {
+        position: absolute;
+        width: 100px;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: #ddd;
+        padding: 10px;
+    }
+    .rightbar, .app-body{
+        overflow: auto;
+        height: 400px;
+    }
+    .actived{
+        background: #f2f2f2;
+    }
+    .height-fit-content{
+        height: fit-content;
+    }
+	@media screen and (max-width: 600px) {
+        .full_mobile{
+            min-width: 100% !important;
+            min-height: 100% !important;
+        }
+    }
+    .icon_email {
+        fill: #757575;
+    }
+</style>
+<md-dialog aria-label="Amend Stay" class="full_mobile" flex-gt-xs="60" flex-xs="98" ng-cloak>
+    <form name="amendStayForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'EMAIL_CONTENT' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel(currentRoom)">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout-padding>
+                <div id="fake-app" layout="column" >
+                    <div layout="row"       layout-align="space-between center" >
+                        <md-input-container flex="100" class="margin-left5">
+                            <md-icon md-svg-src="img/icons/ic_pages_24px.svg" class="icon_email"></md-icon>
+                            <label>{{'EMAIL_TASK'|translate}} </label>
+                            <md-select ng-model="SendEmail.HotelEmailTaskId" ng-change="chooceItem(SendEmail.HotelEmailTaskId)">
+                                <md-option ng-value="task.HotelEmailTaskId" ng-if="task.Status>0"  ng-repeat="task in TasksEmail">{{ task.Subject  }}</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <!-- <md-input-container flex="100" class="margin-left5">
+                            <md-icon md-svg-src="img/icons/ic_email_24px.svg" class="icon_email"></md-icon>
+                            <label>{{'SEND_FROM'|translate}}</label>
+                            <md-select ng-model="SendEmail.HotelEmailConfigId" >
+                                <md-option ng-value="email.HotelEmailConfigId" ng-repeat="email in emails">{{ email.UserName  }}</md-option>
+                            </md-select>
+                        </md-input-container> -->
+                        <md-input-container flex="100" class="margin-left5">
+                            <md-icon md-svg-src="img/icons/ic_email_24px.svg" class="icon_email"></md-icon>
+                            <label>{{'SEND_TO'|translate}}</label>
+                            <md-select ng-model="SendEmail.TravellerId" aria-required="" >
+                                <md-option ng-value="client.TravellerId"
+                                        ng-disabled="client.Travellers.Email==null"
+                                        ng-repeat="client in Travellers">{{ client.Travellers.Fullname }} <span ng-if="client.Travellers.Email==null">( {{'REQUIRED_EMAIL'| translate }} )</span></md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div> 
+                    <div> 
+                        <div ng-model="SendEmail.Body" ckeditor="ConditionPolicyOption" ready="readyCkeditor()"></div>
+                    </div> 
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-input-container  class="margin-left5">
+                <!-- <md-icon md-svg-src="img/icons/ic_pages_24px.svg" class="icon_email"></md-icon> -->
+                <label>{{'ROOM'|translate}}</label>
+                <md-select ng-model="SendEmail.ReservationRoomId" ng-change="chooceReservation(SendEmail.ReservationRoomId)">
+                    <md-option ng-value="reser.ReservationRoomId"ng-repeat="reser in ReservationRooms">{{ reser.RoomTypes.RoomTypeCode + " - " + reser.Rooms.RoomName  }}</md-option>
+                </md-select>
+            </md-input-container>
+            <span flex></span>
+            <md-button ng-click="cancel(currentRoom)" id="btn_cancel_send" class="btn-c md-raised">
+                {{'CANCEL' | translate}}
+                <md-tooltip md-direction="top" flex-gt-md="100" >
+					Ctrl + C
+				</md-tooltip>
+            </md-button>
+            <md-button ng-click="doSendEmail(SendEmail)" id="send_email" class="btn-c md-raised md-primary">
+                {{'SEND_EMAIL' | translate}}
+                <md-tooltip md-direction="top" flex-gt-md="100" >
+					Ctrl + S
+				</md-tooltip>
+                <md-icon md-svg-src="img/icons/ic_send_24px.svg" style="fill: white;"></md-icon>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+</md-dialog>

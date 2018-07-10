@@ -1,0 +1,29 @@
+<md-dialog aria-label="Group Pax Operation" ng-cloak >
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'GROUP_BREAKFAST_OPERATION' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <md-radio-group ng-model="isReservationBreakfast" flex="100">
+                      <md-radio-button ng-value="true" class="md-warn">{{'APPLY_BREAKFAST_TO_ALL_ROOM' | translate}}</md-radio-button>
+                      <md-radio-button ng-value="false" class="md-warn"> {{'DO_NOT_APPLY_BREAKFAST_TO_ALL_ROOM' | translate}} </md-radio-button>
+                    </md-radio-group>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button ng-click="saveGroupPaxOperation()" class="md-primary">
+                {{'APPLY' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

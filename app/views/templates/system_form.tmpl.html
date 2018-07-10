@@ -1,0 +1,209 @@
+<style>
+    .header_feild {
+        margin: 12px 6px 6px 0;
+    }
+
+    .list_fields md-list-item {
+        font-size: 14px;
+        min-height: 24px;
+    }
+
+    .list_fields md-list-item:hover {
+        cursor: pointer;
+        background: #f2f2f2;
+    }
+
+    md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+        min-height: 39px;
+    }
+</style>
+<!--<div class="md-whiteframe-z1">-->
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <span flex class="md-toolbar-tools">
+            <h2>
+                {{'HOTEL_AND_FORM' | translate}}
+            </h2>
+        </span>
+        <md-button class="md-warn md-fab md-mini" ng-click="saveHotelFormRoomInvoice()" style=" position: absolute; right: 16px; bottom: -25px; ">
+            <md-icon md-svg-src="img/icons/ic_save_48px.svg"></md-icon>
+            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'SAVE_SETTING' | translate}}
+            </md-tooltip>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content style="margin: 20px 0px;overflow-y:hidden">
+    <div>
+        <md-list>
+            <span class="md-toolbar-tools">
+                <h3>
+                    {{'INVOICE_SETTINGS' | translate}}
+                </h3>
+            </span>
+            <md-list-item>
+                <p> {{'PAGE_SIZE' | translate}}</p>
+                <div style="margin-bottom: 16px;margin-right: 50px;" class="md-secondary">
+                    <md-select ng-model="hotelFormRoomInvoice.Value">
+                        <md-option ng-repeat="size in invoicePageSize" value="{{size}}">
+                            {{size | translate}}
+                        </md-option>
+                    </md-select>
+                </div>
+            </md-list-item>
+            <span class="md-toolbar-tools">
+                <h3>
+                    {{'RECEIPT_SETTINGS' | translate}}
+                </h3>
+            </span>
+            <md-list-item> 
+                <p> {{'PAGE_SIZE' | translate}}</p>
+                <div style="margin-bottom: 16px;margin-right: 50px;" class="md-secondary">
+                    <md-select ng-model="hotelFormRoomReceipt.Value">
+                        <md-option ng-repeat="size in receiptPageSize" value="{{size}}">
+                            {{size}}
+                        </md-option>
+                    </md-select>
+                </div>
+            </md-list-item>
+            <!-- Vat Invoice -->
+            <span class="md-toolbar-tools">
+                <h3>
+                    {{'VATINVOICE_SETTINGS' | translate}}
+                </h3>
+            </span>
+            <md-list-item>
+                <p> {{'TEMPLATE' | translate}}</p>
+                <div style="margin-bottom: 16px;margin-right: 50px;" class="md-secondary">
+                    <md-select ng-model="hotelFormRoomInvoiceVAT" ng-change="chooseTemplateVAT(hotelFormRoomInvoiceVAT)">
+                        <md-option ng-repeat="size in lsthotelFormRoomInvoiceVAT" value="{{size}}">
+                            {{size | translate}}
+                        </md-option>
+                    </md-select>
+                </div>
+            </md-list-item>
+            <!-- end -->
+            <md-content>
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="{{'REGISTER' | translate}}">
+                        <!-- <span>{{hotelFormsBody.Body}}</span> -->
+                        <md-content class="md-padding">
+                            <div layout="row">
+                                <div flex-xs="100">
+                                    <div class="md-toolbar-tools">
+                                        <md-input-container class="font-size12">
+                                            <label>Language</label>
+                                            <md-select ng-model="hotelFormsBody.LanguageCode" ng-change="switchLang(hotelFormsBody.LanguageCode)" required md-no-asterisk="false">
+                                                <md-option ng-repeat="lang in languageList" value="{{lang.LanguageCode}}">{{lang.LanguageName}}</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                        <span flex></span>
+                                        <md-button ng-click="copyTemplate()">{{'TEMPLATE_FORM' | translate}}</md-button>
+                                    </div>
+                                    <div ng-model="hotelFormsBody.Body" id="bodyTeamplate" ckeditor="ConditionPolicyOption" ready="onReady()">
+                                    </div>
+                                </div>
+                                <div flex>
+                                    <span class="md-toolbar-tools reset-height">
+                                        <h4 class="header_feild">{{'SYSTEM_FILEDS' | translate}}</h4>
+                                    </span>
+                                    <span class="md-toolbar-tools reset-height">
+                                        <p class="margin0 font-size12">{{'COPY_ITEM_INTO_FORM' | translate}}</p>
+                                    </span>
+                                    <md-list flex class="list_fields">
+                                        <md-subheader>{{'ROOM' | translate}}</md-subheader>
+                                        <md-list-item ng-click="appText('[Arrival]')" class="md-1-line">
+                                            <p>[Arrival]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Departure]')" class="md-1-line">
+                                            <p>[Departure]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Source]')" class="md-1-line">
+                                            <p>[Source]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Number_Adults]')" class="md-1-line">
+                                            <p>[Number_Adults]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Number_Children]')" class="md-1-line">
+                                            <p>[Number_Children]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Price_room_per_night]')" class="md-1-line">
+                                            <p>[Price_room_per_night]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Room_name]')" class="md-1-line">
+                                            <p>[Room_name]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Room_type]')" class="md-1-line">
+                                            <p>[Room_type]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Company_name]')" class="md-1-line">
+                                            <p>[Company_name]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Company_address]')" class="md-1-line">
+                                            <p>[Company_address]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Booking_no_of_channel]')" class="md-1-line">
+                                            <p>[Booking_no_of_channel]</p>
+                                        </md-list-item>
+                                        <!-- <md-list-item class="md-1-line">
+                                            <p>[Source]</p>
+                                        </md-list-item> -->
+                                        <md-list-item ng-click="appText('[Booking_number]')" class="md-1-line">
+                                            <p>[Booking_number]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Note]')" class="md-1-line">
+                                            <p>[Note]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Total_price]')" class="md-1-line">
+                                            <p>[Total_price]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Total_night]')" class="md-1-line">
+                                            <p>[Total_night]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Deposit]')" class="md-1-line">
+                                            <p>[Deposit]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[PassCode_Lock]')" class="md-1-line">
+                                            <p>[PassCode_Lock]</p>
+                                        </md-list-item>
+                                        <md-divider></md-divider>
+                                        <md-subheader>{{'CUSTOMER' | translate}}</md-subheader>
+                                        <md-list-item ng-click="appText('[Full_name]')" class="md-1-line">
+                                            <p>[Full_name]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Customer_phone]')" class="md-1-line">
+                                            <p>[Customer_phone]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Customer_address]')" class="md-1-line">
+                                            <p>[Customer_address]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Customer_email]')" class="md-1-line">
+                                            <p>[Customer_email]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Customer_identity_number]')" class="md-1-line">
+                                            <p>[Customer_identity_number]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Customer_country]')" class="md-1-line">
+                                            <p>[Customer_country]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Customer_sex]')" class="md-1-line">
+                                            <p>[Customer_sex]</p>
+                                        </md-list-item>
+                                        <md-list-item ng-click="appText('[Customer_birthday]')" class="md-1-line">
+                                            <p>[Customer_birthday]</p>
+                                        </md-list-item>
+                                        <md-divider></md-divider>
+                                    </md-list>
+                                </div>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </md-content>
+
+
+        </md-list>
+    </div>
+
+</md-content>
+<!--</div>-->

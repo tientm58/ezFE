@@ -1,0 +1,188 @@
+<style>
+    .height-div-item{
+        height: 310px !important; overflow-y: hidden;
+    }
+    .span-header{
+        margin: 0px 0px 7px 0px;color: #686868;background-color: #d9edf7;height: 30px;box-sizing: border-box;border-radius: 3px;line-height: 27px;
+    }
+    .min-Room{
+        min-width: 170px !important;
+    }
+    .min-Guest{
+        min-width: 230px !important;
+    }
+    .min-Detail{
+        min-width: 738px !important;
+    }
+    md-menu {
+        margin:0px;padding:0px !important;text-align:left; height: 44px;
+    }
+    md-menu,md-menu-content {
+        min-width:115px;max-height:455px;min-height:40px;overflow-y:hidden;padding:0.3px 0 !important
+    }
+</style>
+<md-dialog aria-label="Thông tin khách" class="full-width" style="min-height: 450px;max-width: 90% !important">
+    <form ng-cloak ng-submit="saveTraveller()">
+        <button id="btn_editTravellers" class="hide"></button>
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <h2 class="text-white">{{'GUEST_INFORMATION' | translate}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+              <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+          </div>
+        </md-toolbar>
+        <md-dialog-content>
+          <div class="md-dialog-content" flex layout="row" >
+            <div flex="15" class="margin-right10 height-div-item min-Room">
+                <div class="span-header">
+                    <span flex class="margin-left5"><b>{{'LIST_ROOM' | translate}}</b></span>
+                </div>
+                <div style="overflow: auto;height: 100%;">
+                    <div ng-repeat="room in rooms" layout="column" class="margin-top5">
+                        <md-menu md-offset="60 0">
+                            <md-menu-content width="2">
+                                <md-menu-item>
+                                    <md-button class="md-ink-ripple md-default-theme position-relative" ng-click="selectRoom(room.ReservationRoomId)" ng-style="room.ReservationRoomId == isActiveRoom && {'background-color':'#d7d7d7'}">
+                                        <span layout layout-align="start center">
+                                            <span>{{room.Rooms.RoomName}} ({{room.RoomTypes.RoomTypeCode| limitTo:3}}{{room.RoomTypes.RoomTypeCode.length > 3? "..." : ""}})</span>
+                                        </span>
+                                        <md-icon ng-if="room.IsGroupMaster == true" md-svg-src="img/icons/ic_flag_24px.svg" style="fill: {{room.Color}};height: 21px; width: 21px;color: #666;right: -10px;top: 12px;position: absolute"></md-icon>
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </div>
+            </div>
+            <div flex="20" class="margin-right10 height-div-item min-Guest">
+                <div class="span-header position-relative">
+                    <span flex class="margin-left5"><b>{{'GUEST_LIST' | translate}}</b></span>
+                    <md-icon md-svg-src="img/icons/ic_group_add_24px.svg" ng-click="addCustomer()" class="position-absolute border-none outline0 cursor-pointer right17 top1">
+                        <md-tooltip>{{'ADD_SHARER' | translate}}</md-tooltip>
+                    </md-icon>
+                </div>
+                <div style="overflow: auto;height: 100%;">
+                <div ng-repeat="traveller in travellers" layout="column" class="margin-top5">
+                        <md-menu md-offset="60 0" ng-if="!traveller.IsDeleted">
+                            <md-menu-content width="2">
+                                <md-menu-item>
+                                    <md-button class="md-ink-ripple md-default-theme position-relative" ng-click="selectTraveller(traveller.TravellerId)" ng-style="traveller.TravellerId == isActiveTraveller && {'background-color':'#d7d7d7'}">
+                                        <span layout layout-align="start center">
+                                            <span>{{traveller.Fullname | limitTo:17}}{{traveller.Fullname.length > 17? "..." : ""}}</span>
+                                        </span>
+                                        <md-icon md-svg-src="img/icons/ic_delete_24px.svg" ng-if="roomSelected.Travellers.TravellerId != traveller.TravellerId" ng-click="deleteCustomer(traveller)" class="position-absolute border-none outline0 right0 top10">
+                                            <md-tooltip>{{'DELETE_CUSTOMER' | translate}}</md-tooltip>
+                                        </md-icon>
+                                        <md-icon md-svg-src="img/icons/ic_stars_24px.svg" ng-if="roomSelected.Travellers.TravellerId == traveller.TravellerId"  class="position-absolute border-none outline0 right0 top10">
+                                        </md-icon>
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </div>
+            </div>
+            <div flex class="min-Detail">
+                <div class="span-header position-relative">
+                    <span flex class="margin-left5"><b>{{'GUEST_DETAIL' | translate}}</b></span>
+                    <span id="btnSavePassportInfoPopUp" ng-click="saveInfoPassport()" class="hide"></span>	
+                    <md-icon md-svg-src="img/icons/ic_account_box_24px.svg" ng-show="isUsePassport" onclick="su.open(receivePassportInfo)" class="position-absolute border-none outline0 cursor-pointer right17 top1">
+                        <md-tooltip>{{'READ_PASSPORT' | translate}}</md-tooltip>
+                    </md-icon>
+                </div>
+                <div flex="100" layout="row" layout-padding layout-align="space-between center" class="height60px margin-top10">
+                    <md-input-container flex="30">
+                        <label>{{'DAILYCLEAN_DETAILS_CUSTOMER_NAME' | translate}}</label>
+                        <input type="text" focus="true" ng-model="travellerSelected.Fullname" required maxlength="50" ng-focus="true" focus="true"/>
+                    </md-input-container>
+                    <md-input-container flex="30">
+                        <label class="margin-left0">{{'GENDER' | translate}}</label>
+                        <md-select class="selectC" flex ng-model="travellerSelected.Gender" class="float-right full-width">
+                            <md-option ng-value="0">{{'MALE' | translate}}</md-option>
+                            <md-option ng-value="1">{{'FEMALE' | translate}}</md-option>
+                            <md-option ng-value="2">{{'OTHER' | translate}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex="30">
+                        <md-radio-group ng-model="travellerSelected.IsChild" ng-if="roomSelected.Travellers.TravellerId != travellerSelected.TravellerId" layout="row" style="padding-bottom: 12px;">
+                            <md-radio-button ng-value="false"> {{'ADULT' | translate}} </md-radio-button>
+                            <md-radio-button ng-value="true">{{'CHILD' | translate}}</md-radio-button>
+                        </md-radio-group>
+                    </md-input-container>
+                </div>
+                <div flex="100" layout="row" layout-padding layout-align="space-between center" class="height60px">
+                    <md-input-container flex="30">
+                        <label>{{'CUSTOMER_IDENTITY_NUMBER' | translate}}</label>
+                        <input type="text" focus="true" ng-model="travellerSelected.IdentityNumber" maxlength="20"/>
+                    </md-input-container>
+                    <md-input-container flex="30">
+                        <label>{{'MOBILE' | translate}}</label>
+                        <input type="text" focus="true" ng-model="travellerSelected.Mobile" maxlength="20"/>
+                    </md-input-container>
+                    <div flex="30" flex-xs="100" class="margin-top5" style="position: relative;">
+                        <span style="position: absolute;bottom: 45px;left: 2px;right: auto;color: rgba(0,0,0,0.54) !important;font-family: Roboto,'Helvetica Neue',sans-serif;font-size: 12px;">{{'DISPLAYGROUPDETAIL_BIRTHDAY' | translate}}</span>
+                        <input kendo-date-picker ng-model="dateString" k-ng-model="travellerSelected.Birthday" class="full-width" k-options="DatePickerOption" />
+                    </div>
+                </div>
+                <div flex="100" layout="row" layout-padding layout-align="space-between center" class="height60px">
+                    <md-input-container flex="65">
+                        <label>{{'EZCLOUD_ADDRESS' | translate}}</label>
+                        <input type="text" focus="true" ng-model="travellerSelected.Address" maxlength="100"/>
+                    </md-input-container>
+                    <md-input-container flex="30">
+                        <label>{{'EMAIL' | translate}}</label>
+                        <input type="email" focus="true" ng-model="travellerSelected.Email" maxlength="50"/>
+                    </md-input-container>
+                </div>
+                <div flex="100" layout="row" layout-padding layout-align="space-between center" class="height60px">
+                    <md-input-container flex="65">
+                        <label>{{'NOTE' | translate}}</label>
+                        <input type="text" focus="true" ng-model="travellerSelected.Note" md-maxlength="200" maxlength="200"/>
+                    </md-input-container>
+                    <md-input-container flex="30">
+                        <label>{{'COUNTRY' | translate}}</label>
+                        <md-autocomplete md-selected-item="travellerSelected.Countries" md-search-text-change="searchCountriesTextChange(searchCountriesText)"
+                            md-search-text="searchCountriesText" md-selected-item-change="selectedCountriesChange(item,travellerSelected)" md-items="item in queryCountriesSearch(searchCountriesText)"
+                            md-item-text="item.CountryName" md-min-length="0" md-menu-class="autocomplete-custom-template">
+                            <md-item-template>
+                                <span class="item-title">
+                                        <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                        <span class="margin-auto"> {{item.CountryName}} </span>
+                                </span>
+                            </md-item-template>
+                        </md-autocomplete>
+                    </md-input-container>
+                </div>
+            </div>  
+          </div>
+        </md-dialog-content>
+    
+        <div layout="row" class="position-absolute bottom0 right0">
+          <span flex></span>
+          <md-button ng-click="cancel()">
+            {{'CANCEL' | translate}}
+          </md-button>
+          <md-button onclick="jQuery('#btn_editTravellers').click()" >
+            {{'SAVE' | translate}}
+          </md-button>
+        </div>
+      </form>
+</md-dialog>
+<script>
+    function receivePassportInfo(data) {
+        console.log("passport infor",data);
+        var info = angular.copy(data);       
+        
+        FullnameCustomer =  info.LastName + " " + info.FirstName; 
+        Gender = info.Gender;
+        IdentityNumber = info.DocumentNumber;
+        Birthday = info.DateOfBirth;
+        ValidUntil = info.ValidUntil;
+        CountryCode = info.NationalityCode;
+        ImageLocation = info.ImageLocation;
+        
+        document.getElementById('btnSavePassportInfoPopUp').click(); 
+    }
+</script>

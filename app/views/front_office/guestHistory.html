@@ -1,0 +1,234 @@
+<style>
+    table {
+        /* text-align: center; */
+        align-items: center;
+        border-collapse: collapse;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: #fbfbfb;
+        overflow-y: auto;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .table td,
+    .table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .table td,
+    .table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .table .thead-light td {
+        color: #495057;
+        background-color: #e9ecef;
+        border-color: #dee2e6;
+    }
+
+    .bordertop-bottom {
+        border-bottom: solid 1px #eaeaea;
+        border-top: solid 1px #eaeaea;
+    }
+
+    .tdbackground {
+        background-color: #f7f7f7;
+    }
+
+    .trheader {
+        width: 50px;
+        text-align: center;
+        font-size: 30px;
+        font-style: inherit;
+    }
+
+    .tdheader {
+        padding: 20px 0px;
+    }
+
+    .padding10 {
+        padding: 10px;
+    }
+
+    .margin0 {
+        margin: 0 auto;
+    }
+
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        #tblGuestHistory,
+        #tblGuestHistory * {
+            visibility: visible;
+        }
+        #tblGuestHistory {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+
+    .tdbordercenter {
+        border: solid 1px black;
+        text-align: center;
+    }
+
+    .tdborderright {
+        border: solid 1px black;
+        text-align: right;
+    }
+
+    .tdborderleft {
+        border: solid 1px black;
+        text-align: left;
+    }
+
+    .text-uppercase {
+        text-transform: uppercase;
+    }
+
+    .overTable {
+        width: 100%;
+        overflow: auto;
+    }
+
+    .overTable table {
+        min-width: 1000px;
+    }
+
+    .word-break {
+        word-break: break-all;
+    }
+
+    a {
+        text-decoration-line: none;
+        -webkit-text-fill-color: black;
+        border-bottom-color: black;
+        border-bottom: 1px solid;
+    }
+
+    a:hover {
+        box-shadow: 1px 1px 1px 1px;
+    }
+</style>
+<div layout="row" layout-margin ng-cloak="" class="fit-content">
+    <md-card layout="row" class="fit-content" layout-padding="" layout-wrap="" flex="100">
+        <md-card-content class="fit-content" flex="100">
+            <div flex="100">
+                <div flex="100" layout="row" layout-align="start start">
+                    <span>
+                        <h4 class="text-uppercase">
+                            {{'GUEST_HISTORY'|translate}}
+                        </h4>
+                    </span>
+                    <span flex></span>
+                    <span>
+                        <md-button id="search" class="md-raised hide" ng-click="printTblGuestHistory()">
+                            <md-icon md-svg-src="img/icons/ic_print_24px.svg" style="fill: rgb(139, 142, 145);"></md-icon>
+                            {{'PRINT' | translate}}
+                        </md-button>
+                    </span>
+                </div>
+                <div flex="100" layout="row" layout-align="start start" layout-wrap="" style="text-align: center;">
+                    <div flex-gt-sm="45" flex-sm="100" flex-xs="100" layout="column" layout-align="start start" layout-margin="">
+                        <span>
+                            <b>{{'FULL_NAME' | translate}}</b> : {{travellerInfo.FullName}}
+                        </span>
+                        <span>
+                            <b>{{'IDENTITY_NUMBER1' | translate}}</b> : {{travellerInfo.IdentityNumber}}
+                        </span>
+
+                        <span>
+                            <b>{{'EMAIL' | translate}}</b> : {{travellerInfo.Email}}
+                        </span>
+                        <span>
+                            <b>{{'ADDRESS' | translate}}</b> : {{travellerInfo.Address}}
+                        </span>
+                    </div>
+                    <div flex-gt-sm="50" flex-sm="100" flex-xs="100" layout="column" layout-align="start start" layout-margin="">
+                        <span>
+                            <b>{{'SEX' | translate}}</b> :
+                            <span ng-if="travellerInfo.Sex == 0">{{'MALE' | translate}}</span>
+                            <span ng-if="travellerInfo.Sex == 1">{{'FEMALE' | translate}}</span>
+                        </span>
+
+                        <span>
+                            <b>{{'BIRTHDAY' | translate}}</b> : {{travellerInfo.Birthday | date: 'dd/MM/yyyy'}}
+                        </span>
+
+                        <span>
+                            <b>{{'MOBILE' | translate}}</b> : {{travellerInfo.Mobile}}
+                        </span>
+
+                        <span>
+                            <b>{{'COUNTRY' | translate}}</b> : {{travellerInfo.Country}}
+                        </span>
+                    </div>
+                    <div flex="100" layout="column" layout-align="start start" layout-margin="" class="text-left">
+                        <span>
+                            <b>{{'NOTE' | translate}}</b> :
+                            <span class="word-break">{{travellerInfo.Note}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div flex="100" class="margin0 overTable">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">{{'ARRIVAL_DATE' | translate}}</th>
+                            <th class="text-center">{{'DEPARTURE_DATE' | translate}}</th>
+                            <th class="text-center">{{'RATE_TYPE' | translate}}</th>
+                            <th class="text-center">{{'ROOM_NO' | translate}}</th>
+                            <th class="text-right">{{'TOTAL' | translate}}</th>
+                            <th class="text-right">{{'DISCOUNT' | translate}} %</th>
+                            <th class="text-right">{{'DISCOUNT' | translate}} $</th>
+                            <th class="text-right">{{'TOTAL_DISCOUNT' | translate}}</th>
+                            <th class="text-right">{{'REVENUE' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in reservationRoomInfos">
+                            <td class="text-center">{{item.ArrivalDate | date: 'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{item.DepartureDate | date: 'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{item.RateType | translate}}</td>
+                            <td class="text-center">
+                                <a href="/#/reservation/{{item.ReservationRoomId}}">{{item.RoomNo}}</a>
+                            </td>
+                            <td class="text-right">{{item.Total | currency:""}}</td>
+                            <td class="text-right">{{item.DiscountPer}} %</td>
+                            <td class="text-right">{{item.DiscountFlat | currency:""}}</td>
+                            <td class="text-right">{{item.TotalDiscount | currency:""}}</td>
+                            <td class="text-right">{{item.Revenue | currency:""}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-left" colspan="4">{{'TOTAL' | translate}}: {{totalVisit}} {{'VISITS' | translate}}</th>
+                            <th class="text-right">{{total | currency}}</th>
+                            <th></th>
+                            <th></th>
+                            <th class="text-right">{{totalDiscount | currency}}</th>
+                            <th class="text-right">{{totalRevenue | currency}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </md-content>
+
+    </md-card>
+</div>

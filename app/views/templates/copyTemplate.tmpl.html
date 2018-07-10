@@ -1,0 +1,117 @@
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+
+    .listbox md-list-item {
+        height: 48px;
+        border-bottom: 1px dashed #dadada;
+    }
+
+    .truncatedemoBasicUsage #fake-app {
+        position: relative;
+        height: 400px;
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid #333;
+    }
+
+    .truncatedemoBasicUsage #fake-app .sidebar {
+        position: absolute;
+        width: 50px;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background-color: #333;
+    }
+
+    .truncatedemoBasicUsage #fake-app .sidebar md-icon {
+        display: block;
+        color: #ddd;
+        margin-top: 15px;
+    }
+
+    .truncatedemoBasicUsage #fake-app .app-body {
+        position: absolute;
+        left: 50px;
+        right: 100px;
+        top: 0;
+        bottom: 0;
+        background-color: white;
+        padding: 10px;
+        overflow: auto;
+    }
+
+    .truncatedemoBasicUsage #fake-app .rightbar {
+        position: absolute;
+        width: 100px;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: #ddd;
+        padding: 10px;
+    }
+    .rightbar, .app-body{
+        overflow: auto;
+        height: 400px;
+    }
+    .actived{
+        background: #f2f2f2;
+    }
+    .full_mobile{ 
+            min-width: 100% !important;
+            min-height: 100% !important;
+        }
+</style>
+<md-dialog aria-label="Amend Stay" class="full_mobile" flex-gt-xs="60" flex-xs="98" ng-cloak>
+    <form name="amendStayForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'COPY_TEMPLATE' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel(currentRoom)">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout-padding>
+                <div id="fake-app" layout="row" layout-align="space-between start" >
+                    <div class="app-body" flex-xs="100" flex="45">  
+                        <md-list class="listbox padding0" >
+                            <md-list-item ng-repeat="task in TasksEmail" ng-if="task.Status > 0" class="noright" ng-class="[{'actived':($index == selectId)}]" ng-click="chooceItem($index)">
+                                <p>{{ task.Subject }}</p>
+                            </md-list-item>
+                        </md-list>
+                    </div>
+                    <div class="rightbar" flex-xs="100" flex="50">
+                        <div data-ng-bind-html="trustAsHtml(ShowBody)"> </div>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel(currentRoom)" class="md-raised">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button ng-click="answer(ShowBody)" class="md-raised md-primary">
+                {{'CHOOSE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+</md-dialog>

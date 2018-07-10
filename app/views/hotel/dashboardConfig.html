@@ -1,0 +1,101 @@
+<style>
+.text{
+	color: #686868;
+}
+.list{
+	margin: 50px;
+}
+.list-mobile{
+	margin: 10px;
+}
+.list-item{
+	margin: 15px !important;
+	cursor: pointer;
+	padding: 3px;
+}
+.list-item:hover{ 
+	background: #f2f2f2;
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
+}
+.list-item-mobile{
+	padding: 8px;
+	box-sizing:border-box; 
+	margin: 8px;
+	background-color: white; 
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+}
+
+.dasboard_list .name_cat{
+	color: #14ace4;
+	font-size: 20px ;
+	text-align: left !important;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+.title-mobile{
+	color: #14ace4;
+	background: white;
+	cursor: pointer;
+	box-shadow: none !important;
+	font-size: 20px ;
+	text-align: left !important;
+	margin-top:0px !important;
+	margin-bottom: 0px !important; 
+}
+
+.detail{
+	color: #686868 !important;
+	margin-top: 0px !important;
+	font-size: 13px;
+	margin-bottom: 0px;
+}
+.detail-mobile{
+	color: #686868 !important;
+	font-size: 13px;
+	margin-bottom:0px !important;
+}
+.img{
+	background: none;
+	max-width: none;
+	width: auto !important;
+	height: auto !important;
+}
+.img-mobile{
+	max-width: none;
+	width: auto !important;
+	height: auto !important;
+}
+</style>
+
+<md-card style="overflow: auto;">
+	<div class="md-padding md-whiteframe-z1 sort-room-frame">
+		<span class="md-toolbar-tools">
+			<h3 class="text">
+				{{'HOTEL_CONFIGURATION' | translate}}
+			</h3>
+		</span>
+	</div>
+	<md-list layout="row" layout-wrap layout-align="center" class="list dasboard_list" hide show-gt-md>
+		<div class="list-item" ng-click="logTo(item.url)" ng-repeat="item in items" layout="row" flex="30">
+			<div layout="row" layout-align="left center">
+			<img class="img"  ng-src="img/img_dashboardConfig/{{item.img}}"  alt="{{item.img}}" />
+			</div>
+			<div layout="column" layout-align="center" style="margin-left: 10px !important;">
+<p class="name_cat">{{item.title | translate}}</p>
+				<p class="detail">{{item.detail | translate}}</p>
+			</div>
+		</div>
+	</md-list>
+	<md-list layout="row" layout-wrap layout-align="center " class="list-mobile" hide-gt-md>
+		<div class="list-item-mobile" ng-click="logTo(item.url)" ng-repeat="item in items" layout="row" flex="100">
+			<div layout="row" layout-align="left center">
+			<img class="img-mobile"  ng-src="img/img_dashboardConfig/{{item.img}}"  alt="{{item.img}}" />
+			</div>
+			<div layout="column" layout-align="center" style="margin-left: 10px !important;">
+				<p class="title-mobile">{{item.title | translate}}</p>
+				<p class="detail-mobile">{{item.detail | translate}}</p>
+			</div>
+		</div>
+	</md-list>
+</md-card>

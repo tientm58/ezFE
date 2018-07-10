@@ -1,0 +1,45 @@
+<style>
+    .al-wrap-def {
+        background: url(img/pattern.jpg) repeat;
+        min-height: 100%;
+    }
+
+    .x-container-def {
+        max-width: 950px !important;
+        margin: 30px auto;
+        max-height: 266px !important;
+    }
+
+    form {
+        width: 40%;
+    }
+
+    .padding10p {
+        padding: 10px;
+    }
+
+    md-input-container label:not(._md-container-ignore).md-required:after {
+        content: none;       
+    }
+</style>
+
+<div layout="row" layout-align="center center">
+    <form id="saveAcc" name="saveAcc" ng-submit="Account.saveAcc()" ng-cloak>
+        <button id="btnSaveAcc" class="hide"></button>
+        <md-content class="padding10p">
+            <md-input-container class="md-icon-float md-block margin-bottom0">
+                <label for="username">{{'USER_NAME' | translate}}</label>
+                <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="username"></md-icon>
+                <input ng-model="Account.username" type="text" ng-required="true">
+            </md-input-container>
+            <md-input-container class="md-block margin-bottom0">
+                <label for="password">{{'Password' | translate}}</label>
+                <md-icon md-svg-src="img/icons/ic_dialpad_24px.svg" class="password"></md-icon>
+                <input ng-model="Account.password" type="password" ng-required="true">
+            </md-input-container>
+            <div layout="row" layout-align="center center">
+                <md-button class="md-raised md-primary width100p" onclick="jQuery('#btnSaveAcc').click()">{{'SAVE' | translate}}</md-button>
+            </div>
+        </md-content>
+    </form>
+</div>

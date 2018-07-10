@@ -1,0 +1,92 @@
+<div class="md-dialog-content" ng-if="editPriceCtrl.planInfo.UseHourlyPrice == true || editPriceCtrl.planInfo.UseDayNightPrice == true" layout="row" layout-wrap flex="100">
+    <md-input-container style="" flex="100">
+        <label>{{'NEW_PRICE' | translate}}</label>
+        <input type="text" ng-model="$root.newPrice" ui-number-mask="editPriceCtrl.decimal">
+    </md-input-container>
+</div>
+<div class="md-dialog-content" ng-if="editPriceCtrl.planInfo.UseHourlyPrice == false && editPriceCtrl.planInfo.UseDayNightPrice == false">
+    <div flex="100" layout layout-align="end end">
+        <div flex="50" style="margin:auto">
+            <span>{{'CURRENT_TOTAL_PRICE' | translate}} : {{editPriceCtrl.currentTotalPrice | currency}}</span></br>
+            <span ng-if="editPriceCtrl.newTotalPrice != 0 && editPriceCtrl.newTotalPrice != editPriceCtrl.currentTotalPrice" style="color: #f44336; font-weight: bold;">{{'NEW_TOTAL_PRICE' | translate}} : {{editPriceCtrl.newTotalPrice | currency}}</span>
+        </div>
+        <div flex>
+            <md-menu md-offset="0 50" md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+                <md-button class="md-raised md-warn" ng-click="editPriceCtrl.openQuickChangePriceMenu($mdOpenMenu, $event)">
+                <span>
+                {{'QUICK_CHANGE_PRICE' | translate}}
+            </span>
+                </md-button>
+                <md-menu-content width="6" style="height:200px;">
+                    <md-menu-item layout="column" style="padding: 6px;">
+                        <md-input-container style="padding: 0px;">
+                            <label>{{'QUICK_CHANGE_PRICE' | translate}}</label>
+                            <input type="text" ng-model="$root.quickChangePrice" ui-number-mask="editPriceCtrl.decimal">
+                        </md-input-container>
+                        <md-radio-group ng-model="$root.applyChangeMethod" style="padding: 0px;">
+                                <md-radio-button value="0">{{'ALL_WEEK' | translate}}</md-radio-button>
+                                <md-radio-button value="1"> {{'WEEK_DAYS' | translate}} </md-radio-button>
+                                <md-radio-button value="2">{{'WEEKEND' | translate}}</md-radio-button>
+                        </md-radio-group>
+                        <div style="padding: 0px;">
+                            <span style="background-color: #259b24; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;" ng-click="editPriceCtrl.saveQuickChangePrice()">{{'CONFIRM' | translate}}</span>
+                            <span style="background-color: #f44336; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;" ng-click="">{{'CANCEL' | translate}}</span>
+                        </div>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+    </div>
+    <timeline>
+        <timeline-event ng-repeat="event in editPriceCtrl.events" side="right">
+            <timeline-badge class="{{event.badgeClass}}">
+                <i class="glyphicon {{event.badgeIconClass}}">
+                    {{event.badgeContent | translate}}
+                </i>
+            </timeline-badge>
+            <timeline-panel class="{{event.badgeClass}}">
+                <timeline-heading>
+                    <h4>
+                        {{event.title | date: 'dd/MM/yyyy'}}
+                    </h4>
+                </timeline-heading>
+                <p>
+                    <span ng-if="!event.CalculatedInConstantly">
+                    {{event.content | currency}}
+                    </span>
+                    <md-menu ng-if="!event.CalculatedInConstantly" md-offset="0 30" md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+                        <span>
+                            <md-icon md-menu-origin="" md-svg-src="img/icons/ic_edit_48px.svg" ng-click="editPriceCtrl.openMenu($mdOpenMenu, $event, event)" style="padding: 0px;cursor: pointer;">
+                            </md-icon>
+                        </span>
+                        </md-button>
+                        <md-menu-content width="4">
+                            <md-menu-item flex="100">
+                                <md-input-container style="" flex="50">
+                                    <label></label>
+                                    <input type="text" required ng-model="$root.newPrice" ui-number-mask="editPriceCtrl.decimal">
+                                </md-input-container>
+                                <span flex="25"  style="background-color: #259b24; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;" ng-click="editPriceCtrl.saveRoomCharge(event)">{{'CONFIRM' | translate}}</span>
+                                <span flex style="background-color: #f44336; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;" ng-click="editPriceCtrl.changeRoomStatus(room.room, $event)">{{'CANCEL' | translate}}</span>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                    <span ng-if="event.CalculatedInConstantly && event.CalculatedConstantlyName != null">
+                        {{event.CalculatedConstantlyName | translate}}
+                    </span>
+                </p>
+            </timeline-panel>
+        </timeline-event>
+    </timeline>
+</div>
+<md-dialog-actions layout="row">
+    <md-button class="md-primary" ng-click="editPriceCtrl.done()" ng-if="editPriceCtrl.planInfo.UseHourlyPrice == false">
+        {{'DONE' | translate}}
+    </md-button>
+    <md-button class="md-primary" ng-click="editPriceCtrl.cancel()" ng-if="editPriceCtrl.planInfo.UseHourlyPrice == true">
+        {{'CANCEL' | translate}}
+    </md-button>
+    <md-button class="md-primary" ng-click="editPriceCtrl.editPrice()" ng-if="editPriceCtrl.planInfo.UseHourlyPrice == true || editPriceCtrl.planInfo.UseDayNightPrice == true ">
+        {{'SAVE' | translate}}
+    </md-button>
+</md-dialog-actions>

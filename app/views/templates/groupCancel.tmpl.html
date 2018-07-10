@@ -1,0 +1,46 @@
+<style>
+.md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line>._md-no-style .md-list-item-text, md-list-item.md-3-line .md-list-item-text, md-list-item.md-3-line>._md-no-style .md-list-item-text{
+    margin:auto;
+}
+.md-list-item ._md-list-item-inner ._md-secondary-container, md-list-item ._md-secondary-container{
+    height: auto;
+}
+</style>
+<md-dialog aria-label="Cancel" flex-gt-xs="80" flex-xs="98" ng-cloak>
+    <form name="cancelBookingForm" ng-submit="processCancel()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'CANCEL_CONFIRMATION' | translate}}</h2>
+                <span flex></span>
+                <!-- <span> -->
+                    <span ng-if="!SendEmail2">
+                    <md-checkbox ng-model="SendEmail" class="font-size12 line-height30 margin00 width100pec">
+                        {{'SEND_FOR_GROUP_LEADER' | translate}}
+                    </md-checkbox>
+                </span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap layout-align="space-between center" style="padding-bottom: 20px;width: 100%;">
+                <md-input-container style="margin: 0px;width: 100%;">
+                    <label>{{'CANCEL_REASON' | translate}}</label>
+                    <input required md-autofocus ng-model="cancelReason" md-maxlength="150" ng-trim="true" />
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <div class="md-actions" layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button ng-click="processCancel()" type="submit" class="md-primary" ng-disabled="cancelReason == null || cancelReason.trim() == ''">
+                {{'PROCESS' | translate}}
+            </md-button>
+        </div>
+
+    </form>
+
+</md-dialog>

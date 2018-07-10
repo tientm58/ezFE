@@ -1,0 +1,184 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Back To Category" ng-click="closePlanDetailAdjustment()">
+            <md-icon md-svg-src="img/icons/ic_arrow_back_48px.svg">
+                <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                    {{'TOOLTIP_GOBACK' | translate}}
+                </md-tooltip>
+            </md-icon>
+        </md-button>
+        <h2 class="md-headline">
+			{{currentAdjustment.Name + '_POLICY'| translate}}
+		</h2>
+    </div>
+</md-toolbar>
+<div layout-padding style="">
+
+    <div layout="column" style="" ng-if="currentAdjustment.Property !=='PlanSchedule' && currentAdjustment.Property !== 'UseExtraAdultPrice' && currentAdjustment.Property !== 'UseExtraChildPrice'" ng-cloak>
+        <div layout="column" layout-align="start start" ng-if="currentAdjustment.Property !=='UseHourlyPrice'" ng-cloak>
+            <md-subheader class="md-no-sticky">
+                {{currentAdjustment.Name + '_DEFAULT_PRICE' | translate}}
+            </md-subheader>
+            <md-input-container ng-if="currentAdjustment.Property !== 'UseHourlyPrice'" ng-cloak style="margin: 0px; margin-left: 30px;width: 80%;">
+                <input type="text" ng-model="currentAdjustment.Adjustment.price" ui-number-mask="$parent.decimal" />
+            </md-input-container>
+        </div>
+        <div>
+            <md-subheader class="md-no-sticky" ng-show="currentAdjustment.Property === 'UseHourlyPrice'" ng-cloak>
+                {{currentAdjustment.Name + '_PRICE_LIST' | translate}}
+                <md-button class="md-icon-button launch" aria-label="Add Price Adjustment" ng-click="addAdjustment()" ng-if="currentAdjustment.Property !=='PlanSchedule'" ng-cloak>
+                    <md-icon md-svg-src="img/icons/ic_add_circle_outline_48px.svg" style="">
+                        <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                            {{'TOOLTIP_ADDNEW' | translate}}
+                        </md-tooltip>
+                    </md-icon>
+                </md-button>
+            </md-subheader>
+            <md-subheader class="md-no-sticky" ng-show="currentAdjustment.Property === 'UseFullDayPrice' || currentAdjustment.Property === 'UseDayNightPrice' " ng-cloak>
+                {{currentAdjustment.Name + '_LATE_CHECKOUT_PRICE_LIST' | translate}}
+                <md-button class="md-icon-button launch" aria-label="Add Price Adjustment" ng-click="addAdjustment()" ng-if="currentAdjustment.Property !=='PlanSchedule'" ng-cloak>
+                    <md-icon md-svg-src="img/icons/ic_add_circle_outline_48px.svg" style="">
+
+                        <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                            {{'TOOLTIP_ADDNEW' | translate}}
+                        </md-tooltip>
+                    </md-icon>
+                </md-button>
+            </md-subheader>
+            <md-list>
+                <md-list-item ng-repeat="adjustment in currentAdjustment.Adjustment.adjustment">
+                    <div layout="row" flex="100">
+                        <md-input-container flex="30" style="margin-bottom: 0px;">
+                            <label>{{'HOURS' | translate}}</label>
+                            <input name="NumberOfHour" type="number" min="0" string-to-number ng-model="adjustment.NumberOfHour" ng-change="currentAdjustment.hasChanged = true" ng-model-options="{ debounce: 250 }" />
+                        </md-input-container>
+
+                        <md-input-container flex style="margin-bottom: 0px;">
+                            <label>{{'PRICE' | translate}}</label>
+                            <input name="Price" type="text" ng-model="adjustment.Price" ui-number-mask="decimal" ng-change="currentAdjustment.hasChanged = true" style="" />
+                        </md-input-container>
+                        <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" style="cursor: pointer;" ng-click="removeAdjustment(adjustment)">
+                            <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                {{'TOOLTIP_DELETE' | translate}}
+                            </md-tooltip>
+                        </md-icon>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </div>
+        <div ng-if="currentAdjustment.Property === 'UseFullDayPrice' || currentAdjustment.Property === 'UseDayNightPrice' ">
+            <div ng-if="currentAdjustment.Property === 'UseFullDayPrice'">
+                <md-list>
+                    <md-list-item ng-click="doNothing()">
+                        <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                            {{'TOOLTIP_ACTIVE' | translate}} / {{'TOOLTIP_DEACTIVE' | translate}}
+                        </md-tooltip>
+                        <md-checkbox style="margin-right: 3px" class="md-warn" ng-model="currentAdjustment.UseEarlyCheckinFullDay.isUsed">
+                        </md-checkbox>
+                        <md-subheader class="md-no-sticky" style="margin-right: 0px;">
+                            {{'FULL_DAY_EARLY_CHECK_IN' | translate}}
+                        </md-subheader>
+                        <md-button class="md-icon-button launch" style="margin: 0px; padding: 0px;" aria-label="Add Price Adjustment" ng-click="addEarlyCheckinFullDay()">
+                            <md-icon md-svg-src="img/icons/ic_add_circle_outline_48px.svg" style="">
+                                <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                    {{'TOOLTIP_ADDNEW' | translate}}
+                                </md-tooltip>
+                            </md-icon>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item ng-repeat="adjustment in currentAdjustment.UseEarlyCheckinFullDay.adjustment">
+                        <div layout="row" flex="100">
+                            <md-input-container flex="30" style="margin-bottom: 0px;">
+                                <label>{{'HOURS' | translate}}</label>
+                                <input name="NumberOfHour" type="number" min="0" string-to-number ng-model="adjustment.NumberOfHour" ng-change="currentAdjustment.hasChanged = true" ng-model-options="{ debounce: 250 }" style="opacity: 1;" />
+                            </md-input-container>
+                            <md-input-container flex style="margin-bottom: 0px;">
+                                <label>{{'PRICE' | translate}}</label>
+                                <input name="Price" type="text" ng-model="adjustment.Price" ui-number-mask="decimal" ng-change="currentAdjustment.hasChanged = true" style="" />
+                            </md-input-container>
+                            <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" style="" ng-click="removeFullDayEarlyCheckIn(adjustment)">
+                                <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                    {{'TOOLTIP_DELETE' | translate}}
+                                </md-tooltip>
+
+                            </md-icon>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </div>
+
+            <div ng-if="currentAdjustment.Property === 'UseDayNightPrice'">
+                <md-list>
+                    <md-list-item ng-click="doNothing()">
+                        <md-checkbox style="margin-right: 3px" class="md-warn" ng-model="currentAdjustment.UseEarlyCheckinDayNight.isUsed">
+                        </md-checkbox>
+                        <md-subheader class="md-no-sticky" style="margin-right: 0px;">
+                            {{'DAY_NIGHT_EARLY_CHECK_IN' | translate}}
+                        </md-subheader>
+                        <md-button class="md-icon-button launch" style="margin: 0px; padding: 0px;" aria-label="Add Price Adjustment" ng-click="addEarlyCheckinDayNight()">
+                            <md-icon md-svg-src="img/icons/ic_add_circle_outline_48px.svg" style="">
+                                <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                    {{'TOOLTIP_ADDNEW' | translate}}
+                                </md-tooltip>
+                            </md-icon>
+                        </md-button>
+                    </md-list-item>
+
+                    <md-list-item ng-repeat="adjustment in currentAdjustment.UseEarlyCheckinDayNight.adjustment">
+                        <div layout="row" flex="100">
+                            <md-input-container flex="30" style="margin-bottom: 0px;">
+                                <label>{{'HOURS' | translate}}</label>
+                                <input name="NumberOfHour" type="number" min="0" string-to-number ng-model="adjustment.NumberOfHour" ng-change="currentAdjustment.hasChanged = true" ng-model-options="{ debounce: 250 }" style="opacity: 1;" />
+                            </md-input-container>
+                            <md-input-container flex style="margin-bottom: 0px;">
+                                <label>{{'PRICE' | translate}}</label>
+                                <input name="Price" type="text" ng-model="adjustment.Price" ui-number-mask="decimal" ng-change="currentAdjustment.hasChanged = true" style="" />
+                            </md-input-container>
+                            <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" style="" ng-click="removeDayNightEarlyCheckIn(adjustment)">
+                             <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_DELETE' | translate}}
+                    </md-tooltip>
+                            </md-icon>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <md-content style="margin-top: 20px;" class="md-padding" ng-if="currentAdjustment.Property === 'UseExtraAdultPrice'" ng-cloak layout="column">
+
+        <div layout="column" layout-align="start start" ng-if="currentAdjustment.Property !=='UseHourlyPrice'" ng-cloak>
+            <md-subheader class="md-no-sticky">
+                {{'EACH_OVERDUE_ADULT_PRICE' | translate}}
+            </md-subheader>
+            <md-input-container ng-cloak style="margin: 0px; margin-left: 30px;width: 80%;">
+                <input type="text" ng-model="currentAdjustment.Adjustment.extraAdultPrice" ui-number-mask="decimal" />
+            </md-input-container>
+        </div>
+
+    </md-content>
+
+    <md-content style="margin-top: 20px;" class="md-padding" ng-if="currentAdjustment.Property === 'UseExtraChildPrice'" ng-cloak layout="column">
+        <div layout="column" layout-align="start start" ng-if="currentAdjustment.Property !=='UseHourlyPrice'" ng-cloak>
+            <md-subheader class="md-no-sticky">
+                {{'EACH_OVERDUE_CHILD_PRICE' | translate}}
+            </md-subheader>
+            <md-input-container ng-cloak style="margin: 0px; margin-left: 30px;width: 80%;">
+                <input type="text" ng-model="currentAdjustment.Adjustment.extraChildPrice" ui-number-mask="decimal"/>
+            </md-input-container>
+        </div>
+
+
+    </md-content>
+</div>
+
+
+<style type="text/css">
+    .flex-100, .layout-column>.flex-100, .layout-row>.flex-100 {
+            max-height: inherit !important;
+    }
+</style>

@@ -1,0 +1,39 @@
+<md-dialog aria-label="Floor Edit">
+    <form ng-submit="saveEdited(floorEditing)">
+		<button class="hide" id="btn_saveEdited"></button>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'EDIT_FLOOR' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <md-input-container flex="100">
+                    <label>{{'FLOOR_NAME' | translate}} ({{'REQUIRED' | translate}})</label>
+                    <input md-autofocus required ng-model="floorEditing.FloorName" md-maxlength="10" ng-trim="true" >
+                </md-input-container>
+                <!--<md-input-container flex="100">
+                    <label>{{'ORDER_NUMBER' | translate}}</label>
+                    <input ng-model="floorEditing.OrderNumber" type="number">
+                </md-input-container>-->
+                <md-input-container flex="100">
+                    <label>{{'DESCRIPTON' | translate}}</label>
+                    <input ng-model="floorEditing.FloorDescription">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button onclick="jQuery('#btn_saveEdited').click()" class="md-primary" ng-disabled="!floorEditing.FloorName">
+                {{'SAVE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

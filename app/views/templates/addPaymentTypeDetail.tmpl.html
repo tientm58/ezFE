@@ -1,0 +1,63 @@
+<md-dialog aria-label="" flex="80" cg-busy="{promise:promiseNewPaymentTypeDetail,templateUrl:'views/templates/dataLoadingPromise.tmpl.html',message:'LOADING',backdrop:true,minDuration:1000}">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{payments.attributes.textPopup || ""}}</h2>
+      <span flex></span>
+      <md-button class="btn-c md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content layout-padding layout-wrap>
+    <section flex="100">
+      <form name="addPaymentTypeDetail" layout="column" ng-submit="payments.action.update(addPaymentTypeDetail.$invalid)">
+        <button class="hide" id="btn_savedm"></button>
+        <div layout-gt-sm="row" layout-align="space-between center">
+          <md-select required ng-disabled="payments.attributes.disablePaymentType" ng-change="payments.action.filterListByType()" ng-model="payments.attributes.newPayment.PaymentGroup"
+            placeholder="{{'TYPE_OF_REVENUE' | translate}} (*)" class="md-no-underline" flex-gt-sm>
+            <md-option ng-repeat="(index, item) in payments.attributes.filterSelect" ng-value="{{item.val}}" ng-selected="item.val == payments.attributes.newPayment.PaymentGroup">
+              {{item.des | translate}}
+            </md-option>
+          </md-select>
+          <div flex="5" hide-xs hide-sm>
+          </div>
+          <tree-dropdown flex-gt-sm class="tree-dropdown" is-add-invoice="false" parent="payments.attributes.selectedElement" data="payments.attributes.listCatPopup"
+            selected="payments.attributes.listCatPopup[0]"></tree-dropdown>
+        </div>
+
+        <div layout-gt-sm="row" layout-align="space-between center">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>{{'CODE' | translate}} (*)</label>
+            <input ng-model="payments.attributes.newPayment.Code" name="Code" ez-focus="payments.attributes.focusCode" required maxlength="30"
+              md-no-asterisk>
+            <div ng-messages="addPaymentTypeDetail.Code.$error">
+              <div ng-message="required">{{'REQUIRED' | translate}}</div>
+              <div ng-message="md-maxlength">The Code must be less than 30 characters long.</div>
+            </div>
+          </md-input-container>
+          <div flex="5" hide-xs hide-sm>
+          </div>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>{{'DESCRIPTION' | translate}}</label>
+            <input ng-model="payments.attributes.newPayment.Description">
+          </md-input-container>
+        </div>
+
+        <md-input-container class="md-block">
+          <label>{{'NAME' | translate}} (*)</label>
+          <input md-maxlength="30" required md-no-asterisk name="Name" ng-model="payments.attributes.newPayment.Name">
+          <div ng-messages="addPaymentTypeDetail.Name.$error">
+            <div ng-message="required">{{'REQUIRED' | translate}}</div>
+            <div ng-message="md-maxlength">The name must be less than 30 characters long.</div>
+          </div>
+        </md-input-container>
+
+        <div layout="row" layout-align="end center">
+          <md-button class="md-raised md-primary" ng-disabled="isClickBtn" onclick="jQuery('#btn_savedm').click();">
+            <md-icon md-svg-src="img/icons/ic_done_48px.svg"></md-icon>&nbsp;{{'SAVE' | translate}}
+          </md-button>
+        </div>
+      </form>
+    </section>
+  </md-dialog-content>
+</md-dialog>

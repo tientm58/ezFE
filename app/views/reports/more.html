@@ -1,0 +1,72 @@
+<style>
+	.md-list-item.md-2-line .md-list-item-text,
+	md-list-item.md-2-line>._md-no-style .md-list-item-text,
+	md-list-item.md-3-line .md-list-item-text,
+	md-list-item.md-3-line>._md-no-style .md-list-item-text {
+		margin: auto;
+	}
+
+	.md-list-item ._md-list-item-inner ._md-secondary-container,
+	md-list-item ._md-secondary-container {
+		height: auto;
+	}
+
+	.md-ripple-container {
+		height: auto;
+	}
+
+	._md-secondary-container {
+		height: auto !important;
+	}
+
+	md-list-item ._md-list-item-inner>md-icon:first-child:not(.md-avatar-icon),
+	md-list-item>md-icon:first-child:not(.md-avatar-icon) {
+		margin-right: 4px;
+	}
+
+	.icon-color svg {
+		fill: rgba(0, 0, 0, 0.54);
+	}
+
+	.box-report-2 {
+		overflow-y: hidden;
+		min-height: 260px !important;
+		background: #fff;
+	}
+
+	.box-report1 {
+		border-box: box-sizing;
+		min-height: 350px !important;
+		background: #fff;
+	}
+
+	.fit-content {
+		height: fit-content;
+	}
+</style>
+<div ng-cloak>
+	<div flex="100" data-ng-init="init()" layout layout-margin layout-wrap layout-align="start  start" class="fit-content">
+		<div flex-gt-md="30" flex-md="30" flex-sm="45" flex-xs="100" flex layout="column" ng-show="isInRole(l)" ng-repeat="l in report"
+		    ng-if="l.submenus.length>0" style="" class="box-report1 md-whiteframe-3dp">
+			<md-toolbar class="md-primary md-default-theme" layout="row">
+				<span flex class="md-toolbar-tools">
+					<h2>
+						{{l.name | translate}}
+					</h2>
+				</span>
+			</md-toolbar>
+			<md-content style="" class="box-report-2">
+				<md-list ng-repeat="s in l.submenus" ng-show="isInRole(s)">
+					<md-list-item>
+						<md-icon md-svg-icon="{{s.icon}}" ng-click="showReport(s.url)" class="icon-color"></md-icon>
+						<p ng-click="showReport(s.url)">
+							{{s.name | translate | truncate:23}}
+						</p>
+						<md-checkbox class="md-warn md-secondary" ng-change="UpdateReport(s)" ng-model="s.isCheck" style="margin: 0px; padding: 0px;">
+						</md-checkbox>
+					</md-list-item>
+				</md-list>
+			</md-content>
+		</div>
+	</div>
+</div>

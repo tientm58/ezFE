@@ -1,0 +1,85 @@
+<md-dialog style="width:50% !important">
+    <form ng-submit="savePayment()" ng-cloak>
+    <button class="hide" id="btn_payment"></button>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2 style="color:#fff">{{'ADD_PAYMENT_GROUP' | translate}}</h2>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="cancel()">
+            <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-dialog-content>
+        <div class="md-dialog-content">
+            <div layout layout-wrap flex="100" class="height70px">
+                <md-input-container flex="50">
+                    <label>{{'SELECT_ROOM_PAYMENT' | translate}}</label>
+                    <md-select ng-model="roomTmp">
+                        <md-option ng-repeat="room in roomsTmp" ng-value="room">{{ room.Rooms.RoomName | translate}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{'GUEST_NAME'|translate}}</label>
+                    <input type="text" ng-readonly="true" ng-model="roomTmp.ShareList[0].Fullname" />
+                </md-input-container>
+            </div>
+            <div layout layout-wrap flex="100" class="height70px">
+                <md-input-container flex="25">
+                    <label>{{'TYPE' | translate}}</label>
+                    <md-select ng-model="payment.PaymentId">
+                        <md-option ng-repeat="type in typesTmp" ng-value="type.PaymentTypeId">{{ type.PaymentTypeName | translate}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex="25">
+                    <label>{{'METHOD' | translate}}</label>
+                    <md-select ng-model="payment.MethodId">
+                        <md-option ng-repeat="method in methodsTmp | filter:filterPaymentMethodId" ng-value="method.PaymentMethodId">{{ method.PaymentMethodName | translate}}</md-option>
+                    </md-select>
+                    </md-input-container>
+                <md-input-container flex="20">
+                    <label>{{'CURRENCY' | translate}}</label>
+                    <md-select ng-model="payment.MoneyId">
+                        <md-option ng-repeat="money in moneysTmp" ng-value="money.MoneyId">{{ money.MoneyName }}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{'AMOUNT' | translate}}</label>
+                    <input type="text" ng-model="payment.Amount" ui-number-mask="decimalEdit" ui-negative-number />
+                </md-input-container>
+            </div>
+            <div ng-if="payment.MethodId===4" layout layout-wrap flex="100" class="height70px">
+                <md-input-container style="width: 100%;">
+                    <label>{{'COMPANY' | translate}}</label>
+                    <md-autocomplete md-selected-item="selectedCompanyCityLedger" md-search-text-change="searchCompanyTextChangeCityLedger(searchCompanyTextCityLedger)"
+                        md-search-text="searchCompanyTextCityLedger" md-selected-item-change="selectedCompanyChangeCityLedger(item)"
+                        md-items="item in queryCompanySearchCityLedger(searchCompanyTextCityLedger)" md-item-text="item.CompanyName"
+                        md-min-length="0" md-menu-class="autocomplete-custom-template">
+                        <md-item-template>
+                            <span class="item-title">
+                                <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                <span style="margin: auto;"> {{item.CompanyName}} </span>
+                            </span>
+                        </md-item-template>
+                    </md-autocomplete>
+                </md-input-container>
+            </div>
+            <div layout layout-wrap flex="100" class="height75px">
+                <md-input-container flex="100">
+                    <label>{{'DESCRIPTION' | translate}}</label>
+                    <input type="text" ng-model="payment.PaymentDescription" md-maxlength="250" maxlength="250"/>
+                </md-input-container>
+            </div>
+        </div>
+      </md-dialog-content>
+      <div layout="row" style="position:absolute;bottom:0;right:0">
+        <span flex></span>
+        <md-button ng-click="cancel()">
+          {{'CANCEL' | translate}}
+        </md-button>
+        <md-button onclick="jQuery('#btn_payment').click()">
+          {{'DECIDE_PAY' | translate}}
+        </md-button>
+      </div>
+    </form>
+  </md-dialog>

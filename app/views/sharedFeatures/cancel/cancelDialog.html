@@ -1,0 +1,16 @@
+<md-dialog aria-label="Cancel" flex-gt-xs="80" flex-xs="98">
+    <form name="cancelBookingForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'CANCEL_CONFIRMATION' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <cancel></cancel>
+        </md-dialog-content>
+    </form>
+</md-dialog>

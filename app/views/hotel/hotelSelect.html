@@ -1,0 +1,120 @@
+<style>
+     .md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line>._md-no-style .md-list-item-text, md-list-item.md-3-line .md-list-item-text, md-list-item.md-3-line>._md-no-style .md-list-item-text{
+        margin:auto;
+    }
+    md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner{
+        height: auto;
+    }
+    md-list-item ._md-list-item-inner ._md-secondary-container, md-list-item ._md-secondary-container{
+        height: auto;
+    }
+    #height100{
+        min-height: 100px;
+        max-height: 3000px;
+    }
+	.bt-create-hotel{
+		fill: #15abe4;
+		height: 35px !important;
+		width: 35px !important;
+		margin-right:16px;
+		cursor: pointer;
+	}
+	.bt-reset-data{
+		fill: #ff7802;
+		/*height: 30px !important;
+		width: 30px !important;*/
+	}
+	.text-rest-data{
+		display: inline;
+		padding: .2em .6em .3em;
+		font-size: 50%;
+		font-weight: bold;
+		text-transform: uppercase;
+		line-height: 1;
+		color: #ff7802;
+		text-align: left;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: .25em;
+	}
+	.bt{
+		fill: #15abe4;
+		/*height: 30px !important;
+		width: 30px !important;*/
+	}
+	.text-bt{
+		display: inline;
+		padding: .2em .6em .3em;
+		font-size: 50%;
+		font-weight: bold;
+		text-transform: uppercase;
+		line-height: 1;
+		color: #15abe4;
+		text-align: left;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: .25em;
+	}
+	.md-list-item-text{
+		margin-top:7px !important;
+		margin-bottom: 7px !important;
+	}
+	md-list-item{
+		min-height: 55px !important;
+	}
+	h3{
+		padding-top:8px !important;
+	}
+</style>
+<md-content flex="100" layout layout-align="center start" layout-margin >
+	<md-card id="height100" class="custom-card" flex-gt-sm="100" flex-sm="100" flex-xs="100" flex>
+		 <md-card-title class="padding-bottom0-important">
+            <md-card-title-text>
+                <span class="md-headline">{{'HOTEL_LIST' | translate}} ({{hotelList.length}})
+                    <md-icon class="bt-create-hotel" md-svg-src="img/icons/ic_add_circle_24px.svg" ng-click="createHotel()">
+						<md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+							{{'TOOLTIP_ADDNEW' | translate}}
+						</md-tooltip>
+                    </md-icon>
+                </span>
+            </md-card-title-text>
+        </md-card-title>
+		<md-card-content>
+			<md-list class="padding-top0-important">
+				<md-list-item class="md-3-line" ng-repeat="hotel in hotelList">
+					<div class="md-list-item-text">
+						<h3>{{ hotel.HotelName | truncate:20}} <span ng-show="hotel.HotelName.length> 20">...</span></h3>
+						<p>{{ 'HOTELID' | translate }} : {{ ::hotel.HotelId }}</p>
+					</div>
+					<div class="md-list-item-text md-secondary" layout="row" layout-align="end center">
+						<div layout="column" layout-align="center center" >
+							<md-button class="md-icon-button launch margin0 padding-bottom0-important"  ng-click="goToHome(hotel)">
+								<md-icon md-svg-src="img/icons/ic_home_24px.svg" class="bt"></md-icon>
+							</md-button>
+							<span class="text-bt" >
+								{{'HOME' | translate}}
+							</span>
+						</div>
+						<div layout="column" layout-align="center center" >
+							<md-button class="md-icon-button launch margin0 padding-bottom0-important"  ng-click="goToConfig(hotel)">
+								<md-icon md-svg-src="img/icons/ic_settings_24px.svg" class="bt"></md-icon>
+							</md-button>
+							<span class="text-bt">
+								{{'CONFIGURATION' | translate}}
+							</span>
+						</div>
+						<div layout="column" layout-align="center center" >
+							<md-button class="md-icon-button launch margin0 padding-bottom0-important" ng-click="resetData(hotel)">
+								<md-icon class="bt-reset-data" md-svg-src="img/icons/ic_clear_24px.svg"></md-icon>
+							</md-button>
+							<span class="text-rest-data" style="">
+								{{'RESET' | translate}}
+							</span>
+						</div>
+					</div>
+					<md-divider></md-divider>
+				</md-list-item>
+			</md-list>
+		</md-card-content>
+	</md-card>
+</md-content>

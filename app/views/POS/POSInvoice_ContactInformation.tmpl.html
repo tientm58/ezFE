@@ -1,0 +1,150 @@
+<style>
+    .autocomplete-custom-template li {
+        border-bottom: 1px solid #ccc;
+        height: auto;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        white-space: normal;
+    }
+
+    .autocomplete-custom-template li:last-child {
+        border-bottom-width: 0;
+    }
+
+    .autocomplete-custom-template .item-title .item-metadata {
+        display: block;
+        line-height: 2;
+    }
+
+    .autocomplete-custom-template .item-title md-icon {
+        height: 18px;
+        width: 18px;
+    }
+
+    .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+    md-card md-card-content {
+        display: block;
+        padding: 0 16px;
+    }
+
+    .md-whiteframe-1dp, .md-whiteframe-z1{
+        box-shadow: 0 0px 0px 0 rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0px rgba(0,0,0,.12);
+    }
+    .margin-bottom0{
+        margin-bottom: 0px;
+    }
+    @media (max-width: 959px) and (min-width: 600px){
+        .min-heightbox{
+            min-height: 517px !important;
+        }
+    }
+</style>
+<md-card class="cus min-heightbox" flex-gt-sm="100" flex-sm="100" flex-xs="100" flex style="border-top: 1px solid #eee;">
+   <!--  <section>
+        <div layout="row" layout-align="space-between center" style="">
+            <span flex class="md-toolbar-tools">
+                <h2>
+                        {{'CONTACT_INFORMATION' | translate}}
+                </h2>
+            </span>
+        </div>
+    </section> -->
+    <div>
+        <span class="md-toolbar-tools bg-gray2 ">
+            {{'CONTACT_INFORMATION' | translate}}
+        </span>
+    </div>
+    <md-divider></md-divider>
+    <form  onsubmit="jQuery('#button_nex1').click()" name="ContactIndorForm">
+        <button class="hide"></button>
+        <md-card-content class="md-default-theme none_paddingTop" style="">
+        <!-- <div layout="row" layout-align="space-between center" flex="100">
+            <md-button class="md-warn md-raised" wz-previous style="">{{'PREVIOUS'| translate}}</md-button>
+            <md-button class="md-warn md-raised" wz-next style="">{{'NEXT'| translate}}</md-button>
+        </div> -->
+            <div flex="100" layout="row" layout-align="space-between center" layout-wrap style="">
+                <div layout="row"  flex="45" flex-sm="100" flex-xs="100" layout-align="space-between center">
+                    <md-input-container flex="45"  style="margin-bottom: 0px">
+                        <label>{{'CUSTOMER_NAME'| translate}}</label>
+                        <input type="text" id="Fullname" ng-model="POSModel.ContactInformation.Fullname" name="name" required />
+                        <md-icon style="height:22px;width:22px;float:right;cursor: pointer" aria-label="Search Customer" md-svg-src="img/icons/ic_search_24px.svg" ng-click="searchCustomer()"></md-icon>
+                    </md-input-container>
+                    <div flex="45" layout="row" style="position:relative">
+                        <md-select class="selectC" flex="100" ng-model="POSModel.ContactInformation.Gender" placeholder="{{'GENDER' | translate}}" style=" ">
+                            <md-select-label style="width:100%"></md-select-label>
+                            <md-option ng-value="0">{{'MALE' | translate}}</md-option>
+                            <md-option ng-value="1">{{'FEMALE' | translate}}</md-option>
+                            <md-option ng-value="2">{{'OTHER' | translate}}</md-option>
+                        </md-select>
+                    </div>
+                </div>
+                <div layout="row" flex-sm="100" flex="45" flex-xs="100" layout-align="space-between center">
+                    <div layout="row" layout-align="start center" flex="45">
+                        <span flex="30" style="">{{'BIRTHDAY' | translate}}</span>
+                        <div flex>
+                            <input kendo-date-picker ng-model="dateString" k-ng-model="POSModel.ContactInformation.Birthday" style="width: 100%;" k-options="DatePickerOption" />
+                        </div>
+                    </div>
+                    <div flex="45" layout="row" layout-align="space-between center" layout-wrap>
+                        <md-input-container flex="100" style="margin-bottom: 0px">
+                            <label>{{'IDENTITY_NUMBER'| translate}}</label>
+                            <input type="text" ng-model="POSModel.ContactInformation.IdentityNumber" />
+                        </md-input-container>
+                    </div>
+                </div>
+            </div>
+            <div flex="100" layout="row" layout-align="space-between center" layout-wrap>
+
+                <div layout="row"  flex="45" flex-sm="100" flex-xs="100" layout-align="space-between center">
+                    <md-input-container flex="45" flex-sm="100" flex-xs="100" style="margin-bottom: 0px">
+                        <label>{{'MOBILE'| translate}}</label>
+                        <input type="text" ng-model="POSModel.ContactInformation.Mobile" />
+                    </md-input-container>
+                    <md-input-container flex="45" flex-sm="100" flex-xs="100" style="margin-bottom: 0px">
+                        <label>{{'EMAIL'| translate}}</label>
+                        <input type="text" ng-model="POSModel.ContactInformation.Email" />
+                    </md-input-container>
+                </div>
+                <div layout="row" flex-sm="100" flex="45" flex-xs="100" layout-align="space-between center">
+                    <md-input-container flex="100" class="margin-bottom0">
+                        <label>{{'NOTE' | translate}}</label>
+                        <textarea style="width: 100%;" columns="1" rows="5" ng-model="POSModel.ContactInformation.Note" />
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex="100" layout="row" layout-align="space-between center" layout-wrap>
+                <md-input-container flex="45" flex-sm="100" flex-xs="100">
+                    <label>{{'ADDRESS'| translate}}</label>
+                    <input type="text" ng-model="POSModel.ContactInformation.Address" />
+                </md-input-container>
+                <!-- <md-input-container flex="45" flex-sm="100" flex-xs="100" class="marginTop2">
+                    <label>{{ 'COUNTRY' | translate }}</label>
+                    <md-autocomplete md-selected-item="$parent.selectedCountries" md-search-text-change="searchCountriesTextChange(searchCountriesText)" md-search-text="searchCountriesText" md-selected-item-change="selectedCountriesChange(item)" md-items="item in queryCountriesSearch(searchCountriesText)" md-item-text="item.CountryName" md-min-length="0" md-menu-class="autocomplete-custom-template">
+                        <md-item-template>
+                            <span class="item-title">
+                                <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                <span style="margin: auto;"> {{item.CountryName}} </span>
+                            </span>
+                        </md-item-template>
+                    </md-autocomplete>
+                </md-input-container> -->
+                <md-input-container flex="45" flex-sm="100" flex-xs="100" class="marginTop2">
+                  <label>{{'COUNTRY' | translate}}</label>
+                <md-select ng-model="POSModel.ContactInformation.CountryId" >
+                <md-option ng-repeat="country in countries" ng-value="country.CountryId" ng-selected="country.CountryId == POSModel.ContactInformation.CountryId">{{country.CountryName}}</md-option>
+                </md-select>
+                </md-input-container>
+            </div>
+        </form>
+    </md-card-content>
+</md-card>
+<script>
+    jQuery(document).ready(function(){
+        jQuery("#Fullname").select();//.focus().delay(100).select();
+        setTimeout(function(){
+            jQuery("#Fullname").select();
+        }, 1000);
+    })
+</script>

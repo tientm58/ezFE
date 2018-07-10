@@ -1,0 +1,40 @@
+<md-dialog aria-label="Edit Category" flex-gt-xs="50" flex-sm="98">
+	<form ng-submit="saveEdited(categoryEditing)">
+		<button class="hide" id="btn_saveEdited"></button>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'EDIT_CATEGORY' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-dialog-content>
+			
+				<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+					<md-input-container flex="100">
+						<label>{{'CATEGORY_NAME' | translate}} ({{'REQUIRED' | translate}})</label>
+						<input md-autofocus required ng-model="categoryEditing.ExtraServiceCategoryName">
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'DESCRIPTION' | translate}}</label>
+						<input ng-model="categoryEditing.ExtraServiceCategoryDescription">
+					</md-input-container>
+				</div>
+			
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button  onclick="jQuery('#btn_saveEdited').click()" class="md-primary" ng-disabled="!categoryEditing.ExtraServiceCategoryName">
+				{{'SAVE' | translate}}
+			</md-button>
+		</md-dialog-actions>
+
+	</form>
+
+</md-dialog>

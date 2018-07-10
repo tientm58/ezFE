@@ -1,0 +1,49 @@
+<style>
+    .height-48{
+        height: 48px !important;
+    }
+</style>
+<md-dialog aria-label="Save Invoice Room" flex-gt-xs="50" flex-xs="98">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'CONFIRM_THE_INVOICE_TRANSFER_TO_THE_ROOM' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+             <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <span style="color: #f44336;">
+                    {{'PLEASE_CHECK_THE_INVOICE_BEFORE_MOVING_INTO_THE_ROOM' | translate}} {{_name}}.
+                </span>
+             </div>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <md-list style="width: 100%;">
+                    <md-list-item class="height-48">
+                        <p>{{'CUSTOMER' | translate}}</p>
+                        <p class="md-secondary">{{ContactInformation.Fullname}}</p>
+                    </md-list-item>
+                    <md-list-item class="height-48">
+                        <p>{{'ROOM' | translate}}</p>
+                        <p class="md-secondary">101</p>
+                    </md-list-item>
+                    <md-list-item class="height-48">
+                        <p>{{'TOTAL_CHARGES' | translate}}</p>
+                        <p class="md-secondary">{{chargesTotal | currency}}</p>
+                    </md-list-item>
+                </md-list>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button ng-click="ok(items)" class="md-warn">
+                {{'MOVE' |translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

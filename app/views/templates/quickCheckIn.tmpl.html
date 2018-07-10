@@ -1,0 +1,355 @@
+<style>
+	md-autocomplete[md-floating-label] md-input-container {
+		padding-bottom: 0px;
+		margin: 0px;
+	}
+
+	.md-list-item.md-2-line .md-list-item-text,
+	md-list-item.md-2-line>._md-no-style .md-list-item-text,
+	md-list-item.md-3-line .md-list-item-text,
+	md-list-item.md-3-line>._md-no-style .md-list-item-text {
+		margin: auto;
+	}
+
+	.md-list-item ._md-list-item-inner ._md-secondary-container,
+	md-list-item ._md-secondary-container {
+		height: auto;
+	}
+
+	md-list-item.md-3-line,
+	md-list-item.md-3-line>._md-no-style {
+		min-height: 75px;
+		max-height: 75px;
+		height: 75px;
+	}
+
+	md-list-item._md-button-wrap>div.md-button:first-child {
+		padding-top: 7px;
+	}
+
+	.icon-search {
+		margin-top: -10px;
+		height: 22px;
+		width: 22px;
+		float: right;
+	}
+
+	.custom-md-menu-content {
+		min-height: 85px;
+		max-height: 400px;
+		padding: 0px
+	}
+
+	.custom-md-menu-item {
+		height: 75px;
+		min-height: 75px;
+		border-bottom: 1px solid rgba(204, 204, 204, 0.918);
+		cursor: pointer
+	}
+
+	.custom-md-menu-item-more {
+		height: 35px;
+		min-height: 35px;
+		border-bottom: 1px solid #ccc
+	}
+
+	md-list:hover {
+		background-color: #ececec;
+	}
+	.btnPassport{
+		margin-top: -10px !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+</style>
+<md-dialog aria-label="QUICK_CHECKIN" layout flex-sm="98" flex-xs="98" flex-gt-sm="50">
+	<form name="quickCheckInForm">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'QUICK_CHECKIN' | translate}} {{RoomName}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100" style="padding: 16px 12px;">
+				<div layout="row" layout-align="space-between center" flex="100">
+					<div flex="45" layout layout-align="start center">
+						<md-input-container flex="100" style="margin: 0px;">
+							<label>{{'CUSTOMER_NAME' | translate}}</label>
+							<input name="fullname" md-autofocus type="text" minlength=2 maxlength=50 required ng-model="customer.Fullname" />
+						</md-input-container>
+						<md-menu>
+							<md-button type="submit" aria-label="Open demo menu" class="md-icon-button margin00" ng-click="searchCustomer($mdOpenMenu, $event)">
+								<md-icon class="icon-search" style="" aria-label="Search Customer" md-svg-src="img/icons/ic_search_24px.svg"></md-icon>
+							</md-button>
+							<md-menu-content class="custom-md-menu-content" width="6">
+								<md-menu-item class="custom-md-menu-item" ng-if="customerList.Travellers.length > 0" ng-click="selectCustomer(customer)"
+								    ng-repeat="customer in customerList.Travellers">
+									<md-list style="width:100%;margin:0px;padding:0px;">
+										<md-list-item class="md-3-line" ng-click="" style="">
+											<div class="md-list-item-text" layout="column" style="padding-top:7px;min-height:75px;max-height:75px">
+												<h3 style="font-weight:bold">
+													<md-icon md-menu-origin="" ng-click="" style="float:left;height:22px;width:22px;" aria-label="Identity Customer" md-svg-src="img/icons/ic_face_24px.svg"></md-icon>
+													&nbsp;{{customer.Fullname | truncate:30}} |
+													<span ng-if="customer.Gender == 0">{{'MALE' | translate}}</span>
+													<span ng-if="customer.Gender == 1">{{'FEMALE' | translate}}</span>
+													<span ng-if="customer.Gender != 0 && customer.Gender != 1">{{'OTHER' | translate}}</span>
+												</h3>
+												<p style="font-size:13px">
+													<md-icon md-menu-origin="" ng-click="" style="height:20px;width:20px;" aria-label="Mobile" md-svg-src="img/icons/ic_phone_android_48px.svg"></md-icon>
+													<span ng-if="customer.Mobile == null">{{'NOT_UPDATED' | translate}}</span>{{customer.Mobile | truncate:25}}
+
+													<md-icon md-menu-origin="" ng-click="" style="height:20px;width:20px;" aria-label="Email" md-svg-src="img/icons/ic_email_48px.svg"></md-icon>
+													<span ng-if="customer.Email == null">{{'NOT_UPDATED' | translate}}</span>{{customer.Email | truncate:25}}
+												</p>
+												<p style="font-size:13px">
+													<md-icon md-menu-origin="" ng-click="" style="height:20px;width:20px;" aria-label="IdentityNumber" md-svg-src="img/icons/ic_perm_identity_48px.svg"></md-icon>
+													<span ng-if="customer.IdentityNumber == null">{{'NOT_UPDATED' | translate}}</span>{{customer.IdentityNumber | truncate:25}}
+													<md-icon md-menu-origin="" ng-click="" style="height:20px;width:20px;" aria-label="CountryName" md-svg-src="img/icons/ic_home_48px.svg"></md-icon>
+													{{customer.CountryName}}
+												</p>
+											</div>
+										</md-list-item>
+									</md-list>
+								</md-menu-item>
+								<md-menu-item class="custom-md-menu-item-more" ng-if="customerList.TotalRecord - customerList.SkipRecord > 10" style="">
+									<md-button md-prevent-menu-close="md-prevent-menu-close" ng-click="moreCustomer()">
+										<span md-menu-align-target style="padding-left:110px">
+											<code>{{'MORE_CUSTOMER' | translate}}</code>
+										</span>
+									</md-button>
+								</md-menu-item>
+								<md-menu-item ng-if="customerList.TotalRecord == 0" style="height:75px;min-height:75px;">
+									<md-button ng-click="">
+										<span style="padding-left:100px">
+											<code>{{'NO_CUSTOMER_MATCHING' | translate}}</code>
+										</span>
+									</md-button>
+								</md-menu-item>
+							</md-menu-content>
+						</md-menu>
+						<!-- passport -->
+						<md-menu ng-if="isUsePassport">
+							<md-button class="md-icon-button btnPassport" onclick="su.open(receivePassportInfo)">
+								<md-icon class="md-inline-list-icon" md-svg-icon="img/icons/ic_account_box_48px.svg">
+									</ng-md-icon>
+							</md-button>
+						</md-menu>
+						
+					</div>
+					<!--<md-autocomplete flex="45" style="margin: 0px; padding: 0px;" 
+													 md-no-cache="noCache"
+													 md-selected-item="selectedItem"
+													 md-search-text-change="searchTextChange(searchText)"
+													 md-search-text="searchText"
+													 md-selected-item-change="selectedItemChange(item)"
+													 md-items="item in querySearch(searchText)"
+													 md-item-text="item.Fullname"
+													 md-min-length="0"
+													 md-floating-label="{{'CUSTOMER_NAME' | translate}}">
+						<md-item-template>
+							<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.Fullname}}</span>
+						</md-item-template>
+						<md-not-found>
+							{{'NO_CUSTOMER_MATCHING' | translate}} "{{searchText}}" {{'WERE_FOUND' | translate}}.
+						</md-not-found>
+					</md-autocomplete>-->
+					<!--<bind-expression flex="45" name="customerFullName" ng-required="true" expression="searchText" ng-model="customer.Fullname" />-->
+					<div flex="45" layout="row" layout-wrap>
+						<div flex="100" layout="row" layout-wrap style="width: 100%;" ng-if="selectedItem">
+							<md-input-container flex="100" style="margin: 0px;margin-top: 3px;width: 100%;">
+								<label>{{'IDENTITY' | translate}}</label>
+								<input type="text" ng-model="$parent.selectedItem.IdentityNumber">
+							</md-input-container>
+							<bind-expression name="customerIdentityNumber" ng-required="true" expression="$parent.selectedItem.IdentityNumber" ng-model="customer.IdentityNumber"
+							/>
+						</div>
+						<div flex="100" layout="row" layout-wrap style="width: 100%;" ng-if="!selectedItem && customer">
+							<md-input-container flex="100" style="margin: 0px;margin-top: 3px;width: 100%;">
+								<label>{{'IDENTITY' | translate}}</label>
+								<input type="text" ng-model="$parent.customer.IdentityNumber">
+							</md-input-container>
+							<bind-expression name="customerIdentityNumber" ng-required="true" expression="$parent.customer.IdentityNumber" ng-model="customer.IdentityNumber"
+							/>
+						</div>
+					</div>
+				</div>
+				<div layout="row" layout-align="space-between center" flex="100">
+					<div flex="45" layout="row">
+						<md-select flex ng-model="room.RoomTypeId" placeholder="{{'SELECT_TYPE' | translate}}" style="margin: 0px; margin-top: 19px; margin-bottom: 12px;">
+							<md-select-label style="width:100%"></md-select-label>
+							<!--							<md-option value="0">{{'SELECT_TYPE' | translate}}</md-option>-->
+							<md-option ng-repeat="rt in roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName | translate }}</md-option>
+						</md-select>
+
+					</div>
+					<div flex="45" layout="row" layout-align="center center">
+						<md-select flex ng-model="room.RoomId" ng-change="updateRoomType()" md-on-close="onSelectRoom(room.RoomId)" placeholder="{{'SELECT_ROOM'|translate}}"
+						    style="margin: 0px;margin-top: 19px; margin-bottom: 12px;">
+							<md-select-label style="width:100%"></md-select-label>
+							<md-option value="0">{{'SELECT_ROOM' | translate}}</md-option>
+							<md-option ng-repeat="r in availableRoom | filter: {RoomTypeId:room.RoomTypeId}" ng-value="r.RoomId">{{r.RoomName}}</md-option>
+						</md-select>
+					</div>
+
+				</div>
+				<div layout="row" layout-align="space-between center" flex="100">
+
+					<div flex="45" layout="row" layout-align="space-between center">
+						<md-select flex ng-model="room.RoomPriceId" placeholder="{{'RATE' | translate}}" style="margin-bottom: 25px;">
+							<md-select-label style="width:100%"></md-select-label>
+							<md-option ng-if="!room.RoomId && !room.RoomPriceId" selected value="0">{{'SELECT_RATE' | translate}}</md-option>
+							<md-option ng-repeat="plan in availablePlanList" ng-value="plan.RoomPriceId" ng-selected="plan.RoomPriceId.toString() === availablePlanList[0].RoomPriceId.toString()">{{plan.RoomPriceName | translate}}</md-option>
+						</md-select>
+
+					</div>
+					<md-input-container flex="45" style="margin: 0px;margin-top: 24px;">
+						<label>{{'PRICE' | translate}}</label>
+						<input type="text" ng-model="room.Price" ui-number-mask="decimal" />
+					</md-input-container>
+				</div>
+				<div flex="100" layout="row" layout-align="space-between center" layout-wrap style="">
+					<md-input-container flex="45">
+						<label>{{'ARRIVAL' | translate}}</label>
+						<input kendo-date-time-picker ng-model="str" ng-required k-ng-model="room.ArrivalDate" style="width: 100%;" min="minDate"
+						    k-options="DateTimePickerOption" />
+					</md-input-container>
+
+					<md-input-container flex="45" style="margin-bottom: 0px;margin-top: 28px;">
+						<label>{{'ADULTS' | translate}}</label>
+						<input type="number" ng-model="room.Adults" min="1">
+					</md-input-container>
+				</div>
+				<div flex="100" layout="row" layout-align="space-between center" layout-wrap style="">
+
+					<md-input-container flex="45">
+						<label>{{'DEPARTURE' | translate}}</label>
+						<input kendo-date-time-picker ng-model="str2" ng-required k-ng-model="room.DepartureDate" style="width: 100%;" min="room.ArrivalDate"
+						    k-options="DateTimePickerOption" />
+					</md-input-container>
+
+					<md-input-container flex="45" style="margin-bottom: 0px;margin-top: 6px;">
+						<label>{{'CHILDREN' | translate}}</label>
+						<input type="number" ng-disabled="$stateParams.reservationRoomId && (room.BookingStatus ==='CHECKIN' || room.BookingStatus ==='OVERDUE')"
+						    ng-model="room.Child" min="0">
+					</md-input-container>
+				</div>
+
+				<div flex="100" layout="row" layout-align="space-between center" layout-wrap style="">
+					<md-input-container flex="45" style="margin-bottom: 0px;">
+						<label>{{'DEPOSIT' | translate}}</label>
+						<input type="text" ng-model="deposit.Amount" ui-number-mask="decimal">
+					</md-input-container>
+					<md-input-container flex="45">
+						<label>{{'METHOD' | translate}}</label>
+						<md-select ng-model="deposit.PaymentMethodId">
+							<md-option ng-repeat="method in paymentMethods | filter: {PaymentMethodId:'!4'}" ng-value="method.PaymentMethodId">{{ method.PaymentMethodName | translate}}</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+			</div>
+
+			<section>
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+				    ng-if="warningMissingRoom == true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+						{{'MISSING_ROOM._PLEASE_SELECT_A_ROOM_TO_PERFORM_CHECKIN_ACTION' | translate}}.
+					</span>
+				</fieldset>
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+				    ng-if="warningMissingCustomer == true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+						{{'MISSING_CUSTOMER._PLEASE_CREATE_NEW_OR_CHOOSE_AT_LEAST_ONE_CUSTOMER_TO_PERFORM_CHECKIN_ACTION' | translate}}.
+					</span>
+				</fieldset>
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+				    ng-if="warningMissingRoomPriceId == true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+						{{'PLEASE_SELECT_A_ROOM_PRICE_TYPE_TO_PERFORM_RESERVE_ACTION' | translate}}.
+					</span>
+				</fieldset>
+
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+				    ng-if="warningDepartureDate == true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+						{{'PLEASE_SELECT_A_VALID_DATE_TO_PERFORM_RESERVE_ACTION' | translate}}.
+					</span>
+				</fieldset>
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+				    ng-if="warningDateIsNull == true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+						{{'PLEASE_SELECT_ARRIVAL_OR_DEPARTURE_DATE' | translate}}!
+					</span>
+				</fieldset>
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+				    ng-if="warningFullnameLength == true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+						{{'FULLNAME_LENGTH_MUST_NOT_BIGGER_(50)' | translate}}!
+					</span>
+				</fieldset>
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+				    ng-if="warningDepartureDate1 == true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+						{{'CAN_NOT_RESERVATION_DUE_TO_THE_DEPARTURE_DATE_WAS_IN_THE_PAST' | translate}}!
+					</span>
+				</fieldset>
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+					ng-if="warningNumberCustomer == true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+						{{'MISSING_NUMBER_CUSTOMER._PLEASE_TYPE_NUMBER_OF_CUSTOMER_AT_LEAST_ONE' | translate}}!
+					</span>
+				</fieldset>
+			</section>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" ng-disabled="isSave" id="btn_cancel" class="btn-c md-primary ">
+				{{'CANCEL' | translate}}
+				<md-tooltip md-direction="left" flex-gt-md="100">
+					Ctrl + C
+				</md-tooltip>
+			</md-button>
+			<span flex></span>
+			<md-button ng-click="processReserve($event)" ng-disabled="isSave" id="btn_reserve" class="btn-c md-primary md-raised">
+				{{'RESERVE' | translate}}
+				<md-tooltip md-direction="top" flex-gt-md="100">
+					Ctrl + R
+				</md-tooltip>
+			</md-button>
+			<md-button ng-click="processCheckIn($event)" ng-disabled="isSave" id="btn_checkin" class="btn-c md-raised md-warn">
+				{{'CHECKIN' | translate}}
+				<md-tooltip md-direction="top" flex-gt-md="100">
+					Ctrl + I
+				</md-tooltip>
+			</md-button>
+			<button id="btnSavePassportInfo" ng-click="saveInfoPassport()" class="hide"></button>
+		</md-dialog-actions>
+	</form>
+
+</md-dialog>
+<script>
+    function receivePassportInfo(data) {
+        console.log("passport infor",data);
+        var info = angular.copy(data);       
+        
+        FullnameCustomer =  info.LastName + " " + info.FirstName; 
+        Gender = info.Gender;
+        IdentityNumber = info.DocumentNumber;
+        Birthday = info.DateOfBirth;
+        ValidUntil = info.ValidUntil;
+        CountryCode = info.NationalityCode;
+        ImageLocation = info.ImageLocation;
+        
+        document.getElementById('btnSavePassportInfo').click(); 
+    }
+</script>

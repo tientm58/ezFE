@@ -1,0 +1,49 @@
+
+<md-content id="height100" flex="100" layout="row" layout-wrap style="padding-top: 10px; padding-bottom: 10px;" class="md-padding stock-screen">
+    <div flex-gt-sm="30" flex-xs="100" flex-sm="100" class="md-whiteframe-z2 fit-height-card" style="margin-left: 3px; margin-right: 3px;" ng-if="($mdMedia('gt-xs') === true) || ($mdMedia('xs') === true && categoryOn === false)">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2 class="md-headline">
+                    {{'EXTRA_SERVICE_TYPE' | translate}}
+                </h2>
+            </div>
+        </md-toolbar>
+        <md-content layout="column" style="">
+            <md-list>
+                <md-list-item style="" ng-if="stockItems.length == 0">
+                    <p class="text-center">No Item Found</p>
+                    <md-divider></md-divider>
+                </md-list-item>
+                <md-list-item style="" ng-repeat="item in stockItems" ng-if="type.ExtraServiceTypeName !=='EXTRA_SERVICES'" ng-click="showCategory(type)">
+                    <div class="btn-switch-active" ng-click="$event.stopPropagation();changeCategoryStatus(category)" ng-switch on="item.isHidden">
+                        <md-icon md-svg-src="img/icons/ic_play_circle_outline_48px.svg" style="" ng-switch-when="true">
+                            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                {{'TOOLTIP_ACTIVE' | translate}}
+                            </md-tooltip>
+                        </md-icon>
+                        <md-icon md-svg-src="img/icons/ic_pause_circle_outline_48px.svg" style="" ng-switch-when="false">
+                            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                {{'TOOLTIP_DEACTIVE' | translate}}
+                            </md-tooltip>
+                        </md-icon>
+                    </div>
+                    <p>
+                        <span class="display-block">{{ item.name }}</span>
+                        <span class="display-block">{{ item.address }}</span>
+                    </p>
+                    <md-icon class="md-inline-list-icon" md-svg-src="img/icons/ic_edit_48px.svg" style="" ng-click="editItem(item);$event.stopPropagation()">
+                        <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                            {{'TOOLTIP_EDIT' | translate}}
+                        </md-tooltip>
+                    </md-icon>
+                    <md-icon class="md-inline-list-icon" md-svg-src="img/icons/ic_highlight_remove_48px.svg" style="" ng-click="deleteItem(item);$event.stopPropagation()">
+                        <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                            {{'TOOLTIP_DELETE' | translate}}
+                        </md-tooltip>
+                    </md-icon>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </div>
+</md-content>

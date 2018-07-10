@@ -1,0 +1,154 @@
+<style>
+    h3{
+    margin: 20px 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 40px;
+    letter-spacing: -1px;
+    display: block;
+    color: #666;
+    font-family: 'Open Sans',sans-serif;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+  }
+  .ipsum {
+  color : gray;
+  font-size: 0.9em; 
+  font-style: italic;
+  display: block;
+  padding-top: 6px;
+  }
+  .md-list-item.md-2-line .md-list-item-text,
+md-list-item.md-2-line>._md-no-style .md-list-item-text,
+md-list-item.md-3-line .md-list-item-text,
+md-list-item.md-3-line>._md-no-style .md-list-item-text {
+    margin: auto;
+}
+
+md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+    height: auto;
+}
+
+md-list-item ._md-list-item-inner ._md-secondary-container,
+md-list-item ._md-secondary-container {
+    height: auto;
+}
+#height{
+    min-height: 400px !important;
+    max-height: 50000px !important;
+    overflow: auto;
+}
+.ipsum {
+  color: gray;
+  line-height:19px;
+  font-style: normal !important;
+}
+</style>
+<div layout="row" layout-margin="" id="height" layout-padding="" ng-cloak="" style="">
+    <md-card id="height" style="" flex="100" layout="row" layout-padding="" layout-wrap="">
+        <h4 style="color:black;">
+            {{'CHANNEL_MANAGER_ROOM_MAPPING' | translate}}
+        </h4>
+		<section flex="100" layout layout-align="start start">
+            <section  flex-xs="100" class="ipsum" flex-gt-xs="100">
+                <md-icon md-menu-origin="" md-svg-src="img/icons/ic_warning_48px.svg" >
+                </md-icon>{{'CMROOMTYPE_RATE_MAPPING_NOTE' | translate}}
+            </section>
+        </section>
+        <section flex="100" layout layout-align="start start">
+            <section  flex-xs="100" class="ipsum" flex-gt-xs="100">
+                <md-icon md-menu-origin="" md-svg-src="img/icons/ic_warning_48px.svg" >
+                </md-icon>{{'CMROOMTYPE_RATE_MAPPING_BE_NOTE' | translate}}
+            </section>
+        </section>
+        <!-- <md-list flex="100">
+            <md-list-item style="padding: 0px;">    
+                <p style="font-weight: bold;">
+                    {{'HOTEL_ROOM_TYPE' | translate}}
+                </p>
+                <p class="md-secondary" style="font-weight: bold;">
+                    {{'CM_ROOM_TYPE_MAPPED' | translate}}
+                </p>
+            </md-list-item>
+            <md-list-item ng-repeat="roomType in mappedRoomTypes">
+                    <p>
+                        {{roomType.RoomType.RoomTypeName}}
+                    </p>
+                    <p class="md-secondary" ng-if="roomType.RoomType.IsHidden == false">
+                        <span ng-repeat="map in roomType.MappedTo">
+                            <span style="font-style: italic;">
+                                {{map.CMRoomTypeName}}
+                            </span>
+                            <span ng-if="$index != roomType.MappedTo.length - 1">
+                                |
+                            </span>
+                        </span>
+                        <md-icon aria-label="Add More Room Type" md-svg-src="img/icons/ic_add_48px.svg" ng-click="mapMoreCMRoomType(roomType)" style="margin-left: 6px;">
+                        </md-icon>
+                    </p>
+                    <p class="md-secondary" ng-if="roomType.RoomType.IsHidden == true" style="color: #f44336;">
+                        {{'CURRENTLY_INACTIVE' | translate}}
+                    </p>
+
+            </md-list-item>
+        </md-list> -->
+        <md-list flex="100">
+            <md-list-item style="">
+                <p style="font-weight: bold;">
+                    {{'HOTEL' | translate}}
+                </p>
+                <p class="md-secondary" style="font-weight: bold;">
+                    {{'CHANNEL_MANAGER' | translate}}
+                </p>
+            </md-list-item>
+        </md-list>
+        <md-list  ng-repeat="roomType in mappedRoomTypes" flex="100">
+            <md-list-item style="background-color: #d6d6d6;">
+                <p>
+                    {{roomType.RoomType.RoomTypeName | translate}}
+                </p>
+                <p class="md-secondary" ng-if="roomType.RoomType.IsHidden == false">
+                    <span ng-repeat="map in roomType.MappedTo">
+                        <span style="font-style: italic;">
+                            {{map.CMRoomTypeName}}
+                        </span>
+                    </span>
+                    <md-icon aria-label="Add More Room Type" md-svg-src="img/icons/ic_add_48px.svg" ng-click="mapMoreCMRoomType(roomType)" style="margin-left: 6px;">
+                    </md-icon>
+                    <md-icon aria-label="Remove More Room Type" ng-if="roomType.MappedTo.length>0" md-svg-src="img/icons/ic_close_48px.svg" ng-click="removeCMRoomType(roomType)" style="margin-left: 6px;">
+                    </md-icon>
+                </p>
+                <p class="md-secondary" ng-if="roomType.RoomType.IsHidden == true" style="color: #f44336;">
+                    {{'CURRENTLY_INACTIVE' | translate}}
+                </p>
+            </md-list-item>
+            <md-list-item ng-repeat="roomPrice in roomType.RoomPrice_Rate_MappedList">
+            <p>
+               {{roomPrice.RoomPrice.RoomPriceName | translate}}
+            </p>
+            <p class="md-secondary">
+                <span ng-if="roomPrice.MappedToRate">{{roomPrice.MappedToRate.rate_id}} -</span> {{roomPrice.MappedToRate.rate_name | translate}}
+                <md-icon aria-label="Add More Room Type" md-svg-src="img/icons/ic_add_48px.svg" ng-click="mapMoreCMRoomRate(roomPrice)" style="margin-left: 6px;">
+                </md-icon>
+                <md-icon aria-label="Remove More Room Rate" ng-if="roomPrice.MappedToRate" md-svg-src="img/icons/ic_close_48px.svg" ng-click="removeCMRoomRate(roomPrice)" style="margin-left: 6px;">
+                </md-icon>
+            </p>
+            </md-list-item>
+            <md-divider></md-divider>
+        </md-list>
+    </md-card>
+</div>
+<div flex="" layout="row" layout-align="space-between center" ng-repeat="roomPrice in roomType.RoomPrice_Rate_MappedList">
+    <p>
+        {{roomPrice.RoomPrice.RoomPriceName}}
+    </p>
+    <p>
+        <span style="font-style: italic;">
+            {{roomPrice.MappedToRate.rate_name}}
+        </span>
+        <md-icon aria-label="Add More Room Type" md-svg-src="img/icons/ic_add_48px.svg" ng-click="mapMoreCMRoomType(roomType)" style="margin-left: 6px;">
+        </md-icon>
+    </p>
+</div>

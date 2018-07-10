@@ -1,0 +1,96 @@
+<style>
+	.disabled {
+		background: #dddddd;
+	}
+	.textDiabled {
+		text-decoration: line-through
+	}
+	.isChangeable{
+		color: #f44336 !important;
+	} 
+	input[type=number]::-webkit-inner-spin-button,
+	input[type=number]::-webkit-outer-spin-button {
+		opacity: 1;
+	}
+	.isSelected {
+		background: #dddddd;
+        font-weight: bold;
+	}
+	.fullWidth {
+		width: 100%;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	a.md-button.md-primary.md-raised,
+	a.md-button.md-primary.md-fab,
+	.md-button.md-primary.md-raised,
+	.md-button.md-primary.md-fab {
+		color: rgba(255, 255, 255, 0.87);
+		/* background-color: rgb(16, 108, 200); */
+	}
+
+	.isHover {
+ color: rgb(17, 153, 205) !important;
+	}
+	/*========================= TAB ============================*/
+
+	md-tabs md-tabs-content-wrapper md-tab-content{
+/*		background: #eeeeee;*/
+	}
+    #height100{
+        /* min-height: 100px !important; */
+        max-height: 8000px !important;
+        overflow-y: hidden !important;
+    }
+	/*========================= TAB ============================*/
+</style>
+	<md-tabs md-center-tabs md-dynamic-height md-selected="selectedIndex" md-border-bottom="" md-autoselect="" style="" id="height100">
+		<md-tab label="{{'HOTEL_OWNER_INFORMATION' | translate}}" ui-sref="configHotelOwnerInfo">
+			<div  style=" margin: 20px auto;" ui-view="configHotelOwnerInfo" >
+			</div>
+		</md-tab>
+		<md-tab label="{{'HOTEL_INFORMATION' | translate}}" ui-sref="configHotelInfo">
+			<div ui-view="configHotelInfo"  style="margin-bottom: 20px;" >
+			</div>
+		</md-tab>
+		<md-tab label="{{'ROOM_TYPE' | translate}}" ui-sref="configRoomType">
+			<div style="margin-bottom: 20px;" ui-view="configRoomType">
+			</div>
+		</md-tab>
+		<md-tab label="{{'FLOOR_LIST' | translate}}" ui-sref="configFloorList">
+			<md-content style="margin: 20px auto;min-height:145px" ui-view="configFloorList">
+
+			</md-content>
+		</md-tab>
+		<md-tab label="{{'ROOM_LIST' | translate}}" ui-sref="configRoomList">
+			<md-content style="margin: 20px auto;" ui-view="configRoomList">
+			</md-content>
+		</md-tab>
+		<md-tab label="{{'EXTRA_SERVICES' | translate}}" ui-sref="configExtraServices">
+			<md-content ui-view="configExtraServices" style="" id="height100">
+			</md-content>
+		</md-tab>
+
+		<md-tab label="{{'STAFF' | translate}}" ui-sref="configStaff">
+			<md-content class="md-padding" ui-view="configStaff">
+			</md-content>
+		</md-tab>
+		<md-tab label="{{'SYSTEM' | translate}}" ui-sref="configSystem">
+			<div class="" ui-view="configSystem">
+			</div>
+		</md-tab>
+		<md-tab label="{{'BUSINESS' | translate}}" ui-sref="configBusiness">
+			<div class="" ui-view="configBusiness">
+			</div>
+		</md-tab>
+		<md-tab label="{{'POINT_OF_SALE' | translate}}" ui-sref="configPOS" ng-if="isPOSModuleActive == true">
+			<div class="" ui-view="configPOS">
+			</div>
+		</md-tab>
+		<!-- <md-tab label="{{'THU_CHI' | translate}}" ui-sref="configExpenditure" ng-if="true">
+			<div class="" ui-view="configExpenditure">
+			</div>
+		</md-tab> -->
+	</md-tabs>
+
+<!--</md-content>-->

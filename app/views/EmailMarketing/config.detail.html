@@ -1,0 +1,210 @@
+
+<style>
+	.top-page{
+		background: url(img/bg-header.png);
+		background-repeat: no-repeat;
+		min-height: 55px;
+		border-radius: 0 !important;
+		background-size: cover;
+	}
+	.black_t{
+		color: rgba(255, 255, 255, 0.71);
+		/*font-style: italic;*/
+	}
+	.yellow_t{
+		color: #FFEB3B;
+		padding-right: 15px;
+	}
+	
+	.margin0{
+		margin: 0px;
+	}
+	.hightline{
+		color: #FF9800;
+	}
+	.text-date{
+		color: rgba(2, 2, 2, 0.58) !important;
+		font-style: italic;
+		font-size: 12px  !important;
+	}
+	.sub-title{
+		text-transform: uppercase;
+		font-weight: 600;
+		color: rgba(58, 56, 56, 0.71);
+		line-height: 50px;
+		/*margin-left: 17px !important;*/
+	}
+	.showfull{
+		height: initial !important;
+		background-color: rgba(242, 242, 242, 0.15);
+		margin-bottom: 5px;
+	}
+	.box-header{
+		padding-left: 17px;
+		padding-right: 17px;
+		/*background: rgba(242, 242, 242, 0.35) !important;*/
+	}
+	#main_view, .bg-gray{
+		/*background: #f2f2f2 !important;*/
+	}
+	.md-subheader.md-default-theme, .md-subheader {
+		background-color: rgb(245,245,245) !important;
+	} 
+	.bg-waring{
+		background: #FF5722;
+	}
+    .margin-bottom-100{
+        margin-bottom: 100px;
+    }
+    .tabs-menu md-tabs-canvas{
+        background-color: #EEEEEE;
+    }
+    .box-config md-input-container{
+        width: 200px;
+    }
+    .padding015{
+        padding: 0 15px;
+    }
+    .fill-gray{
+        fill: rgba(0,0,0,0.54) !important;
+    }
+    
+</style> 
+<form ng-submit="doSaveConfig()"  >
+    <md-content class="tabsdemoDynamicHeight" style="" >
+        <md-card-content id="height" flex="100" ng-if="!email">
+            <md-toolbar md-scroll-shrink class="top-page md-primary md-default-theme md-whiteframe-z1" layout="row" style="border-radius: 3px 3px 0 0; box-shadow: 0 1px rgba(255, 255, 255, 0.1); background-color: #eee;">
+                <div layout="row" layout-align="space-between center" style="width: 100%;">
+                    <div flex-gt-sm="75" flex-xs="75" flex-sm="75" class="md-toolbar-tools" style="height:40px;">
+                        <h1 class="md-headline" style="padding-left: 8px;color: #444;">
+                            <span class="black_t">{{'EMAIL_CONFIG_NOT_FOUND'|translate}}</span> 
+                        </h1> 
+                    </div> 
+                </div>
+            </md-toolbar>
+        </md-card-content>
+        <md-card-content id="height" flex="100" ng-if="email">
+                <button class="hide" id="btn_doSaveConfig"></button>
+                <md-toolbar md-scroll-shrink class="top-page md-primary md-default-theme md-whiteframe-z1" layout="row" style="border-radius: 3px 3px 0 0; box-shadow: 0 1px rgba(255, 255, 255, 0.1); background-color: #eee;">
+                    <div layout="row" layout-align="space-between center" style="width: 100%;">
+                        <div flex-gt-sm="75" flex-xs="75" flex-sm="75" class="md-toolbar-tools" style="height:40px;">
+                            <h1 class="md-headline" style="padding-left: 8px;color: #444;">
+                                <span class="black_t">{{'EMAIL_PROFILE'|translate}}</span> 
+                            </h1> 
+                        </div>
+                        
+                        <div style="" flex="60" layout="row" layout-align="end center" >
+                            <md-button class="btn-c md-raised"  style="" id="btn_back" ng-click="goToConfigList()">
+                                <md-icon md-svg-icon="img/icons/ic_arrow_back_48px.svg" class="small-icon fill-gray md-secondary md-hue-3" ></md-icon>
+                                {{'BACK'| translate}}
+                                <md-tooltip md-direction="left" flex-gt-md="100" >
+                                    Ctrl + B
+                                </md-tooltip>
+                            </md-button>
+                            <md-button class="btn-c md-raised"  style="" id="btn_verify_email" ng-click="checkConfigEmail()">
+                                <md-icon md-svg-icon="img/icons/ic_check_circle_24px.svg" class="small-icon fill-gray md-secondary md-hue-3" ></md-icon>
+                                {{'CHECK_EMAIL'| translate}}
+                            </md-button>
+                            <md-button class="btn-c md-raised md-warn"  onclick="jQuery('#btn_doSaveConfig').click()" >
+                                <md-icon md-svg-icon="img/icons/ic_save_48px.svg" class="small-icon md-secondary md-hue-3" ></md-icon>
+                                {{'SAVE'| translate}}
+                                <md-tooltip md-direction="top" flex-gt-md="100" >
+                                    Ctrl + S
+                                </md-tooltip>
+                            </md-button>
+                            <!-- <md-button class="btn-c md-raised"  style="" ng-click="checkConfigEmail()">{{'CHECK_EMAIL'| translate}}</md-button> -->
+                            <!-- <md-button class="btn-c md-raised" onclick="jQuery('#btn_doSaveConfig').click()">{{'SAVE'| translate}}</md-button> -->
+                        </div> 
+                    </div>
+                </md-toolbar> 
+                <md-tabs md-dynamic-height md-border-bottom md-selected="data.selectedIndex" class="tabs-menu" ng-cloak >
+                    <md-tab md-on-select="" id="tab1" aria-controls="tab1-content" label="{{'SMTP' | translate}}"  ng-cloak >
+                        <md-content style="" id="height100" ng-cloak >
+                            <form name="projectForm"> 
+                                    <div flex="100" layout="row" layout-align="space-around center " class="box-config" layout-wrap="" > 
+                                        <md-input-container >
+                                            <label>{{'TYPE' | translate}}</label>
+                                            <md-select ng-model="type" ng-change="changeType(type)">
+                                                <md-option value="GMAIL">Gmail</md-option>
+                                                <md-option value="YAHOO">Yahoo</md-option>
+                                                <md-option value="YANINDEX">YanIndex</md-option>  
+                                            </md-select>
+                                        </md-input-container> 
+
+                                        <md-input-container   class="md-block">
+                                            <label>{{'SERVER_NAME' | translate}}</label>
+                                            <input md-maxlength="30" required md-no-asterisk id="servername" autofocus  name="description" ng-model="email.ServerName"  md-autofocus>
+                                            <div ng-messages="projectForm.server_name.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <md-input-container   class="md-block">
+                                            <label>{{'PORT' | translate}}</label>
+                                            <input type="number" min="0" required md-no-asterisk ng-model="email.Port">
+                                        </md-input-container> 
+
+                                        <!-- <md-input-container  >
+                                        <label>{{'ENCRYPTION' | translate}}</label>
+                                        <md-select ng-model="email.EncryptionId">
+                                            <md-option><em>None enctyption</em></md-option>
+                                            <md-option>Use SSL enctyption</md-option>
+                                            <md-option>Use TLS enctyption.</md-option>  
+                                        </md-select>
+                                        </md-input-container> -->
+                                    </div>
+                                    
+                                    <div flex="100" layout="row" layout-align="space-around center" class="box-config" layout-wrap="" > 
+                                        <md-input-container class="md-block">
+                                            <label>{{'EMAIL_NAME' | translate}}</label>
+                                            <input md-maxlength="40" maxlength="40" required md-no-asterisk name="description" ng-model="email.EmailName">
+                                            <div ng-messages="projectForm.email_name.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <md-input-container class="md-block">
+                                            <label>{{'USER_NAME' | translate}}</label>
+                                            <input md-maxlength="50" maxlength="50" type="email" required md-no-asterisk name="description" ng-model="email.UserName">
+                                            <div ng-messages="projectForm.user_name.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container class="md-block">
+                                            <label>{{'PASSWORD' | translate}}</label>
+                                            <input type="password" required md-no-asterisk name="description" ng-model="email.PassEmail">
+                                            <div ng-messages="projectForm.password.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </md-input-container> 
+
+                                </div> 
+
+                            </form> 
+                        </md-content>
+                    </md-tab>
+                    <md-tab md-on-select="" id="tab2" aria-controls="tab1-content" label="{{'SIGN' | translate}}"  ng-cloak >
+                        <md-content class="margin-bottom-100 padding015" style="" id="height100" ng-cloak >
+                            <div flex="100" layout="row"  layout-wrap="" >
+                                <span class="sub-title">{{'HEADER_EMAIL' | translate}}</span>
+                            </div>
+                            <div ckeditor="ConditionPolicyOption" ng-model="email.HeaderHtml" ></div> 
+ 
+                            <div flex="100" layout="row"  layout-wrap="" >
+                                <span class="sub-title">{{'FOOTER_EMAIL' | translate}}</span>
+                            </div> 
+                            <div  ckeditor="ConditionPolicyOption"
+                                ng-model="email.FooterHtml" ></div> 
+
+                        </md-content>
+                    </md-tab>
+
+                </md-tabs> 
+            
+        </md-card-content>
+        
+        <!--</md-card>-->
+    </md-content> 
+</form>
+ 

@@ -1,0 +1,54 @@
+<style>
+    .totalPrice{
+        padding: 15px;
+    }
+    .price{
+        font-weight: bold;
+        color: #ff5722;
+        font-size: 20px;
+    }
+</style>
+<md-dialog aria-label="AcceptGroupCheckOut" flex-gt-xs="50" flex-xs="98" ng-cloak>
+    <form name="acceptGroupCheckOut">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Thông báo thanh toán</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()" >
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" class="icon-white"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap layout-align="space-between center" style="padding-bottom: 20px;width: 100%;">
+                <span class="red-text" style="font-size: 15px;"><i><b>{{'NOT_PAYMENT_YET' | translate}}</b></i></span>
+            </div>
+            <div class="totalPrice" layout="row" layout-wrap layout-align="space-between center" style="width: 100%;">
+                <div flex="75"><span>{{'TOTAL_PRICE_UNTIL_NOW' | translate}}: </span></div>
+                <div flex="auto" style="text-align: right"><span class="price">{{defCurrency.MoneyName}} {{total | currency:"":minorUnit.MinorUnit}}</span></div>
+            </div>
+            <div class="totalPrice" layout="row" layout-wrap layout-align="space-between center" style="width: 100%;">
+                <div flex="75"><span>{{'TOTAL_ALL_PRICE_UNTIL_NOW' | translate}}: </span></div>
+                <div flex="auto" style="text-align: right"><span class="price">{{defCurrency.MoneyName}} {{totalGroup | currency:"":minorUnit.MinorUnit}}</span></div>
+            </div>
+            <div class="totalPrice" layout="row" layout-wrap layout-align="space-between center" style="width: 100%;" ng-if="isChangeTab">
+                <div><span class="red-text"><i>{{'CHECKING_PAYMENT_GROUP' | translate}}</i></span></div>
+            </div>
+        </md-dialog-content>
+        <div class="md-actions" layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                <span>{{'CANCEL' | translate}}</span>
+            </md-button>
+            <md-button ng-click="quickPayment()" class="md-warn md-raised" ng-if="isRemain && !isChangeTab && total > 0">
+                <span>{{'PAYMENT_AND_CHECKOUT' | translate}}</span>
+            </md-button>
+            <md-button ng-if="(isRemain && !isChangeTab && total != 0) || pastCheckOutAll" ng-click="keepCheckOut()" class="md-warn">
+                <span  class="warning-text">{{'STILL_CHECKOUT' | translate}}</span>
+            </md-button>
+            <md-button ng-if="(isRemain && total == 0) || (!isRemain && totalGroup == 0)" ng-click="quickCheckOut()" class="md-warn">
+                <span  class="warning-text">{{'CHECKOUT_NOW' | translate}}</span>
+            </md-button>
+        </div>
+    </form>
+</md-dialog>
+    

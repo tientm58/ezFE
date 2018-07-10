@@ -1,0 +1,235 @@
+<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/signalr/jquery.signalR.min.js"></script>
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="bower_components/iron-data-table/iron-data-table.html">
+<link rel="import" href="bower_components/iron-data-table/default-styles.html">
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<dom-module id="scanner-ui">
+        
+    <template>
+        <style include="iron-flex">
+            .container {
+                @apply(--layout-horizontal);            
+            }
+            .flexchild {
+            @apply(--layout-flex);
+            }
+            .flex2child {
+                @apply(--layout-flex-2);
+                padding:10px;
+            }
+            .flex4child {
+            @apply(--layout-flex-4);
+            }
+            paper-dialog{
+                width: 1286px;
+            }
+            paper-dialog > paper-toolbar {
+                margin: 0;
+                padding: 0;
+            };         
+            .profile {
+                background-image: url(/donuts.png);      
+                width: 100px;
+                height: 100px;      
+            }
+            .profile-text {
+                width:40%;
+            }
+            div.container.style-scope.scanner-ui{
+                height: fit-content;
+            }
+        </style>        
+        <paper-dialog id="scanner_dialog" modal>  
+            
+    <paper-toolbar>
+        <span slot="top" class="title">Passport Scanner</span>
+        <paper-icon-button slot="top" icon="refresh" onclick="document.querySelector('scanner-ui').RefreshScanner()" title="Refresh"></paper-icon-button>
+        <paper-icon-button slot="top" icon="remove" onclick="removeconfirm.open()" title="Remove Selected">-</paper-icon-button>        
+        <paper-icon-button slot="top" icon="done"  dialog-confirm onclick="document.querySelector('scanner-ui').selectedItem()" title="Select this passport">+</paper-icon-button>
+        <paper-icon-button slot="top" icon="close" dialog-dismiss title="Close">x</paper-icon-button>
+      </paper-toolbar>
+            <paper-dialog-scrollable>
+                <div>
+                    <paper-card>
+                        <div class="container">
+                            <div id="profile" class="flexchild">
+                                <img width="100%" id="profileImage"  src="img/passport.png" />
+                            </div>
+                       
+                        <div class="flex2child">
+                                <paper-input id="firstName" label="First Name">
+                                        <iron-icon icon="icons:folder-shared" prefix></iron-icon>                                        
+                                      </paper-input>
+                                      <paper-input label="Last Name" id="lastName">
+                                            <iron-icon icon="icons:folder-shared" prefix></iron-icon>                                        
+                                          </paper-input>
+                                          <paper-input label="Document Number" id="docNumber">
+                                                <iron-icon icon="icons:credit-card" prefix></iron-icon>                                        
+                                              </paper-input>
+                        
+                        </div>
+                        <div class="flex2child">
+                                <paper-input label="Date of Birth" type="date" id="birthDay">
+                                        <iron-icon icon="icons:date-range" prefix></iron-icon>                                        
+                                      </paper-input>
+                                          <paper-input label="Expiration Date" type="date" id="expirationDate">
+                                            <iron-icon icon="icons:date-range" prefix></iron-icon>                                        
+                                          </paper-input>
+                                          <paper-input label="Nationality" value="Viet Nam" id="nationality">
+                                                <iron-icon icon="icons:credit-card" prefix></iron-icon>
+                                                                                        
+                                              </paper-input>
+                        
+                        </div></div>
+
+
+                      </paper-card>                                        
+                    </div>
+                    <iron-data-table items="[[data]]" id="passport_list" selection-enabled>
+
+                        <data-table-column name="Document Number">
+                                    <template>[[item.DocumentNumber]]</template>
+                        </data-table-column>
+                        <data-table-column name="First Name">
+                        <template>[[item.FirstName]]</template>
+                      </data-table-column>
+                      <data-table-column name="Last Name">
+                        <template>[[item.LastName]]</template>
+                      </data-table-column>
+                      <data-table-column name="Date of Birth">
+                            <template>[[item.DateOfBirth2]]</template>
+                    </data-table-column>
+                    <data-table-column name="Expiration Date">
+                            <template>[[item.ValidUntil2]]</template>
+                    </data-table-column>
+                    <data-table-column name="Nationality">
+                            <template>[[item.Nationality]]</template>
+                    </data-table-column>
+                    </iron-data-table>
+            </paper-dialog-scrollable>
+            <!-- <div class="buttons" >
+              <paper-button onclick="document.querySelector('scanner-ui').removeSelectedItem()">Remove selected item</paper-button>  
+              <paper-button dialog-dismiss>Cancel</paper-button>
+              <paper-button dialog-confirm autofocus onclick="document.querySelector('scanner-ui').selectedItem()">OK</paper-button>
+            </div> -->
+        </paper-dialog>
+        <paper-dialog id="removeconfirm">
+                <h2>Do you really want to remove this passport?</h2>   
+                <paper-dialog-scrollable></paper-dialog-scrollable>  
+                <div class="buttons" >        
+                    <paper-button dialog-dismiss>Cancel</paper-button>
+                    <paper-button dialog-confirm autofocus onclick="document.querySelector('scanner-ui').removeSelectedItem()">OK</paper-button>
+                </div>
+            </paper-dialog>
+    </template>
+</dom-module>
+
+<script>     
+    
+    Polymer({
+        /* this is the element's prototype */
+        is: 'scanner-ui',
+      
+        RefreshScanner() {
+            process.server.getAllPassports();
+        }, 
+        removeSelectedItem: function() {
+            
+            if (this.selectedItemValue) {
+                //console.log(table.selectedItem);
+                removeItem(this.selectedItemValue);
+                this.selectedItemValue = null;
+                this.bindInputValue(null);
+            }
+        },
+       
+        selectedItem:function() {
+            if (this.selectedItemValue) {           
+				console.log(this.selectedItemValue);
+                if (this.callback)
+                this.callback(this.selectedItemValue);
+                removeItem(this.selectedItemValue);
+                this.selectedItemValue = null;
+                this.bindInputValue(null);
+            }
+            
+        },
+        open: function(callback) {
+            if (!scannerOn) {
+                alert("Please turn on ezCloud Plustek Service first");
+                return;
+            }
+            var scanneruiInstance = this;
+            this.callback = callback;
+            var dialog =this.$.scanner_dialog;
+            dialog.open();
+            this.set("data",passports);
+            setTimeout(function() {
+                var table = dialog.querySelector('iron-data-table');
+                console.log(table.items);
+                table.addEventListener('selecting-item', function(e) {
+                    e.preventDefault(); // this will cancel the default selection behavior
+                    table.clearSelection();
+                    table.selectItem(e.detail.item);
+                    console.log(e.detail.item);
+                    scanneruiInstance.bindInputValue(e.detail.item);
+                });
+            //console.log(table.dataSource);
+                table.collapseItem(0);
+                table.selectItem(0);
+                
+                if (table.items)
+                scanneruiInstance.bindInputValue(table.items[0]);
+                
+                
+            },100);
+                
+           // setTimeout(function() {this.$.querySelector("#passport_list").selectItem(0);},1000);
+            
+        },
+        bindInputValue: function(item) {
+            if (item) {
+                    this.selectedItemValue = item;
+                    firstName.value = item.FirstName;
+                    lastName.value = item.LastName;
+                    docNumber.value = item.DocumentNumber;
+                    nationality.value = item.Nationality;
+                    birthDay.value = moment(item.DateOfBirth).format("YYYY-MM-DD");
+                    expirationDate.value = moment(item.ValidUntil).format("YYYY-MM-DD");                    
+                    profileImage.src = item.ImageLocation ;                                        
+            } else {
+                this.selectedItemValue = item;
+                    firstName.value = "";
+                    lastName.value = "";
+                    docNumber.value = "";
+                    nationality.value = "";
+                    birthDay.value = "";
+                    expirationDate.value = "";                    
+                    profileImage.src = "img/passport.png";                                        
+            }
+                },
+        properties: {
+            data: {
+                type:Object,
+                value: []
+            }
+        },
+        ready: function() {            
+            
+        }
+      });  
+      
+
+</script>

@@ -1,0 +1,113 @@
+<style>
+    .has-error {
+		/* label classes */
+		display: inline;
+/*		padding: .2em .6em .3em;*/
+        padding: 0px;
+		font-size: 75%;
+		font-weight: bold;
+		line-height: 1;
+		color: #f44336;
+		text-align: left;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: .25em;
+		/* label danger classes */
+		background-color: #ffffff;
+	}
+    .ipsum {
+        color: red;
+        font-size: 0.9em;
+        display: block;
+        padding-top: 6px;
+    }
+</style>
+<md-dialog aria-label="Change Password">
+    <form name="changeEmailForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'CHANGE_EMAIL_HOTEL_OWNER' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel();$event.preventDefault()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <md-input-container  flex="100">
+                    <label>{{'OLD_EMAIL' | translate}}</label>
+                    <input type="text" ng-disabled="true" ng-pattern="/^(([^<>()\[\]\.,;:\s@]+(\.[^<>()\[\]\.,;:\s@]+)*)|)@(([^<>()[\]\.,;:\s@]+\.)+[^<>()[\]\.,;:\s@]{2,})$/i" name="OldEmail" ng-model="OldEmail" ng-trim="true" />
+                </md-input-container>
+                
+                <md-input-container md-is-error="!changeEmailForm.OldPassword.$valid" flex="100">
+                    <label>{{'OLD_PASSWORD_(REQUIRED)' | translate}}</label>
+                    <input required ng-model="OldPassword" type="password" name="OldPassword" style="margin-bottom: 10px;">
+                    <div ng-messages="changeEmailForm.OldPassword.$error" class="has-Error">
+                    </div>
+                </md-input-container>
+
+                <md-input-container  layout-wrap flex="100">
+                    <label>{{'NEW_EMAIL_(REQUIRED)' | translate}} </label>
+                     <input required type="text"  ng-pattern="/^(([^<>()\[\]\.,;:\s@]+(\.[^<>()\[\]\.,;:\s@]+)*)|)@(([^<>()[\]\.,;:\s@]+\.)+[^<>()[\]\.,;:\s@]{2,})$/i" name="NewEmail" ng-model="NewEmail" ng-trim="true" />
+                     <div ng-messages="changeEmailForm.NewEmail.$error" class="has-Error" style="">
+                        <span ng-if="changeEmailForm.NewEmail.$error.pattern">
+                             {{ 'INVALID_EMAIL' | translate }}
+                        </span>
+                        <span ng-if="!changeEmailForm.NewEmail.$error">
+                            {{ errors[0] | translate }}
+                        </span>
+                    </div>
+                </md-input-container>
+
+              
+                <md-input-container  layout-wrap flex="100">
+                    <label>{{'NEW_EMAIL_CONFIRM_(REQUIRED)' | translate}} </label>
+                     <input required type="text"  ng-pattern="/^(([^<>()\[\]\.,;:\s@]+(\.[^<>()\[\]\.,;:\s@]+)*)|)@(([^<>()[\]\.,;:\s@]+\.)+[^<>()[\]\.,;:\s@]{2,})$/i" name="NewEmailConfirm" ng-model="NewEmailConfirm"  ng-pattern="NewEmail" ng-trim="true" />
+                  <div ng-messages="changeEmailForm.NewEmailConfirm.$error" class="has-Error" style="">
+                        <span ng-if="changeEmailForm.NewEmailConfirm.$error.pattern">
+                             {{ 'INVALID_EMAIL' | translate }}
+                        </span>
+                        <span ng-if="!changeEmailForm.NewEmailConfirm.$error.pattern">
+                            {{ errors[0] | translate }}
+                        </span>
+                    </div>
+                    
+                    <div ng-messages="changeEmailForm.NewEmailConfirm.$error.pattern" class="has-Error" ng-if="NewEmail && NewEmailConfirm && NewEmail !== NewEmailConfirm" style="">
+                        <span>
+                            {{'NEW_EMAIL_NOT_MATCH' | translate}}
+                        </span>
+                    </div>
+                </md-input-container>
+
+            </div>
+
+            <span class="ipsum" style="line-height: 20px;padding-left: 22px; padding-right:22px; font-size: 14px;">
+                {{'NOTE_CHANGE_EMAIL_HOTEL_OWNER_1' | translate}}
+            </span>
+        </md-dialog-content>
+
+        <md-dialog-content>
+            <section>
+                <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warningEmailNotMatch === true">
+                    <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+                    <span style="color: #f44336;">
+                            {{'NEW_EMAIL_NOT_MATCH' | translate}}. 
+                        </span>
+                </fieldset>
+            </section>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button ng-click="processEditEmailHotelOwner()" class="md-primary" ng-disabled="changeEmailForm.$invalid">
+               {{'SAVE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+
+    </form>
+
+</md-dialog>

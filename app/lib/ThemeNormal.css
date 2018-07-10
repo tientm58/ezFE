@@ -1,0 +1,121 @@
+#ez_wrp {
+}
+.content_left_menu span {
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    color: #313131 !important;
+}
+.content_left_menu span.custom-label {
+    font-weight: 400 !important;
+    font-size: 10px !important;
+    color: #fff !important;
+}
+#ez_wrp #left_menu {
+}
+
+#ez_wrp .content_left_menu {
+    border-right:#e4e4e4 thin solid;
+    background-color:#fffeff
+}
+
+@-webkit-keyframes glowing {
+    0% {
+        -webkit-box-shadow: 0 0 3px #004A7F;
+    }
+    50% {
+        -webkit-box-shadow: 0 0 10px #0094FF;
+    }
+    100% {
+        -webkit-box-shadow: 0 0 3px #004A7F;
+    }
+}
+
+@-moz-keyframes glowing {
+    0% {
+        -moz-box-shadow: 0 0 3px #004A7F;
+    }
+    50% {
+        -moz-box-shadow: 0 0 10px #0094FF;
+    }
+    100% {
+        -moz-box-shadow: 0 0 3px #004A7F;
+    }
+}
+
+@-o-keyframes glowing {
+    0% {
+        box-shadow: 0 0 3px #004A7F;
+    }
+    50% {
+        box-shadow: 0 0 10px #0094FF;
+    }
+    100% {
+        box-shadow: 0 0 3px #004A7F;
+    }
+}
+
+@keyframes glowing {
+    0% {
+        box-shadow: 0 0 3px #004A7F;
+    }
+    50% {
+        box-shadow: 0 0 10px #0094FF;
+    }
+    100% {
+        box-shadow: 0 0 3px #004A7F;
+    }
+}
+
+.input_search {
+    -webkit-animation: glowing 1500ms infinite;
+    -moz-animation: glowing 1500ms infinite;
+    -o-animation: glowing 1500ms infinite;
+    animation: glowing 1500ms infinite;
+    border-radius: 3px !important;
+    font-size: 12px;
+}
+
+.ez_wp_title_group md-input-container {
+    margin: -5px 0 0 0;
+    margin-bottom: -18px;
+    max-width: 120px !important;
+    float: none;
+    width: 60px;
+    height: 45px;
+}
+
+.name_field_filter {
+    color: #636363 !important;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 6px;
+    padding-top: 12px;
+}
+
+md-tabs.md-default-theme .md-tab.md-active,
+md-tabs .md-tab.md-active,
+md-tabs.md-default-theme .md-tab.md-active md-icon,
+md-tabs .md-tab.md-active md-icon,
+md-tabs.md-default-theme .md-tab.md-focused,
+md-tabs .md-tab.md-focused,
+md-tabs.md-default-theme .md-tab.md-focused md-icon,
+md-tabs .md-tab.md-focused md-icon {
+    color: rgb(17, 153, 205) !important;
+}
+ 
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar),
+md-toolbar:not(.md-menu-toolbar) {
+        background-color: #2bade3 !important;
+}
+#customAutoComplete md-autocomplete-wrap {
+    box-shadow: none !important;
+    /* background-color:#14ace4; */
+    background-color: #fff !important;
+}
+/* .lidate.isLastWeek {
+    background: #7b7979 !important;
+}
+.isNowDate {
+    background: #2bade3 !important;
+} */

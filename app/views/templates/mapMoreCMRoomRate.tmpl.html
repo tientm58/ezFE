@@ -1,0 +1,46 @@
+<md-dialog aria-label="CM Register">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    {{'RATE_MAPPING' | translate}}
+                </h2>
+                <span flex="">
+                </span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="Close dialog" md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;">
+                    </md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" flex="100" layout="row" layout-wrap="">
+                <span flex="100">
+                    {{'RATE_MAPPING_FOR' | translate}}
+                    <span style="font-weight: 500; font-style: italic;">
+                        {{roomPrice.RoomPrice.RoomPriceName | translate}}
+                    </span>
+                </span>
+                <md-radio-group ng-model="resultIndex" style="padding-top: 12px;">
+                    <md-radio-button class="md-warn" ng-disabled="rate.RoomPriceMappedId != null && rate.IsCurrentRoomPrice == false" ng-repeat="rate in availableRoomRateMapping" ng-value="rate.CMRoomRateId">
+                        <span ng-if="rate.CMRoomRateId">{{rate.CMRoomRateId}} -</span> {{rate.CMRoomRateName}}
+                        <span ng-if="rate.IsCurrentRoomPrice == true" style="font-style: italic;">
+                            ({{'ALREADY_MAPPED' | translate}})
+                        </span>
+                        <span ng-if="rate.RoomPriceMappedId != null && rate.IsCurrentRoomPrice == false" style="font-style: italic;">
+                            ({{'MAPPED_TO' | translate}} {{rate.RoomPriceMappedName}})
+                        </span>
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button class="md-primary" ng-click="cancel()">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button class="md-primary" ng-click="saveRoomRateMapping()">
+                {{'SAVE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

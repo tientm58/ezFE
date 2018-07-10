@@ -1,0 +1,674 @@
+<style>
+    .workorderTab {
+        box-shadow: 1px 1px 1px 1px;
+    }
+
+    .width30p {
+        width: 30%;
+        /* min-width: 100px; */
+    }
+
+    .width15p {
+        width: 15%;
+        /* min-width: 120px; */
+    }
+
+    .width65p {
+        width: 65%;
+    }
+
+    .selectDate {
+        overflow: scroll;
+        display: block;
+        position: fixed;
+    }
+
+    .divSeclectDate {
+        border: 1px solid black;
+        height: 33px;
+        /* padding: 5px; */
+    }
+
+    #horizontal-container {
+        height: 33px;
+        width: 100%;
+        max-width: 830px;
+    }
+
+    .wrap_scroll_wo {
+        position: relative;
+    }
+
+    .wrap_scroll_wo .keyboard_arrow {
+        position: absolute;
+        right: -9px;
+        top: 0;
+        width: 20px;
+        height: 100%;
+        line-height: 30px;
+        background-color: #fff;
+        z-index: 92;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        overflow: hidden;
+        outline: none;
+    }
+
+    .wrap_scroll_wo .keyboard_arrow_left {
+        position: absolute;
+        left: -21px;
+        top: 0;
+        /* padding-top: 4px; */
+        width: 20px;
+        height: 100%;
+        line-height: 30px;
+        background-color: #fff;
+        z-index: 2;
+        cursor: pointer;
+        -webkit-user-select: none;
+        /* Chrome all / Safari all */
+        -moz-user-select: none;
+        /* Firefox all */
+        -ms-user-select: none;
+        /* IE 10+ */
+        user-select: none;
+        /* Likely future */
+        overflow: hidden;
+        outline: none;
+    }
+
+    .keyboard_arrow md-icon,
+    .keyboard_arrow_left md-icon {
+        padding-top: 4px;
+    }
+
+    .repeated-item {
+        -webkit-user-select: none;
+        /* Chrome all / Safari all */
+        -moz-user-select: none;
+        /* Firefox all */
+        -ms-user-select: none;
+        /* IE 10+ */
+        user-select: none;
+        /* Likely future */
+        overflow: hidden;
+    }
+
+    .wrap_scroll_wo .keyboard_arrow:active {
+        background-color: #f3f3f3;
+    }
+
+    .repeated-item {
+        border-right: 1px solid #ddd;
+        box-sizing: border-box;
+        display: inline-block;
+        padding-top: 3px;
+        text-align: center;
+        width: 50px;
+        line-height: 30px;
+        font-size: 12px;
+    }
+
+    .repeated-item:hover {
+        cursor: pointer;
+    }
+
+    .bg_selected {
+        background-color: #FF9800;
+        color: #fff;
+    }
+
+    md-virtual-repeat-container {
+        /* border: solid 1px grey; */
+    }
+
+    .bg_gray_01 {
+        background-color: #f2f2f2;
+    }
+
+    .sm-select {
+        border: 0px;
+        font-size: 12px;
+        background: #f2f2f2;
+    }
+
+    .md-virtual-repeat-container.md-orient-horizontal .md-virtual-repeat-scroller {
+        overflow-x: hidden;
+    }
+
+    .overflow-hidden {
+        overflow: hidden;
+    }
+
+    .name_wo {
+        font-size: 14px;
+    }
+
+    .md-virtual-repeat-offsetter {
+        /* padding-left: 27px !important; */
+        /* padding-right: 21px !important; */
+    }
+
+    .disabledBTN {
+        background: #f2f2f2 !important;
+        cursor: not-allowed !important;
+    }
+
+    .disabledPast {
+        opacity: 0.4;
+        cursor: not-allowed !important;
+    }
+
+    .isWeeked {
+        /* border-bottom: 4px solid #2196F3; */
+        color: #3f53c3;
+    }
+
+    .btnSaveNoteHousekeeping {
+        width: 35px;
+        height: 45px;
+    }
+</style>
+
+<md-content layout="row" layout-wrap class="" style="overflow-y:hidden">
+    <div ng-cloak flex-xs="100" flex-sm="100" flex-gt-sm="50" ng-if="!isCheckOut">
+        <md-card>
+            <div class="box-header">
+                <div ng-if="isCheckOut === false || room.BookingStatus ==='AVAILABLE'" layout="row" layout-align="space-between center" class="max-height50"
+                    layout-wrap>
+                    <div flex="85" flex-xs="75">
+                        <md-input-container class="margin0" flex="100">
+                            <label> </label>
+                            <input type="search" ng-model="page.searchES" placeholder="{{'FILTER_EXTRA_SERVICE' | translate}}" style=" margin-top: 19px;"
+                            />
+                        </md-input-container>
+                    </div>
+                    <div>
+                        <md-button class="md-primary md-fab md-mini" style="margin-bottom: 0px;bottom: 0" onclick="jQuery('#save_services').click()">
+                            <!--{{'ADD' | translate}}-->
+                            <md-icon md-svg-src="img/icons/ic_add_24px.svg" style="fill:white"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+                <md-divider></md-divider>
+            </div>
+            <md-card-content>
+                <form ng-submit="addExtraService()" name="form-add-service" novalidate>
+                    <button id="save_services" class="hide"></button>
+                    <div layout="row" layout-align="space-between start" layout-wrap ng-if="(isCheckOut === false && isCancel===false) || room.BookingStatus ==='AVAILABLE'">
+                        <div flex style="">
+                            <div layout="row" flex="100">
+                                <md-tabs flex="100" md-selected="0" md-border-bottom md-dynamic-height>
+                                    <md-tab md-active="true" ng-if="room.BookingStatus ==='CHECKIN' || room.BookingStatus ==='OVERDUE'" label="{{'ALL' | translate}}"
+                                        layout="row" layout-wrap flex="100">
+                                        <md-content layout-align="center start" style="height:calc(100% - 43%)">
+                                            <div layout="column" layout-align="center start" ng-clock ng-repeat="type in extraservice.ExtraServiceTypes" class="height-all-es"
+                                                ng-if="type.IsHide == false">
+                                                <md-subheader style="width:100%" class="md-primary" ng-if="type.ExtraServiceTypeName!='EXTRA_SERVICES'&& type.ExtraServiceTypeName!='WORK_ORDER'">{{type.ExtraServiceTypeName | translate}}</md-subheader>
+                                                <md-list flex="90" class="height-all-es" ng-if="type.ExtraServiceTypeName!='EXTRA_SERVICES'&& type.ExtraServiceTypeName!='WORK_ORDER'">
+                                                    <md-list-item ng-clock ng-repeat="item in extraservice.ExtraServiceItems  | filter: {ExtraServiceItemName: page.searchES,IsHidden:false} | orderBy:'Priority'"
+                                                        flex="100" layout="row" layout-align="space-between center" ng-if="item.ExtraServiceTypeId==type.ExtraServiceTypeId">
+                                                        <p flex="50">
+                                                            {{item.ExtraServiceItemName | truncate:25}}
+                                                            <span ng-show="item.ExtraServiceItemName.length> 25">...</span>
+                                                        </p>
+                                                        <md-slider flex="40" ng-model="item.quantity" min="0" max="10" step="1"></md-slider>
+                                                        <div flex="10" layout layout-align="end center">
+                                                            <input flex type="number" name="quantity_{{$index}}" min="0" value="0" ng-model="item.quantity" aria-controls="red-slider">
+                                                        </div>
+                                                    </md-list-item>
+                                                </md-list>
+                                            </div>
+                                        </md-content>
+                                    </md-tab>
+                                    <md-tab ng-repeat="list in extraservice.ExtraServiceTypes" ng-if="list.IsHide == false && (list.ExtraServiceTypeName!='EXTRA_SERVICES') && (list.ExtraServiceTypeName !='WORK_ORDER') && (room.BookingStatus ==='CHECKIN' || room.BookingStatus ==='OVERDUE')"
+                                        label="{{list.ExtraServiceTypeName | translate}}" layout="row" layout-wrap flex="100">
+                                        <md-content layout-align="center start" style="height:calc(100% - 43%)">
+                                            <div layout flex="100" layout-align="center start" ng-show="list.ExtraServiceTypeName!='EXTRA_SERVICES' && list.ExtraServiceTypeName!='WORK_ORDER'">
+                                                <md-input-container flex="90" style="">
+                                                    <label>{{'SELECT_CATEGORY' | translate}}</label>
+                                                    <md-select ng-model="selectedExtraServiceCategory" ng-init="selectedExtraServiceCategory=0">
+                                                        <md-option value="0">{{'ALL_CATEGORY' | translate}}</md-option>
+                                                        <md-option md-no-ink ng-repeat="extraServiceCategory in extraservice.ExtraServiceCategories" value="{{extraServiceCategory.ExtraServiceCategoryId}}"
+                                                            ng-if="extraServiceCategory.ExtraServiceTypeId==list.ExtraServiceTypeId">{{extraServiceCategory.ExtraServiceCategoryName}}</md-option>
+                                                    </md-select>
+                                                </md-input-container>
+                                            </div>
+                                            <div flex="100" layout="column" layout-align="center start">
+                                                <md-list flex="90" ng-show="list.ExtraServiceTypeName!='EXTRA_SERVICES' && list.ExtraServiceTypeName!='WORK_ORDER'">
+                                                    <md-list-item ng-repeat="item in extraservice.ExtraServiceItems | filter: {ExtraServiceItemName: page.searchES,IsHidden:false} | orderBy:'Priority'"
+                                                        flex="100" layout="row" layout-align="space-between center" ng-if="item.ExtraServiceTypeId==list.ExtraServiceTypeId"
+                                                        ng-show="(item.ExtraServiceCategoryId==selectedExtraServiceCategory) || (selectedExtraServiceCategory==0)">
+                                                        <p flex="40">
+                                                            {{item.ExtraServiceItemName | truncate:25}}
+                                                            <span ng-show="item.ExtraServiceItemName.length> 25">...</span>
+                                                        </p>
+                                                        <md-slider flex="40" ng-model="item.quantity" min="0" max="10" step="1">
+                                                        </md-slider>
+                                                        <div flex="20" layout layout-align="end center">
+                                                            <input flex type="number" min="0" ng-model="item.quantity" aria-controls="red-slider">
+                                                        </div>
+                                                    </md-list-item>
+                                                </md-list>
+
+                                            </div>
+                                        </md-content>
+                                    </md-tab>
+                                    <!-- tab WORK_ORDER -->
+                                    <md-tab ng-repeat="list in extraservice.ExtraServiceTypes" label="{{'WORK_ORDER'|translate}}" ng-if="(list.ExtraServiceTypeName =='WORK_ORDER') && (room.BookingStatus ==='CHECKIN' || room.BookingStatus ==='OVERDUE')"
+                                        layout="row" layout-wrap flex="100" class="workorderTab">
+                                        <md-input-container flex="100" layout="row">
+                                            <label>{{'WORKORDER_NOTE' | translate}} </label>
+                                            <input md-autofocus flex="100" ng-change="ChangeStatusNoteHousekeeping()" ng-model="roomWorkOrder.Note" ng-click="changeNoteHousekeeping($event,roomWorkOrder.Note)">
+                                        </md-input-container>
+                                        <md-content layout-align="center start" flex="100" layout="row">
+                                            <div flex="100" layout="column" layout-align="center start">
+                                                <md-table-container class="width100pec overflow-hidden">
+                                                    <table class="width100pec">
+                                                        <tbody>
+                                                            <tr ng-repeat="item in roomWorkOrder.WorkOrderExtraServices" id="row_wo_{{$index}}" ng-show="list.ExtraServiceTypeName!='EXTRA_SERVICES'">
+                                                                <td class="width30p text-left padding0 margin0 name_wo">
+                                                                    {{item.ExtraServiceItemName | truncate:20}}
+                                                                    <span ng-show="item.ExtraServiceItemName.length > 20">...</span>
+                                                                    <md-tooltip ng-if="item.ExtraServiceItemName.length > 20">
+                                                                        {{item.ExtraServiceItemName}}
+                                                                    </md-tooltip>
+                                                                </td>
+                                                                <td class="text-center width15p bg_gray_01  padding0 margin0">
+                                                                    <select ng-model="item.Repeat" ng-change="repeatChange(item)" class="sm-select">
+                                                                        <option value=''>{{'WORKORDER_CUSTOM' | translate}}</option>
+                                                                        <option value="FIRST">{{'WORKORDER_FIRST' | translate}}</option>
+                                                                        <option value="EVERYDAY">{{'WORKORDER_EVERYDAY' | translate}}</option>
+                                                                        <option value="LAST">{{'WORKORDER_LAST' | translate}}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td class="text-center bg_gray_01" layout="column" layout-align="start center">
+                                                                    <div class="width100pec wrap_scroll_wo">
+                                                                        <div class="keyboard_arrow_left disabledBTN btn_keyboard_arrow_left{{$index}}" ng-click="ScrollLeftWO($index)">
+                                                                            <md-icon md-svg-src="img/icons/ic_keyboard_arrow_left_24px.svg"></md-icon>
+                                                                        </div>
+                                                                        <md-virtual-repeat-container id="horizontal-container" md-orient-horizontal md-top-index="topIndex" md-auto-shrink>
+                                                                            <div md-virtual-repeat="roomExtraServiceItem in item.RoomExtraServiceItems" ng-class="[{'bg_selected':roomExtraServiceItem.IsSelected},{'disabledPast':checkPast(roomExtraServiceItem.DateUsed)},
+                                                                                            {'isWeeked': isWeeked(roomExtraServiceItem.DateUsed)}]"
+                                                                                ng-click="roomExtraServiceItem_Click(roomExtraServiceItem)"
+                                                                                class="repeated-item">{{roomExtraServiceItem.ArrivalDate}}</div>
+                                                                        </md-virtual-repeat-container>
+                                                                        <div class="keyboard_arrow  btn_keyboard_arrow{{$index}}" ng-click="ScrollRightWO($index)">
+                                                                            <md-icon md-svg-src="img/icons/ic_keyboard_arrow_right_24px.svg"></md-icon>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </md-table-container>
+                                            </div>
+                                        </md-content>
+                                    </md-tab>
+                                    <md-tab label="{{'EXTRA_SERVICE' | translate}}">
+                                        <md-content style="height:calc(100% - 43%)">
+                                            <div flex="100" layout layout-align="center start">
+                                                <md-list flex="90">
+                                                    <md-list-item flex="100" style="overflow-y:hidden" layout layout-wrap layout-align="center center">
+                                                        <md-input-container flex="100" style="">
+                                                            <label>{{'EXTRA_SERVICE_NAME' | translate}} ({{'REQUIRED' | translate}})</label>
+                                                            <input ng-model="extraServiceNoItem.RoomExtraServiceDescription" required type="text" md-maxlength="200" maxlength="200">
+                                                        </md-input-container>
+                                                        <div flex="100" layout layout-align="start start">
+                                                            <p flex="20">
+                                                                {{'QUANTITY' | translate}}
+                                                            </p>
+                                                            <md-slider flex="60" ng-model="extraServiceNoItem.Quantity" data-ng-init="extraServiceNoItem.Quantity = 1" min="1" max="10"
+                                                                step="1">
+                                                            </md-slider>
+                                                            <input style="margin-top:10px" flex type="number" min="1" ng-model="extraServiceNoItem.Quantity" aria-controls="red-slider">
+                                                        </div>
+                                                        <md-input-container flex="100">
+                                                            <label>{{'PRICE' | translate}} ({{'REQUIRED' | translate}}) </label>
+                                                            <input ng-model="extraServiceNoItem.Amount" required type="text" ui-number-mask="decimal" ui-negative-number>
+                                                        </md-input-container>
+                                                    </md-list-item>
+                                                </md-list>
+                                            </div>
+                                        </md-content>
+                                    </md-tab>
+                                </md-tabs>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <div ng-cloak flex-xs="100" flex-sm="100" flex-gt-sm="50" ng-if="room.BookingStatus !=='AVAILABLE'" id="height100">
+        <md-card id="height100">
+            <div class="box-header">
+                <section class="height50">
+                    <md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="showDetail" class="md-primary sub-title checkbox_detail">
+                        {{'VIEW_DETAIL' | translate}}
+                    </md-checkbox>
+                </section>
+                <md-divider></md-divider>
+            </div>
+            <md-card-content class="box-services">
+                <section>
+                    <md-list class="margin0" ng-repeat="(key, value) in RoomExtraServices | groupBy:'RoomExtraServiceName'" ng-if="!showDetail">
+                        <md-subheader style="width:100%" class="margin0 md-primary" ng-if="type.ExtraServiceTypeName!='EXTRA_SERVICES'">
+                            {{key | translate}}
+                        </md-subheader>
+                        <md-list-item class="md-2-line" ng-if="key !=='EXTRA_SERVICES'" ng-repeat="item in RoomExtraServiceItems | filter: ({ExtraServiceTypeName: value[0].RoomExtraServiceName,isHide:false})">
+                            <div class="md-list-item-text" ng-if="!item.IsDeleted">
+                                <h3>
+                                    {{item.DateUsed | date:'dd/MM '}} {{item.ExtraServiceItemName}}
+                                    <span class="hightline">({{item.Quantity}})</span>
+                                </h3>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{item.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{item.UserName}}
+                                </p>
+                            </div>
+                            <div class="md-list-item-text" ng-if="item.IsDeleted">
+                                <p>
+                                    <h3 ng-class="{ 'textDisabled' : item.IsDeleted }">({{item.Quantity}}) {{item.ExtraServiceItemName}} </h3>
+                                </p>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{item.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{item.UserName}}
+                                    <br/>
+                                    <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}] {{item.DeletedDate | date:'dd/MM (HH:mm)'}} </code>
+                                    <span>
+                                        {{item.DeletedReason | truncate:25}}
+                                        <md-tooltip md-direction="left" hide-xs hide-sm hide-md>
+                                            {{item.DeletedReason}}
+                                        </md-tooltip>
+                                    </span>
+                                    <br/> {{item.DeletedByUserName}}
+                                    <br/>
+
+                                </p>
+                            </div>
+                            <p class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }">
+                                <span>
+                                    {{item.Quantity * item.Price | currency}}
+
+                                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                        {{item.ExtraServiceItemName}}
+                                    </md-tooltip>
+                                </span>
+                                <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" ng-if="!item.IsDeleted && !isCheckOut && !isCancel" ng-click="deleteExtraServiceItem($event, item)"
+                                    style="cursor: pointer;"></md-icon>
+                            </p>
+                        </md-list-item>
+                        <md-list-item class="md-2-line" ng-if="key ==='EXTRA_SERVICES'" ng-repeat="val in value | filter:{isHide:false}" layout="row"
+                            layout-align="space-between center">
+                            <div class="md-list-item-text" ng-if="!val.IsDeleted && !isCheckOut && !isCancel" style="">
+                                <h3>
+                                    {{val.RoomExtraServiceDescription}}
+                                    <span class="hightline">({{val.Quantity}})</span>
+                                </h3>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{val.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{val.UserName}}
+                                </p>
+                            </div>
+                            <div class="md-list-item-text" ng-if="val.IsDeleted" style="">
+                                <p>
+                                    <h3 ng-class="{ 'textDisabled' : val.IsDeleted }">>({{val.Quantity}}) {{val.RoomExtraServiceDescription}}</h3>
+                                </p>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{val.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{val.UserName}}
+                                    <br/>
+                                    <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}] </code>
+                                    <span style="text-overflow: ellipsis;">{{val.DeletedDate | date:'dd/MM (HH:mm)'}}</span>
+                                    <span style="cursor: help;">
+                                        {{val.DeletedReason | truncate:30}}
+                                        <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                            {{val.DeletedReason}}
+                                        </md-tooltip>
+                                    </span>
+                                    <br/> {{val.UserNameDeleted}}
+                                </p>
+                            </div>
+                            <!--jira 663/1/loinq-->
+                            <div class="md-list-item-text" ng-if="!val.IsDeleted && isCheckOut && !isCancel" style="">
+                                <p>
+                                    <h3 ng-class="{ 'textDisabled' : val.IsDeleted }">({{val.Quantity}}) {{val.RoomExtraServiceDescription}}</h3>
+                                </p>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{val.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{val.UserName}}
+                                    <br/>
+                                    <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}] </code>
+                                    <span style="text-overflow: ellipsis;">{{val.DeletedDate | date:'dd/MM (HH:mm)'}}</span>
+                                    <span style="cursor: help;">
+                                        {{val.DeletedReason | truncate:30}}
+                                        <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                            {{val.DeletedReason}}
+                                        </md-tooltip>
+                                    </span>
+                                    <br/> {{val.UserNameDeleted}}
+                                </p>
+                            </div>
+                            <div class="md-list-item-text" ng-if="!val.IsDeleted && isCancel" style="">
+                                <p>
+                                    <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" ng-if="!val.IsDeleted && !isCheckOut && !isCancel" ng-click="deleteRoomExtraService($event, val)"
+                                        style="cursor: pointer;"></md-icon>
+                                    <h3 ng-class="{ 'textDisabled' : val.IsDeleted }">
+                                        {{val.RoomExtraServiceDescription}}
+                                        <span class="hightline">({{val.Quantity}})</span>
+                                    </h3>
+                                </p>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{val.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{val.UserName}}
+                                    <br/>
+                                    <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}] </code>
+                                    <span style="text-overflow: ellipsis;">{{val.DeletedDate | date:'dd/MM (HH:mm)'}}</span>
+                                    <span style="cursor: help;">
+                                        {{val.DeletedReason | truncate:30}}
+                                        <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                            {{val.DeletedReason}}
+                                        </md-tooltip>
+                                    </span>
+                                    <br/> {{val.UserNameDeleted}}
+                                </p>
+                            </div>
+                            <p class="md-secondary" ng-class="{'textDisabled' : val.IsDeleted }" style="">
+                                <span style="cursor: help;">
+                                    {{(val.Amount*val.Quantity) | currency}}
+                                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                        {{val.RoomExtraServiceDescription}}
+                                    </md-tooltip>
+                                </span>
+                                <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" ng-if="!item.IsDeleted && !isCheckOut && !isCancel" ng-click="deleteRoomExtraService($event, val)"
+                                    style="cursor: pointer;"></md-icon>
+                            </p>
+                        </md-list-item>
+                    </md-list>
+
+                    <md-list class="margin0 " ng-repeat="(key, value) in RoomExtraServices | groupBy:'RoomExtraServiceName'" ng-if="showDetail">
+                        <md-subheader style="width:100%" class="margin0 md-primary" ng-if="type.ExtraServiceTypeName!='EXTRA_SERVICES'">
+                            {{key | translate}}
+                        </md-subheader>
+                        <md-list-item class="md-2-line showfull" ng-if="key !=='EXTRA_SERVICES'" ng-repeat="item in RoomExtraServiceItems | filter: ({ExtraServiceTypeName: value[0].RoomExtraServiceName})">
+                            <div class="md-list-item-text" ng-if="!item.IsDeleted">
+                                <h3 ng-class="{ 'textDisabled' : val.IsDeleted }">
+                                    {{item.ExtraServiceItemName}}
+                                    <span class="hightline">({{item.Quantity}})</span>
+                                </h3>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{item.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{item.UserName}}
+                                </p>
+                            </div>
+                            <div class="md-list-item-text" ng-if="item.IsDeleted">
+                                <p>
+                                    <h3 ng-class="{ 'textDisabled' : item.IsDeleted }">({{item.Quantity}}) {{item.ExtraServiceItemName}} </h3>
+
+                                </p>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{item.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{item.UserName}}
+                                    <br/>
+                                    <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}] {{item.DeletedDate | date:'dd/MM (HH:mm)'}} </code>
+                                    <span>
+                                        {{item.DeletedReason | truncate:25}}
+                                        <md-tooltip md-direction="left" hide-xs hide-sm hide-md>
+                                            {{item.DeletedReason}}
+                                        </md-tooltip>
+                                    </span>
+                                    <br/> {{item.DeletedByUserName}}
+                                    <br/>
+
+                                </p>
+                            </div>
+                            <p class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }">
+                                <span>
+                                    {{item.Quantity * item.Price | currency}}
+
+                                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                        {{item.ExtraServiceItemName}}
+                                    </md-tooltip>
+                                </span>
+                                <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" ng-if="!item.IsDeleted && !isCheckOut && !isCancel" ng-click="deleteExtraServiceItem($event, item)"
+                                    style="cursor: pointer;"></md-icon>
+                            </p>
+                        </md-list-item>
+
+                        <md-list-item class="md-2-line showfull" ng-if="key ==='EXTRA_SERVICES'" ng-repeat="val in value" layout="row" layout-align="space-between center">
+
+                            <div class="md-list-item-text" ng-if="!val.IsDeleted && !isCheckOut && !isCancel" style="">
+                                <!--<h3><code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}]  </code>{{val.CreatedDate | date:'dd/MM (HH:mm)'}}</h3>
+                                <p>{{val.UserName}}</p>-->
+                                <h3>
+                                    {{val.RoomExtraServiceDescription}}
+                                    <span class="hightline">({{val.Quantity}})</span>
+                                </h3>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{val.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{val.UserName}}
+                                </p>
+                            </div>
+                            <div class="md-list-item-text" ng-if="val.IsDeleted" style="">
+                                <p>
+                                    <h3 ng-class="{ 'textDisabled' : val.IsDeleted }">({{val.Quantity}}) {{val.RoomExtraServiceDescription}}</h3>
+                                </p>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{val.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{val.UserName}}
+                                    <br/>
+                                    <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}] </code>
+                                    <span style="text-overflow: ellipsis;">{{val.DeletedDate | date:'dd/MM (HH:mm)'}}</span>
+                                    <span style="cursor: help;">
+                                        {{val.DeletedReason | truncate:30}}
+                                        <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                            {{val.DeletedReason}}
+                                        </md-tooltip>
+                                    </span>
+                                    <br/> {{val.UserNameDeleted}}
+                                </p>
+                            </div>
+                            <!--jira 663/1/loinq-->
+                            <div class="md-list-item-text" ng-if="!val.IsDeleted && isCheckOut && !isCancel" style="">
+                                <p>
+                                    <h3 ng-class="{ 'textDisabled' : val.IsDeleted }">
+                                        {{val.RoomExtraServiceDescription}}
+                                        <span class="hightline">({{val.Quantity}})</span>
+                                    </h3>
+                                    </h3>
+                                </p>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{val.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{val.UserName}}
+                                    <br/>
+                                    <span ng-if="val.DeletedDate!= null">
+                                        <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}] </code>
+                                        <span style="text-overflow: ellipsis;">{{val.DeletedDate | date:'dd/MM (HH:mm)'}}</span>
+                                        <span style="cursor: help;">
+                                            {{val.DeletedReason | truncate:30}}
+
+                                            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                                {{val.DeletedReason}}
+                                            </md-tooltip>
+                                        </span>
+                                        <br/> {{val.UserNameDeleted}}
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="md-list-item-text" ng-if="!val.IsDeleted  && isCancel" style="">
+                                <p>
+                                    <h3 ng-class="{ 'textDisabled' : val.IsDeleted }">
+                                        {{val.RoomExtraServiceDescription}}
+                                        <span class="hightline">({{val.Quantity}})</span>
+                                    </h3>
+                                </p>
+                                <p ng-if="showDetail">
+                                    <code style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}] </code> {{val.CreatedDate | date:'dd/MM (HH:mm)'}}
+                                    <br/> {{val.UserName}}
+                                    <br/>
+                                    <!-- <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}]  </code>
+                                    <span style="text-overflow: ellipsis;">{{val.DeletedDate | date:'dd/MM (HH:mm)'}}</span>
+                                    <span style="cursor: help;">{{val.DeletedReason | truncate:30}}
+                                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                      {{val.DeletedReason}}
+                                    </md-tooltip>
+                                    </span><br/>
+                                    {{val.UserNameDeleted}} -->
+                                </p>
+                            </div>
+                            <p class="md-secondary" ng-class="{ 'textDisabled' : val.IsDeleted }" style="">
+                                <span style="cursor: help;">
+                                    {{(val.Amount*val.Quantity) | currency}}
+                                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                        {{val.RoomExtraServiceDescription}}
+                                    </md-tooltip>
+                                </span>
+                                <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" ng-if="!val.IsDeleted && !isCheckOut && !isCancel" ng-click="deleteRoomExtraService($event, val)"
+                                    style="cursor: pointer;"></md-icon>
+                            </p>
+                        </md-list-item>
+                    </md-list>
+                </section>
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <div ng-cloak flex-xs="100" flex-sm="100" flex-gt-sm="50" style="" ng-if="room.BookingStatus ==='AVAILABLE' && showDetailAvailable === true">
+
+        <md-card style="border-top: 1px solid #eee;">
+            <md-subheader class="md-no-sticky">{{'EXTRA_SERVICE_LIST' | translate}}</md-subheader>
+            <div layout="row" layout-wrap flex="100" style="width: 100%;" ng-if="extraServiceNoItem === null || extraServiceNoItem === undefined">
+
+                <md-list flex="100">
+                    <md-subheader class="md-no-sticky">{{'EXTRA_CHARGE' | translate}}</md-subheader>
+                    <md-list-item ng-repeat="item in items">
+                        <p>{{item.quantity}} x {{item.item.ExtraServiceItemName}} ({{item.item.Price | currency }}/{{item.item.Unit}})</p>
+                        <span class="md-secondary">{{item.quantity * item.item.Price | currency}}</span>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                    <md-list-item>
+                        <p>
+                            <strong>{{'TOTAL' | translate}}: </p>
+                        <span class="md-secondary" style="font-weight:bold">{{getTotal(items) | currency}}</span>
+                        </strong>
+                    </md-list-item>
+                </md-list>
+            </div>
+            <div style="width: 100%;" ng-if="extraServiceNoItem !== null && extraServiceNoItem !== undefined ">
+                <md-list flex="100">
+                    <md-subheader class="md-no-sticky">{{'EXTRA_SERVICES' | translate}}</md-subheader>
+                    <md-list-item>
+                        <p>{{extraServiceNoItem.RoomExtraServiceDescription}}</p>
+                        <p class="md-secondary">{{(extraServiceNoItem.Amount*extraServiceNoItem.quantity) | currency}}</p>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                </md-list>
+            </div>
+        </md-card>
+    </div>
+</md-content>

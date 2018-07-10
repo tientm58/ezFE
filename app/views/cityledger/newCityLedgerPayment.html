@@ -1,0 +1,459 @@
+<style>
+    .demo-legend {
+        color: #3F51B5;
+    }
+
+    .demo-fieldset {
+        border-style: solid;
+        border-width: 1px;
+    }
+
+    .textDiabled {
+        text-decoration: line-through
+    }
+
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+
+    md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+        height: auto;
+    }
+
+    md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+    }
+
+    md-card md-card-title {
+        padding: 12px;
+    }
+
+    md-card md-card-content {
+        padding: 12px;
+    }
+
+    .md-headline {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 32px;
+        /*color: #3F51B5;*/
+    }
+
+    md-menu-item {
+        min-height: 40px;
+        height: 40px;
+        font-size: 15px
+    }
+
+    .mdcard {
+        margin: 1px !important;
+        border-top: 1px solid #eee;
+        height: 600px;
+        margin-bottom: 7px !important;
+        min-height: 650px !important;
+    }
+
+    .md-list-item-text {}
+
+    .md-whiteframe-1dp,
+    .md-whiteframe-z1 {
+        box-shadow: none;
+    }
+
+    .paddingTop-Bottom {
+        padding-top: 13px;
+        padding-bottom: 13px
+    }
+
+    #toolbar-tools {
+        padding: 3px;
+        padding-top: 0px;
+        background-color: #ffffff;
+    }
+
+    .content-detail {
+        /*margin-bottom: 24px;
+        margin-top: 12px;*/
+        /*overflow-y: hidden;*/
+        height: 100%
+    }
+
+    .groupX {
+        font-size: 15px;
+        /*margin: 20px 0;*/
+        margin: 3px;
+        padding: 3px 15px 3px 15px;
+        color: rgb(49, 46, 46);
+        background-color: rgba(224, 224, 224, 0.96);
+        text-transform: none;
+        font-weight: 400;
+        min-width: 100px;
+    }
+
+    .md-button.left {
+        border-radius: 10px 0 0 10px;
+    }
+
+    .md-button.middle {
+        border-radius: 0;
+        border-left: 1px solid rgba(230, 230, 230, 0.96);
+        border-right: 1px solid rgba(230, 230, 230, 0.96);
+    }
+
+    .md-button.right {
+        border-radius: 0 10px 10px 0;
+    }
+
+    /*.md-button:not([disabled]):hover {*/
+
+    .heightPayment {
+        min-height: 400px !important;
+        max-height: 40000px !important;
+        overflow-y: hidden;
+    }
+
+    .buttondemoBasicUsage section {
+        background: #f7f7f7;
+        border-radius: 3px;
+        text-align: center;
+        margin: 1em;
+        position: relative !important;
+        padding-bottom: 10px;
+    }
+
+    .buttondemoBasicUsage md-content {
+        margin-right: 7px;
+    }
+
+    .buttondemoBasicUsage section .md-button {
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .buttondemoBasicUsage .label {
+        position: absolute;
+        bottom: 5px;
+        left: 7px;
+        font-size: 14px;
+        opacity: 0.54;
+    }
+
+    .ipsum {
+        color: gray;
+        font-size: 0.9em;
+        display: block;
+        padding-top: 6px;
+    }
+
+    margin-top:-26px !important;
+    }
+
+    .text {
+        display: inline;
+        padding: 0em 0em 0em;
+        font-weight: 600;
+        text-transform: none;
+        word-break: break-all;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+
+    .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+
+    .md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+    }
+
+    .customePaddingFirst {
+        padding: 5px !important;
+        padding-left: 15px !important;
+    }
+
+    .customePaddingOther {
+        padding: 5px !important;
+    }
+
+    .Notecontent {
+        font-size: 12px;
+        line-height: 25px;
+        height: 20px;
+    }
+</style>
+<div layout="column" flex ng-cloak class="md-padding">
+
+    <md-card flex="100" style="border-top: 1px solid #eee;min-height:100px;max-height:150px;">
+        <section style="">
+            <div layout="row" layout-align="space-between center" style="">
+                <span class="md-toolbar-tools">
+                    <h2>
+                        {{'CITY_LEDGER_MANAGER' | translate}}
+                    </h2>
+                    <p flex ng-if="isUseTHUCHI" class="Notecontent">
+                        &nbsp;(<span style="color: red;">*</span>{{'QUAN_LY_CONG_NO_KHONG_CO_HIEU_LUC_VOI_THU_CHI' | translate}})</p>
+                </span>
+
+                <div>
+                    <md-button class="md-warn md-raised" id="search" ng-click="processSearch()">
+                        {{'SEARCH' | translate}}
+                    </md-button>
+                </div>
+            </div>
+        </section>
+        <md-card-content style="padding: 12px;">
+            <section layout="row" layout-align="space-between center" layout-wrap flex="100">
+                <section flex-xs="100" flex-sm="100" flex-gt-sm="45" flex-md="100" layout="row" layout-align="space-between center" layout-wrap>
+                    <md-input-container flex-xs="100" flex="100" style="margin-bottom: 20px;">
+                        <label>{{'COMPANY' | translate}}</label>
+                        <md-autocomplete md-selected-item="selectedCompany" md-search-text-change="searchCompanyTextChange(searchCompanyText)" md-search-text="searchCompanyText"
+                            md-selected-item-change="selectedCompanyChange(item,Group)" md-items="item in queryCompanySearch(searchCompanyText)"
+                            md-item-text="item.CompanyName" md-min-length="0" md-menu-class="autocomplete-custom-template">
+                            <md-item-template>
+                                <span class="item-title">
+                                    <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                    <span style="margin: auto;"> {{item.CompanyName}} </span>
+                                </span>
+                            </md-item-template>
+                        </md-autocomplete>
+                    </md-input-container>
+                    </md-input-container>
+                </section>
+                <section flex-xs="100" flex-sm="100" flex-gt-sm="50" flex-md="100" layout="row" layout-align="space-between center" layout-wrap>
+                    <div flex="45" layout="row" layout-align="space-between center" layout-wrap style="margin: 0px 0px 26px 0px;">
+                        <div layout="row" layout-align="start center" flex="100">
+                            <span flex="25" style="margin: auto;">{{'FROM' | translate}}</span>
+                            <div flex>
+                                <input kendo-date-picker ng-model="fromString" k-ng-model="search.From" style="width: 100%;" k-options="DatePickerOption"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div flex="45" layout="row" layout-align="space-between center" layout-wrap style="margin: 0px 0px 26px 0px;">
+                        <div layout="row" layout-align="start center" flex="100">
+                            <span flex="25" style="margin: auto;">{{'TO' | translate}}</span>
+                            <div flex>
+                                <input kendo-date-picker ng-model="toString" k-ng-model="search.To" min="search.From" style="width: 100%;" k-options="DatePickerOption"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </section>
+        </md-card-content>
+    </md-card>
+    <md-content class="content-detail">
+        <md-content layout="row" layout-row style="height: auto;" flex>
+
+            <md-card style="border-top: 1px solid #eee; " flex>
+                <section style=" ">
+                    <div layout="row " layout-align="space-between center " style="padding: 15px; ">
+                        <span style="font-size: 20px; font-weight: 400; line-height: 16px; ">{{'CITY_LEDGER_INVOICE_LIST' | translate}}</span>
+                    </div>
+                </section>
+
+                <md-table-container>
+                    <table md-table md-row-select="false " multiple="false " md-progress="promise ">
+                        <thead md-head md-order="query.order " md-on-reorder="logOrder ">
+                            <tr md-row flex="100">
+                                <th md-column class="customePaddingFirst">
+                                    <span>{{'DESCRIPTION' | translate}}</span>
+                                </th>
+                                <th md-column md-numeric class="customePaddingOther">
+                                    <span>{{'CITY_CREDIT' | translate}}</span>
+                                </th>
+                                <th md-column md-numeric m hide-gt-xs show-gt-md class="customePaddingOther">
+                                    <span> {{'CITY_DEBIT' | translate}}</span>
+                                </th>
+                                <th md-column md-numeric hide-gt-xs show-gt-md class="customePaddingOther">
+                                    <span>{{'CITY_BALANCE' | translate}}</span>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody md-body>
+                            <tr md-row flex="100">
+                                <td md-cell hide-gt-xs show-gt-md class="customePaddingFirst">{{'OPENING_BALANCE' | translate}}</td>
+                                <td md-cell hide-gt-xs show-gt-md class="customePaddingOther"></td>
+                                <td md-cell hide-gt-xs show-gt-md class="customePaddingOther"></td>
+                                <td md-cell hide-gt-xs show-gt-md class="customePaddingOther">{{totalBalanceBefore | currency:"" }}</td>
+                            </tr>
+                            <tr md-row md-select="room " md-on-select="logItem " md-auto-select="true
+                                                    " ng-repeat="payment in searchResult">
+                                <td ng-if="payment.PaymentMethodName==='CITY_LEDGER'" md-cell class="customePaddingFirst">
+                                    <span style="font-style: bold; font-size: 15px;">{{'INVOICE_NO' | translate}}: {{payment.PaymentNumber}} </span>
+                                    <span style="font-style: italic">({{payment.UserName}}, {{payment.CreatedDate | date:'dd/MM HH:mm' }}, {{payment.PaymentDescription}})</span>
+                                    </br>
+                                    <span style="font-style: italic"> {{'RES_NO' | translate}}: {{payment.ReservationNumber}}, {{'GUEST' | translate}}: {{payment.Fullname}},
+                                        {{'ROOM_NAME' | translate}}: {{payment.RoomName}}</span>
+                                </td>
+
+                                <td ng-if="payment.PaymentMethodName!='CITY_LEDGER'" md-cell class="customePaddingFirst">
+                                    <span style="font-style: bold;font-size: 15px;">{{'INVOICE_NO' | translate}}: {{payment.PaymentNumber}} ({{payment.PaymentMethodName
+                                        | translate}}) </span>
+                                    <span style="font-style: italic">({{payment.UserName}}, {{payment.CreatedDate | date:'dd/MM HH:mm' }})</span>
+                                    </br>
+                                    <span style="font-style: italic"> {{'DESCRIPTION' | translate}}: {{payment.PaymentDescription}}</span>
+                                </td>
+
+                                <td md-cell hide-gt-xs show-gt-md class="customePaddingOther">{{payment.Credit | currency:""}}</td>
+
+                                <td md-cell hide-gt-xs show-gt-md class="customePaddingOther">{{payment.Debit | currency:""}}</td>
+
+                                <td md-cell hide-gt-xs show-gt-md class="customePaddingOther">{{payment.Balance | currency:""}}</td>
+
+
+                            </tr>
+                            <tr md-row flex="100">
+                                <td md-cell hide-gt-xs show-gt-md class="customePaddingFirst"></td>
+                                <td md-cell hide-gt-xs show-gt-md class="customePaddingOther"></td>
+                                <td md-cell hide-gt-xs show-gt-md class="customePaddingOther"> </td>
+                                <td md-cell hide-gt-xs show-gt-md class="customePaddingOther"> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <div layout="row" layout-align="end end" style="padding-right: 10px;color: #f44336;" ng-if="searchResult.length>0" > <span>{{'CITY_LEDGER' | translate}} {{totalRemaining | currency}}</span></div> -->
+                </md-table-container>
+            </md-card>
+
+            <md-card style="border-top: 1px solid #eee;" flex="50" flex-xs="100" class="heightPayment">
+
+                <section style="">
+                    <div layout="row" layout-align="space-between center" style="padding: 16px;">
+                        <span style="font-size: 20px; font-weight: 400; line-height: 16px;">{{'PAYMENT' | translate}}</span>
+                        <div>
+                            <md-button ng-if="!groupData.GeneralInfo.IsGroupCheckOut && !isUseTHUCHI" class="md-warn md-raised" ng-click="processAddPayment()">
+                                {{'ADD_PAYMENT' | translate}}
+                            </md-button>
+                        </div>
+                    </div>
+                </section>
+                <md-card-content>
+                    <div layout="row" layout-align="start center" flex="100">
+
+                        <div flex>
+                            <span flex="25" style="margin: auto;">{{'DATE' | translate}}</span>
+                        </div>
+                        <div flex>
+                            <input kendo-date-picker ng-model="createdDateString" k-ng-model="createdDate" style="width: 100%;" k-options="DatePickerOption"
+                            />
+                        </div>
+                    </div>
+
+                    <div layout layout-wrap flex="100">
+                        <md-input-container flex="50">
+                            <label>{{'METHOD' | translate}}</label>
+                            <md-select ng-model="payment.PaymentMethodId">
+                                <md-option ng-repeat="method in CityLedgerData.GeneralInfo.PaymentMethods" ng-value="method.PaymentMethodId">{{ method.PaymentMethodName | translate}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>{{'CURRENCY' | translate}}</label>
+                            <md-select ng-model="payment.MoneyId">
+                                <md-option ng-repeat="mon in CityLedgerData.GeneralInfo.Money" ng-value="mon.MoneyId">{{ mon.MoneyName}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                    <div layout layout-wrap flex="100">
+                        <md-input-container flex="33">
+                            <label>{{'AMOUNT' | translate}}</label>
+                            <input type="text" ng-model="payment.Amount" ui-number-mask="decimal">
+                        </md-input-container>
+                        <md-input-container flex id="description" style="">
+                            <label>{{'DESCRIPTION' | translate}}</label>
+                            <input type="textarea" ng-model="payment.PaymentDescription" />
+                        </md-input-container>
+                    </div>
+
+                    <md-list ng-if="paymentsCityLedger.length >0" class="heightPayment">
+                        <md-subheader class="md-no-sticky">
+                            <div layout="row" layout-xs="column">
+                                <div flex>{{'PAYMENT_LIST' | translate}} </div>
+                                <div flex style="color: #f44336;text-align: right;">{{'TOTAL' | translate}} {{totalCityLedger | currency}}</div>
+
+                            </div>
+                        </md-subheader>
+
+                        <md-list-item class="md-3-line" ng-repeat="payment in paymentsCityLedger" style="border-bottom: 2px solid #eee;padding: 0px;">
+                            <div class="md-list-item-text" layout="column" style="" ng-if="payment.isDeleted">
+                                <p>
+                                    <span style="font-style: bold; font-size: 15px;">{{'INVOICE_NO' | translate}}: {{payment.PaymentNumber}} </span>
+
+                                    <span style="font-style: italic;font-size: 13px;" ng-if="payment.PaymentDescription.length>0">
+                                        </br> ({{payment.PaymentDescription}})</span>
+                                    </br>
+                                    {{payment.UserName}}</br>
+                                    {{ payment.CreatedDate | date:'dd/MM, HH:mm' }}
+                                </p>
+                                <p>
+                                    <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}]  </code>
+                                    <span style="font-style: italic;font-size: 13px;">{{payment.DeletedDescription}}</span>
+                                    </br>
+                                    {{payment.DeletedUserName}}</br>
+                                    {{ payment.DeletedDate | date:'dd/MM, HH:mm' }}
+                                </p>
+                            </div>
+                            <div flex="70" class="md-list-item-text" layout="column" style="" ng-if="!payment.isDeleted">
+                                <h3>
+                                    <span style="font-style: bold;font-size: 15px;">{{'INVOICE_NO' | translate}}: {{payment.PaymentNumber}} </span>
+                                    <md-button md-no-ink class="md-icon-button" style="height: 24px;margin: 0px; padding: 0px;" ng-click="showPayment($event,payment)">
+                                        <md-tooltip md-direction="right" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                            {{'TOOLTIP_RECEIPT_VIEW' | translate}}
+                                        </md-tooltip>
+                                        <md-icon md-svg-src="img/icons/ic_print_24px.svg" style="height: 24px; width: 24px;color:#666"></md-icon>
+                                    </md-button>
+
+                                    <span style="font-style: italic;font-size: 13px;" ng-if="payment.PaymentDescription.length>0">
+                                        </br>({{payment.PaymentDescription}})</span>
+                                    </br>
+                                </h3>
+                                <h4>{{payment.UserName}}</h4>
+                                <p>{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</p>
+
+                            </div>
+
+                            <p class="md-secondary" ng-class="{ 'textDiabled' : payment.isDeleted }">
+                                {{payment.Amount | currency}}
+                                <span ng-if="payment.AmountInSpecificMoney !== null" style="font-weight: bold;">({{payment.AmountInSpecificMoney | number:payment.MinorUnitInSpecificMoney}}{{payment.MoneyName}})</span>
+                                <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" ng-if="!payment.isDeleted" ng-click="deletePayment($event, payment)"
+                                    style="cursor: pointer;"></md-icon>
+                            </p>
+                            <md-divider></md-divider>
+                        </md-list-item>
+
+                    </md-list>
+
+                </md-card-content>
+            </md-card>
+        </md-content>
+    </md-content>
+</div>

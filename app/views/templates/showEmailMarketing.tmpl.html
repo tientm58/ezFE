@@ -1,0 +1,64 @@
+<style>
+     .pdf-page {
+        margin: 0 auto;
+        box-sizing: border-box;
+        /* box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .3); */
+        background-color: #fff;
+        color: #333;
+        position: relative;
+        padding-left: 15px;
+    }
+    .paddingdialog{
+        padding: 10px;
+    }
+</style>
+<md-dialog aria-label="Amend Stay" flex-gt-xs="70" flex-xs="100" ng-cloak >
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{'Email' | translate}} - {{'SENDING_TIME'|translate}}: {{logEmail.HotelEmailLog.CreatedAt| date:'dd/MM/yyyy, HH:mm'}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel(currentRoom)">
+                <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content class="paddingdialog">
+
+        <md-content flex-sm="100">
+            <div flex="100" flex-xs="100" layout="row" layout-xs="column" layout-align="left start" style="margin-bottom:-30px;">
+                <md-input-container flex="40" flex-xs="100" style="max-height: 20px;">
+                    <label>From:</label>
+                    <input ng-model="logEmail.HotelEmailLog.EmailFrom" readonly >
+                </md-input-container>
+
+                <md-input-container flex="40" flex-xs="100" style="max-height: fit-content;">
+                    <label>To:</label>
+                    <input ng-model="logEmail.HotelEmailLog.Email" readonly >
+                </md-input-container>
+            </div>
+
+            <div flex="100" layout="row" layout-xs="column" layout-align="left start" style="margin-bottom:-30px;">
+                <md-input-container flex="80" flex-xs="100" style="max-height: fit-content;">
+                    <label>Title:</label>
+                    <input ng-model="logEmail.HotelEmailTask.Subject" readonly >
+                </md-input-container>
+            </div>
+            <!-- <hr> -->
+            <!-- <label><strong>{{'EMAIL_CONTENT'|translate}}:</strong></label>                            -->
+            <div flex="100" layout="row" layout-xs="column" layout-align="left start" layout-wrap style="max-height: fit-content;" >                
+                <!-- <div class="pdf-page"> -->
+                    <div class="width100pec" layout-padding data-ng-bind-html="trustAsHtml(BodyEmailLog)">
+                    </div>
+                <!-- </div> -->
+            </div>
+        </md-content> 
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button ng-click="cancel()" class="md-raised">
+            {{'CANCEL' | translate}}
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="reSendEmail()" ng-if="logEmail.HotelEmailLog.Status == -1">
+            {{'RESEND' | translate}}
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

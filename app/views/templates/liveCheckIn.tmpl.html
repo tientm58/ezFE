@@ -1,0 +1,46 @@
+<style>
+    .md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line>._md-no-style .md-list-item-text, md-list-item.md-3-line .md-list-item-text, md-list-item.md-3-line>._md-no-style .md-list-item-text{
+        margin:auto;
+    }
+    .md-list-item ._md-list-item-inner ._md-secondary-container, md-list-item ._md-secondary-container{
+        height: auto;
+    }
+</style>
+<md-dialog aria-label="Cancel" flex="40" flex-sm="100">
+	<form name="cancelBookingForm">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'CHECKIN' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<form>
+				<div layout="column">
+					<span>
+						{{'SELECT_PRICE_RATE_TO_CHECK_IN' | translate}}
+					</span>
+					<md-select ng-model="RoomPriceId">
+						<md-select-label style="width:100%"></md-select-label>
+						<md-option ng-repeat="rate in rateList | filter: {RoomTypeId: RoomTypeId}" ng-value="rate.RoomPriceId">{{ rate.RoomPriceName | translate}}</md-option>
+					</md-select>
+				</div>
+
+			</form>
+		</md-dialog-content>
+
+		<div class="md-actions" layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-click="processCheckIn()" class="md-primary">
+				{{'CHECKIN' | translate}}
+			</md-button>
+		</div>
+
+	</form>
+
+</md-dialog>

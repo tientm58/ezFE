@@ -1,0 +1,51 @@
+<md-dialog cg-busy="{promise:promise,templateUrl:'views/templates/dataLoadingPromise.tmpl.html',message:'LOADING',backdrop:true,minDuration:1000}" aria-label="" flex="80">
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{data.bank.text || ""}}</h2>
+        <span flex></span>
+        <md-button class="btn-c md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+  </md-toolbar>
+  <md-dialog-content layout-padding layout-wrap>
+      <section flex="100">
+          <form id="addBankAccount" name="addBankAccount" layout="column" ng-submit="action.add(addBankAccount.$invalid)" ng-cloak>
+            <button class="hide" id="btn_addBankAccount"></button>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>{{'ACCOUNT_BANK_NO' | translate}} (*)</label>
+              <input ng-model="data.bank.AcctNo" name="accountNumber" ez-focus="data.focusCode" required md-no-asterisk>
+              <div ng-messages="addBankAccount.accountNumber.$error">
+              <div ng-message="required">{{'REQUIRED' | translate}}</div>
+              <div ng-message="md-maxlength">The bank account number must be less than 30 characters long.</div>
+              </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+              <label>{{'BANK_NAME' | translate}} (*)</label>
+              <input md-maxlength="30" required md-no-asterisk name="bankName" maxlength="30" ng-model="data.bank.BankName">
+              <div ng-messages="addBankAccount.bankName.$error">
+                <div ng-message="required">{{'REQUIRED' | translate}}</div>
+                <div ng-message="md-maxlength">The bank name must be less than 30 characters long.</div>
+              </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+              <label>{{'BANK_BRANCH' | translate}} (*)</label>
+              <input md-maxlength="30" required md-no-asterisk name="branch" maxlength="30" ng-model="data.bank.BankBranch">
+              <div ng-messages="addBankAccount.branch.$error">
+                <div ng-message="required">{{'REQUIRED' | translate}}</div>
+                <div ng-message="md-maxlength">The bank branch must be less than 30 characters long.</div>
+              </div>
+            </md-input-container>
+
+            
+          </form>
+          <div layout="row" layout-align="end center">
+              <md-button class="btn-c md-raised md-primary" ng-disabled="isClickBtn" onclick="jQuery('#btn_addBankAccount').click()">
+                <md-icon md-svg-src="img/icons/ic_done_48px.svg"></md-icon>&nbsp;{{'SAVE' | translate}}
+              </md-button>
+            </div>
+      </section>
+  </md-dialog-content>
+</md-dialog>

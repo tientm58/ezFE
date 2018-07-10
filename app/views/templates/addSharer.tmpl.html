@@ -1,0 +1,243 @@
+<style type="text/css">
+    @media (max-width: 768px) {
+        md-dialog#dialogAddShare{
+            min-width: 100%;
+            min-height: 100%;
+        }
+    }
+    md-autocomplete.md-default-theme, md-autocomplete {
+        background: rgb(255, 255, 255);
+    }
+    .md-whiteframe-1dp, .md-whiteframe-z1 {
+        box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+    }
+    .nonePaddingBottom{    padding-bottom: 0;}
+    md-select{
+            margin-bottom: 11px;
+    }
+    .custom-md-menu-content{
+		min-height:85px;max-height:400px;padding:0px
+	}
+	.custom-md-menu-item{
+		height:75px;min-height:75px;border-bottom:1px solid #ccc;cursor:pointer
+	}
+	.custom-md-menu-item-more{
+		height:35px;min-height:35px;border-bottom:1px solid #ccc
+	}
+    md-list:hover{
+        background-color:#ececec;
+    }
+    md-list-item.md-3-line, md-list-item.md-3-line>._md-no-style{
+        min-height: 75px !important;
+    }
+</style>
+<md-dialog aria-label="Add Sharer" class="" id="dialogAddShare" layout="row" layout-wrap flex >
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'ADD_SHARER' | translate}}</h2>
+                <md-button ng-if="isUsePassport" class="md-icon-button" onclick="su.open(receivePassportInfo)">
+                    <md-icon class="md-inline-list-icon" md-svg-icon="img/icons/ic_account_box_48px.svg">
+                        </ng-md-icon>
+                </md-button>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <form name="sharerInformation" ng-submit="addSharerInformation()" flex="100" flex-sm="100" flex-xs="100" >
+        <md-dialog-content >
+            
+            <button class="hide" id="btn_sharerInformation"></button>
+            <div class="md-dialog-content nonePaddingBottom" layout="row" layout-wrap flex="100">
+                <div flex="100" flex-sm="100" flex-xs="100" >
+                    <md-radio-group ng-model="isChild" layout="row">
+                        <md-radio-button ng-value="false"> {{'ADULT' | translate}} </md-radio-button>
+                        <md-radio-button ng-value="true">{{'CHILD' | translate}}</md-radio-button>
+                    </md-radio-group>
+                    <div flex="100" layout="row" layout-wrap layout-align="space-between center">
+                        <div flex="50" flex-sm="100" flex-xs="100" layout layout-align="start center">
+                            <md-input-container flex="100" style="margin-bottom: 0px">
+                                <label>{{'CUSTOMER_NAME'| translate}}</label>
+                                <input minlength="2" md-autofocus required maxlength="100" type="text" required ng-model="sharer.Fullname" />
+                            </md-input-container>
+                            <md-menu>
+                                <md-button type="submit" aria-label="Open demo menu" class="md-icon-button" ng-click="searchSharer($mdOpenMenu, $event)">
+                                    <md-icon class="icon-search" style="" aria-label="Search Customer" md-svg-src="img/icons/ic_search_24px.svg"></md-icon>
+                                </md-button>
+                                <md-menu-content class="custom-md-menu-content" width="6" >
+                                    <md-menu-item class="custom-md-menu-item" ng-if="customerList.Travellers.length > 0" ng-click="selectSharer(customer)" ng-repeat="customer in customerList.Travellers">
+                                        <md-list style="width:100%;margin:0px;padding:0px;">
+                                            <md-list-item class="md-3-line" ng-click="" style="">
+                                                <div class="md-list-item-text" layout="column" style="margin-top:5px;min-height:75px;max-height:75px">
+                                                    <h3 style="font-weight:bold">
+                                                        <md-icon md-menu-origin="" ng-click="" style="float:left;height:22px;width:22px;" aria-label="Identity Customer" md-svg-src="img/icons/ic_face_24px.svg"></md-icon>
+                                                        &nbsp;{{customer.Fullname | truncate:30}} |
+                                                        <span ng-if="customer.Gender == 0">{{'MALE' | translate}}</span>
+                                                        <span ng-if="customer.Gender == 1">{{'FEMALE' | translate}}</span>
+                                                        <span ng-if="customer.Gender != 0 && customer.Gender != 1">{{'OTHER' | translate}}</span>
+                                                    </h3>
+                                                    <p style="font-size:13px">
+                                                        <md-icon md-menu-origin="" ng-click="" style="height:20px;width:20px;" aria-label="Mobile" md-svg-src="img/icons/ic_phone_android_48px.svg"></md-icon>
+                                                        <span ng-if="customer.Mobile == null">{{'NOT_UPDATED' | translate}}</span>{{customer.Mobile | truncate:25}}
+
+                                                        <md-icon md-menu-origin="" ng-click="" style="height:20px;width:20px;" aria-label="Email" md-svg-src="img/icons/ic_email_48px.svg"></md-icon>
+                                                        <span ng-if="customer.Email == null">{{'NOT_UPDATED' | translate}}</span>{{customer.Email | truncate:25}}
+                                                    </p>
+                                                    <p style="font-size:13px">
+                                                        <md-icon md-menu-origin="" ng-click="" style="height:20px;width:20px;" aria-label="IdentityNumber" md-svg-src="img/icons/ic_perm_identity_48px.svg"></md-icon>
+                                                        <span ng-if="customer.IdentityNumber == null">{{'NOT_UPDATED' | translate}}</span>{{customer.IdentityNumber
+                                                        | truncate:25}}
+
+                                                        <md-icon md-menu-origin="" ng-click="" style="height:20px;width:20px;" aria-label="CountryName" md-svg-src="img/icons/ic_home_48px.svg"></md-icon>
+                                                        {{customer.CountryName}}
+                                                    </p>
+                                                </div>
+                                            </md-list-item>
+                                        </md-list>
+                                        <!--<md-menu-divider ></md-menu-divider>-->
+                                    </md-menu-item>
+                                    <md-menu-item class="custom-md-menu-item-more" ng-if="customerList.TotalRecord - customerList.SkipRecord > 10" style="">
+                                        <md-button md-prevent-menu-close="md-prevent-menu-close" ng-click="moreSharer()">
+                                            <span md-menu-align-target style="padding-left:110px">
+                                                <code>{{'MORE_CUSTOMER' | translate}}</code>
+                                            </span>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item ng-if="customerList.TotalRecord == 0" style="height:75px;min-height:75px;">
+                                        <md-button ng-click="">
+                                            <span style="padding-left:100px">
+                                                <code>{{'NO_CUSTOMER_MATCHING' | translate}}</code>
+                                            </span>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </div>
+                        
+                        <div flex="45" flex-sm="100" flex-xs="100" layout="row" >
+                            <md-select flex ng-model="sharer.Gender" placeholder="{{'GENDER' | translate}}" style="margin-top: 5px;">
+                                <md-select-label style="width:100%"></md-select-label>
+                                <md-option ng-value="0">{{'MALE' | translate}}</md-option>
+                                <md-option ng-value="1">{{'FEMALE' | translate}}</md-option>
+                                <md-option ng-value="2">{{'OTHER' | translate}}</md-option>
+                            </md-select>
+                        </div>
+                    </div>
+                    <div flex="100" layout="row" layout-wrap layout-align="space-between center">
+                        <md-input-container flex-gt-xs="45" flex-xs="100">
+                            <label>{{'IDENTITY_NUMBER'|translate}}</label>
+                            <input type="text" ng-model="sharer.IdentityNumber">
+                        </md-input-container>
+                        <!--<md-input-container flex-gt-xs="45" flex-xs="100">
+                            <label>{{'BIRTHDAY'|translate}}</label>
+                            <input type="date" ng-model="sharer.Birthday">
+                        </md-input-container>-->
+                        <div layout="row" layout-align="start center" flex-gt-xs="45" flex-xs="100">
+                            <span flex="30" style="">{{'BIRTHDAY' | translate}}</span>
+                            <div flex>
+                                <input kendo-date-picker k-ng-model="sharer.Birthday" style="width: 100%;" k-options="DatePickerOption" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div flex="100" layout="row" layout-wrap layout-align="space-between center">
+                        <md-input-container flex-gt-xs="45" flex-xs="100">
+                            <label>{{'MOBILE'|translate}}</label>
+                            <input type="text" ng-model="sharer.Mobile">
+                        </md-input-container>
+                        <md-input-container flex-gt-xs="45" flex-xs="100">
+                            <label>{{'EMAIL'|translate}}</label>
+                            <input type="email" ng-model="sharer.Email">
+                        </md-input-container>
+                    </div>
+                    <div flex="100" layout="row" layout-wrap layout-align="space-between start" style="position: relative;">
+                        <md-input-container flex-gt-xs="45" flex-xs="100">
+                            <label>{{'ADDRESS'| translate}}</label>
+                            <input type="text" ng-model="sharer.Address" />
+                        </md-input-container>
+                        <md-input-container flex-gt-xs="45" flex-xs="100" style="position: absolute;right: 0;width: 100%;">
+                            <label>{{'COUNTRY'| translate}}</label>
+                            <md-autocomplete md-selected-item="selectedCountries" md-search-text-change="searchCountriesTextChange(searchCountriesText)"
+                                md-search-text="searchCountriesText" md-selected-item-change="selectedCountriesChange(item)" md-items="item in queryCountriesSearch(searchCountriesText)"
+                                md-item-text="item.CountryName" md-min-length="0" md-menu-class="autocomplete-custom-template">
+                                <md-item-template>
+                                    <span class="item-title">
+                                            <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                            <span style="margin: auto;"> {{item.CountryName}} </span>
+                                    </span>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </md-input-container>
+                        <section>
+                            <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+                                ng-if="warningCountry === true">
+                                <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+                                <span style="color: #f44336;">
+                                    {{'COUNTRY_VALUE_FIELD_CAN_NOT_BE_BLANK' | translate}}. 
+                                </span>
+                            </fieldset>
+                        </section>
+                    </div>
+                    <md-input-container class="md-block" flex="100">
+                        <label>{{ 'NOTE' | translate }}</label>
+                        <textarea style="width: 100%;" columns="1" rows="5" ng-model="sharer.Note" />
+                    </md-input-container>
+                </div>
+                <div flex="30" flex-sm="100" flex-xs="100" class="hide" >
+                    <section style="padding-top: 8px;" flex="100">
+                        <md-list ng-if="customerList.length > 0">
+                            <md-subheader class="md-no-sticky">{{'CUSTOMER_LIST' | translate}}</md-subheader>
+                            <md-list-item class="md-3-line md-long-text" ng-repeat="cus in customerList | filter:sharer.Fullname | filter:sharer.IdentityNumber | filter: sharer.Mobile | filter: sharer.Email" style="margin: 0px; padding: 0px;padding-top: 12px; padding-bottom: 12px;">
+                                <div ng-click="bindingSelectedSharer(cus)" style="width: 100%;">
+                                    <div class="md-list-item-text" layout="column">
+                                        <h3 style="font-weight: bold"><md-icon md-svg-src="img/icons/ic_face_24px.svg" style="height: 20px; width: 20px;margin-bottom: 4px;"></md-icon>   {{ cus.Fullname }}</h3>
+                                        <h4 style="font-weight: 400"><md-icon md-svg-src="img/icons/ic_credit_card_24px.svg" style="height: 20px; width: 20px;margin-bottom: 4px;"></md-icon>   {{ cus.IdentityNumber }}</h4>
+                                        <p>
+                                            <md-icon md-svg-src="img/icons/ic_phone_iphone_24px.svg" style="height: 20px; width: 20px;margin-bottom: 4px;"></md-icon> {{ cus.Mobile}}
+                                            </br>
+                                            <md-icon md-svg-src="img/icons/ic_email_24px.svg" style="height: 20px; width: 20px;margin-bottom: 4px;"></md-icon> {{ cus.Email}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <md-divider></md-divider>
+                            </md-list-item>
+                        </md-list>
+                    </section>
+                </div>
+
+            </div>
+            
+        </md-dialog-content>
+        </form>
+
+        <div class="md-actions" layout="row" style="width: 100%;">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button onclick="jQuery('#btn_sharerInformation').click()" ng-disabled="!sharer.Fullname || sharer.Fullname.trim() == ''" class="md-primary md-mini md-raised btn-c">
+                {{'ADD' | translate}}
+            </md-button>
+            <button id="btnSavePassportInfo" ng-click="saveInfoPassport()" class="hide"></button>
+        </div>
+
+    
+
+</md-dialog>
+<script>
+    function receivePassportInfo(data) {
+        console.log("passport infor",data);
+        var info = angular.copy(data);       
+        
+        FullnameCustomer =  info.LastName + " " + info.FirstName; 
+        Gender = info.Gender;
+        IdentityNumber = info.DocumentNumber;
+        Birthday = info.DateOfBirth;
+        ValidUntil = info.ValidUntil;
+        CountryCode = info.NationalityCode;
+        ImageLocation = info.ImageLocation;
+        
+        document.getElementById('btnSavePassportInfo').click(); 
+    }
+</script>

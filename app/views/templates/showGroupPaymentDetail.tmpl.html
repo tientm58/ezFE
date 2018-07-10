@@ -1,0 +1,61 @@
+<md-dialog aria-label="Group Payment Detail" ng-cloak flex-gt-xs="60" flex-xs="98">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'PAYMENT' | translate}} {{currentPayment.PaymentNumber}} {{'DETAIL' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <md-list flex="100" style="width: 100%;">
+                    <md-list-item class="md-3-line" ng-repeat="payment in currentPayment.GroupPaymentDetail" style="padding: 0px;width: 100%;">
+                        <div class="md-list-item-text" layout="column" style="" ng-if="payment.IsDeleted">
+                            <p>
+                                <span style="font-weight: bold">{{'PAYMENT_NO.' | translate}} {{payment.PaymentNumber}}-{{payment.PaymentGroupOrder}}</span>
+                                <code ng-if="payment.PaymentTypeName === 'DEPOSIT' " style="font-weight: bold;color: dodgerblue;">[{{'DEPOSIT' | translate}}]  </code>
+                                <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT' " style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}]  </code>
+                                <code ng-if="payment.PaymentTypeName === 'REFUND' " style="font-weight: bold;color: #9C27B0;">[{{'REFUND' | translate}}]  </code>
+
+                                <span style="font-style: italic">{{payment.PaymentDescription}}</span></br>
+                                {{payment.CreatedUserAspNetUsers.Email}}</br>
+                                {{ payment.CreatedDate | date:'dd/MM, HH:mm' }}
+                            </p>
+                            <p>
+                                <code style="font-weight: bold;color: #f44336;">[{{'DELETED' | translate}}]  </code>
+                                <span style="font-style: italic">{{payment.DeletedDescription}}</span></br>
+                                {{payment.DeletedUserName}}</br>
+                                {{ payment.DeletedDate | date:'dd/MM, HH:mm' }}
+                            </p>
+                        </div>
+                        <div class="md-list-item-text" layout="column" style="" ng-if="!payment.IsDeleted">
+                            <h3>
+                                <span style="font-weight: bold">{{'PAYMENT_NO.' | translate}} {{payment.PaymentNumber}}-{{payment.PaymentGroupOrder}}</span>
+                                            <code ng-if="payment.PaymentTypeName === 'DEPOSIT' " style="font-weight: bold;color: dodgerblue;">[{{'DEPOSIT' | translate}}]  </code>
+                                            <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT' " style="font-weight: bold;color: #009688;">[{{'ADDED' | translate}}]  </code>
+                                            <code ng-if="payment.PaymentTypeName === 'REFUND' " style="font-weight: bold;color: #9C27B0;">[{{'REFUND' | translate}}]  </code>
+                                            </br>
+                                        </h3>
+                            <h4>{{payment.CreatedUserAspNetUsers.Email}}</h4>
+                            <p>{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</p>
+                        </div>
+                        <p class="md-secondary" ng-class="{ 'textDiabled' : payment.IsDeleted }">
+                            {{payment.Amount | currency}}
+                            <span ng-if="payment.AmountInSpecificMoney !== null" style="font-weight: bold;">({{payment.MoneyName}} {{payment.AmountInSpecificMoney | number:payment.MinorUnitInSpecificMoney}})</span>
+                            <!-- <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" ng-if="!payment.isDeleted" ng-click="deletePayment($event, payment)" style="cursor: pointer;"></md-icon> -->
+                        </p>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

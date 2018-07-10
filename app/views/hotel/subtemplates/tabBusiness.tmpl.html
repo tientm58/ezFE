@@ -1,0 +1,74 @@
+<style>
+	input[type=number]::-webkit-inner-spin-button,
+	input[type=number]::-webkit-outer-spin-button {
+		opacity: 1;
+	}
+ .box_list_tab .md-whiteframe-z1{ margin: 10px;background: #fff; }
+</style>
+
+<div class="md-padding" layout="row" layout-wrap>
+	<ul layout layout-align="center center" flex="100" layout-wrap style="margin: 8px 0 8px -8px;padding: 0;position: relative;">
+		<li flex-gt-xs="20"  flex-xs="33" style="list-style: none;margin: 0;text-align: center; display: list-item;padding: 0px;">
+			<a class="md-primary md-raised md-button md-default-theme" ng-click="companyOn = !companyOn; sourceOn = false;marketOn = false;" style="color: #666;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+					  display: block; font-weight: 500; padding: 8px 0;
+  					  text-decoration: none;  background-color: #f6f6f6 !important;
+  					  box-shadow: none !important;
+  					  margin-right: 0; margin-top: 0;
+					  border-bottom: none;border-radius: 3px;" ng-class="{'isHover': colorOn}">
+				<md-icon ng-class="{'isHover': companyOn}" style="display: block;height: 36px; width: 36px; color: #666; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);" md-svg-src="img/icons/ic_business_24px.svg">
+				</md-icon>
+				<span class="ng-binding ng-scope" style="text-transform: none;">
+					{{'COMPANIES' | translate}}
+				</span>
+			</a>
+		</li>
+		
+		
+		<li flex-gt-xs="20"  flex-xs="33" style="list-style: none; margin: 0; text-align: center; display: list-item;padding: 0px;">
+			<a class="md-primary md-raised md-button md-default-theme" ng-click="sourceOn = !sourceOn; companyOn = false;marketOn = false;" style="color: #666;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+					  display: block; font-weight: 500; padding: 8px 0;
+  					  text-decoration: none;  background-color: #f6f6f6 !important;
+  					  box-shadow: none !important;
+  					  margin-right: 0; margin-top: 0;
+					  border-bottom: none;border-radius: 3px;" ng-class="{'isHover': sourceOn}">
+				<md-icon ng-class="{'isHover': sourceOn}" style="display: block;height: 36px; width: 36px; color: #666; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);" md-svg-src="img/icons/ic_select_all_24px.svg">
+				</md-icon>
+				<span class="ng-binding ng-scope" style="text-transform: none;">
+					{{'SOURCES' | translate}}
+				</span>
+			</a>
+		</li>
+	
+		<li flex-gt-xs="20"  flex-xs="33" style="list-style: none;margin: 0;text-align: center; display: list-item;padding: 0px;">
+			<a class="md-primary md-raised md-button md-default-theme" ng-click="marketOn = !marketOn; companyOn = false;sourceOn = false;" style="color: #666;transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+					  display: block; font-weight: 500; padding: 8px 0;
+  					  text-decoration: none;  background-color: #f6f6f6 !important;
+  					  box-shadow: none !important;
+  					  margin-right: 0; margin-top: 0;
+					  border-bottom: none;border-radius: 3px;" ng-class="{'isHover': marketOn}">
+				<md-icon style="display: block;height: 36px; width: 36px; color: #666; transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);" md-svg-src="img/icons/ic_language_24px.svg" ng-class="{'isHover': marketOn}">
+				</md-icon>
+				<span class="ng-binding ng-scope" style="text-transform: none;">
+					{{'MARKETS' | translate}}
+				</span>
+			</a>
+		</li>
+
+	</ul>
+<div style="width: 100%;" class="box_list_tab">
+
+		<div class="md-whiteframe-z1" flex-xs="100"  layout="column" layout-align="space-around" ng-cloak ui-view="configBusinessSource" ng-if="sourceOn">
+
+		</div>
+
+		<div class="md-whiteframe-z1" flex-xs="100"  layout="column" layout-align="space-around" ng-cloak ui-view="configBusinessCompany" ng-if="companyOn">
+
+		</div>
+		<div class="md-whiteframe-z1" flex-xs="100"  layout="column" layout-align="space-around" ng-cloak ui-view="configBusinessMarket" 
+		 ng-if="marketOn">
+
+		</div>
+
+	</div>
+
+</div>

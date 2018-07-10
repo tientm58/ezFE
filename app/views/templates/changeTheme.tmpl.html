@@ -1,0 +1,69 @@
+<style>
+    .box_img:hover {
+        cursor: pointer;
+    }
+
+    .box_img img {
+        height: 220px !important;
+    }
+
+    .isActive {
+        color: #fff;
+        background: #4CAF50;
+        font-weight: bold !important;
+    }
+
+    .icon-dis-a {
+        display: none;
+    }
+
+    .isActive .icon-dis-a {
+        display: block;
+    }
+
+    .isActive md-icon {
+        fill: #fff;
+    }
+</style>
+<md-dialog aria-label="Change Theme">
+    <form name="changeTheme" ng-submit="doChangeThemeOk()">
+        <button class="hide" id="button_resettheme"></button>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'THEMES' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel();$event.preventDefault()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <div flex-xs flex-gt-xs="33" layout="row" ng-repeat="theme in Themes">
+                    <md-card class="box_img" ng-class="[{'isActive':theme.code == Selected.code}]" ng-click="ChangeItemTheme(theme)">
+                        <img class="md-card-image" ng-src="{{theme.link}}" />
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline"> {{theme.name}}
+                                    <md-icon class="icon-dis-a" md-svg-icon="img/icons/ic_done_24px.svg"></md-icon>
+                                </span>
+
+                            </md-card-title-text>
+                        </md-card-title>
+                    </md-card>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button onclick="jQuery('#button_resettheme').click()" class="md-primary" ng-disabled="changePasswordForm.$invalid && changePassword.NewPassword !== changePassword.NewPasswordConfirm">
+                {{'SAVE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+
+    </form>
+
+</md-dialog>

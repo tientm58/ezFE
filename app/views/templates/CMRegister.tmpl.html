@@ -1,0 +1,126 @@
+<md-dialog aria-label="CM Register">
+	<form>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2 ng-if="register==null">{{'CHANNEL_MANAGER_REGISTER' | translate}}</h2>
+				<h2 ng-if="register">{{'EDIT_CHANNEL_MANAGER' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap layout-align="space-between start" flex="100">
+				<md-input-container flex-xs="100" flex-gt-xs="50" style="margin: 16px 0;">
+					<label>{{'USER_NAME' | translate}}</label>
+					<input ng-model="register.CMUser">
+				</md-input-container>
+				<md-input-container flex-xs="100" flex-gt-xs="50" style="margin: 16px 0;">
+					<label>{{'PASSWORD' | translate}}</label>
+					<input ng-model="register.CMPassword">
+				</md-input-container>
+				<md-input-container flex-xs="100" flex-gt-xs="50" style="margin: 16px 0;">
+					<label>{{'PROPERTY_ID' | translate}}</label>
+					<input ng-model="register.CMPropertyId">
+				</md-input-container>
+				<md-input-container flex style="margin: 16px 0;" ng-if="typeCMS === 'CMSITEMINDER'">
+					<label>{{'REQUESTOR_ID' | translate}}</label>
+					<input ng-model="register.CMServiceUrl">
+				</md-input-container>
+				<md-input-container flex style="margin: 16px 0;" ng-if="typeCMS !== 'CMSITEMINDER'">
+					<label>{{'SERVICE_URL' | translate}}</label>
+					<input ng-model="register.CMServiceUrl">
+				</md-input-container>
+				<!-- select CMS channel -->
+				<!-- <md-input-container flex-xs="100" flex-gt-xs="50" style="margin: 16px 0;">
+					<label>{{'CMS_CHANNEL'|translate}}</label>
+					<md-select ng-model="register.TypeCms">
+						<md-option value="STAAH">{{'CHANNEL'|translate}} 1</md-option>
+						<md-option value="BOOKLOGIC">{{'CHANNEL'|translate}} 2</md-option>
+					</md-select>
+				</md-input-container> -->
+
+				<!-- <section  flex-xs="100" flex-gt-xs="50" layout-align="center start">
+					<h5>
+		                {{'SOURCE' | translate}}
+		                <md-menu md-prevent-menu-close="md-prevent-menu-close">
+                        	<span>
+	                            <md-icon md-menu-origin="" md-svg-src="img/icons/ic_info_outline_48px.svg" ng-click="openMenu($mdOpenMenu, $event)" style="padding: 0px;margin-top:-2px;cursor: pointer;">
+	                            </md-icon>
+                         	</span>
+	                        <md-menu-content style="width:400px" layout layout-padding >
+	                        	<span> {{'SOURCE_NOTE' | translate}}
+	                        	</span>
+	                        </md-menu-content>
+                    	</md-menu>
+						
+		            </h5>
+					
+					<md-input-container style="width:100%;margin:0px">
+						<md-autocomplete md-selected-item="selectedSource" md-search-text-change="searchSourceTextChange(searchSourceText)" md-search-text="searchSourceText" md-selected-item-change="selectedSourceChange(item)" md-items="item in querySourceSearch(searchSourceText)" md-item-text="item.SourceName" md-min-length="0" md-menu-class="autocomplete-custom-template">
+							<md-item-template>
+								<span class="item-title">
+                                     <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                        <span style="margin: auto;"> {{item.SourceName}} </span>
+								</span>
+								<span class="item-metadata">
+                                    <span class="item-metastat">
+                                      <strong>{{'CODE' | translate}}:</strong> {{item.ShortCode}}
+                                    </span>
+								</span>
+							</md-item-template>
+						</md-autocomplete>
+					</md-input-container>
+				</section> -->
+				<!-- 	<section flex-xs="100" flex-gt-xs="45" style="">
+					<h5>
+		                {{'SELECT_ALLOTMENT_TYPE' | translate}}
+		                <md-menu md-prevent-menu-close="md-prevent-menu-close">
+                        	<span>
+	                            <md-icon md-menu-origin="" md-svg-src="img/icons/ic_info_outline_48px.svg" ng-click="openMenu($mdOpenMenu, $event)" style="padding: 0px;margin-top:-2px;cursor: pointer;">
+	                            </md-icon>
+                         	</span>
+	                        <md-menu-content style="width:400px" layout layout-padding >
+	                        	<span>{{'ALLOTMENT_TYPE_NOTE' | translate}}
+	                        	</span>
+	                           
+	                        </md-menu-content>
+                    	</md-menu>
+		            </h5>
+					<md-radio-group style="width:80%" class="md-warn" ng-model="register.IsLastRoomAvailable">
+						<md-radio-button ng-value="true">
+							{{'LAST_ROOM_AVAILABLE' | translate}}
+
+						</md-radio-button>
+						<span class="ipsum">
+				           {{'LAST_ROOM_AVAILABLE_NOTE' | translate}}
+				        </span>
+						<md-radio-button ng-value="false">
+							{{'PROPERTY_ALLOTMENT' | translate}}
+						</md-radio-button>
+						<span class="ipsum">
+				           {{'PROPERTY_ALLOTMENT_NOTE' | translate}}
+				          </span>
+					</md-radio-group>
+				</section>
+					<section class="ipsum">
+					<md-icon md-menu-origin="" md-svg-src="img/icons/ic_warning_48px.svg" >
+                    </md-icon>{{'CMCONFIGURATION_NOTE' | translate}}
+				</section> -->
+
+			</div>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-if="register==null" ng-click="CMRegister()" class="md-primary" ng-disabled="!register.CMUser || register.CMUser.trim() =='' || !register.CMPassword || register.CMPassword.trim() =='' || !register.CMPropertyId || register.CMPropertyId.trim() =='' || !register.CMServiceUrl || register.CMServiceUrl.trim() ==''">
+				{{'REGISTER' | translate}}
+			</md-button>
+			<md-button ng-click="CMRegister()" class="md-primary" ng-if="register" ng-disabled="!register.CMUser || register.CMUser.trim() =='' || !register.CMPassword || register.CMPassword.trim() =='' || !register.CMPropertyId || register.CMPropertyId.trim() =='' || !register.CMServiceUrl || register.CMServiceUrl.trim() ==''">
+				{{'SAVE' | translate}}
+			</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>

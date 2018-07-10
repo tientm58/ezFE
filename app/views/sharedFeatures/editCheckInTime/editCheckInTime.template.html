@@ -1,0 +1,43 @@
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+    
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+    
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+    
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+</style>
+<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+    <div layout="row" layout-align="start center" flex="100">
+        <span flex="25">{{'ARRIVAL' | translate}}</span>
+        <div flex>
+            <input ng-if="!editCheckInTimeCtrl.isMaxDeparture" kendo-date-time-picker ng-model="editCheckInTimeCtrl.str" k-ng-model="editCheckInTimeCtrl.newArrivalDate" max="editCheckInTimeCtrl.today" style="width: 100%;" k-options="editCheckInTimeCtrl.DateTimePickerOption" />
+            <input ng-if="editCheckInTimeCtrl.isMaxDeparture" kendo-date-time-picker ng-model="editCheckInTimeCtrl.str" k-ng-model="editCheckInTimeCtrl.newArrivalDate" max="editCheckInTimeCtrl.departureDate" style="width: 100%;" k-options="editCheckInTimeCtrl.DateTimePickerOption" />
+        </div>
+    </div>
+</div>
+<section>
+    <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="editCheckInTimeCtrl.warningInvaliArrivalDate === true">
+        <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+        <span style="color: #f44336;">
+                {{'INVALID_ARRIVAL_DATE' | translate}}. 
+            </span>
+    </fieldset>
+</section>
+<md-dialog-actions layout="row">
+    <md-button ng-click="editCheckInTimeCtrl.cancel()" class="md-primary">
+        {{'CANCEL' | translate}}
+    </md-button>
+    <md-button ng-click="editCheckInTimeCtrl.processEditArrivalDate()" class="md-primary">
+        {{'SAVE' | translate}}
+    </md-button>
+</md-dialog-actions>

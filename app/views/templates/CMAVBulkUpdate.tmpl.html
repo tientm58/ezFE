@@ -1,0 +1,179 @@
+<style>
+    .input-group .form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+}
+input.fixed-width-xs {
+    min-width: 60px;
+    max-width: 60px;
+}
+.input-group .form-control {
+    display: table-cell;
+}
+.margin-left {
+	margin: auto;
+    margin-left: 12px !important;
+}
+.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+
+.md-list-item.md-2-line .md-list-item-text,
+md-list-item.md-2-line>._md-no-style .md-list-item-text,
+md-list-item.md-3-line .md-list-item-text,
+md-list-item.md-3-line>._md-no-style .md-list-item-text {
+	margin: auto;
+}
+
+md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+	height: auto;
+}
+
+md-list-item ._md-list-item-inner ._md-secondary-container,
+md-list-item ._md-secondary-container {
+	height: auto;
+}
+.md-ll{
+	padding: 0;
+	margin: 0;
+}
+md-list .md-subheader {
+    line-height: 1.0em;
+}
+.border-left{
+	border-left: 1px solid #f2f2f2;
+}
+</style>
+<md-dialog aria-label="CM Register">
+    <!-- <style scoped="">
+		@import "bower_components/angular-material/angular-material.min.css";
+    </style> -->
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    {{'CHANNEL_MANAGER_BULK_UPDATE' | translate}}
+                </h2>
+                <span flex="">
+                </span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="Close dialog" md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;">
+                    </md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" flex="100" layout="row" layout-wrap="" style="">
+                <div layout="row" flex="100" style="border-bottom: 1px solid #eee; margin-bottom: 24px;">
+	                <p class="form-control-static" style="margin: auto 12px;">
+	                    {{'SET' | translate}}
+	                </p>
+	                <md-select ng-model="bulkUpdate.updateType" style="height: 35px;margin-left: 12px;">
+	                    <md-option ng-repeat="updateType in updateTypes" value="{{updateType.value}}">
+	                        {{updateType.label | translate}}
+	                    </md-option>
+					</md-select>
+					<span ng-if="bulkUpdate.updateType == 1">
+						<p class="form-control-static" style="margin: auto 12px;" id="inputValue">
+							{{'CM_QUANTITY' | translate}}
+						</p>
+						<div class="input-group margin-left" ng-class="{'has-error': bulkUpdate.errors.availability}">
+							<input type="text" numbers-only class="form-control fixed-width-xs ng-touched" name="availability" ng-model="bulkUpdate.updateValue">
+							</input>
+							<span ng-if="warningUpdateValue == true" style="margin: auto; color: #f44336;margin-left: 12px;font-style: italic;">{{'UPDATE_VALUE_FIELD_CAN_NOT_BE_BLANK' | translate}}</span>
+							<span ng-if="warningUpdateValueIsNaN == true" style="margin: auto; color: #f44336;margin-left: 12px;font-style: italic;">{{'INVALID_UPDATE_VALUE' | translate}}</span>
+						</div>
+					</span>
+				</div>
+				<div layout="row" layout-xs="column" layout-sm="column" flex="100">
+					<div ng-if="bulkUpdate.updateType != 1"  flex="20" flex-xs="100">
+						<md-subheader class="md-no-sticky" flex="100">{{'CHANNELS' | translate}}
+						</md-subheader>
+						<div class="demo-select-all-checkboxes" flex="100" >
+							<md-checkbox ng-click="toggleAll(selectedChannels)" ng-checked="isChecked()" class="margin-top5">
+								{{ 'ALL' | translate }}
+							</md-checkbox> 
+						</div>
+						<div class="demo-select-all-checkboxes" flex="100" ng-repeat="channel in Channels"> 
+							<md-checkbox ng-click="toggle(channel, selectedChannels)" class="margin-top5" ng-checked="exists(channel, selectedChannels)">
+								{{ channel.Name }}
+							</md-checkbox>
+						</div>
+					</div>
+					<div flex="50" class="border-left" flex-xs="100">
+						<md-subheader class="md-no-sticky" style="width: 100%;">{{'DATE_RANGE' | translate}}
+							<span ng-if="warningDateRange == true" style="margin: auto; color: #f44336;margin-left: 12px;font-style: italic;">(*){{'SET_UP_AT_LEAST_ONE_VALID_DATE_RANGE' | translate}}</span>
+						</md-subheader>
+						<div flex="100" layout="row" layout-align="start start" layout-wrap="" style=" " ng-repeat="dateRange in bulkUpdate.dateRanges">
+							<div layout="row" layout-align="start start" style="margin: 12px;" flex="100">
+								<div flex="40" layout="row" layout-align="start start">
+									<p class="form-control-static" style="margin: auto 12px; margin-left: 0px;">
+										{{'FROM' | translate}}
+									</p>
+									<input k-ng-model="dateRange.from" k-options="DatePickerOption" kendo-date-picker="" ng-model="str" min="minFromDate"/>
+								</div>
+								<div flex="40" layout="row" layout-align="start start">
+									<p class="form-control-static" style="margin: auto 12px;">
+										{{'TO' | translate}}
+									</p>
+									<input k-ng-model="dateRange.to" k-options="DatePickerOption" kendo-date-picker="" ng-model="str2" min="minFromDate" />
+								</div>
+								<md-button class="md-icon-button" ng-click="removeDateRange($index)" flex="20">
+									<md-icon aria-label="" md-svg-src="img/icons/ic_close_48px.svg" style="">
+									</md-icon>
+								</md-button> 
+							</div>
+							<span flex ng-if="dateRange.valid == false && dateRange.conflict != null && dateRange.conflict == false" style="margin: auto; color: #f44336;margin-left: 12px;font-style: italic;">(*){{'INVALID_DATE_RANGE' | translate}}</span>
+							<span flex ng-if="dateRange.valid == true && dateRange.conflict != null && dateRange.conflict == true" style="margin: auto; color: #f44336;margin-left: 12px;font-style: italic;">(*){{'CONFLICT_DATE_RANGE' | translate}}</span>
+						</div>
+						<div flex="100" layout="row" layout-align="start start" style="">
+							<md-button class="md-raised md-warn" ng-click="addDateRange()" style="text-transform: none;">
+								{{'ADD_DATE_RANGE' | translate}}
+							</md-button>
+						</div>
+					</div>
+					<div flex="30"  class="border-left" flex-xs="100">
+						<md-list flex ="100" style="border-top: 1px solid #eee;" class="md-ll">
+						<md-subheader class="md-no-sticky">
+							{{'ROOM_TYPE' | translate}}
+							<span ng-if="warningUpdateRoomType == true" style="margin: auto; color: #f44336;margin-left: 12px;font-style: italic;">(*){{'SELECT_AT_LEAST_ONE_ROOM_TYPE' | translate}}</span>
+						</md-subheader>
+						<md-list-item ng-repeat="roomType in roomTypes">
+							<md-checkbox class="md-warn" ng-click="addBulkUpdateRoomType(roomType)"></md-checkbox>
+							<p>{{roomType.RoomTypeName}} ({{roomType.CMRoomTypeName}})</p>
+						</md-list-item>
+						</md-list>
+					</div>
+				</div>
+            	<section flex="100">
+					<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warning === true">
+						<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+						<span style="color: #f44336;">
+							{{'UPDATE_VALUE,_DATE_RANGE_AND_ROOM_TYPE_FIELD_CAN_NOT_BE_BLANK' | translate}}.
+						</span>
+					</fieldset>
+					<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warningDate === true">
+						<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+						<span style="color: #f44336;">
+							{{'FROM_DATE_CAN_NOT_GREATER_THAN_TO_DATE' | translate}}.
+						</span>
+					</fieldset>
+				</section>
+
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button class="md-primary" ng-click="cancel()">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button class="md-raised md-primary"  ng-click="saveBulkUpdate(bulkUpdate.updateType)">
+                {{'SAVE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

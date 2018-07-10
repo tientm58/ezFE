@@ -1,0 +1,202 @@
+<style>
+    .top-page {
+        background: url(img/bg-header.png);
+        background-repeat: no-repeat;
+        min-height: 55px;
+        border-radius: 0 !important;
+        background-size: cover;
+    }
+
+    .black_t {
+        color: rgba(255, 255, 255, 0.71);
+        /*font-style: italic;*/
+    }
+
+    .yellow_t {
+        color: #FFEB3B;
+        padding-right: 15px;
+    }
+
+    .margin0 {
+        margin: 0px;
+    }
+
+    .hightline {
+        color: #FF9800;
+    }
+
+    .text-date {
+        color: rgba(2, 2, 2, 0.58) !important;
+        font-style: italic;
+        font-size: 12px !important;
+    }
+
+    .sub-title {
+        text-transform: uppercase;
+        font-weight: 600;
+        color: rgba(58, 56, 56, 0.71);
+        line-height: 50px;
+        /*margin-left: 17px !important;*/
+    }
+
+    .showfull {
+        height: initial !important;
+        background-color: rgba(242, 242, 242, 0.15);
+        margin-bottom: 5px;
+    }
+
+    .box-header {
+        padding-left: 17px;
+        padding-right: 17px;
+        /*background: rgba(242, 242, 242, 0.35) !important;*/
+    }
+
+    #main_view,
+    .bg-gray {
+        /*background: #f2f2f2 !important;*/
+    }
+
+    .md-subheader.md-default-theme,
+    .md-subheader {
+        background-color: rgb(245, 245, 245) !important;
+    }
+
+    .bg-waring {
+        background: #FF5722;
+    }
+
+    .margin-bottom-100 {
+        margin-bottom: 100px;
+    }
+
+    .tabs-menu md-tabs-canvas {
+        background-color: #EEEEEE;
+    }
+
+    .box-config md-input-container {
+        width: 200px;
+    }
+
+    .padding015 {
+        padding: 0 15px;
+    }
+
+    .listbox md-list-item {
+        height: 60px;
+        border-bottom: 1px dashed #dadada;
+    }
+
+    .listbox button {
+        height: 70px !important;
+    }
+
+    .listbox .md-button._md-no-style {
+        height: 70px !important;
+    }
+
+    .bg_iii {
+        background-color: rgba(255, 255, 255, 0) !important;
+    }
+
+    .btn_ {
+        margin-top: -20px;
+    }
+
+    .margin0 {
+        margin: 0;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .black_icon md-icon {
+        fill: rgb(33, 33, 33) !important;
+    }
+
+    #main_view,
+    .bg-gray {
+        background: #f3f3f3 !important;
+    }
+
+    .btn_success,
+    .btn_success md-icon {
+        fill: #009688;
+        color: #009688;
+    }
+
+    .btn_warning,
+    .btn_warning md-icon {
+        fill: #E91E63;
+        color: #E91E63;
+    }
+
+    .fill-gray {
+        fill: rgba(0, 0, 0, 0.54) !important;
+    }
+
+    md-list-item.md-3-line,
+    md-list-item.md-3-line>._md-no-style {
+        min-height: 70px;
+    }
+</style>
+<md-content class="tabsdemoDynamicHeight bg_iii" style="">
+    <md-card-content id="height" flex="100">
+        <md-toolbar md-scroll-shrink class="top-page md-primary md-default-theme md-whiteframe-z1" layout="row" style="border-radius: 3px 3px 0 0;box-shadow: 0 1px rgba(255, 255, 255, 0.1); background-color: #eee;">
+            <div layout="row" layout-align="space-between center" flex="100">
+                <div flex-gt-sm="75" flex-xs="75" flex-sm="75" class="md-toolbar-tools" style="height:40px;">
+                    <h1 class="md-headline" style="padding-left: 8px;color: #444;">
+                        <span class="black_t">{{'EMAIL_TASK'|translate}}</span>
+                    </h1>
+                </div>
+
+                <!-- <div flex-gt-sm="25" flex-xs="25" flex-sm="25" layout="row" layout-align="end center">
+                    <md-button class="md-raised md-fab md-mini launch md-button md-ink-ripple black_icon hide" style="">
+                        <md-tooltip md-direction="right" flex-gt-md="100" hide-xs hide-sm hide-md>
+                            {{'ADD' | translate}}
+                        </md-tooltip>
+                        <md-icon md-svg-icon="img/icons/ic_add_48px.svg" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
+                    </md-button>
+                    <md-button class="btn-c md-raised" style="" ng-click="createConfigEmail()">{{'ADD'| translate}}</md-button>
+                </div> -->
+
+                <div flex-gt-sm="25" flex-xs="25" flex-sm="25" layout="row" layout-align="end center">
+                    <md-button class="btn-c md-raised" ng-click="createConfigEmail()" id="btn_CreateConfig" style="">
+                        <md-icon md-svg-src="img/icons/ic_add_48px.svg" aria-label="Send Email" class="md-secondary md-hue-3 fill-gray"></md-icon>
+                        {{'ADD'| translate}}
+                        <md-tooltip md-direction="left" flex-gt-md="100">
+                            Ctrl + A
+                        </md-tooltip>
+                    </md-button>
+                </div>
+
+            </div>
+        </md-toolbar>
+    </md-card-content>
+    <md-content style="" id="height100" class="bg_iii" ng-cloak>
+        <md-card flex style="border-top: 1px solid #eee;margin-bottom:50px">
+            <md-card-content>
+                <md-list ng-cloak class="listbox">
+                    <md-list-item class="md-3-line" ng-repeat="email in emails " class="noright" ng-click="getDetailConfigEmail(email.HotelEmailConfigId)">
+                        <div class="md-list-item-text" layout="column">
+                            <h3><strong>{{ email.EmailName }}</strong></h3>
+                            <p>{{ email.UserName }}</p> 
+                            <md-icon md-svg-icon="img/icons/ic_pause_circle_outline_48px.svg" ng-click="checkDelConfig(email.HotelEmailConfigId)" aria-label="Send Email" class="md-secondary md-hue-3">
+                                <md-tooltip md-direction="bottom" flex-gt-md="100">
+                                    {{'STOP_CONFIG'|translate}}
+                                </md-tooltip>
+                            </md-icon>
+                        </div>
+                    </md-list-item>
+                </md-list>
+                <md-list ng-cloak class="listbox" ng-if="emails.length == 0">
+                    <md-list-item class="md-3-line" class="noright">
+                        <div class="md-list-item-text width100p" layout="column">
+                            <h3 class="text-center"><strong>{{'IS_EMTY_DATA' | translate}}</strong></h3>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+        </md-card>
+    </md-content>
+</md-content>

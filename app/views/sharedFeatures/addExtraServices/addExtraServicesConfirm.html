@@ -1,0 +1,74 @@
+<style>
+    .ng-inline-edit__input {
+        border: 0;
+        outline: 0;
+        display: inline-block;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border-bottom: 1px dashed #333;
+    }
+    
+    .ng-inline-edit__inner-container {
+        display: inline-block;
+        color: #00f;
+        /*margin-left: 5px;*/
+        white-space: nowrap;
+    }
+    
+    .ng-inline-edit__button {
+        cursor: pointer;
+        margin-left: 8px;
+    }
+ md-dialog-content{
+ overflow-y: auto;
+    }
+ ._md-secondary-container{
+     height: fit-content !important;
+ }
+    </style>
+    <md-dialog aria-label="{{'CONFIRM' | translate}}" flex-xs="100" flex-sm="100" flex-gt-sm="60">
+        <form>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2 class="md-headline">
+                                {{'ADD_EXTRA_SERVICE_CONFIRM' | translate}}
+                            </h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon md-svg-src="img/icons/ic_close_48px.svg" aria-label="Close dialog"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-dialog-content>
+<div class="md-dialog-content" layout="column" layout-wrap   style="width: 100%;">
+                    <md-list  >
+                        <md-list-item ng-repeat="item in items" ng-if="items != null || items != undefined">
+                            <p>{{item.item.ExtraServiceItemName}} ({{item.quantity}} {{item.item.Unit}} x <span inline-edit="item.item.Price" inline-edit-filter="currency" inline-edit-btn-save="{{'SAVE' | translate}}" inline-edit-btn-cancel="{{'CANCEL' | translate}}" ng-if="item.item.IsChangeable == true"></span>
+                            <span ng-if="item.item.IsChangeable == false">{{item.item.Price | currency}})</span> </p>
+                            <span class="md-secondary">
+                                {{item.quantity * item.item.Price | currency}}
+                            </span>
+                            <md-divider></md-divider>
+                        </md-list-item>
+                        <md-list-item ng-if="extraServiceNoItem != null &&  extraServiceNoItem.RoomExtraServiceDescription != null && extraServiceNoItem.Amount !=null ">
+                            <p>{{extraServiceNoItem.Quantity}} x {{extraServiceNoItem.RoomExtraServiceDescription}} ({{extraServiceNoItem.Amount | currency}})</p>
+                            <p class="md-secondary">{{extraServiceNoItem.Quantity * extraServiceNoItem.Amount | currency}}</p>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item>
+                            <p><strong>{{'TOTAL' | translate}}: </p><span class="md-secondary" style="font-weight:bold">{{getTotal(items,extraServiceNoItem) | currency}}</span></strong>
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </md-dialog-content>
+            <div class="md-actions" layout="row">
+                <md-button ng-click="cancel()" class="md-primary">
+                    {{'CANCEL' | translate}}
+                </md-button>
+                <md-button ng-click="ok()" class="md-primary">
+                    {{'ADD' | translate}}
+                </md-button>
+            </div>
+        </form>
+    </md-dialog>
+        

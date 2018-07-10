@@ -1,0 +1,106 @@
+<style>
+    md-checkbox{
+        font-size: 13px;
+    }
+    md-card-content{
+        min-height: 500px;
+    }
+    .margin-bottom-6{
+        margin-bottom: -6px;
+    }
+</style>
+<md-card class="Genaral custom-card" flex-gt-sm flex-sm="100" flex-xs="100" flex>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{'STAY_INFORMATION' | translate}}
+                    <md-icon md-svg-src="img/ic_money_exchange_24.svg" ng-click="">
+                    </md-icon>
+                </span>
+            </md-card-title-text>
+        </md-card-title>
+       <md-card-content class="md-default-theme none_paddingTop">
+           <section flex="100" layout-margin class="margin-top0-important max-height5000" >
+                <div flex="100" layout-margin layout layout-align="space-between center" layout-wrap class="margin-bottom0">
+                    <div flex-gt-sm="40" flex flex-xs="100" layout="row">
+                        <md-select flex ng-model="newRRCtrl.room.RoomTypeId" placeholder="{{'SELECT_TYPE' | translate}}" class="margin0">
+                            <md-select-label ></md-select-label>
+                            <md-option ng-repeat="rt in newRRCtrl.roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName | translate }}</md-option>
+                        </md-select>
+                    </div>
+                    <div flex-gt-sm="40" flex flex-xs="100" layout="row" layout-align="center center">
+                        <md-select flex ng-model="newRRCtrl.room.RoomId" ng-change="newRRCtrl.updateRoomType()" md-on-close="newRRCtrl.onSelectRoom(room.RoomId)" placeholder="{{'SELECT_ROOM'|translate}}" class="margin0">
+                            <md-select-label ></md-select-label>
+                            <md-option value="0">{{'SELECT_ROOM' | translate}}</md-option>
+                            <md-option ng-repeat="r in newRRCtrl.availableRoom | filter: {RoomTypeId: newRRCtrl.room.RoomTypeId}" ng-value="r.RoomId">{{r.RoomName}}</md-option>
+                        </md-select>
+                    </div>
+                </div>
+                <div flex="100" layout-margin layout layout-align="space-between center" layout-wrap >
+                    <div flex-gt-sm="40" flex layout="row" layout-align="space-between center">
+                        <md-select flex ng-model="newRRCtrl.room.RoomPriceId" placeholder="{{'RATE' | translate}}" class="margin0">
+                            <md-select-label ></md-select-label>
+                            <md-option ng-if="!newRRCtrl.room.RoomId && !newRRCtrl.room.RoomPriceId" selected value="0">{{'SELECT_RATE' | translate}}</md-option>
+                            <md-option ng-repeat="plan in newRRCtrl.availablePlanList" ng-value="plan.RoomPriceId" ng-selected="plan.RoomPriceId.toString() === newRRCtrl.availablePlanList[0].RoomPriceId.toString()">{{plan.RoomPriceName | translate}}</md-option>
+                        </md-select>
+                    </div>
+                    <div flex-gt-sm="40" flex layout="row" layout-align="space-between center" class="margin-top-bottom0">
+                        <md-input-container ng-class="{'margin-bottom-6': $mdMedia('xs'),'margin-bottom0': $mdMedia('gt-xs') }" flex="100">
+                            <label>{{'PRICE' | translate}}</label>
+                            <input type="text" format="number" ng-model="newRRCtrl.room.Price" ui-number-mask="newRRCtrl.decimal">
+                        </md-input-container>
+                    </div>
+                </div>
+                <div flex="100" layout-margin layout layout-align="space-between center" layout-wrap >
+                    <div class="custom-input-datetime" flex-gt-sm="40" flex flex-xs="100" layout="column" layout-align="center center" >
+                        <section > {{'ARRIVAL_DATETIME' | translate}}</section>
+                        <div>
+                            <input kendo-date-time-picker ng-model="str" k-ng-model="newRRCtrl.room.ArrivalDate" class="width-input-datetime" min="newRRCtrl.minDate" k-options="newRRCtrl.DateTimePickerOption" />
+                        </div>
+                    </div>
+                    <div class="custom-input-datetime" flex-gt-sm="40" flex flex-xs="100" layout="column" layout-align="center center" >
+                        <section > {{'DEPARTURE_DATETIME' | translate}}</section>
+                        <div>
+                            <input kendo-date-time-picker ng-model="str2" k-ng-model="newRRCtrl.room.DepartureDate" class="width-input-datetime" min="newRRCtrl.room.ArrivalDate" k-options="newRRCtrl.DateTimePickerOption" />
+                        </div>
+                    </div>
+                </div>
+                <div flex="100" layout-margin layout layout-align="space-between center" layout-wrap >
+                    <div flex-gt-sm="40" flex layout> 
+                        <md-input-container flex="100" layout class="margin-bottom0">
+                            <label>{{'ADULTS' | translate}}</label>
+                            <input type="number" ng-model="newRRCtrl.room.Adults" min="1">
+                        </md-input-container>
+                    </div>
+                    <div flex-gt-sm="40" flex layout>
+                         <md-input-container flex="100" layout class="margin-bottom0">
+                            <label>{{'CHILDREN' | translate}}</label>
+                            <input type="number" ng-disabled="$stateParams.reservationRoomId && (newRRCtrl.room.BookingStatus ==='CHECKIN' || newRRCtrl.room.BookingStatus ==='OVERDUE')" ng-model="newRRCtrl.room.Child" min="0">
+                        </md-input-container>
+                    </div>
+                    
+                </div>
+                <div flex="100" layout-margin layout="row" layout-align="space-around center" layout-wrap >
+                    <div flex-gt-md="30" flex-md="35" flex-xs="100">
+                        <md-checkbox ng-model="newRRCtrl.room.FOC" aria-label="FOC">
+                            <span >{{'FREE_OF_CHARGE' | translate}}</span>
+                        </md-checkbox>
+                    </div>
+                    <md-input-container flex-gt-sm="20" flex-sm="25" flex flex-xs >
+                        <label>{{'DISCOUNT' | translate}}(%)</label>
+                        <input type="number" min="0" max="100" ng-model="newRRCtrl.room.DiscountPercentage" ng-disabled="newRRCtrl.room.FOC">
+                    </md-input-container>
+                    
+                    <md-input-container flex-gt-md="40" flex-md="30" flex flex-xs>
+                        <label>{{'DISCOUNT' | translate}}($)</label>
+                        <input type="text"  ng-model="newRRCtrl.room.DiscountFlat" ui-number-mask="newRRCtrl.decimal" ng-disabled="newRRCtrl.room.FOC">
+                    </md-input-container>
+                </div>
+                <div flex="100" layout layout-align="space-around center" layout-wrap>
+                    <md-input-container flex="100" class="margin0">
+                        <label>{{'NOTE' | translate}}</label>
+                        <textarea  columns="1" rows="5" ng-model="newRRCtrl.room.Note" />
+                    </md-input-container>
+                </div>
+            </section>
+        </md-card-content>
+</md-card>

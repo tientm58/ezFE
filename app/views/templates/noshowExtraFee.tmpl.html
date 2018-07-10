@@ -1,0 +1,41 @@
+<style>
+    md-list-item,
+	md-list-item .md-list-item-inner {
+		min-height: 48px;
+		height: 50px;
+	}
+</style>
+<md-dialog aria-label="NOSHOW_EXTRA_FEE" flex-gt-xs="50" flex-xs="98">
+    <form name="deleteES">
+        <md-toolbar>
+            <div class="md-toolbar-tools bg-waring">
+                <h2><md-icon md-svg-src="img/icons/ic_av_timer_48px.svg" style="height: 24px; width: 24px;fill:#fff"></md-icon> {{'NOSHOW_EXTRA_FEE' | translate}}</h2>
+                <span flex></span>
+                 <!--<md-button ng-click="cancel()" class="md-icon-button">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+                </md-button> -->
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <!-- <div class="md-dialog-content" layout="row" layout-wrap flex="100"> -->
+                <md-list style="width: 100%;">
+                    <md-list-item ng-repeat="charge in roomCharges">
+                        <p>{{charge.StartDate | date:'dd/MM/yyyy'}}</p>
+                        <p class="md-secondary">{{charge.Amount | currency}}</p>
+                    </md-list-item>
+                </md-list>
+            <!-- </div> -->
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <!--<md-button ng-click="cancel()" class="md-primary" >
+                {{'CANCEL' | translate}}
+            </md-button>-->
+            <md-button ng-click="save()" class="md-primary" >
+                {{'OK' | translate}}
+            </md-button>
+        </md-dialog-actions>
+
+    </form>
+
+</md-dialog>

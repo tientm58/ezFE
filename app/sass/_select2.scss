@@ -1,0 +1,10 @@
+.select2-container {
+    .select2-choice {
+        height: calc(2.25rem + 2px);
+        padding: .375rem 1.75rem .375rem .75rem;
+    }
+    .select2-search input,
+    .select2-arrow b {
+        background-position: 0 0.35rem !important;
+    }
+}

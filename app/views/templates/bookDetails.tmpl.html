@@ -1,0 +1,165 @@
+<style>
+	md-table-container {
+		width: 100%;
+	}
+
+	.box_sumtotal {
+		background: #f2f2f2;
+		color: rgba(0, 0, 0, .54);
+		font-weight: bold;
+		line-height: 2em;
+		padding: 10px;
+		-webkit-line-break: unset;
+	}
+
+	.balance-container {
+		margin-top: 20px;
+		margin-bottom: 20px
+	}
+
+	md-whiteframe>div {
+		width: 100%;
+	}
+
+	.NoteContent {
+		color: red;
+		font-size: 12px;
+	}
+</style>
+<md-content class="md-padding">
+	<section class="filter-container" layout="row" layout-align="space-between center" layout-wrap>
+		<md-select placeholder="Chọn ngày" ng-model="self.filters.selectedTime" ng-change="action.setDatePicker('booksDetail')" style="min-width: 200px;">
+			<md-option ng-value="time.value" ng-repeat="time in self.times" ng-selected="$index == 0 ? true : false">{{time.description}}</md-option>
+		</md-select>
+		<div layout="row" layout-align="space-between center">
+			<label>{{'START_DATE' | translate}}</label>
+			<md-datepicker md-max-date="self.maxDate" ng-model="self.bookDetails.filters.StartDate" md-placeholder="Start date"></md-datepicker>
+		</div>
+		<div layout="row" layout-align="space-between center">
+			<label>{{'END_DATE' | translate}}</label>
+			<md-datepicker md-max-date="self.maxDate" ng-model="self.bookDetails.filters.EndDate" md-placeholder="Enter date"></md-datepicker>
+		</div>
+		<md-button class="btn-c md-raised md-info" ng-click="action.bookDetails.getList('search')">
+			<md-icon md-svg-src="img/icons/ic_search_48px.svg"></md-icon>&nbsp;{{'SEARCH' | translate}}
+		</md-button>
+		<!-- <md-button class="md-raised md-warn" ng-click="action.export.excel('#listBooks')"><md-icon md-svg-src="img/icons/ic_report_48px.svg"></md-icon>&nbsp;Export Excel</md-button>
+		<md-button class="md-raised md-warn" ng-click="action.export.pdf('listBooks')"><md-icon md-svg-src="img/icons/ic_report_48px.svg"></md-icon>&nbsp;Export PDF</md-button> -->
+	</section>
+	<section class="list-container" layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+		<md-table-container>
+			<table id="listBooks" class="table" md-table md-progress="promiseBookDetails">
+				<thead class="md-table-progress">
+					<tr>
+						<th colspan="{{4 + self.currency.length*2}}">
+							<md-progress-linear ng-show="deferred()" md-mode="indeterminate" aria-valuemin="0" aria-valuemax="100" role="progressbar"
+							 aria-hidden="true" class="ng-hide" style="">
+								<div class="md-container md-mode-indeterminate">
+									<div class="md-dashed"></div>
+									<div class="md-bar md-bar1"></div>
+									<div class="md-bar md-bar2"></div>
+								</div>
+							</md-progress-linear>
+						</th>
+					</tr>
+				</thead>
+				<thead md-head md-order="query.order" md-on-reorder="getDesserts">
+					<tr md-row class="topHear">
+						<th md-column md-order-by="nameToLower">
+							<span>{{'STT' | translate}}</span>
+						</th>
+						<th md-column md-order-by="calories.value">
+							<span>{{'DATE' | translate}}</span>
+						</th>
+						<th md-column>{{ 'EXPENDITURE_MANAGE_RECEIPT_NUMBER' | translate }}</th>
+						<th md-column>{{ 'EXPENDITURE_MANAGE_PAY_NUMBER' | translate }}</th>
+						<th md-column>{{ 'EXPENDITURE' | translate }}</th>
+						<th md-column style="text-align: center !important;" colspan="{{self.currency.length || 1}}">{{ 'ITEM_RECEIPT' | translate }}</th>
+						<th md-column style="text-align: center !important;" colspan="{{self.currency.length || 1}}">{{ 'ITEM_PAID' | translate }}</th>
+						<th md-column style="text-align: center !important;">{{ 'CREATED_BY' | translate }}</th>
+					</tr>
+					<tr md-row class="gray-box-h1 last_row_">
+						<th md-column>
+							<span></span>
+						</th>
+						<th md-column>
+							<span></span>
+						</th>
+						<th md-column></th>
+						<th md-column></th>
+						<th md-column></th>
+						<th md-column class="text-center hightli bg_thu" ng-repeat="curr in self.currency">
+							{{curr || "VND"}}
+						</th>
+						<th md-column class="text-center hightli bg_chi" ng-repeat="curr in self.currency">
+							{{curr || "VND"}}
+						</th>
+						<th md-column></th>
+					</tr>
+				</thead>
+				<tbody md-body>
+					<tr md-row ng-repeat="invoiceDetail in self.bookDetails.dataList track by $index">
+						<td md-cell>{{$index + 1}}</td>
+						<td md-cell>{{invoiceDetail.InvoiceDate | date:'dd/MM/yyyy'}}</td>
+						<td md-cell>
+							<a ng-click="action.invoices.editInvoice(invoiceDetail)" style="cursor: pointer;color: #4CAF50;">{{invoiceDetail.InvoiceReceiptsNo || ""}}</a>
+						</td>
+						<td md-cell>
+							<a ng-click="action.invoices.editInvoice(invoiceDetail)" style="cursor: pointer;color:rgb(255,87,34);">{{invoiceDetail.InvoicePaymentOrdersNo || ""}}</a>
+						</td>
+						<td md-cell>{{invoiceDetail.InvoiceContent || ""}}</td>
+						<td md-cell ng-repeat="curr in self.currency" class="text-right bg_thu">
+							{{obj = action.bookDetails.getAmountDetailByCurrency(curr, invoiceDetail, 1);""}} {{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+						</td>
+						<td md-cell ng-repeat="curr in self.currency" class="text-right bg_chi">
+							{{obj = action.bookDetails.getAmountDetailByCurrency(curr, invoiceDetail, 2);""}} {{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+						</td>
+						<td md-cell class="text-center">{{invoiceDetail.CreatedBy || "NA"}}</td>
+					</tr>
+				</tbody>
+				<!-- <tfoot md-foot>
+					<tr md-row>
+						<td md-cell colspan="4">Total: </td>
+						<td md-cell ng-repeat="curr in self.currency">
+							{{action.bookDetails.getTotalAmountByCurrency(curr) | currency}}
+						</td>
+						<td md-cell ng-repeat="curr in self.currency">
+							{{action.bookDetails.getTotalAmountByCurrency(curr) | currency}}
+						</td>
+						<td md-cell></td>
+					</tr>
+				</tfoot> -->
+			</table>
+		</md-table-container>
+		<md-table-pagination md-label="{{self.bookDetails.pagerBookDetail.config.label}}" md-limit="self.bookDetails.pagerBookDetail.query.PageSize"
+		 md-limit-options="self.bookDetails.pagerBookDetail.config.limitPagination" md-page="self.bookDetails.pagerBookDetail.query.PageNumber"
+		 md-total="{{self.bookDetails.pagerBookDetail.config.totalItems}}" md-on-paginate="self.bookDetails.pagerBookDetail.bindingData"
+		 md-page-select></md-table-pagination>
+
+	</section>
+	<section class="balance-container box_info_dc" layout="row" layout-align="start center" layout-wrap>
+		<div flex="45"></div>
+		<div flex-sm="100" flex-xs="100" flex="55">
+			<md-whiteframe class="box_sumtotal" layout="column" layout-align="start start">
+				<div layout="row" layout-align="space-between center">
+					<label>I.{{'DAY_BEGIN_PERIOD_BALANCE' | translate}}:</label>
+					<label>{{self.bookDetails.totalBalance | currency}}</label>
+				</div>
+				<md-divider></md-divider>
+				<div layout="row" layout-align="space-between center">
+					<label>II.{{'TOTAL_AMOUNT_RECEIVE_IN_PERIOD' | translate}}:</label>
+					<label>{{self.bookDetails.totalPeriodReceiptsBalance | currency}}</label>
+				</div>
+				<md-divider></md-divider>
+				<div layout="row" layout-align="space-between center">
+					<label>III.{{'TOTAL_AMOUNT_PAID_IN_PERIOD' | translate}}:</label>
+					<label>{{self.bookDetails.totalPeriodPaymentOrderBalance | currency}}</label>
+				</div>
+				<md-divider></md-divider>
+				<div layout="row" layout-align="space-between center">
+					<label>{{'END_OF_PERIOD' | translate}} (I+II-III)</label>
+					<label>{{action.bookDetails.getAmountPeriod() | currency}}</label>
+				</div>
+			</md-whiteframe>
+		</div>
+	</section>
+</md-content>

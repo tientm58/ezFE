@@ -1,0 +1,37 @@
+<md-dialog aria-label="{{'EIDT_REMARK' | translate}}">
+	<form name="editRemarkForm">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'EDIT_REMARK' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <md-input-container flex="100">
+                    <label>{{'TYPE' | translate}}</label>
+                    <md-select ng-model="remark.RemarkEventId">
+                        <md-option ng-repeat="event in remarkEvents" ng-value="event.RemarkEventId" ng-selected="event.RemarkEventId.toString() === remark.RemarkEventId.toString()">{{event.RemarkEventName | translate}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex="100">
+                    <label>{{'DESCRIPTION' | translate}}</label>
+                    <input type="text" ng-model="remark.Description" />
+                </md-input-container>
+            </div>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary" aria-label="CANCEL">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-click="processSaveRemark()" class="md-primary" aria-label="SAVE">
+				{{'SAVE' | translate}}
+			</md-button>
+		</md-dialog-actions>
+
+	</form>
+
+</md-dialog>

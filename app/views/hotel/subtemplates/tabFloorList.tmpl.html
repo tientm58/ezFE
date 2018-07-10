@@ -1,0 +1,175 @@
+<style>
+	.disabled {
+		background: #a9aaab !important;
+	}
+
+	.textDiabled {}
+
+
+	.md-list-item.md-2-line .md-list-item-text,
+	md-list-item.md-2-line>._md-no-style .md-list-item-text,
+	md-list-item.md-3-line .md-list-item-text,
+	md-list-item.md-3-line>._md-no-style .md-list-item-text {
+		margin: auto;
+	}
+
+	md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+		height: auto;
+	}
+
+	md-list-item ._md-list-item-inner ._md-secondary-container,
+	md-list-item ._md-secondary-container {
+		height: auto;
+	}
+
+	.btn-active {
+		padding: 0px;
+		margin: auto 0px;
+		cursor: pointer;
+		margin-left: 0px !important;
+	}
+
+	.btn-inActive {
+		padding: 0px;
+		margin: auto 0px;
+		cursor: pointer;
+		margin-left: 0px !important;
+	}
+
+	.ipsum {
+		color: gray;
+		font-size: 0.9em;
+		display: block;
+		padding-top: 6px;
+	}
+
+	;
+	.dndDraggingSource {
+		display: none;
+	}
+
+	;
+	.dndPlaceholder {
+		/*background-color: #ddd !important;*/
+		min-height: 72px !important;
+		min-width: 100% !important;
+		display: block;
+		position: relative;
+	}
+
+	.list {
+		padding: 12px;
+		margin: 0px 0px;
+		cursor: pointer;
+		min-height: 100px;
+		max-height: 5000px;
+	}
+
+	.list_item {
+		padding-top: 8px;
+		padding-bottom: 8px;
+		box-sizing: border-box;
+		margin: 8px;
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+	}
+
+	.btn-icon {
+		fill: #fff;
+		height: 23px;
+		width: 23px;
+		color: #666;
+	}
+</style>
+
+<md-card style="margin-bottom:30px">
+	<div class="md-padding md-whiteframe-z1" style="position: relative;" layout="row" layout-wrap layout-align="space-between center">
+		<div flex="70">
+			<span class="md-toolbar-tools" style="padding-right: 0px;">
+				<h3>
+					{{'FLOOR_LIST' | translate}} ({{floors.length}})
+				</h3>
+			</span>
+			<md-button class="md-warn md-fab md-mini" ng-click="createFloor()" style=" position: absolute; right: 16px; bottom: -25px;">
+				<md-icon md-svg-src="img/icons/ic_add_24px.svg"></md-icon>
+				<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+					{{'NEW_FLOOR' | translate}}
+				</md-tooltip>
+			</md-button>
+			<md-button class="md-warn md-fab md-mini" ng-click="changeOrderNumber()" ng-if="isFloorChanged" style=" position: absolute;right: 60px;bottom: -25px;">
+				<md-icon md-svg-src="img/icons/ic_save_48px.svg"></md-icon>
+				<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+					{{'TOOLTIP_SAVE' | translate}}
+				</md-tooltip>
+			</md-button>
+		</div>
+		<div layout="row" layout-align="end center" flex>
+			<div flex="100">
+				<md-input-container style="margin-bottom: 0px;margin-top: 20px;">
+					<label></label>
+					<input type="search" ng-model="floor_filter" placeholder="{{'FILTER_FLOOR' | translate}}" />
+				</md-input-container>
+			</div>
+		</div>
+		<span class="ipsum" flex="100" hide-xs>
+			<md-icon md-menu-origin="" md-svg-src="img/icons/ic_warning_48px.svg">
+			</md-icon>
+			{{'FLOOR_LIST_NOTE' | translate}}
+		</span>
+	</div>
+
+	<div>
+		<md-list dnd-list="floors" class="list" ng-if="floors.length > 0" layout="row" layout-wrap flex="100"  layout-align="center start">
+			<md-list-item dnd-draggable="floor" dnd-moved="floors.splice($index, 1)" dnd-effect-allowed="move" ng-repeat="floor in floors | filter:floor_filter"
+			    class="md-2-line list_item" ng-class="{ 'disabled' : floor.IsActive == false }" flex="50" flex-xs="100">
+				<div class="md-list-item-text" layout="row">
+
+					<p style="padding-top: 4px;padding-bottom: 4px;">
+						<div ng-if="floor.IsActive === true">
+							<md-button ng-click="changeFloorStatus(floor, $event)" class="btn-active md-icon-button launch">
+								<md-icon md-svg-icon="img/icons/ic_pause_circle_outline_48px.svg"></md-icon>
+								<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+									{{'ACTIVE' | translate}}
+								</md-tooltip>
+							</md-button>
+						</div>
+						<div ng-if="floor.IsActive === false">
+							<md-button ng-click="changeFloorStatus(floor, $event)" class="btn-inActive md-icon-button launch">
+								<md-icon md-svg-icon="img/icons/ic_play_circle_outline_48px.svg"></md-icon>
+								<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+									{{'INACTIVE' | translate}}
+								</md-tooltip>
+							</md-button>
+						</div>
+					</p>
+
+					<div layout="column">
+						<h3 ng-class="{ 'textDiabled' : floor.IsActive == false }">{{'FLOOR' | translate}}: {{ floor.FloorName }} </h3>
+						<h4 hide-xs ng-class="{ 'textDiabled' : floor.IsActive == false }">{{'DESCRIPTION' | translate}}: {{ floor.FloorDescription }}</h4>
+					</div>
+
+				</div>
+				<div class="md-secondary" layout="row">
+					<md-menu md-position-mode="target-right target" md-offset="0 -5">
+						<md-button ng-disabled="floor.IsActive == false" aria-label="Open demo menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)"
+						    style="margin: 0px;">
+							<md-icon md-menu-origin md-svg-icon="img/icons/ic_more_vert_24px.svg"></md-icon>
+						</md-button>
+						<md-menu-content width="4" style="min-height:50px;max-height:350px">
+							<md-menu-item ng-repeat="item in menu">
+								<md-button ng-click="menuItemClick(item,floor,$event)">
+									<div layout="row" flex>
+										<p flex>{{item.name | translate}}</p>
+										<md-icon md-menu-align-target md-svg-icon="img/icons/{{item.icon}}" style="margin: auto 3px auto 0;"></md-icon>
+									</div>
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+					<!--<md-button ng-disabled="floor.IsActive" style="min-width:40px; height: 32px;" ng-click="editFloor(floor, $event)">
+					<md-icon md-svg-src="img/icons/ic_edit_24px.svg" style=""></md-icon>		
+				</md-button>-->
+				</div>
+			</md-list-item>
+		</md-list>
+	</div>
+</md-card>

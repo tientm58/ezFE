@@ -1,0 +1,172 @@
+iframe {
+    background: rgba(255, 255, 255, 0);
+}
+
+body {
+    overflow: hidden;
+}
+
+.alert-error {
+    background: rgba(149, 20, 37, 1);
+    color: #fff;
+    float: left;
+    min-height: 40px;
+    max-height: 300px;
+    overflow-y: auto;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.alert-success {
+    color: #472104 !important;
+    background-color: rgba(0, 255, 0, .8) !important;
+    border-color: #d6e9c6;
+}
+
+.alert-info {
+    color: #fff !important;
+    background-color: #ED9C1C !important;
+    border: none !important;
+}
+
+.mli {
+    display: inline;
+    float: left;
+    height: 19px;
+    padding-top: 4px;
+    line-height: 17px;
+    text-align: center;
+    font-size: 13px;
+    text-shadow: 0 1px 1px #dcdcdc;
+    color: #333333;
+}
+
+.wrap_container {
+    text-align: center;
+}
+
+.sunday {
+    /*background-color: #FF0000;*/
+}
+.btn-today{
+    min-width: 62px;
+    min-height: 28px;
+    font-size: 12px;
+    line-height: inherit;
+    background-color: #1199cc !important;
+    color: #fff !important;
+    margin-left: 0;
+}
+.btn-numberdays lnk{
+    background: #e6e6e6 !important;
+    font-size: 12px;
+}
+.btn-numberdays lnk.activeview{
+    background: #c8c8c8 !important;
+}
+#room_type{
+    bottom: 0;
+    left: 0;
+}
+#room_type select{
+    border: 0;
+}
+.bdate{
+    padding-top: 10px;
+    background: #00000000 !important;
+    color: red !important;
+    padding: 3px 0px 3px 0px;
+    text-align: center; 
+    /*border-radius: 10px;*/
+}
+.bdate:hover{
+    cursor: pointer;
+    background: #fdb913;
+}
+.bday {
+    /* text-transform: uppercase; */
+    font-weight: bold !important;
+    color: #313131;
+    padding-top: 4px;
+}
+.perd{color: #939393;}
+.rowRoomType, .rowRoomType_left{
+    background: #ebebeb;
+    padding: 2px 0 2px 0 !important;
+}
+.rowRoomType_left{
+     font-weight: bold;
+     position: relative;
+}
+.icon-arrow{
+    position: absolute;text-align: right;right: 5px; color: rgba(0,0,0,0.54);bottom: 3px;
+}
+#tplRight{
+    overflow: hidden;
+}
+#tplRight::-webkit-scrollbar, #grid::-webkit-scrollbar {
+    width: 5px;
+    background: white;
+}
+ 
+#tplRight::-webkit-scrollbar-track, #grid::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+}
+ 
+#tplRight::-webkit-scrollbar-thumb, #grid::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+.small-btn button{
+    width: 26px !important;
+}
+/*#conRight div:hover{ background: #f0f0f0; }*/
+
+
+ .md-datepicker-open .md-datepicker-input{
+    height: 30px;
+ }
+ md-tooltip.md-default-theme .md-content, md-tooltip .md-content{
+    background: #2196F3 !important;
+ }
+ .roomMove{
+    border-top-right-radius: 0px;
+    /*border-right: 2px solid #313131;*/
+ } 
+.islastMove,.islastMove::before{
+    border-bottom-left-radius: 0;
+}
+  .roomMove::after {
+    content: ">>"; 
+  }
+
+  .yellow-text{
+    color: yellow;
+  }
+  .sm-btn{
+    min-width: 50px;
+  }
+  .isViewDate .bdate{display: none;}
+  .isViewDate .lidate {
+        height: 36px;
+    }
+    .isViewDate .roomtype_title{
+        height: 40px;
+    }  
+    .isViewDate #datetable{
+        margin-bottom: 0;
+    } 
+    .isViewDate .bday{ 
+        line-height: 36px;
+    }
+    .isViewMonth .bday .hide-mobile{
+        /* display: none; */
+    }
+  @media (max-width: 959px){
+    .isViewDate .bdate{display: none;}
+    .isViewDate .bday{
+        font-size: 10px;    
+        line-height: 36px;
+    }
+    
+}

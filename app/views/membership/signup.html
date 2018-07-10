@@ -1,0 +1,221 @@
+<style>
+    @media (max-width: 767px) {
+        #chat-application-iframe {
+            display: none;
+        }
+    }
+
+    md-input-container {
+        margin-bottom: 4px !important;
+    }
+
+    .name,
+    .email {
+        fill: #0265a9;
+    }
+
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 50px white inset;
+        /* Change the color to your own background color */
+        -webkit-text-fill-color: black;
+    }
+
+    input:-webkit-autofill:focus {
+        -webkit-box-shadow: /*your box-shadow*/
+        0 0 0 50px white inset;
+        -webkit-text-fill-color: black;
+    }
+
+    .formlogin {
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.67) !important;
+        /* max-height: 521px; */
+        /* min-height: 468px !important; */
+    }
+
+    .topformlogin {
+        background-color: rgba(255, 255, 255, 0.66) !important;
+        position: relative;
+        /*height: 100px;*/
+        /* border-bottom: 1px solid #C2C2C2; */
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 5px;
+    }
+
+    .box {
+        padding: 25px;
+        margin-bottom: 30px;
+        margin-top: 0px;
+    }
+
+    .box-left-login {
+        border-left: 1px solid #A8A9AB;
+        text-align: center;
+    }
+
+    .iconClor {
+        color: #31647E;
+    }
+
+    @media (max-width: 767px) {
+        .formlogin {
+            min-height: 1000px;
+        }
+        #chat-application-iframe {
+            display: none;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .box-left-login {
+            border-left: 0px solid #A8A9AB;
+            border-top: 1px solid #A8A9AB;
+            display: none;
+            /*padding-top: 200px;*/
+            /*margin-top: 200px;*/
+        }
+        .box {
+            /*margin-bottom: 60px;*/
+        }
+        .hidesm {
+            display: none;
+        }
+        .nothidesm {
+            display: block !important;
+        }
+    }
+
+    .nothidesm {
+        display: none;
+    }
+
+    #listIconFooter .animated:hover {
+        height: 45px;
+        width: 45px;
+    }
+</style>
+<div layout="column" layout-align="start center" style="background-color: rgba(255, 255, 255, 0);background-size: 100% 100%;
+background-repeat: no-repeat;">
+    <md-card class="formlogin animated zoomIn">
+        <md-toolbar class="topformlogin">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <img src="img/ezCloudhotel-bluelogo.svg" style="height: 70%;width: 120px;">
+                <span style="font-size:10px;color: dodgerblue;">{{'VERSION' | translate}}: {{'VERSION_NUMBER' | translate}}</span>
+            </div>
+        </md-toolbar>
+        <form layout="row" ng-submit="doSignUp()" layout-xs="column" name="accountInformationForm" layout-align="center" style="padding: 6px;">
+                <div layout="row" layout-xs="column">
+            <div flex="100" flex-xs="100" class="box">
+                <md-subheader class="md-no-sticky">{{'ACCOUNT_INFORMATION' | translate}}</md-subheader>
+                <md-input-container id="email" md-is-error="!accountInformationForm.email.$valid" class="md-icon-float md-block">
+                    <label>
+                        {{'EMAIL(REQUIRED)' | translate}}
+                    </label>
+                    <md-icon md-svg-src="img/icons/ic_email_48px.svg" class="email"></md-icon>
+                    <!-- <input type="text" ng-model="signUpData.Email" ng-change="emailChange = !emailChange" required name="email" ng-model-options="{ updateOn: 'blur' }"
+                        ng-pattern="/^[_a-z0-9A-Z]+(\.[_a-z0-9A-Z]+)*@[a-z0-9A-Z-]+(\.[a-z0-9A-Z-]+)*(\.[a-zA-Z]{2,4})$/" /> -->
+                    <input type="text" ng-model="signUpData.Email" ng-change="emailChange = !emailChange" required name="email" ng-model-options="{ updateOn: 'blur' }"
+                    ng-pattern="/^(([^<>()\[\]\.,;:\s@]+(\.[^<>()\[\]\.,;:\s@]+)*)|)@(([^<>()[\]\.,;:\s@]+\.)+[^<>()[\]\.,;:\s@]{2,})$/i" />
+                    <div ng-messages="accountInformationForm.email.$error" class="has-Error" style="">
+                        <span ng-if="accountInformationForm.email.$error.pattern">
+                            {{ 'INVALID_EMAIL' | translate }}
+                        </span>
+                        <span ng-if="!accountInformationForm.email.$error.pattern && isEmailError">
+                            {{ errors[0] | translate }}
+                        </span>
+                    </div>
+                </md-input-container>
+                <md-input-container id="password" md-is-error="!accountInformationForm.password.$valid" class="md-icon-float md-block">
+                    <label>
+                        {{'PASSWORD(REQUIRED)' | translate}}
+                    </label>
+                    <md-icon md-svg-src="img/icons/ic_lock_outline_48px.svg" class="email"></md-icon>
+                    <input required ng-model="signUpData.Password" type="password" id="password" name="password" minlength="6">
+                    <div ng-messages="accountInformationForm.password.$error" class="has-Error" style="">
+                        <span ng-message="minlength">{{'PASSWORD_MUST_BE_AT_LEAST_SIX_(6)_CHARACTERS_LONG' | translate}}</span>
+                    </div>
+                </md-input-container>
+                <md-input-container md-is-error="!accountInformationForm.passwordConfirm.$valid" class="md-icon-float md-block">
+                    <label>
+                        {{'PASSWORD_CONFIRM(REQUIRED)' | translate}}
+                    </label>
+                    <md-icon md-svg-src="img/icons/ic_lock_outline_48px.svg" class="email"></md-icon>
+                    <input required type="password" ng-model="signUpData.ConfirmPassword" ng-model-options="{ updateOn: 'blur' }" id="passwordConfirm"
+                        name="passwordConfirm">
+                    <div ng-messages="accountInformationForm.passwordConfirm.$error" class="has-Error" ng-if="signUpData.Password && signUpData.ConfirmPassword && signUpData.Password !== signUpData.ConfirmPassword">
+                        <span>
+                            {{'PASSWORD_NOT_MATCH' | translate}}
+                        </span>
+                    </div>
+                </md-input-container>
+                <div id="captcha"></div>
+            </div>
+            <div flex="100" flex-xs="100" class="box">
+                <md-subheader class="md-no-sticky">{{'PERSONAL_INFORMATION' | translate}}</md-subheader>
+                <md-input-container class="md-icon-float md-block" md-is-error="!accountInformationForm.hotelOwnerFullName.$valid">
+                    <label>
+                        {{'FULL_NAME(REQUIRED)' | translate}}
+                    </label>
+                    <md-icon md-svg-src="img/icons/ic_person_outline_24px.svg" class="name"></md-icon>
+                    <input required type="text" ng-model="signUpData.HotelOwnerFullName" name="hotelOwnerFullName" />
+                </md-input-container>
+                <md-input-container class="md-icon-float md-block" md-is-error="!accountInformationForm.hotelOwnerPhoneNumber.$valid">
+                    <label>
+                        {{'PHONE_NUMBER(REQUIRED)' | translate}}
+                    </label>
+                    <md-icon md-svg-src="img/icons/ic_phone_24px.svg" class="name"></md-icon>
+                    <input required type="tel" ng-model="signUpData.HotelOwnerPhoneNumber" name="hotelOwnerPhoneNumber" />
+                </md-input-container>
+                <md-input-container class="md-icon-float md-block">
+                    <label>
+                        {{'ADDRESS' | translate}}
+                    </label>
+                    <md-icon md-svg-src="img/icons/ic_place_24px.svg" class="name"></md-icon>
+                    <input type="text" ng-model="signUpData.HotelOwnerAddress" name="hotelOwnerAddress" />
+                </md-input-container>
+                <md-input-container class="md-icon-float md-block">
+                    <md-icon md-svg-src="img/icons/ic_format_list_numbered_24px.svg" class="name" style=""></md-icon>
+                    <md-select ng-model="signUpData.NumberOfHotels" placeholder="{{ 'NUMBER_OF_HOTELS' | translate }}">
+                        <md-select-label style="width: 100%"></md-select-label>
+                        <md-option value="1">{{'1_HOTEL' | translate}}</md-option>
+                        <md-option value="2">{{'2_HOTELS' | translate}}</md-option>
+                        <md-option value="3">{{'3_HOTELS' | translate}}</md-option>
+                        <md-option value="4">{{'4_HOTELS' | translate}}</md-option>
+                        <md-option value="5">{{'5_HOTELS' | translate}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <br/>
+                <md-input-container class="md-icon-float md-block">
+                    <md-icon md-svg-src="img/icons/ic_domain_24px.svg" class="name" style=""></md-icon>
+                    <md-select ng-model="signUpData.HotelSizeId" placeholder="{{ 'HOTEL_SIZES' | translate }}">
+                        <md-select-label style="width: 100%"></md-select-label>
+
+                        <md-option ng-repeat="hotelSize in hotelSizeList" value="{{hotelSize.HotelSizeId}}">
+                            {{hotelSize.HotelSizeName | translate}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <button class="hide"></button>
+                <div layout="row" layout-align="center center">
+                    <md-button class="md-raised md-primary" ng-disabled="accountInformationForm.$invalid" ng-click="submitted=true;doSignUp()">
+                        {{'SIGNUP' | translate}}
+                    </md-button>
+                </div>
+                <div layout-align="center center" style="font-size: 12px;margin: 6px 8px;">
+                    <span>{{'EXIT_ACCOUNT?' | translate}}</span>&nbsp;
+                    <a ng-click="$state.transitionTo('login');" style="color:rgba(0,0,0,0.87) !important;cursor:pointer;text-decoration: underline;">{{'CLICK_HERE' | translate}}</a>
+                </div>
+            </div>
+        </div>
+        </form>
+        <tour step="currentStep" post-tour="tourEnded()" post-step="stepComplete()" tour-complete="tourComplete()">
+            <virtual-step tourtip="{{ 'EMAIL_IS_YOUR_USERNAME_TO_SIGN_IN' | translate }}" tourtip-next-label="{{'NEXT' | translate}}"
+                tourtip-placement="left" tourtip-step="0" tourtip-element="#email"></virtual-step>
+            <virtual-step tourtip="{{ 'YOUR_PASSWORD_TO_LOGIN' | translate}}" tourtip-next-label="{{'NEXT' | translate}}" tourtip-placement="left"
+                tourtip-step="1" tourtip-element="#password"></virtual-step>
+            <virtual-step tourtip="{{'CHECK_HERE_TO_MAKE_SURE_YOU_ARE_A_HUMAN' | translate}}" tourtip-placement="left" tourtip-step="2"
+                tourtip-next-label="{{'DONE' | translate}}" tourtip-element="#captcha"></virtual-step>
+        </tour>
+    </md-card>
+</div>

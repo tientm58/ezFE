@@ -1,0 +1,31 @@
+<md-content flex="80" flex-sm="100" class="md-whiteframe-z3">
+	<md-toolbar class="md-primary md-default-theme" layout="row" 
+					style="border-radius: 3px 3px 0 0; position: relative;
+						   box-shadow: 0 1px rgba(255, 255, 255, 0.1);
+						   background-color: rgb(16,108,200);
+						   color: rgba(255,255,255,0.87);">
+			
+			<span flex class="md-toolbar-tools">
+				<h2>
+					{{'LANGUAGES' | translate}}
+				</h2>
+			</span>	
+	</md-toolbar>
+	<md-content class="md-padding" style="margin-top: 20px;" flex="50" flex-sm="100">
+		<md-subheader class="md-no-sticky">
+			System Default Language
+		</md-subheader>
+		<md-select ng-model="languageList">
+			<md-select-label style="width:100%"></md-select-label>
+			<md-option ng-repeat="lang in languageList">{{lang.LanguageName}}</md-option>
+		</md-select>
+		
+		<md-subheader class="md-no-sticky">
+			Report Language
+		</md-subheader>
+		<md-select ng-model="languageList">
+			<md-select-label style="width:100%"></md-select-label>
+			<md-option ng-repeat="lang in languageList">{{lang.LanguageName}}</md-option>
+		</md-select>
+	</md-content>
+</md-content>

@@ -1,0 +1,33 @@
+<md-dialog aria-label="{{'NOTIFICATION' | translate}}">
+  <form ng-cloak name="DeleteInvoice">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{'NOTIFICATION_VOUCHER_CONFIRM_DELETE' | translate}}</h2>
+        <span flex></span>
+        <md-button class="btn-c md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content layout-padding>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>{{'REASON_DELETE_INVOICE' | translate }}...</label>
+	        <input required ng-model="reason" type="text" placeholder="">
+	      </md-input-container>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-disabled="DeleteInvoice.$invalid" ng-click="save()" class="btn-c md-raised md-primary">
+        <md-icon md-svg-src="img/icons/ic_done_48px.svg"></md-icon>&nbsp;
+        {{ 'OK' | translate }}
+      </md-button>
+      <md-button ng-click="cancel()" class="btn-c md-raised md-warn">
+        <md-icon md-svg-src="img/icons/ic_cancel_48px.svg"></md-icon>&nbsp;
+        {{ 'CANCEL' | translate }}
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

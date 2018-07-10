@@ -1,0 +1,643 @@
+<style>
+    .disabled {
+        background: #dddddd;
+    }
+    .textDisabled {
+        text-decoration: line-through
+    }
+    .heightPriceList{
+        /*min-height: 281px !important;*/
+        /*min-height: 100% !important;*/
+        max-height: 5000px;
+        overflow-y: hidden;
+    }
+    h4{margin-top: 10px;}
+    .md-headline md-select{
+        width:145px;
+        float: right;
+        margin-top:-8px;
+        margin-bottom:0px;
+    }
+    .margin6{
+        margin:6px;
+    }
+    .md-list-extra-traveller{
+        margin:5px 16px;
+        /*border-bottom:rgba(128, 128, 128, 0.41) thin solid;*/
+    }
+    .md-list-extra-traveller h4{
+        font-weight: bold !important;
+        color:black;
+        /*font-size: 15px;*/
+        margin:0px;
+        padding: 4px 0px;
+    }
+    .md-list-extra-traveller md-list-item{
+        min-height: 22px !important;
+        max-height: 22px;
+        padding:0px !important;
+    }
+    .md-list-extra-traveller md-list-item .md-list-item-text{
+        /*margin: 5px 0px !important;*/
+    }
+    .md-list-extra-traveller md-list-item ._md-secondary-container{
+       max-height: 22px;
+       color:black;
+    }
+    .md-list-extra-traveller-eachday{
+         margin:0px 16px;
+        border-bottom:rgba(128, 128, 128, 0.41) thin solid;
+    }
+    .md-list-extra-traveller-eachday h4{
+        font-weight: bold !important;
+        color:black;
+        margin:0px;
+        padding: 5px 0px;
+    }
+    .md-list-extra-traveller-eachday md-list-item{
+        max-height: 22px;
+        min-height: 22px !important;
+        color:black;
+        padding:0px;
+    }
+    .md-list-extra-traveller-eachday md-list-item ._md-secondary-container{
+        max-height: 22px;
+        color:black;
+    }
+    .md-list-discount-eachday{
+        margin:0px 16px;
+        border-bottom:rgba(128, 128, 128, 0.41) thin solid;
+    }
+    .md-list-discount-eachday h4{
+        font-weight: bold !important;
+        color:black !important;
+        margin:0px;
+        padding: 4px 0px !important;
+    }
+    .md-list-discount-eachday md-list-item{
+        max-height: 22px;
+        min-height: 22px !important;
+        color:black;
+        padding:0px;
+    }
+    .md-list-discount-eachday md-list-item .md-list-item-text{
+        padding:0px;
+        margin:0px;
+    }
+    .md-list-discount-eachday md-list-item ._md-secondary-container{
+        margin:0px;
+        min-height: 22px !important;
+        max-height: 22px;
+    }
+    .md-list-discount-eachday md-list-item ._md-secondary-container p{
+        padding:0px;
+        margin:0px;
+    }
+    .md-list-discount{
+        margin:5px 16px;
+        border-bottom:rgba(128, 128, 128, 0.41) thin solid;
+    }
+    .md-list-discount h4{
+        font-weight: bold !important;
+        color:black;
+        margin:0px;
+        padding: 5px 0px;
+    }
+    .md-list-discount md-list-item{
+        min-height: 22px !important;
+        max-height: 22px;
+        padding:0px !important;
+    }
+    .md-list-discount md-list-item ._md-secondary-container{
+       max-height: 22px;
+       color:black;
+    }
+    .md-list-price{
+        margin:5px 16px;
+        border-bottom:rgba(128, 128, 128, 0.41) thin solid;
+    }
+    .md-list-price h4{
+        font-weight: bold !important;
+        color:black;
+        margin:0px;
+        padding: 4px 0px;
+    }
+    .md-list-price md-list-item{
+        min-height: 48px !important;
+        max-height: 48px !important;
+        padding:0px !important;
+    }
+    .md-list-price md-list-item ._md-secondary-container{
+       max-height: 48px;
+       color:black;
+    }
+    .md-list-price md-list-item .md-list-item-text span{
+        font-size: 13px;
+    }
+    .md-list-price-list-eachday md-list-item .md-list-item-text h4{
+        /*font-weight: bold !important; */
+    }
+    .md-list-price-list-eachday .md-list-item-formula{
+        min-height: 22px !important;
+        max-height: 22px !important;
+    }
+    .md-list-price-list-eachday .md-list-item-fullday{
+        min-height: 30px !important;
+        max-height: 30px !important;
+    }
+    /*.md-list-price-list-eachday*/
+     .md-list-item-non-ES{
+        margin:8px 0;
+    }
+    /*.md-list-price-list-eachday*/
+     .md-list-item-non-ES ._md-secondary-container{
+        margin:0px;
+    }
+    /*.md-list-price-list-eachday */
+    .md-list-item-non-ES .md-list-item-text{
+        margin:0px;
+    }
+    /*.md-list-price-list-eachday*/
+     .md-list-item-non-ES ._md-secondary-container p{
+        margin:0px;
+        margin-top:18px;
+        color:black;
+    }
+    /*.md-list-price-list-eachday*/
+     .md-list-item-ES{
+        margin:0px;
+        margin-top:4px;
+    }
+    /*.md-list-price-list-eachday */
+    .md-list-item-ES ._md-secondary-container p{
+        margin:0px;
+        margin-top:18px;
+        color:black;
+    }
+    .md-list-item-formula-hour{
+        min-height: 30px !important;
+        max-height: 30px !important;
+    }
+    .md-list-item-formula-hour .md-list-item-text h4{
+        font-weight: bold !important;
+        margin-top:0px !important;
+    }
+    .md-list-item-price-hour{
+        margin:0px;
+        max-height: 22px !important;
+        min-height: 22px !important;
+    }
+    .md-list-item-price-hour p{
+        color:black;
+    }
+    .md-list-item-price-hour ._md-secondary-container{
+        margin:0px;
+        padding:0px;
+        max-height: 22px !important;
+    }
+    .md-list-item-late-checkout{
+        margin:0px;
+        padding-top:4px !important;
+        padding-bottom:4px !important; 
+    }
+    .md-list-item-late-checkout ._md-secondary-container p{
+        margin:0px;
+        margin-top:18px;
+        color:black;
+    }
+    .md-list-constrantly-formula-eachday{
+        margin:0px;
+        padding-top:4px !important;
+        padding-bottom:4px !important;  
+    }
+    .md-list-constrantly-formula-eachday md-list-item ._md-secondary-container{
+        margin:0px;
+    }
+    .md-list-constrantly-formula-eachday md-list-item ._md-secondary-container p{
+        margin:0px;
+        color:black;
+        /*margin-top:18px;*/
+    }
+    .md-list-constrantly-formula-eachday md-list-item{
+        min-height: 35px !important;
+        max-height: 35px !important;
+        margin:3px 0px;
+    }
+    .md-list-constrantly-formula-eachday md-list-item h3{
+        /*font-weight: bold !important;*/
+    }
+    .md-list-constrantly-formula-eachday md-list-item h4{
+        color:#747274 !important;
+        font-size: 13px !important;
+        margin:0px !important;
+    }
+    .md-list-constrantly-formula-eachday md-list-item p{
+        color:black;
+    }
+    .md-list-early-checkin-eachday .md-list-item-text h4{
+        margin: 0px;
+    }
+    .md-list-early-checkin-eachday{
+        margin:5px 0;
+    }
+    .md-list-early-checkin-eachday .md-list-item-text h4{
+        color:#747274 !important;
+    }
+    .md-list-early-checkin-eachday ._md-secondary-container{
+        margin:0px;
+    }
+    .md-list-early-checkin-eachday ._md-secondary-container p{
+        margin:0px;
+        color:black;
+        margin-top:18px;
+    }
+</style>
+<md-card flex="100" class="custom-card heightPriceList" >
+    <md-card-title class="padding-bottom0-important">
+        <md-card-title-text flex="100" >
+            <span class="md-headline">{{'PRICE_LIST' | translate}}
+                <md-select aria-label="View Type" ng-model="priceListCtrl.viewType" flex>
+                    <md-option value="eachDay">{{'EACH_DAY' | translate}}</md-option>
+                    <md-option value="detailGroup">{{'DETAIL_GROUP' | translate}}</md-option>
+                </md-select>
+            </span>
+        </md-card-title-text>
+    </md-card-title>
+    <!--<div style="">
+        <div layout="row" layout-align="space-between center" style="padding: 16px;">
+            <span style="font-size: 20px; font-weight: 400; line-height: 16px;" flex="40">
+                {{'PRICE_LIST' | translate}}
+            </span>
+            <div flex layout="row" layout-align="end center" ng-if="priceListCtrl.room.BookingStatus != 'CHECKOUT' && priceListCtrl.room.BookingStatus != 'CANCELLED'">
+                <span style="font-size: 16px; line-height: 16px;" flex="40">{{'VIEW_TYPE' | translate}}</span>
+                <md-select ng-model="priceListCtrl.viewType" flex>
+                    <md-option value="eachDay">{{'EACH_DAY' | translate}}</md-option>
+                    <md-option value="detailGroup">{{'DETAIL_GROUP' | translate}}</md-option>
+                </md-select>
+            </div>
+        </div>
+    </div>-->
+    <md-card-content class="height-content-payment" ng-if="priceListCtrl.room.BookingStatus != 'CHECKOUT' && priceListCtrl.room.BookingStatus != 'CANCELLED' && priceListCtrl.viewType == 'eachDay'">
+        <md-list class="padding0 " ng-if="priceListCtrl.priceList">
+            <md-list class="padding0 md-list-discount-eachday" ng-if="priceListCtrl.priceList.discountPercentageAmount > 0 || priceListCtrl.priceList.discountFlatAmount > 0">
+                <h4 >{{'DISCOUNT' | translate}}</h4>
+                <md-list-item class="md-2-line" ng-if="priceListCtrl.priceList.discountPercentageAmount > 0">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'BY_PERCENT_OFF' | translate}}({{priceListCtrl.priceList.model.DiscountPercentage}}%)</h3>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        {{priceListCtrl.priceList.discountPercentageAmount | currency}}
+                    </p>
+                </md-list-item>
+                <md-list-item class="md-2-line" ng-if="priceListCtrl.priceList.discountFlatAmount > 0">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'BY_MONEY_OFF' | translate}}</h3>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        {{priceListCtrl.priceList.discountFlatAmount | currency}}
+                    </p>
+                </md-list-item>
+            </md-list>
+
+            <md-list class="padding0 md-list-extra-traveller-eachday" ng-if="priceListCtrl.priceList.extraAdults || priceListCtrl.priceList.extraChildren">
+                <h4>{{'EXTRA_TRAVELLER' | translate}}</h4>
+                <md-list-item ng-if="priceListCtrl.priceList.extraAdults" class="md-2-line">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'EXTRA_ADULTS' | translate}} ({{priceListCtrl.priceList.extraAdults.Extra}})</h3>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        {{priceListCtrl.priceList.extraAdults.ExtraPrice | currency}}
+                    </p>
+                </md-list-item>
+                <md-list-item ng-if="priceListCtrl.priceList.extraChildren" class="md-2-line">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'EXTRA_CHILDREN' | translate}} ({{priceListCtrl.priceList.extraChildren.Extra}})</h3>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        {{priceListCtrl.priceList.extraChildren.ExtraPrice | currency}}
+                    </p>
+                </md-list-item>
+            </md-list>
+
+            <md-list ng-repeat="priceConstantly in priceListCtrl.priceList.planListConstantlyFormula" class="padding0 md-list-constrantly-formula-eachday">
+                <md-list-item ng-if="priceListCtrl.priceList.planListConstantlyFormula.length > 0" class="md-2-line">
+                    <div class="md-list-item-text">
+                        <h3 >{{priceConstantly.Range.Start | date:'dd/MM/yyyy'}} - {{priceConstantly.Range.End | date:'dd/MM/yyyy'}}</h3>
+                        <h4>{{priceConstantly.FormulaPeriod}} {{priceConstantly.FormulaUnit | translate}}</h4>
+                    </div>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{'ROOM_PRICE' | translate}}</p>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">{{priceConstantly.ValueAfter | currency}}
+                        <!-- <md-icon class="md-secondary" ng-click="" md-svg-src="img/icons/ic_message_24px.svg"></md-icon> -->
+                    </p>
+                </md-list-item>
+                <md-list-item ng-if="priceConstantly.ConstantlyExtraServiceItems.length >0 && item.RoomExtraServiceName !='EXTRA_SERVICES'" ng-repeat="item in priceConstantly.ConstantlyExtraServiceItems" class="md-2-line">
+                    <div class="md-list-item-text" layout="column"  >
+                        <h3>
+                            {{item.ExtraServiceItemName | translate}} ({{item.Quantity}})
+                        </h3>
+                        <h4>{{item.CreatedDate | date:'dd/MM (HH:mm)'}}</h4>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }" >
+                        {{item.Price * item.Quantity | currency}}
+                    </p>
+
+                    <!-- <md-icon class="md-secondary" md-svg-src="img/message.svg" ng-click="showESDetail(item, $event)" style="cursor: pointer;"></md-icon> -->
+                </md-list-item>
+                <md-list-item ng-if="priceConstantly.ConstrantlyExtraServices.length >0  && item.RoomExtraServiceName =='EXTRA_SERVICES' " ng-repeat="item in priceConstantly.ConstrantlyExtraServices" class="md-2-line">
+                    <div class="md-list-item-text" layout="column" ng-if="">
+                        <h3>
+                            {{item.RoomExtraServiceDescription}} ({{item.Quantity}})
+                        </h3>
+                        <h4>{{item.CreatedDate | date:'dd/MM (HH:mm)'}}</h4>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }" >
+                        {{item.Amount * item.Quantity | currency}}
+                    </p>
+
+                    <!-- <md-icon class="md-secondary" md-svg-src="img/message.svg" ng-click="showESDetail(item, $event)" style="cursor: pointer;"></md-icon> -->
+                </md-list-item>
+                <!-- <md-list-item ng-if="priceConstantly.ConstantlyExtraServices.length >0" ng-repeat="item in priceConstantly.ConstantlyExtraServices">
+                    <p>{{item.RoomExtraServiceName | translate}} ({{item.CreatedDate | date :'dd/MM'}})</p>
+                    <span class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }">{{item.Amount | currency}}</span>&nbsp;
+                    <md-icon class="md-secondary" md-svg-src="img/icons/ic_message_24px.svg" ng-click="showESDetail(item, $event)" style="cursor: pointer;"></md-icon>
+                </md-list-item> -->
+                <md-divider></md-divider>
+            </md-list>
+
+            <md-list ng-repeat="priceFullDay in priceListCtrl.priceList.planListFullDayFormula" class="padding0 md-list-price-list-eachday">
+                <md-list-item ng-if="priceListCtrl.priceList.planListFullDayFormula.length > 0" class="md-list-item-fullday">
+                    <div class="md-list-item-text">
+                        <h4>{{priceFullDay.range.Start | date:'dd/MM/yyyy'}}</h4>
+                    </div>
+                </md-list-item>
+
+                <md-list-item ng-if="priceFullDay.formula && priceFullDay.formula.FormulaEarlyCheckIn" class="md-2-line md-list-early-checkin-eachday" ng-repeat="(key, value) in priceFullDay.formula.FormulaEarlyCheckIn">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'FULL_DAY_EARLY_CHECKIN' | translate}}</h3>
+                        <h4>{{priceFullDay.formula.Range.Start | date:'dd/MM (HH:mm)'}} </h4>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        <!-- {{priceList.planListFullDayFormula[0].formula.FormulaLateCheckOut | currency}} -->
+                        {{value | currency}}
+                    </p>
+                </md-list-item>
+
+                <md-list-item ng-if="priceFullDay.formula" class="md-list-item-formula">
+                    <p class="text-greay1">{{'ROOM_PRICE' | translate}}</p>
+                    <span class="md-secondary text-black" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        {{priceFullDay.formula.FormulaValue | currency}}
+                    </span>
+                </md-list-item>
+
+                <md-list-item ng-if="priceFullDay.formula && priceFullDay.formula.FormulaLateCheckOut" class="md-2-line md-list-item-late-checkout" ng-repeat="(key, value) in priceFullDay.formula.FormulaLateCheckOut">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'FULL_DAY_LATE_CHECKOUT' | translate}}</h3>
+                        <h4 class="text-greay1">{{priceFullDay.formula.Range.End | date:'dd/MM (HH:mm)'}} </h4>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        <!-- {{priceList.planListFullDayFormula[0].formula.FormulaLateCheckOut | currency}} -->
+                        {{value | currency}}
+                    </p>
+                </md-list-item>
+
+                <!-- <md-list-item ng-if="priceFullDay.FullDayExtraServices.length >0" ng-repeat="item in priceFullDay.FullDayExtraServices">
+
+                    <div class="md-list-item-text" layout="column">
+                                <p>{{item.RoomExtraServiceName | translate}} ({{item.CreatedDate | date: 'dd/MM HH:mm'}}) </p>
+                            </div>
+
+                     <span class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }">{{item.Amount | currency }}</span>&nbsp;
+
+
+                    <md-icon class="md-secondary" md-svg-src="img/message.svg" ng-click="showESDetail(item, $event)" style="cursor: pointer;"></md-icon>
+                </md-list-item> -->
+
+                <md-list-item ng-if="priceFullDay.FullDayExtraServiceItems.length >0 && item.RoomExtraServiceName !='EXTRA_SERVICES'" ng-repeat="item in priceFullDay.FullDayExtraServiceItems" class="md-2-line md-list-item-non-ES">
+                    <div class="md-list-item-text" layout="column" >
+                        <h3>
+                            {{item.ExtraServiceItemName | translate}}({{item.Quantity}})
+                        </h3>
+                        <h4 class="text-greay1">{{item.CreatedDate | date:'dd/MM (HH:mm)'}}</h4>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }" >
+                        {{item.Price * item.Quantity | currency }}
+                    </p>
+                    <!-- <md-icon class="md-secondary" md-svg-src="img/message.svg" ng-click="showESDetail(item, $event)" style="cursor: pointer;"></md-icon> -->
+                </md-list-item>
+
+                <md-list-item ng-if="priceFullDay.FullDayExtraServices.length >0 && item.RoomExtraServiceName ==='EXTRA_SERVICES'" ng-repeat="item in priceFullDay.FullDayExtraServices" class="md-2-line md-list-item-ES">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>
+                            {{item.RoomExtraServiceDescription}} ({{item.Quantity}})
+                        </h3>
+                        <h4 class="text-greay1">{{item.CreatedDate | date:'dd/MM (HH:mm)'}}</h4>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }" >
+                        {{item.Amount*item.Quantity | currency}}
+                    </p>
+                    <!-- <md-icon class="md-secondary" md-svg-src="img/message.svg" ng-click="showESDetail(item, $event)" style="cursor: pointer;"></md-icon> -->
+                </md-list-item>
+            </md-list>
+
+                <!--<md-divider></md-divider>
+            </md-list>-->
+
+            <md-list-item ng-if="priceListCtrl.priceList.planListHourlyFormula && priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula" class="md-list-item-formula-hour">
+                <div class="md-list-item-text" layout="column">
+                    <h4>{{priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula.Range.Start | date:'dd/MM/yyyy'}}</h4>
+                </div>
+            </md-list-item>
+
+            <md-list-item ng-if="priceListCtrl.priceList.planListHourlyFormula && priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula" class="md-list-item-price-hour">
+                <p>{{'ROOM_PRICE' | translate}}</p>
+                <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">{{priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula.ValueAfter - priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula.ValueBefore | currency}}
+                    <!-- <md-icon class="md-secondary" ng-click="" md-svg-src="img/icons/ic_message_24px.svg"></md-icon> -->
+                </p>
+            </md-list-item>
+            <!-- <md-list-item ng-if="priceList.planListHourlyFormula && priceList.planListHourlyFormula.finalHourlyFormula && priceList.planListHourlyFormula.FullDayExtraService.length >0" ng-repeat="item in priceList.planListHourlyFormula.FullDayExtraServices">
+                <p>{{item.RoomExtraServiceName | translate}} {{item.CreatedDate | date: '(HH:mm)'}}</p>
+                <span class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }">{{item.Amount | currency}}</span>&nbsp;
+                <md-icon class="md-secondary" md-svg-src="img/icons/ic_message_24px.svg" ng-click="showESDetail(item, $event)" style="cursor: pointer;"></md-icon>
+            </md-list-item> -->
+
+            <md-list-item ng-if="priceListCtrl.priceList.planListHourlyFormula && priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula && priceListCtrl.priceList.planListHourlyFormula.FullDayExtraServiceItems.length >0 && item.RoomExtraServiceName !='EXTRA_SERVICES'" ng-repeat="item in priceListCtrl.priceList.planListHourlyFormula.FullDayExtraServiceItems" class="md-2-line md-list-item-non-ES">
+                <div class="md-list-item-text" layout="column" >
+                    <h3>
+                        {{item.ExtraServiceItemName | translate}} ({{item.Quantity}})
+                    </h3>
+                    <h4 class="text-greay1">{{item.CreatedDate | date:'dd/MM (HH:mm)'}}</h4>
+                </div>
+                <p class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }" >
+                    {{item.Price * item.Quantity | currency}}
+                </p>
+            </md-list-item>
+
+            <md-list-item ng-if="priceListCtrl.priceList.planListHourlyFormula && priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula && priceListCtrl.priceList.planListHourlyFormula.FullDayExtraServices.length >0 && item.RoomExtraServiceName ==='EXTRA_SERVICES'" ng-repeat="item in priceListCtrl.priceList.planListHourlyFormula.FullDayExtraServices" class="md-2-line md-list-item-ES">
+                <div class="md-list-item-text" layout="column" >
+                    <h3>
+                        {{item.RoomExtraServiceDescription}} ({{item.Quantity}})
+                    </h3>
+                    <h4 class="text-greay1">{{item.CreatedDate | date:'dd/MM (HH:mm)'}}</h4>
+                </div>
+                <p class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }" >
+                    {{item.Amount*item.Quantity| currency}}
+                </p>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+    <md-card-content class="height-content-payment" ng-if="priceListCtrl.room.BookingStatus != 'CHECKOUT' && priceListCtrl.room.BookingStatus != 'CANCELLED' && priceListCtrl.viewType === 'detailGroup' ">
+            <md-list class="padding0 md-list-price" ng-if="priceListCtrl.priceList.planListConstantlyFormula.length > 0 || priceListCtrl.priceList.planListFullDayFormula.length > 0 || priceListCtrl.priceList.planListHourlyFormula && priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula">
+                <h4 >
+                    {{'ROOM_PRICE' | translate}}
+                </h4>
+
+                <md-list-item ng-if="priceListCtrl.priceList.planListConstantlyFormula.length > 0" ng-repeat="formula in priceListCtrl.priceList.planListConstantlyFormula" class="md-2-line">
+                    <div class="md-list-item-text">
+                        <h3>{{formula.Name | translate}}</h3>
+                        <span>{{formula.Range.Start | date:'dd/MM (HH:mm)'}} - {{formula.Range.End | date:'dd/MM (HH:mm)'}}</span>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceList.model.FOC }">
+                        {{formula.ValueAfter - formula.ValueBefore | currency}}
+                    </p>
+                </md-list-item>
+
+                <md-list-item ng-if="priceListCtrl.priceList.planListFullDayFormula.length > 0 && priceListCtrl.priceList.planListFullDayFormula[0].formula && priceListCtrl.priceList.planListFullDayFormula[0].formula.FormulaEarlyCheckIn" class="md-2-line" ng-repeat="(key, value) in priceListCtrl.priceList.planListFullDayFormula[0].formula.FormulaEarlyCheckIn">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'FULL_DAY_EARLY_CHECKIN' | translate}}</h3>
+                        <span>{{priceListCtrl.priceList.planListFullDayFormula[0].formula.Range.Start | date:'dd/MM (HH:mm)'}} </span>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        <!-- {{priceList.planListFullDayFormula[0].formula.FormulaLateCheckOut | currency}} -->
+                        {{value | currency}}
+                    </p>
+                </md-list-item>
+                
+                <md-list-item ng-if="priceListCtrl.priceList.planListFullDayFormula.length > 0" class="md-2-line">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'FULL_DAY_PRICE' | translate}}</h3>
+                        <span>{{priceListCtrl.priceList.planListFullDayFormula[0].formula.Range.Start | date:'dd/MM (HH:mm)'}} - {{priceListCtrl.priceList.planListFullDayFormula[priceListCtrl.priceList.planListFullDayFormula.length-1].formula.Range.End | date:'dd/MM (HH:mm)'}}</span>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        <!-- {{priceList.planListFullDayFormula[priceList.planListFullDayFormula.length-1].formula.ValueAfter - priceList.planListFullDayFormula[0].formula.ValueBefore | currency}} -->
+                        {{priceListCtrl.priceList.totalPriceFullDay | currency}}
+                    </p>
+                </md-list-item>
+
+                <md-list-item ng-if="priceListCtrl.priceList.planListFullDayFormula.length > 0 && priceListCtrl.priceList.planListFullDayFormula[priceListCtrl.priceList.planListFullDayFormula.length-1].formula && priceListCtrl.priceList.planListFullDayFormula[priceListCtrl.priceList.planListFullDayFormula.length-1].formula.FormulaLateCheckOut" class="md-2-line" ng-repeat="(key, value) in priceListCtrl.priceList.planListFullDayFormula[priceListCtrl.priceList.planListFullDayFormula.length-1].formula.FormulaLateCheckOut">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'FULL_DAY_LATE_CHECKOUT' | translate}}</h3>
+                        <span>{{priceListCtrl.priceList.planListFullDayFormula[priceListCtrl.priceList.planListFullDayFormula.length-1].formula.Range.End | date:'dd/MM (HH:mm)'}} </span>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        <!-- {{priceList.planListFullDayFormula[0].formula.FormulaLateCheckOut | currency}} -->
+                        {{value | currency}}
+                    </p>
+                </md-list-item>
+
+                <md-list-item ng-if="priceListCtrl.priceList.planListHourlyFormula && priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula" class="md-2-line">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula.Name | translate}}</h3>
+                        <span>{{priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula.Range.Start | date:'dd/MM (HH:mm)'}} - {{priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula.Range.End | date:'dd/MM (HH:mm)'}}</span>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        {{priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula.ValueAfter - priceListCtrl.priceList.planListHourlyFormula.finalHourlyFormula.ValueBefore | currency}}
+                    </p>
+                    <!--<md-divider></md-divider>-->
+                </md-list-item>
+
+            </md-list>
+
+            <md-list class="padding0 md-list-discount" ng-if="priceListCtrl.priceList.discountPercentageAmount > 0 || priceListCtrl.priceList.discountFlatAmount > 0">
+                <h4>{{'DISCOUNT' | translate}}</h4>
+                <md-list-item class="md-2-line" ng-if="priceListCtrl.priceList.discountPercentageAmount > 0">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'BY_PERCENT_OFF' | translate}}({{priceListCtrl.priceList.model.DiscountPercentage}}%)</h3>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        {{priceListCtrl.priceList.discountPercentageAmount | currency}}
+                    </p>
+                </md-list-item>
+                <md-list-item class="md-2-line" ng-if="priceListCtrl.priceList.discountFlatAmount > 0">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'BY_MONEY_OFF' | translate}}</h3>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        {{priceListCtrl.priceList.discountFlatAmount | currency}}
+                    </p>
+                </md-list-item>
+            </md-list>
+
+            <md-list class="padding0 md-list-extra-traveller" ng-if="priceListCtrl.priceList.extraAdults || priceListCtrl.priceList.extraChildren">
+                <h4>{{'EXTRA_TRAVELLER' | translate}}</h4>
+                <md-list-item ng-if="priceListCtrl.priceList.extraAdults" class="md-2-line">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'EXTRA_ADULTS' | translate}} ({{priceListCtrl.priceList.extraAdults.Extra}})</h3>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        {{priceListCtrl.priceList.extraAdults.ExtraPrice | currency}}
+                    </p>
+                    <!--<md-divider style=""></md-divider>-->
+                </md-list-item>
+                <md-list-item ng-if="priceListCtrl.priceList.extraChildren" class="md-2-line">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{'EXTRA_CHILDREN' | translate}} ({{priceListCtrl.priceList.extraChildren.Extra}})</h3>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDisabled' : priceListCtrl.priceList.model.FOC }">
+                        {{priceListCtrl.priceList.extraChildren.ExtraPrice | currency}}
+                    </p>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+
+            <!--<h4 style="padding: 0px 16px; margin-bottom: 10px;" ng-if="priceListCtrl.RoomExtraServices.length > 0">{{'EXTRA_SERVICES' | translate}}</h4>-->
+            <md-list ng-repeat="(key, value) in priceListCtrl.RoomExtraServices | groupBy:'RoomExtraServiceName'" style="padding: 0px;" ng-if="priceListCtrl.RoomExtraServices.length > 0">
+                <md-subheader class="md-primary custom-md-subheader full-width">{{key | translate}}</md-subheader>
+                <md-list-item style="" ng-class="{'border-botttom-gray':priceListCtrl.RoomExtraServiceItems.length > 1}" ng-if="key != 'EXTRA_SERVICES'" ng-repeat="item in priceListCtrl.RoomExtraServiceItems | filter: {ExtraServiceTypeName: value[0].RoomExtraServiceName}" class="md-2-line padding0 margin6">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>
+                            ({{item.Quantity}}) {{item.ExtraServiceItemName | translate}} 
+                        </h3>
+                        <h4 class="text-greay1">&nbsp;{{item.CreatedDate | date:'dd/MM (HH:mm)'}}</h4>
+                    </div>
+                    <p class="md-secondary text-black" ng-class="{ 'textDisabled' : item.IsDeleted }">
+                        {{item.Price * item.Quantity | currency}}
+                    </p>
+                </md-list-item>
+                <md-list-item style="" ng-class="{'border-botttom-gray':value.length > 1}" ng-if="key == 'EXTRA_SERVICES'" ng-repeat="val in value | filter: {RoomExtraServiceName: 'EXTRA_SERVICES'}" class="md-2-line padding0 margin6">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>
+                            ({{val.Quantity}}) {{val.RoomExtraServiceDescription | truncate:30}} 
+                        </h3>
+                        <h4 class="text-greay1">&nbsp;{{val.CreatedDate | date:'dd/MM (HH:mm)'}}</h4>
+                    </div>
+                    <p class="md-secondary text-black" ng-class="{ 'textDisabled' : val.IsDeleted }">
+                        {{val.Amount * val.Quantity | currency}}
+                    </p>
+                </md-list-item>
+            </md-list>
+
+    </md-card-content>
+    <md-card-content class="height-content-payment" ng-if="priceListCtrl.room.BookingStatus == 'CHECKOUT' || priceListCtrl.room.BookingStatus == 'CANCELLED' ">
+        <md-content style="margin-top:27px;overflow-y:hidden">
+            <div style="text-align: center;">
+                <span style="display: inline;
+                             padding: .2em .6em .3em;
+                             font-family: 'Voltaire';
+                             font-size: 120%;
+                             font-weight: bold;
+                             font-style: italic;
+                             text-transform: none;
+                             line-height: 1;
+                             color: #f44336;
+                             text-align: center;
+                             white-space: nowrap;
+                             vertical-align: baseline;
+                             border-radius: .25em;">
+                    {{'SEE_DETAILS_IN_THE_INVOICE' | translate}}
+                </span>
+            </div>
+        </md-content>
+    </md-card-content>
+</md-card>

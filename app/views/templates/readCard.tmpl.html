@@ -1,0 +1,70 @@
+<style>
+	md-list-item,
+	md-list-item .md-list-item-inner {
+		min-height: 48px;
+		height: 50px;
+	}
+</style>
+<md-dialog aria-label="READ_CARD" ng-cloak flex-xs="90" flex-sm="90" flex-gt-md="60" flex-md="90">
+	<form>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'READ_CARD' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+				<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+					<md-list style="width: 100%;" flex="100">
+						<md-list-item>
+							<p>{{'RES._NO' | translate}}</p>
+							<p class="md-secondary">{{cardData.reservationNumber}}</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'ROOM_NAME' | translate}}</p>
+							<p class="md-secondary">{{cardData.roomInfo.RoomName}} ({{cardData.roomType.RoomTypeCode}})</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'STATUS' | translate}}</p>
+							<p class="md-secondary" style="font-weight: bold; color: #f44336;">{{cardData.room.BookingStatus | translate}}</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'TRAVELLER_NAME' | translate}}</p>
+							<p class="md-secondary">{{cardData.traveller.Fullname}}</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'ARRIVAL' | translate}}</p>
+							<p class="md-secondary">{{cardData.room.ArrivalDate | date:'dd/MM/yyyy, HH:mm'}}</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'DEPARTURE' | translate}}</p>
+							<p class="md-secondary">{{cardData.room.DepartureDate | date:'dd/MM/yyyy, HH:mm'}}</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'ADULTS' | translate}}</p>
+							<p class="md-secondary">{{cardData.room.Adults}}</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'CHILDREN' | translate}}</p>
+							<p class="md-secondary">{{cardData.room.Child}}</p>
+						</md-list-item>
+					</md-list>
+
+				</div>
+		</md-dialog-content>
+
+		 <md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			 <md-button ng-click="goToReservation()" class="md-primary">
+				{{'GO_TO_RESERVATION' | translate}}
+			</md-button>
+		</md-dialog-actions>
+
+	</form>
+
+</md-dialog>

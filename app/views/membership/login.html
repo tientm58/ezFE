@@ -1,0 +1,246 @@
+<style>
+	input:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0 50px white inset;
+		/* Change the color to your own background color */
+		-webkit-text-fill-color: black;
+	}
+
+	input:-webkit-autofill:focus {
+		-webkit-box-shadow: /*your box-shadow*/
+		0 0 0 50px white inset;
+		-webkit-text-fill-color: black;
+	}
+
+	.formlogin {
+		/* border-radius: 5px; */
+		background-color: rgba(255, 255, 255, 0.63) !important;
+		/* max-height: 521px; */
+		min-height: 468px !important;
+	}
+
+	.topformlogin {
+		background-color: rgba(255, 255, 255, 0.66) !important;
+		position: relative;
+		/*height: 100px;*/
+		/* border-bottom: 1px solid #C2C2C2; */
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		padding: 5px;
+	}
+
+	.box {
+		padding: 25px;
+		margin-bottom: 30px;
+		margin-top: 0px;
+	}
+
+	.box-left-login {
+		border-left: 1px solid #A8A9AB;
+		text-align: center;
+	}
+
+	.iconClor {
+		color: #31647E;
+	}
+
+	@media (max-width: 767px) {
+		.formlogin {
+			min-height: 477px;
+		}
+		#chat-application-iframe {
+			display: none;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.box-left-login {
+			border-left: 0px solid #A8A9AB;
+			border-top: 1px solid #A8A9AB;
+			display: none;
+		}
+		.box {
+		}
+		.hidesm {
+			display: none;
+		}
+		.nothidesm {
+			display: block !important;
+		}
+	}
+
+	.nothidesm {
+		display: none;
+	}
+
+	#listIconFooter .animated:hover {
+		height: 45px;
+		width: 45px;
+	}
+	md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar){
+		background-color: rgba(17, 153, 205, 0) !important;
+	}
+	#main_view, footer{
+		background-color: rgba(240, 240, 240, 0) !important;
+		background: rgba(240, 240, 240, 0) !important;
+	} 
+</style>
+<div layout="column" layout-align="start center" style="background-color: rgba(255, 255, 255, 0);background-size: 100% 100%;
+    background-repeat: no-repeat;">
+	<md-card class="formlogin animated zoomIn">
+		<md-toolbar class="topformlogin">
+			<div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+				<!-- <div class="md-icon-button"  >
+				 	<md-icon md-svg-icon="img/ezCloudhotel-blue logo.svg" style="height: 80px;width: 120px;"></md-icon></br> 
+				</div> -->
+				<img src="img/ezCloudhotel-bluelogo.svg" style="height: 70%;width: 120px;">
+				<span style="font-size:10px;color: dodgerblue;">{{'VERSION' | translate}}: {{'VERSION_NUMBER' | translate}}</span>
+			</div>
+		</md-toolbar>
+		<form layout="row" ng-submit="doLogin()" layout-xs="column" name="loginForm" layout-align="center" style="padding: 6px;">
+			<div flex="100" flex-xs="100" class="box">
+				<div>
+					<md-input-container flex md-is-error="!loginForm.username.$valid" class="md-icon-float md-block">
+						<label>{{'USERNAME' | translate}}
+						</label>
+						<md-icon class="iconClor" md-svg-src="img/icons/ic_person_48px.svg"></md-icon>
+						<input autocomplete="off" type="text" ng-model="login.username" required name="username" />
+
+						<span ng-messages="loginForm.username.$error">
+							<span ng-message="required"></span>
+							<span ng-message="md-maxlength">{{'USERNAME_TOO_LONG' | translate}}</span>
+							<span ng-message="minlength">{{'USERNAME_TOO_SHORT' | translate}}</span>
+						</span>
+					</md-input-container>
+					<md-input-container flex md-is-error="!loginForm.password.$valid" class="md-icon-float md-block" style="margin-bottom: 0px;">
+						<label>{{'PASSWORD' | translate}} </label>
+						<md-icon md-svg-src="img/icons/ic_lock_48px.svg" class="iconClor"></md-icon>
+						<input autocomplete="off" required ng-model="login.password" type="password" name="password" />
+						<span ng-messages="loginForm.password.$error">
+							<span ng-message="required"></span>
+						</span>
+					</md-input-container>
+					<md-checkbox style="margin-left: 5px;" id="roleSwitch" ng-model="login.role" aria-label="{{'ROLE_SWITCH' | translate}}" ng-false-value="'HOTEL_STAFF'"
+					    ng-true-value="'HOTEL_OWNER'" ng-change="setFocusHotelId()">{{'HOTEL_OWNER' | translate}}
+					</md-checkbox>
+					<md-input-container style="margin-bottom: 0px;" flex md-is-error="!loginForm.hotelId.$valid" id="hotelID" ng-show="login.role == 'HOTEL_STAFF'"
+					    class="md-icon-float md-block">
+						<label>{{'HOTEL_ID' | translate}} </label>
+						<md-icon md-svg-src="img/icons/ic_domain_48px.svg"></md-icon>
+						<input ng-model="login.hotelId" name="hotelId" id="hotelId" />
+						<span ng-messages="loginForm.hotelId.$error">
+							<span ng-message="required">*</span>
+						</span>
+					</md-input-container>
+				</div>
+				<button class="hide"></button>
+				<div layout="row" layout-wrap layout-align="space-between center" flex="100">
+					<md-button flex="50" flex-sm="45" flex-xs="100" ng-disabled="loginForm.$invalid" class="md-raised md-primary" ng-click="doLogin()"
+					    style="background-color: #0089cf">
+						<span flex>{{'LOG_IN' | translate}}</span>
+					</md-button>
+				</div>
+
+				<div style="font-size: 12px;margin: 6px 8px;">
+					<span>{{'FORGOT_YOUR_PASSWORD?' | translate}}</span>&nbsp;
+					<a ng-click="transferToForgotPassword()" style="cursor:pointer;text-decoration: underline;color:rgba(0,0,0,0.87) !important">{{'CLICK_HERE' | translate}}</a>
+				</div>
+
+				<div class="nothidesm text-center">
+					<md-button class="md-raised md-primary" ng-click="doFBLogin()" style="min-width:58px;text-transform:none;background-color: #3A5795"
+					    ng-cloak>
+						<md-icon md-svg-src="img/facebook.svg" style=""></md-icon>
+						<span class="hidesm">{{'LOGIN_WITH_FACEBOOK' | translate}}</span>
+					</md-button>
+					<md-button class="md-raised md-warn" ng-click="doGGLogin()" style="min-width:58px;text-transform:none;background-color: #DB4437"
+					    ng-cloak>
+						<md-icon md-svg-src="img/googleplus.svg" style=""></md-icon>
+						<span class="hidesm">{{'LOGIN_WITH_GOOGLE' | translate}}</span>
+					</md-button>
+
+
+					<md-button ng-show="showAndriod" class="md-raised md-warn" style="min-width:58px;text-transform:none;background-color: #689f38"
+					    ng-cloak>
+						<a href="market://details?id=ezcloud.com.ezhotel" target="_top">
+							<!-- <a href="https://play.google.com/store/apps/details?id=ezcloud.com.ezcloudhotel" target="_blank">	 -->
+							<md-icon md-svg-src="img/icons/ic_android_24px_mobile.svg" style=""></md-icon>
+							<!-- <span class="hidesm">{{'APP_ANDROID' | translate}}</span> -->
+						</a>
+					</md-button>
+					<md-button ng-show="showIos" class="md-raised md-warn" style="min-width:58px;text-transform:none;background-color: black;"
+					    ng-cloak>
+						<a href="https://itunes.apple.com/vn/app/ezcloudhotel-manager/id1122434565?mt=8" target="_top">
+							<!-- <a href="https://play.google.com/store/apps/details?id=ezcloud.com.ezcloudhotel" target="_blank">	 -->
+							<md-icon md-svg-src="img/icons/ic_get_app_24px_mobile.svg" style="color:#000;"></md-icon>
+							<!-- <span class="hidesm">{{'APP_IOS' | translate}}</span> -->
+						</a>
+					</md-button>
+
+
+				</div>
+				<!-- <md-divider style="width: 50%;margin: 10px auto;"></md-divider> -->
+			</div>
+			<!-- Social -->
+			<div flex="100" flex-xs="100" class="box box-left-login" layout-align="center center" layout="column">
+				<div style="font-size: 15px;" layout="row" layout-align="center center">
+					<span style="margin: 0 auto;color: dodgerblue">{{'LOGIN_WITH_YOUR_SOCIAL_MEDIA_ACCOUNT' | translate}}</span>
+				</div>
+				<div class="text-center">
+					<md-button class="md-raised md-primary" ng-click="doFBLogin()" style="width:212px;text-transform:none;background-color: #3A5795"
+					    ng-cloak>
+						<md-icon md-svg-src="img/facebook.svg" style=""></md-icon>
+						<span class="hidesm">{{'LOGIN_WITH_FACEBOOK' | translate}}</span>
+					</md-button>
+					<md-button class="md-raised md-warn" ng-click="doGGLogin()" style="width:212px;text-transform:none;background-color: #DB4437"
+					    ng-cloak>
+						<md-icon md-svg-src="img/googleplus.svg" style=""></md-icon>
+						<span class="hidesm">{{'LOGIN_WITH_GOOGLE' | translate}}</span>
+					</md-button>
+					<br/>
+
+				</div>
+				<div style="font-size: 15px;" layout="row" layout-align="center center">
+					<span style="margin: 0 auto;color: dodgerblue">{{'DOWNLOAD_APP_FOR_MOBILE' | translate}}</span>
+				</div>
+				<div class="text-center">
+					<md-icon ng-show="showAndriod" ng-click="gotoGooglePlay()" md-svg-src="img/icons/ic_android_24px.svg" style="width:120px;height:54px;cursor:pointer;"></md-icon>
+					<md-icon ng-show="showIos" ng-click="gotoiOS()" md-svg-src="img/icons/ic_get_app_24px.svg" style="width:120px;height:54px;cursor:pointer;"></md-icon>
+					<!-- <md-button  ng-show="showAndriod" class="md-raised md-warn" ng-click="" style="width:212px;text-transform:none;background-color: #689f38;color:white" ng-cloak>
+						<a href="{{AppAndriodUrl}}" target="_blank" style="text-decoration:none;color:white;" >	
+							<md-icon md-svg-src="img/icons/ic_android_24px.svg" style="width:212px;"></md-icon>
+							 <span class="hidesm">{{'APP_ANDROID' | translate}}</span> 
+						</a>
+					</md-button><br/>
+					<md-button  ng-show="showIos" class="md-raised md-warn" ng-click="" style="width:212px;text-transform:none;background-color: #689f38;color:white" ng-cloak>
+						<a href="{{AppIosUrl}}" target="_blank" style="text-decoration:none;color:white;" >	
+							<md-icon md-svg-src="img/icons/ic_get_app_24px.svg" style=""></md-icon>
+							<span class="hidesm">{{'APP_IOS' | translate}}</span> 
+						</a>
+					</md-button> -->
+				</div>
+			</div>
+		</form>
+	</md-card>
+	<footer style="color: #fff;margin-bottom: 100px;text-align: center;height:65px !important">
+		<!--		<span style="margin: 0px auto;">Join Us On</span>-->
+		<div layout="row" layout-align="center center" flex="100">
+			<span style="font-size: 10px;">{{'JOIN_US_ON' | translate}}</span>
+		</div>
+		<div layout="row" layout-align="center center" flex="100" id="listIconFooter">
+			<span>
+				<md-icon class="animated fadeInUp" md-svg-src="img/facebook_tron.svg" style="cursor: pointer;width: 40px; height: 40px;"
+				    ng-click="goToFacebook();"></md-icon>
+				<md-icon class="animated fadeInUp" md-svg-src="img/youtube.svg" style="cursor: pointer;width: 40px; height: 40px;" ng-click="goToYoutube();"></md-icon>
+				<md-icon class="animated fadeInUp" md-svg-src="img/googleplus_tron.svg" style="cursor: pointer;width: 40px; height: 40px;"
+				    ng-click="goToGG();"></md-icon>
+				<md-icon class="animated fadeInUp" class="animated fadeInUp" md-svg-src="img/instagram.svg" style="cursor: pointer;width: 40px; height: 40px;"
+				    ng-click="goToIG();"></md-icon>
+				<md-icon class="animated fadeInUp" md-svg-src="img/twiter.svg" style="cursor: pointer;width: 40px; height: 40px;" ng-click="goToTwiter();"></md-icon>
+			</span>
+		</div>
+		<div layout="row" layout-align="center end" flex="100">
+			<span style="font-size: 10px;">
+				{{'COPYRIGHT' | translate}}
+			</span>
+		</div>
+	</footer>
+</div>

@@ -1,0 +1,66 @@
+<style>
+	md-list-item,
+	md-list-item .md-list-item-inner {
+		min-height: 48px !important;
+		height: 90px !important;
+	}
+	.divNote{
+		padding: 0 24px 0 24px !important;
+	}
+	.spanNote{
+		font-size: 12px;
+		color: red;
+	}
+</style>
+<md-dialog aria-label="Reservation List" ng-cloak>
+	<form name="editRoomTypeForm">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'BOOKING_LIST' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content style="">
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+				<!--<section style="padding-bottom: 12px;">
+					<span style="font-weight: 600; text-transform: uppercase;">{{'BOOKING_LIST' | translate}}</span>
+					</br>
+					<span style="font-size: 90%;">{{'ROOM' | translate}} {{selectedRoom.RoomName}}</span>
+				</section>-->
+				<section ng-if="selectedRoom.BookingList.length ===0">
+					<span style="text-align: center;">
+						{{'NO_RESERVATION_CREATED' | translate}}
+					</span>
+				</section>
+
+				<section ng-if="selectedRoom.BookingList.length > 0">
+					<md-list ng-repeat="reservation in selectedRoom.BookingList">
+						<md-list-item class="md-3-line">
+							<div class="md-list-item-text">
+								<h3>{{'RES_NO' | translate}}: {{reservation.Reservations.ReservationNumber}}</h3>
+								<p>{{'CUSTOMER' | translate}}: {{reservation.Travellers.Fullname}}</p>
+								<p>{{'ARRIVAL' | translate}} : {{reservation.ArrivalDate | date: 'dd/MM/yyyy, HH:mm'}}</p>
+								<p>{{'DEPARTURE' | translate}}: {{reservation.DepartureDate | date: 'dd/MM/yyyy, HH:mm'}}</p>
+							</div>
+							<md-divider ng-if="selectedRoom.BookingList.length > 1"></md-divider>
+						</md-list-item>
+					</md-list>
+				</section>
+			</div>
+			<div ng-if="selectedRoom.BookingList.length > 0" class="md-dialog-content divNote" layout="row" layout-wrap flex="100">
+				<span class="spanNote">{{'NOTE' | translate}}:&nbsp;{{'BOOKING_LIST_UP_TO_DATE' | translate}}&nbsp;{{UpToDate | date:'dd/MM/yyyy HH:mm'}}</span>
+			</div>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CLOSE' | translate}}
+			</md-button>
+
+		</md-dialog-actions>
+
+	</form>
+
+</md-dialog>

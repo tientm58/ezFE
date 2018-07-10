@@ -1,0 +1,67 @@
+<style>
+	.k-picker-wrap .k-icon{
+		margin-top: 5px;
+	}
+</style>
+<md-dialog aria-label="{{'RESET_HOTEL_DATA' | translate}}">
+	<form name="addRemarkForm">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'RESET_HOTEL_DATA' | translate}} </h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+				<span flex="100">
+					{{'THIS_FUNCTION_ALLOWS_YOU_TO_DELETE_THE_ENTIRE_DATA_RELATING_TO_THE_HOTEL_INCLUDED' | translate}}: </br>
+					<ul>
+						<li><span>{{'ALL_RESERVATIONS' | translate}}</span></li>
+				<li><span>{{'ALL_EXTRA_SERVICES,_PAYMENTS,_ETC...' | translate}}</span></li>
+				</ul>
+
+				</span>
+				<div layout="column" layout-align="start start" flex="100">
+					<span style="margin-bottom: 16px;">{{'ALTERNATIVELY,_YOU_CAN_SELECT_THE_FOLLOWING_SECTIONS_TO_DELETE' | translate}}: </span>
+					<md-checkbox ng-model="isDeleteAllConfig" class="md-warn" aria-label="{{'DELETE_ALL_CONFIGURATION' | translate}}" style="margin-left: 22px;">
+						{{'DELETE_ALL_CONFIGURATION' | translate}}
+					</md-checkbox>
+					<md-checkbox ng-model="isDeleteAllCustomer" class="md-warn" aria-label="{{'DELETE_ALL_CUSTOMER' | translate}}" style="margin-left: 22px;">
+						{{'DELETE_ALL_CUSTOMER' | translate}}
+					</md-checkbox>
+					<!-- <div flex="100" layout="row" layout-align="space-between start" style="max-height: 15px !important;">
+						<section flex-gt-sm="45" flex-sm="50" flex-xs="50" -wrap class="margin-top-10 padding-left30">
+							<div layout="row" layout-align="start center" flex="100" class="">
+								<span flex="35" class="margin-auto"> {{'FROM_DATE_REPORT' | translate}}</span>
+								<div flex>
+									<input kendo-date-picker ng-model="departureFromString" k-ng-model="search.DepartureFrom" k-options="DatePickerOption"
+										class="width100pec" />
+								</div>
+							</div>
+						</section>
+						<section flex-gt-sm="45" flex-sm="50" flex-xs="50" -wrap class="margin-top-10 padding-left30">
+							<div layout="row" layout-align="start center" flex="100" class="">
+								<span flex="35" class="margin-auto"> {{'TO_DATE_REPORT' | translate}}</span>
+								<div flex>
+									<input kendo-date-picker ng-model="departureToString" k-ng-model="search.DepartureTo" class="width100pec"
+										k-options="DatePickerOption" />
+								</div>
+							</div>
+						</section>	
+					</div> -->
+				</div>
+			</div>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-click="processResetHotelData()" class="md-primary">
+				{{'RESET' | translate}}
+			</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>

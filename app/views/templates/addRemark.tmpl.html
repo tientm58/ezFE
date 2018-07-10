@@ -1,0 +1,56 @@
+<style>
+	input[type=number]::-webkit-inner-spin-button,
+	input[type=number]::-webkit-outer-spin-button {
+		opacity: 1;
+	}
+	
+	.k-datetimepicker .k-picker-wrap .k-icon {
+		margin: 6px 2px;
+	}
+	
+	.k-i-calendar {
+		background-position: -32px -176px !important;
+	}
+	
+	.k-i-clock {
+		background-position: -32px -192px !important;
+	}
+</style>
+<md-dialog aria-label="{{'ADD_REMARK' | translate}}" flex="40" flex-sm="100">
+	<form name="addRemarkForm">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'REMARK' | translate}} </h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <md-input-container flex="100">
+                    <label>{{'TYPE' | translate}}</label>
+                    <md-select ng-model="roomRemark.RemarkEventId">
+                        <md-option ng-if="hasRRIDParam === false" ng-repeat="event in remarkEvents" ng-selected="event.RemarkEventCode ==='CHECKIN' " ng-value="event.RemarkEventId">{{event.RemarkEventName | translate}}</md-option>
+                        <md-option ng-if="hasRRIDParam === true" ng-repeat="event in remarkEvents" ng-selected="event.RemarkEventCode ==='RESERVATION' " ng-value="event.RemarkEventId">{{event.RemarkEventName | translate}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex="100">
+                    <label>{{'DESCRIPTION' | translate}} ({{'REQUIRED' | translate}})</label>
+                    <input required type="text" ng-model="roomRemark.Description" />
+                </md-input-container>
+            </div>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-click="processAddRemark()" class="md-primary" ng-disabled="!roomRemark.Description">
+				{{'ADD' | translate}}
+			</md-button>
+		</md-dialog-actions>
+
+	</form>
+
+</md-dialog>

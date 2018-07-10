@@ -1,0 +1,53 @@
+{
+  "name": "ezCloud",
+  "version": "1.0.0",
+  "description": "ezCloud PMS",
+  "dependencies": {
+    "bower": "*",
+    "grunt-cdnify": "^1.0.2",
+    "grunt-contrib-rename": "0.0.3",
+    "grunt-scp": "^0.1.10",
+    "grunt-text-replace": "^0.4.0",
+    "node.js": "*"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.1.2",
+    "connect": "^2.30.2",
+    "grunt": "^0.4.5",
+    "grunt-autoprefixer": "^3.0.3",
+    "grunt-cli": "^0.1.13",
+    "grunt-concurrent": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-connect": "^0.11.2",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-cssmin": "^0.14.0",
+    "grunt-contrib-htmlmin": "^0.6.0",
+    "grunt-contrib-imagemin": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-contrib-watch": "*",
+    "grunt-filerev": "^2.3.1",
+    "grunt-karma": "^0.12.1",
+    "grunt-newer": "*",
+    "grunt-ng-annotate": "^1.0.1",
+    "grunt-ngmin": "*",
+    "grunt-postcss": "^0.7.1",
+    "grunt-remove-logging": "*",
+    "grunt-scp": "^0.1.10",
+    "grunt-svgmin": "*",
+    "grunt-usemin": "^3.1.1",
+    "grunt-wiredep": "*",
+    "jshint-stylish": "*",
+    "karma": "^0.13.15",
+    "load-grunt-tasks": "^3.3.0",
+    "serve-static": "^1.10.0",
+    "time-grunt": "*"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "author": "Huy Dang",
+  "license": "ISC"
+}

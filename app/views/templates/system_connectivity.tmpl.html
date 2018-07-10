@@ -1,0 +1,90 @@
+<md-toolbar>
+	<span flex class="md-toolbar-tools">
+		<h2>
+			{{'CONNECTIVITIES_MODULE' | translate}}
+		</h2>
+	</span>
+
+	<md-button class="md-warn md-fab md-mini" ng-click="saveConnectivities()" ng-if="isConnectivityListChanged" style=" position: absolute;
+                           right: 10px;
+								   bottom: -25px;">
+		<md-icon md-svg-src="img/icons/ic_save_48px.svg"></md-icon>
+		<md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+			{{'TOOLTIP_ADDNEW' | translate}}
+		</md-tooltip>
+	</md-button>
+</md-toolbar>
+<md-content style="">
+	<section layout="row" layout-padding layout-wrap style="margin-top:20px">
+		<section flex="100" layout="row">
+			<section flex="65" layout-margin></section>
+			<section flex="15" layout-align="center center" layout="row">
+				{{'ACTIVE' | translate}}
+			</section>
+			<section flex="20" layout-align="center center" layout="row">
+				{{'USE_INPUT_CARD_TO_CHECKOUT' | translate}}
+			</section>
+		</section>
+		<section flex="100" layout="row" ng-repeat="module in connectivityModuleList">
+			<section flex="65" layout-margin>
+				<p>{{ module.code.HotelConnectivityModuleName | translate}}&nbsp;
+					<a ng-if="module.link !== null" href="{{module.link}}"
+					 style="font-size: 0.6em">{{'DOWNLOAD' | translate}}</a>
+				</p>
+			</section>
+			<section flex="15" layout-align="center center" layout="row">
+				<md-checkbox class="md-warn" ng-model="module.isUsed" style="margin: 0px;" ng-change="updateSelection(module)"></md-checkbox>
+			</section>
+			<section flex="20" layout-align="center center" layout="row">
+				<md-checkbox class="md-warn" ng-model="module.IsInputCardToCheckout" style="margin: 0px;" ng-change="updateInputCardToCheckout(module)"></md-checkbox>
+			</section>
+		</section>
+	</section>
+	<md-list ng-repeat="module in connectivityModuleList" ng-show="module.isUsed == true && module.code.HotelConnectivityModuleName == 'SMART_NEO_LOCK'">
+		<md-subheader class="md-no-sticky">
+			<span>{{'TIME_DEFAULT_CONNECTIVITIES' | translate}}</span>
+		</md-subheader>
+		<md-list-item>
+			<p style="display: block; padding-left: 16px;">{{'USE_TIME_DEFAULT_CONNECTIVITIES' | translate}}</p>
+			<md-checkbox ng-model="module.IsAutomaticalAddHourCheckout" class="md-warn md-secondary">
+			</md-checkbox>
+		</md-list-item>
+		<md-list-item ng-show="module.IsAutomaticalAddHourCheckout == true">
+			<p style="display: block; padding-left: 16px;">{{'HOUR' | translate}}</p>
+			<md-input-container style="" class="md-secondary">
+				<input type="number" string-to-number ng-model="module.HourAddToCheckout" />
+			</md-input-container>
+		</md-list-item>
+		<md-list-item>
+			<!-- <p style="display: block; padding-left: 16px;">{{'TOKEN_LOCK' | translate}}</p> -->
+			<md-input-container class="md-block" flex="100">
+				<label>{{'USERNAME' | translate}}</label>
+				<textarea ng-model="module.Username" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+			</md-input-container>
+			<md-input-container class="md-block" flex="100">
+				<label>{{'PASSWORD' | translate}}</label>
+				<textarea ng-model="module.Password" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+			</md-input-container>
+		</md-list-item>
+	</md-list>
+	<!--  -->
+	<!-- <md-list ng-if="false">
+		<md-list-item layout="row" layout-align="space-between center">
+					<p></p>
+					<div class="md-secondary" style="margin: 0px;">IsInputCardToCheckout</div>
+					<div class="md-secondary" style="margin: 0px;">Active</div>
+		</md-list-item>
+		<md-list-item ng-repeat="module in connectivityModuleList" ng-click="doNothing()">
+			<md-list style="width: 100%;padding: 0px;">
+				<md-list-item layout="row" layout-align="space-between center">
+					<p>{{ module.code.HotelConnectivityModuleName | translate}}&nbsp;<a ng-if="module.link !== null" href="{{module.link}}" style="font-size: 0.6em">{{'DOWNLOAD' | translate}}</a></p>
+					<md-checkbox class="md-warn md-secondary"  ng-model="module.IsInputCardToCheckout" style="" ng-click="updateInputCardToCheckout(module)">
+					</md-checkbox>
+					<md-checkbox class="md-warn md-secondary"  ng-model="module.isUsed" style="margin: 0px;" ng-click="updateSelection(module)">
+					</md-checkbox>
+				</md-list-item>
+			</md-list>
+		</md-list-item>
+	</md-list> -->
+
+</md-content>

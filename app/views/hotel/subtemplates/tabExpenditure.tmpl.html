@@ -1,0 +1,224 @@
+<style>
+    md-table-container {
+        /* box-shadow: 0px 0px 2px 0px; */
+    }
+
+    /* md-tabs-wrapper {
+        background-color: #EEEEEE !important;
+    } */
+
+    table thead {
+        background: antiquewhite;
+    }
+
+    .md-button.md-primary.md-fab:hover {
+        box-shadow: 0px 0px 2px #000000;
+        z-index: 2;
+        -webkit-transition: all 100ms ease-in;
+        -webkit-transform: scale(1.03);
+        -ms-transition: all 100ms ease-in;
+        -ms-transform: scale(1.03);
+        -moz-transition: all 100ms ease-in;
+        -moz-transform: scale(1.03);
+        transition: all 100ms ease-in;
+        transform: scale(1.2);
+    }
+
+    .md-button.md-warn.md-fab:hover {
+        box-shadow: 0px 0px 2px #000000;
+        z-index: 2;
+        -webkit-transition: all 100ms ease-in;
+        -webkit-transform: scale(1.03);
+        -ms-transition: all 100ms ease-in;
+        -ms-transform: scale(1.03);
+        -moz-transition: all 100ms ease-in;
+        -moz-transform: scale(1.03);
+        transition: all 100ms ease-in;
+        transform: scale(1.2);
+    }
+
+    table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2),
+    table.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2),
+    table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
+    table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+        padding: 10px;
+    }
+
+    table.md-table thead.md-head>tr.md-row {
+        height: fit-content;
+    }
+
+    .bankCancel {
+        text-decoration-line: line-through !important;
+    }
+
+    .bankActive {
+        color: #4caf50;
+        font-weight: bold;
+    }
+
+    .topHear {
+        background-color: rgb(63, 81, 181);
+    }
+
+    .topHear th,
+    .topHear th md-icon {
+        color: #fff !important;
+    }
+
+    .backgroundW {
+        background-color: white;
+    }
+
+    .width20p {
+        width: 20% !important;
+    }
+
+    .width30p {
+        width: 30% !important;
+    }
+
+    .width10p {
+        width: 10% !important;
+    }
+
+    .height40p {
+        height: 40px !important;
+    }
+
+    .padding-top10p {
+        padding-top: 10px !important;
+    }
+
+    .topHear {
+        background-color: rgb(214, 214, 214);
+    }
+
+    .topHear th,
+    .topHear th md-icon {
+        color: #5c5c5d !important;
+    }
+
+    .hightli {
+        border-right: 1px solid #9e9e9e57 !important;
+        background-color: #f2f2f2;
+    }
+
+    .invoiceDeleted {
+        text-decoration-line: line-through !important;
+    }
+
+    .icon-btn {
+        cursor: pointer;
+    }
+
+    .row_btn button {
+        min-width: 45px;
+    }
+
+    .btn_hear md-icon {
+        fill: #fff;
+    }
+
+    .box_info_dc {
+        font-size: 14px;
+    }
+
+    .bg_thu {
+        background: #4caf5063;
+    }
+
+    .bg_chi {
+        background: #ff980042;
+    }
+
+    .bankDeActive {
+        background: #f2f2f2;
+    }
+</style>
+<div ng-cloak>
+    <md-content>
+        <md-tabs md-dynamic-height md-border-bottom data-ng-init="payments.action.init()">
+            <md-tab class="backgroundW" label="{{'DANH_MUC_THU_CHI' | translate}}">
+                <md-content class="md-padding">
+                    <div layout="row" layout-align="space-between center" layout-margin flex="100" class="padding0 margin00 height40p">
+                        <md-select ng-model="payments.attributes.filterType" ng-change="payments.action.changeDataType()">
+                            <md-option value="all" selected>{{'ALL' | translate}}</md-option>
+                            <md-option value="{{payment.val}}" ng-repeat="payment in payments.attributes.filterSelect">{{payment.des || "" | translate}}
+                            </md-option>
+                        </md-select>
+                        <md-button class="btn-c md-raised md-primary" ng-click="payments.action.addPopup()" style="background-color: #4CAF50 !important">
+                            <md-icon md-svg-src="img/icons/ic_add_48px.svg"></md-icon>&nbsp;{{'ADD_CATEGORY' | translate}}
+                        </md-button>
+                    </div>
+                    <section class="list-container" layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+                        <tree-grid tree-data="payments.attributes.tree.data" tree-control="payments.attributes.tree.control" col-defs="payments.attributes.tree.colDefs"
+                            expand-on="payments.attributes.tree.expandingProperty" on-select="my_tree_handler(branch)" expand-level="payments.attributes.tree.expandingLevel"
+                            parent="payments" icon-leaf="glyphicon glyphicon-globe">
+                        </tree-grid>
+                    </section>
+                </md-content>
+            </md-tab>
+            <md-tab label="{{'TAI_KHOAN_NGAN_HANG' | translate}}" data-ng-init="action.getListBanks()">
+                <md-content class="md-padding">
+                    <md-table-container>
+                        <table md-table md-progress="promise">
+                            <thead class="md-table-progress">
+                                <tr>
+                                    <th colspan="5">
+                                        <md-progress-linear ng-show="deferred()" md-mode="indeterminate" aria-valuemin="0" aria-valuemax="100" role="progressbar"
+                                            aria-hidden="true" class="ng-hide" style="">
+                                            <div class="md-container md-mode-indeterminate">
+                                                <div class="md-dashed"></div>
+                                                <div class="md-bar md-bar1"></div>
+                                                <div class="md-bar md-bar2"></div>
+                                            </div>
+                                        </md-progress-linear>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <thead md-head>
+                                <tr md-row class="topHear">
+                                    <th md-column class="width20p">
+                                        <span>{{'ACCOUNT_BANK_NO' | translate}}</span>
+                                    </th>
+                                    <th md-column class="width30p">
+                                        <span>{{'BANK_NAME' | translate}}</span>
+                                    </th>
+                                    <th md-column class="width30p">
+                                        <span>{{'BANK_BRANCH' | translate}}</span>
+                                    </th>
+                                    <th md-column class="text-right">
+                                        <md-button class="btn-c md-raised md-mini md-primary margin00" ng-click="action.addPopup()" style="background-color: #4CAF50 !important">
+                                            <md-icon md-svg-src="img/icons/ic_add_48px.svg" style="fill: #fff;"></md-icon>&nbsp;{{'ADD_BANK_ACCOUNT' | translate}}
+                                        </md-button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row ng-show="data.banks.length == 0 || !data.banks">
+                                    <td md-cell colspan="5" style="text-align: center;">Empty data</td>
+                                </tr>
+                                <tr md-row ng-show="data.banks.length > 0" ng-class="{'bankDeActive': !(bank.Status != 3)}" ng-repeat="bank in data.banks track by $index">
+                                    <td ng-class="{'bankCancel': bank.Status == 3}" md-cell class="width20p">{{bank.AcctNo || ""}}</td>
+                                    <td ng-class="{'bankCancel': bank.Status == 3}" md-cell class="width30p">{{bank.BankName || ""}}</td>
+                                    <td ng-class="{'bankCancel': bank.Status == 3}" md-cell class="width30p">{{bank.BankBranch || ""}}</td>
+                                    <td md-cell class="text-right row_btn padding0 ">
+                                        <md-button class="hide-xs md-secondary btn_default margin00" ng-click="action.edit(bank, $index)">
+                                            <md-tooltip md-direction="bottom">{{'VIEW' | translate}}</md-tooltip>
+                                            <md-icon md-svg-icon="img/icons/ic_visibility_48px.svg" aria-label="Send Email" class="md-hue-3"></md-icon>
+                                        </md-button>
+                                        <md-button class="hide-xs md-secondary btn_default margin00" ng-if="invoice.Status != 3" ng-click="action.delete(event, bank, $index)">
+                                            <md-icon md-svg-icon="img/icons/ic_delete_48px.svg" class="md-secondary icon-btn md-hue-3">
+                                            </md-icon>
+                                        </md-button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+</div>

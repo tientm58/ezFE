@@ -1,0 +1,56 @@
+<md-dialog aria-label="Room Create">
+	<form ng-submit="saveNewRoom(newRoom)">
+		<button class="hide" id="btn_saveNewRoom"></button>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'CREATE_ROOM' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+				<md-input-container flex="100">
+					<label>{{'ROOM_NAME' | translate}} ({{'REQUIRED' | translate}})</label>
+					<input type="text" md-autofocus required ng-model="newRoom.RoomName" md-maxlength="10" maxlength="10" ng-trim="true">
+					
+				</md-input-container>
+				<md-select required ng-model="newRoom.RoomTypeId" placeholder="{{'CHOOSE_ROOM_TYPE' | translate}} ({{'REQUIRED' | translate}})" flex="100">
+					<!--<md-select-label style="width: 100%"></md-select-label>-->
+					<md-option value="{{roomType.RoomTypeId}}" ng-repeat="roomType in roomTypes" ng-selected="$index == 0">
+						{{roomType.RoomTypeName}}
+					</md-option>
+				</md-select>
+				<md-select ng-model="newRoom.FloorId" placeholder="{{'CHOOSE_FLOOR' | translate}}" flex="100">
+					<!--<md-select-label style="width: 100%"></md-select-label>-->
+					<!--<md-option selected ng-value="0" >{{'SELECT_FLOOR' | translate}}</md-option>-->
+					<md-option value="{{f.FloorId}}" ng-repeat="f in floors" ng-if="f.IsActive == true" ng-selected="$index == 0">
+						{{f.FloorName}}
+					</md-option>
+				</md-select>
+				<!--<md-input-container flex="100">
+					<label>{{'ROOM_LOCATION' | translate}}</label>
+					<input ng-model="newRoom.RoomLocation">
+				</md-input-container>-->
+				<md-input-container flex="100">
+					<label>{{'DESCRIPTION' | translate}}</label>
+					<input ng-model="newRoom.RoomDescription">
+				</md-input-container>
+			</div>
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button onclick="jQuery('#btn_saveNewRoom').click()" class="md-primary" ng-disabled="!newRoom.RoomName || !newRoom.RoomTypeId" >
+				{{'CREATE' | translate}}
+			</md-button>
+		</md-dialog-actions>
+
+	</form>
+
+</md-dialog>

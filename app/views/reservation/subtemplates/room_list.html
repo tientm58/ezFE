@@ -1,0 +1,32 @@
+
+<md-card ng-show="rooms.length">
+<md-toolbar layout="row" layout-align="center center">{{'ROOM_LIST'|translate}}</md-toolbar>
+<md-card-content>
+    <md-list>
+    <md-divider></md-divider>
+      <md-item ng-repeat="room in rooms">
+        <md-item-content flex>
+            <md-card flex>
+                <md-card-content  layout="row" layout-wrap>
+                    
+                    <div flex="15" flex-sm="50">
+                        <select><option>{{room.type}}</option></select>
+                    </div>
+                    <div flex="15" flex-sm="50">
+                        <select><option>{{room.name}}</option></select>
+                    </div>
+                    <md-divider hide-gt-md flex="100"></md-divider>
+                    <div flex="55" flex-sm="67" layout="row" layout-align="end center">
+                        <div flex="70" layout="row" layout-align="center center"> {{room.customer}}</div><div flex="30"> <md-button class="md-fab md-fab-small"><ng-md-icon icon="search"></ng-md-icon></md-button><md-button class="md-fab md-fab-small"><ng-md-icon icon="edit"></ng-md-icon></md-button></div>
+                    </div>
+                    <div flex="15" flex-sm="30" layout="row" layout-align="end center">
+                        <md-button class="md-fab md-accent md-fab-small"><ng-md-icon icon="edit"></ng-md-icon></md-button><md-button class="md-fab md-warn md-fab-small"><ng-md-icon icon="delete"></ng-md-icon></md-button>
+                    </div>
+            </md-card-content>
+            </md-card>  
+        </md-item-content>
+          <md-divider repeat-done="init()"></md-divider>
+      </md-item>
+    </md-list>
+</md-card-content>
+</md-card>

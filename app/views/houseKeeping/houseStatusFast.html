@@ -1,0 +1,81 @@
+<style>
+    .dirty {
+        background-color: #eeeeee;
+    }
+
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+
+    .md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+    }
+
+    md-list-item.md-3-line,
+    md-list-item.md-3-line>._md-no-style {
+        height: 0px;
+        /* min-height: 48px; */
+    }
+
+    #hight100 {
+        min-height: 100px !important;
+        max-height: 9000px !important;
+        overflow-y: hidden !important;
+    }
+</style>
+<div layout="row" layout-wrap>
+    <md-card flex="100" style="border-top: 1px solid #eee;padding-bottom: 20px;">
+        <md-card-content>
+            <div layout="row" layout-align="start center" flex="100">
+                <!--<span flex="20">{{ 'SET_STATUS' | translate }} </span>
+                <md-input-container style="margin: auto 16px;margin-left: 0px;" flex="25">
+                    <label></label>
+                    <md-select ng-model="selectedStatus" placeholder="{{'SELECT' | translate}}">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <md-option ng-repeat="stt in status" ng-value="stt.key">{{stt.value | translate}}</md-option>
+                    </md-select>
+                </md-input-container>-->
+
+                <md-button flex="10" class="md-raised " style="background-color:#D2B48C;color:white" ng-click="processHouseStatus('DIRTY')">{{ 'PROCESS_DIRTY' | translate }}</md-button>
+                <md-button flex="10" class="md-raised md-primary" ng-click="processHouseStatus('CLEAN')">{{ 'PROCESS_CLEAN' | translate }}</md-button>
+            </div>
+
+        </md-card-content>
+    </md-card>
+    <md-card style="border-top: 1px solid #eee;width: 100%;margin-bottom:50px !important" id="height100">
+        <md-card-content>
+            <div ng-if="rooms.length === 0" layout="row" layout-align="center center">
+                <span style="text-align: middle;font-style: italic;font-weight: bold; color: #f44336;">
+                    {{'NO_ROOM_FOUND' | translate}}
+                </span>
+            </div>
+            <div layout="column" ng-if="rooms.length > 0" id="height100">
+                <div layout="row" layout-align="space-between center" style="">
+                    <md-checkbox ng-model="isSelectAll" aria-label="SELECT_ALL" style="margin: 0px; margin-right: 12px;" ng-change="selectAll(isSelectAll)">
+                        {{'SELECT_ALL' | translate}}
+                    </md-checkbox>
+                    <!--<md-select ng-model="roomFilter" ng-change="setSelectedRoomFilter()">
+                        <md-option value="showAll">{{'SHOW_ALL' | translate}}</md-option>
+                        <md-option value="dirty">{{'DIRTY' | translate}}</md-option>
+                        <md-option value="clean">{{'CLEAN' | translate}}</md-option>
+                    </md-select>-->
+
+                </div>
+                <md-list id="hight100" style="margin-bottom:20px !important">
+                    <!--<md-divider></md-divider>-->
+                    <md-list-item class="md-3-line" ng-repeat="room in rooms" style="padding: 0px;" ng-class="{'dirty': room.HouseStatus !== null}">
+                        <md-checkbox ng-model="room.isSelected" aria-label="Room Selected" style="margin: 0px; margin-right: 12px;">
+                        </md-checkbox>
+                        <p style="margin: auto 0px;">{{room.RoomName}} ({{room.RoomTypes.RoomTypeCode}})</p>
+                        <p class="md-secondary" style="font-weight: bold;">{{room.HouseStatus | translate}}</p>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
+            </div>
+        </md-card-content>
+    </md-card>
+</div>

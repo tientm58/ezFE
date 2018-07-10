@@ -1,0 +1,129 @@
+<style>
+    md-list-item{
+        max-height: 48px;
+    }
+    ._md-secondary-container{
+        max-height: 48px;
+    }
+    md-dialog .md-dialog-content{ padding: 5px; }
+</style>
+<div class="md-dialog-content" layout="row" layout-wrap flex="100" layout-align="space-between start">
+    <div class="md-dialog-content" layout="row" layout-wrap flex="100" layout-align="space-between start">
+        <div layout="row" layout-wrap flex-gt-sm="45" flex-xs="100" flex-sm="100" style="margin-right: 12px;">
+            <md-subheader class="md-primary">
+                {{'NEW_ROOM' | translate}}
+            </md-subheader>
+            <div flex="100" layout="row" layout-align="space-between center" layout-wrap style=" ">
+                <div flex="45" layout="row">
+                    <md-select flex ng-model="assignRoomCtrl.newRoom.RoomTypeId" ng-change="assignRoomCtrl.updateRoomType()" placeholder="{{'SELECT_TYPE' | translate}}" style="margin: 0px; margin-top: 19px; margin-bottom: 12px;">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <md-option ng-repeat="rt in assignRoomCtrl.currentRoom.roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName | translate }}</md-option>
+                    </md-select>
+
+                </div>
+                <div flex="45" layout="row" layout-align="center center">
+                    <md-select flex ng-model="assignRoomCtrl.newRoom.RoomId" placeholder="{{'SELECT_ROOM'|translate}}" style="margin: 0px;margin-top: 19px; margin-bottom: 12px;">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <!-- <md-option value="0" selected>{{'SELECT_ROOM' | translate}}</md-option> -->
+                        <md-option ng-repeat="r in assignRoomCtrl.currentRoom.availableRoom track by $index" ng-cloak ng-value="r.RoomId" ng-bind="r.RoomName"></md-option>
+                    </md-select>
+                </div>
+            </div>
+            <div flex="100" layout="row" layout-align="space-between center" layout-wrap style=" ">
+                <div flex="45" layout="row" layout-align="space-between center">
+                    <md-select flex ng-model="assignRoomCtrl.newRoom.RoomPriceId" ng-change="assignRoomCtrl.updateRoomPrice()" placeholder="{{'RATE' | translate}}" style="margin-bottom: 25px;">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <!-- <md-option ng-if="!currentRoom.RoomId && !currentRoom.RoomPriceId" selected value="0">{{'SELECT_RATE' | translate}}</md-option> -->
+                        <md-option ng-repeat="plan in assignRoomCtrl.availablePlanList" ng-value="plan.RoomPriceId" ng-selected="plan.RoomPriceId.toString() === assignRoomCtrl.availablePlanList[0].RoomPriceId.toString()">{{plan.RoomPriceName | translate}}</md-option>
+                    </md-select>
+                </div>
+            </div>
+            <section>
+                <fieldset ng-if="assignRoomCtrl.warningRoomAssign == true" layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;">
+                    <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+                    <span style="color: #f44336;">
+                        {{'NOT_ASSIGN_ROOM' | translate}}. 
+                    </span>
+                </fieldset>
+            </section>
+        </div>
+        <div flex layout="row" layout-wrap>
+            <md-subheader class="md-primary">
+                {{'OLD_ROOM' | translate}}
+            </md-subheader>
+            <md-list flex="100">
+
+                <md-list-item>
+                    <p>{{ 'RES_NO' | translate }}</p>
+
+                    <p class="md-secondary" style="font-weight: 500;" ng-if="assignRoomCtrl.currentRoom.Reservations.ReservationNumber">
+                        {{assignRoomCtrl.currentRoom.Reservations.ReservationNumber }} 
+                    </p>
+                    <p class="md-secondary" style="font-weight: 500;" ng-if="assignRoomCtrl.currentRoom.reservationNumber && !assignRoomCtrl.currentRoom.Reservations.ReservationNumber">
+                        {{assignRoomCtrl.currentRoom.reservationNumber}} 
+                    </p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'ROOM' | translate }}</p>
+                    <p class="md-secondary" style="font-weight: 500;font-style: italic;" layout="row" layout-align="end center">
+                        {{ 'NOT_ASSIGNED' | translate }}&nbsp;
+                    </p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'ROOM_TYPE' | translate }}</p>
+                    <p class="md-secondary">
+                        {{ assignRoomCtrl.currentRoom.roomTypeInfo.RoomTypeName | translate}}</p>
+                </md-list-item>
+                <md-list-item ng-if="assignRoomCtrl.currentRoom.RoomPriceId">
+                    <p>{{ 'PRICE_RATES' | translate }}</p>
+                    <p class="md-secondary">{{ assignRoomCtrl.currentRoom.planInfo.RoomPriceName | translate}}</p>
+                </md-list-item>
+                <md-list-item ng-if="assignRoomCtrl.hasRRIDParam && assignRoomCtrl.currentRoom.RoomPriceId && assignRoomCtrl.currentRoom.planInfo.UseHourlyPrice== false">
+                    <p>{{ 'TOTAL_PRICE' | translate }}</p>
+                    <p class="md-secondary">
+                        {{ assignRoomCtrl.currentRoom.totalPriceTemp | currency}}
+                    </p>
+                </md-list-item>
+                <md-list-item ng-if="assignRoomCtrl.currentRoom.RoomPriceId && assignRoomCtrl.currentRoom.planInfo.UseHourlyPrice== true">
+                    <p>{{ 'PRICE' | translate }}</p>
+                    <p class="md-secondary">
+                        {{ assignRoomCtrl.currentRoom.Price | currency}}
+                    </p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'ARRIVAL' | translate }}</p>
+                    <p class="md-secondary">
+                        {{ assignRoomCtrl.currentRoom.ArrivalDate | date:'dd/MM/yyyy, HH:mm' }}</p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'DEPARTURE' | translate }}</p>
+                    <p class="md-secondary">
+                        {{ assignRoomCtrl.currentRoom.DepartureDate | date:'dd/MM/yyyy, HH:mm' }}</p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'ADULT' | translate }}</p>
+                    <p class="md-secondary">{{ assignRoomCtrl.currentRoom.Adults }}</p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'CHILDREN' | translate }}</p>
+                    <p class="md-secondary">{{ assignRoomCtrl.currentRoom.Child }}</p>
+                </md-list-item>
+            </md-list>
+
+        </div>
+    </div>
+</div>
+<md-dialog-actions layout="row">
+    <md-button ng-click="assignRoomCtrl.cancel()" class="md-primary">
+        {{'CANCEL' | translate}}
+    </md-button>
+    <md-button ng-if="assignRoomCtrl.IsDashboard == 0" ng-click="assignRoomCtrl.processAssignRoom()" class="md-primary">
+        {{'SAVE' | translate}}
+    </md-button>
+    <md-button ng-if="assignRoomCtrl.IsDashboard == 1" ng-click="assignRoomCtrl.processAssignRoomDashBoard()" class="md-primary">
+        {{'SAVE' | translate}}
+    </md-button>
+</md-dialog-actions>
+
+
+

@@ -1,0 +1,33 @@
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+<form id="chatform" action="">
+    <input id="inputbox" />
+</form>
+<div id="messages" />
+<script>
+    $(document).ready(function () {
+
+        var username = prompt('Please enter a username');
+
+        var uri = 'ws://localhost:21326/api/ExternalOutput/WS' + '?username=' + username;
+        websocket = new WebSocket(uri);
+
+        websocket.onopen = function () {
+            $('#messages').prepend('<div>Connected.</div>');
+
+            $('#chatform').submit(function (event) {
+                websocket.send($('#inputbox').val());
+                $('#inputbox').val('');
+                event.preventDefault();
+            });
+        };
+
+        websocket.onerror = function (event) {
+            $('#messages').prepend('<div>ERROR</div>');
+        };
+
+        websocket.onmessage = function (event) {
+            $('#messages').prepend('<div>' + event.data + '</div>');
+        };
+    });
+</script>

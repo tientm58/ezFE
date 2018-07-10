@@ -1,0 +1,2 @@
+ezCloud.controller('reportListController', ['$scope', '$rootScope', '$mdBottomSheet','$location', '$state', 'dialogService', 'loginFactory', '$mdDialog', function ($scope, $rootScope, $mdBottomSheet, $location, $state, dialogService, loginFactory, $mdDialog) {
+}]);

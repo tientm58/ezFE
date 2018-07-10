@@ -1,0 +1,77 @@
+<!--<md-content flex-gt-xs="80" flex-xs="100" class="md-whiteframe-z1">-->
+<md-toolbar>
+	<span flex class="md-toolbar-tools">
+				<h2>
+					{{'CURRENCY_LIST' | translate}}
+				</h2>
+			</span>
+
+	<md-button class="md-warn md-fab md-mini" ng-click="saveCurrencyList()" ng-if="isCurrencyListChanged" style=" position: absolute;
+                           right: 60px;
+								   bottom: -25px;">
+		<md-icon md-svg-src="img/icons/ic_save_48px.svg"></md-icon>
+		<md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+			{{'TOOLTIP_ADDNEW' | translate}}
+		</md-tooltip>
+	</md-button>
+
+	<md-button class="md-warn md-fab md-mini" ng-click="addCurrency()" style=" position: absolute; right: 16px; bottom: -25px;">
+		<md-icon md-svg-src="img/icons/ic_add_48px.svg"></md-icon>
+		<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+			{{'TOOLTIP_ADDNEW' | translate}}
+		</md-tooltip>
+	</md-button>
+</md-toolbar>
+<md-content class="md-padding" style="margin-bottom: 24px;">
+	<md-list>
+		<md-subheader style="color: #f44336; font-style: italic; font-weight: bold;">
+			(*){{'THE_DEFAULT_CURRENCY_OF_THE_SYSTEM_IS' | translate}} {{currentHotelDefaultMoney.MoneyName}}. {{'EXCHANGE_RATES_OF_OTHER_CURRENCIES_WILL_BE_CONVERTED_BASED_ON_THIS_CURRENCY' | translate}}
+		</md-subheader>
+		<!--<md-list-item flex layout md-no-ink style="margin-top: 20px; cursor: none;" ng-click="doNothing()" ng-repeat="currency in currencyList">
+			<md-tooltip md-direction="left" flex-gt-md="100">
+				{{'TOOLTIP_ACTIVE' | translate}} / {{'TOOLTIP_DEACTIVE' | translate}}
+			</md-tooltip>
+			<md-checkbox flex flex-xs="5" style="margin-top: 30px;" flex aria-label="Default Currency" class="md-warn" ng-model="defaultCurrency[$index]" ng-change="changeDefaultCurrency($index)">
+			</md-checkbox>
+			<md-input-container flex flex-xs="40" style="margin-top: 60px;">
+				<label>{{'CURRENCY_CODE' | translate}}</label>
+				<input type="text" ng-model="currency.MoneyName">
+			</md-input-container>
+
+			<md-input-container flex flex-xs="35" style="margin-top: 60px;">
+				<label>{{'EXCHANGE_RATE' | translate}}</label>
+				<input type="number" step="0.001" ng-model="currency.ExchangeRate" ng-click="$event.stopPropagation()">
+			</md-input-container>
+			<md-button style="margin-top: 30px;" flex flex-xs="20" aria-label="Remove Currency" class="md-icon-button launch">
+				<md-icon md-svg-src="img/icons/ic_remove_circle_outline_48px.svg" style="fill: #f44336;" ng-click="removeCurrency(currency)">
+
+					<md-tooltip md-direction="top" flex-gt-md="100">
+						{{'TOOLTIP_DELETE' | translate}}
+					</md-tooltip>
+				</md-icon>
+			</md-button>
+			<md-divider></md-divider>
+		</md-list-item>-->
+		
+		<md-list-item flex layout md-no-ink style="" ng-click="doNothing()" ng-repeat="money in moneys" ng-if="money.MoneyId != currentHotelDefaultMoneyId">
+			<md-input-container flex flex-xs="40" style="margin-bottom: 0px;margin-top: 30px;">
+				<label>{{'CURRENCY_CODE' | translate}}</label>
+				<input type="text" ng-model="money.MoneyName">
+			</md-input-container>
+
+			<md-input-container flex flex-xs="35" style="margin-bottom: 0px;margin-top: 30px;">
+				<label>{{'EXCHANGE_RATE' | translate}}</label>
+				<input type="number" step="0.001" ng-model="money.ExchangeRate" ng-click="$event.stopPropagation()">
+			</md-input-container>
+			<md-button style="" flex flex-xs="20" aria-label="Remove Currency" class="md-icon-button launch">
+				<md-icon md-svg-src="img/icons/ic_remove_circle_outline_48px.svg" style="fill: #f44336;" ng-click="removeCurrency(currency)">
+				</md-icon>
+			</md-button>
+<!--			<md-divider></md-divider>-->
+		</md-list-item>
+
+	</md-list>
+</md-content>
+
+
+<!--</md-content>-->

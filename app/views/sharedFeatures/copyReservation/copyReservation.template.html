@@ -1,0 +1,218 @@
+<style>
+    md-list-item, md-list-item .md-list-item-inner{
+        min-height:48px;
+    }
+    input[type=number]::-webkit-inner-spin-button,  
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+    md-list-item{
+        max-height: 48px;
+    }
+    ._md-secondary-container{
+        max-height: 48px;
+    }
+ .md-dialog-content{
+     min-height: fit-content
+ }
+</style>
+<div class="md-dialog-content" layout="row" layout-wrap layout-align="space-between start" flex="100" style="padding-bottom: 20px;width: 100%;">
+    <section flex-gt-xs="45" flex-xs="100" flex-sm="100" layout="column" style="padding-bottom: 20px;">
+        <md-list style="padding: 0px;">
+            <md-subheader class="md-no-sticky">{{'NEW_RESERVATION' | translate}}</md-subheader>
+            <md-list-item>
+                <p>{{ 'ROOM_TYPE' | translate }}</p>
+                <md-select ng-model="copyReservationCtrl.newRoom.RoomTypeId" class="md-secondary" ng-change="copyReservationCtrl.update();">
+                    <md-select-label></md-select-label>
+                    <md-option ng-repeat="rt in copyReservationCtrl.roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName | translate }}</md-option>
+                </md-select>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'ROOM' | translate }}</p>
+                <md-select ng-model="copyReservationCtrl.newRoom.RoomId" class="md-secondary" placeholder="{{'SELECT_ROOM' | translate}}">
+                    <md-select-label style="width:100%"></md-select-label>
+                    <!-- <md-option ng-value="0">{{'SELECT_ROOM' | translate}}</md-option> -->
+                    <md-option ng-repeat="r in copyReservationCtrl.availableRoom | filter: {RoomTypeId:copyReservationCtrl.newRoom.RoomTypeId}" ng-value="r.RoomId">{{r.RoomName}}</md-option>
+                </md-select>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'RATE' | translate }}</p>
+                <md-select ng-model="copyReservationCtrl.newRoom.RoomPriceId" class="md-secondary">
+                    <md-select-label style="width:100%"></md-select-label>
+                    <md-option ng-repeat="plan in copyReservationCtrl.availablePlanList" ng-value="plan.RoomPriceId" ng-selected="plan.RoomPriceId.toString() === copyReservationCtrl.availablePlanList[0].RoomPriceId.toString()">{{plan.RoomPriceName | translate}}</md-option>
+                </md-select>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'PRICE' | translate }}</p>
+                <md-input-container class="md-secondary">
+                    <input type="text" style="width:100%" ng-model="copyReservationCtrl.newRoom.Price" ui-number-mask="copyReservationCtrl.decimal" required>
+                </md-input-container>
+            </md-list-item>
+            <md-list-item ng-if="copyReservationCtrl.currentRoom.reservationRoom">
+                <p>{{ 'ARRIVAL' | translate }}</p>
+                <!-- <div flex="60"> -->
+                <input class="md-secondary" kendo-date-time-picker ng-model="copyReservationCtrl.str" k-ng-model="copyReservationCtrl.currentRoom.reservationRoom.ArrivalDate" style="width: 100%;" k-options="copyReservationCtrl.DateTimePickerOption" />
+                <!-- </div> -->
+            </md-list-item>
+            <md-list-item ng-if="!copyReservationCtrl.currentRoom.reservationRoom">
+                <p>{{ 'ARRIVAL' | translate }}</p>
+                <!-- <div flex="60"> -->
+                <input class="md-secondary" kendo-date-time-picker ng-model="copyReservationCtrl.str" k-ng-model="copyReservationCtrl.currentRoom.ArrivalDate" style="width: 100%;" k-options="copyReservationCtrl.DateTimePickerOption" />
+                <!-- </div> -->
+            </md-list-item>
+            <md-list-item style="margin-top: 24px" ng-if="currentRoom.reservationRoom">
+                <p>{{ 'DEPARTURE' | translate }}</p>
+                <div>
+                    <input class="md-secondary" kendo-date-time-picker ng-model="copyReservationCtrl.str2" k-ng-model="copyReservationCtrl.currentRoom.reservationRoom.DepartureDate" style="width: 100%;" k-options="copyReservationCtrl.DateTimePickerOption" />
+                </div>
+            </md-list-item>
+            <md-list-item style="margin-top: 24px" ng-if="!currentRoom.reservationRoom">
+                <p>{{ 'DEPARTURE' | translate }}</p>
+                <div>
+                    <input class="md-secondary" kendo-date-time-picker ng-model="copyReservationCtrl.str2" k-ng-model="copyReservationCtrl.currentRoom.DepartureDate" style="width: 100%;" k-options="copyReservationCtrl.DateTimePickerOption" />
+                </div>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'NOTE' | translate}}</p>
+                <md-input-container flex="80" style="margin-bottom: 0px;">
+                    <label></label>
+                    <textarea style="width: 100%;" columns="1" rows="5" ng-model="copyReservationCtrl.newRoom.Note" />
+                </md-input-container>
+            </md-list-item>
+        </md-list>
+        <div>
+            <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="copyReservationCtrl.warning === true">
+                <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+                <span style="color: #f44336;">
+                    {{'ROOM_IS_NOT_AVAILABLE_FOR_SELECTED_DATES' | translate}}. {{'CONFLICT_WITH_RESERVATION' | translate}} {{currentRoom.roomBookingList[0].ReservationRoomId}}
+                </span>
+            </fieldset>
+        </div>
+    </section>
+    <section flex flex-xs="100" flex-sm="100" ng-if="copyReservationCtrl.currentRoom.reservationRoom">
+        <md-list style="padding: 0px;">
+            <md-subheader class="md-no-sticky">{{'CURRENT_RESERVATION' | translate}}</md-subheader>
+            <md-list-item>
+                <p>{{ 'RES_NO' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.reservationRoom.Reservations.ReservationNumber }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'ROOM' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.RoomName }}({{copyReservationCtrl.currentRoom.roomType.RoomTypeName | translate}})</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'PRICE_RATE' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.RoomPriceName | translate}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'PRICE' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.reservationRoom.Price | currency}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'ADULTS' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.reservationRoom.Adults }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'CHILDREN' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.reservationRoom.Child }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'GUEST' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.reservationRoom.Travellers.Fullname }}</p>
+            </md-list-item>
+            <md-list-item ng-if="copyReservationCtrl.currentRoom.reservationRoom.Company">
+                <p>{{ 'COMPANY' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.reservationRoom.Company.CompanyName }}</p>
+            </md-list-item>
+            <md-list-item ng-if="copyReservationCtrl.currentRoom.reservationRoom.Source">
+                <p>{{ 'SOURCE' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.reservationRoom.Source.SourceName }}</p>
+            </md-list-item>
+            <md-list-item ng-if="copyReservationCtrl.currentRoom.reservationRoom.Market">
+                <p>{{ 'MARKET' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.reservationRoom.Market.MarketName }}</p>
+            </md-list-item>
+            <md-list-item ng-if="copyReservationCtrl.currentRoom.reservationRoom.Note">
+                <p>{{ 'NOTE' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.reservationRoom.Note }}</p>
+            </md-list-item>
+        </md-list>
+    </section>
+    <section flex flex-xs="100" flex-sm="100" ng-if="!copyReservationCtrl.currentRoom.reservationRoom">
+        <md-list style="padding: 0px;">
+            <md-subheader class="md-no-sticky">{{'CURRENT_ROOM' | translate}}</md-subheader>
+            <md-list-item>
+                <p>{{ 'RES_NO' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.Reservations.ReservationNumber }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'ROOM' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.Rooms.RoomName }}({{ copyReservationCtrl.currentRoom.RoomTypes.RoomTypeName | translate}})</p>
+            </md-list-item>
+            <md-list-item ng-if="copyReservationCtrl.currentRoom.RoomPriceName">
+                <p>{{ 'PRICE_RATE' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.RoomPriceName | translate }}</p>
+            </md-list-item>
+            <md-list-item ng-if="!copyReservationCtrl.currentRoom.RoomPriceName">
+                <p>{{ 'PRICE_RATE' | translate }}</p>
+                <p class="md-secondary" style="font-style: italic;">{{ 'NOT_ASSIGNED' | translate }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'PRICE' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.Price | currency }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'ADULTS' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.Adults }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'CHILDREN' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.Child }}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{ 'GUEST' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.Travellers.Fullname }}</p>
+            </md-list-item>
+            <md-list-item ng-if="copyReservationCtrl.currentRoom.Company">
+                <p>{{ 'COMPANY' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.Company.CompanyName }}</p>
+            </md-list-item>
+            <md-list-item ng-if="copyReservationCtrl.currentRoom.Source">
+                <p>{{ 'SOURCE' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.Source.SourceName }}</p>
+            </md-list-item>
+            <md-list-item ng-if="copyReservationCtrl.currentRoom.Market">
+                <p>{{ 'MARKET' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.Market.MarketName }}</p>
+            </md-list-item>
+            <md-list-item ng-if="copyReservationCtrl.currentRoom.Note">
+                <p>{{ 'NOTE' | translate }}</p>
+                <p class="md-secondary">{{ copyReservationCtrl.currentRoom.Note }}</p>
+            </md-list-item>
+        </md-list>
+    </section>
+    
+</div>
+<md-dialog-actions layout="row">
+    <md-button ng-click="copyReservationCtrl.cancel()" class="md-primary">
+        {{'CANCEL' | translate}}
+    </md-button>
+    <md-button ng-if="copyReservationCtrl.IsDashboard == 0" ng-click="copyReservationCtrl.processCopy()" class="md-primary">
+        {{'PROCESS' | translate}}
+    </md-button>
+    <md-button ng-if="copyReservationCtrl.IsDashboard == 1" ng-click="copyReservationCtrl.processCopyDB()" class="md-primary">
+        {{'PROCESS' | translate}}
+    </md-button>
+</md-dialog-actions>

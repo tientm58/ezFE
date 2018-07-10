@@ -1,0 +1,700 @@
+<style>
+    md-content {
+        /*background-color: transparent !important;*/
+    }
+    
+    md-content md-tabs {
+        /*background: #f6f6f6;*/
+        border: 1px solid #e1e1e1;
+    }
+    
+    md-content md-tabs md-tabs-wrapper {
+        background: white;
+    }
+    
+    md-content h1:first-child {
+        margin-top: 0;
+    }
+    
+    .matrixHeader {
+        height: 60px;
+        line-height: 60px;
+        padding: 0 7px;
+        font-weight: bold;
+        background: #f6f6f6;
+        text-transform: uppercase;
+        margin: auto;
+    }
+    
+    .calendar-date {
+        cursor: default;
+        border-left: 1px solid #C2C2C2;
+        color: #333;
+        text-align: center;
+    }
+    
+    .date-cell {
+        width: 42px;
+        max-width: 42px;
+        min-width: 42px;
+    }
+    
+    .day-of-week {
+        line-height: 1;
+        padding-top: 4px;
+        color: #333333;
+        font-size: 10px;
+    }
+    
+    .day-of-month {
+        line-height: 1;
+        font-size: 16px;
+        padding-top: 3px;
+        font-weight: bold;
+        color: #333333;
+    }
+    
+    .month {
+        line-height: 1;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        text-transform: uppercase;
+        color: #333333;
+        font-size: 10px;
+    }
+    
+    .height-by-display-options {
+        height: 105px !important;
+        overflow: hidden;
+    }
+    
+    .height-by-display-options-extra {
+        height: 129px !important;
+        overflow: hidden;
+    }
+    
+    .display-option-saleable {
+        display: block !important;
+    }
+    
+    .display-option-available {
+        display: block !important;
+    }
+    
+    .display-option-rate {
+        display: none !important;
+    }
+    
+    .display-option-MinLOS {
+        display: none !important;
+    }
+    
+    .display-option-MaxLOS {
+        display: none !important;
+    }
+    
+    .display-option-closed {
+        display: none !important;
+    }
+    
+    .display-option-ClosedArrival {
+        display: none !important;
+    }
+    
+    .display-option-ClosedDeparture {
+        display: none !important;
+    }
+    
+    .md-input {
+        padding: 5px !important;
+        border-bottom: 1px !important;
+    }
+    
+    .one {
+        padding: 10px;
+    }
+    
+    #tblInventoryLog td,
+    #tblInventoryLog th {
+        border: 1px solid #ddd;
+        text-align: left;
+        padding: 8px;
+    }
+    
+    table#tblInventoryLog {
+        /*font-size: 16px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+    }
+    
+    .margin-bottom100 {
+        margin-bottom: 80px;
+    }
+    
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+    
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+    
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+    
+    .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+    
+    .width7day {
+        width: 100% !important;
+    }
+    
+    .width30day {
+        width: 1968px !important;
+    }
+    
+    .width15day {
+        width: 1066px !important;
+    }
+    
+    .ipsum {
+        color: gray;
+        font-size: 1.1em;
+        color: gray !important;
+        font-size: 1.1em !important;
+    }
+    
+    .CanBeSoldIsZero {
+        background: darkorange;
+        border-radius: 10px;
+        color: white !important;
+        font-weight: bold;
+    }
+    .stopSell{
+        background: darkorange;
+    }
+    .otherstopSell{
+        background: #cecaca;
+    }
+    
+    .Overbooked {
+        background: red;
+        border-radius: 10px;
+        color: white !important;
+        font-weight: bold;
+    }
+    .Potential-Overbooking {
+        background: brown;
+        border-radius: 10px;
+        color: white !important;
+        font-weight: bold;
+    }
+    .wp_channel_stopsell{
+        font-size: 14px;
+    }
+    .boxp{
+        width: 20px;
+        height: 20px;
+    }
+</style>
+<div id="av_table">
+    <md-tabs md-dynamic-height="" md-selected="selectedIndex">
+        <md-tab label="{{'AVAILABLITITY_ROOM' | translate}}">
+            <md-content class="md-padding" ng-show="avMatrixData!=null" style="margin-bottom:30px;">
+                <!-- <md-button class="md-warn md-raised" ng-click="testSynchronization()">
+                 Test Synchronization
+                </md-button> -->
+                <div layout="row" layout-align="start center">
+                    <md-button class="md-raised md-warn" ng-click="avBulkUpdate()" style="text-transform: none;">
+                        {{'BULK_UPDATE' | translate}}
+                    </md-button>
+                    <!-- <div>
+                        <span style="font-weight: 590;">
+                            {{'ALLOW_OVER_BOOKINGS' | translate}} ({{'NOT_RECOMMENDED' | translate}})
+                        </span>
+                        <md-radio-group ng-model="CMConfiguration.IsAllowOverBooking" layout="row" layout-align="center center" ng-change="updateAllowOverBooking(CMConfiguration.IsAllowOverBooking)">
+                              <md-radio-button ng-value="true" class="md-warn">{{'YES' | translate}}</md-radio-button>
+                              <md-radio-button ng-value="false" class="md-warn"> {{'NO' | translate}} </md-radio-button>
+                        </md-radio-group>
+                    </div> -->
+                </div>
+                <p>
+                    <span class="ipsum">{{'CM_BULK_UPDATE_NOTE' | translate}}</span>
+                </p>
+                <!-- overflow-x:hidden -->
+                <md-content class="md-whiteframe-z2" style="width: 100%;overflow-x:hidden">
+                    <style scoped>
+                        @import "stylesheet/cm-table.min.css";
+                    </style>
+                    <md-toolbar class="md-accent" style="width:100%">
+                        <!-- ng-class="{'width7day':matrixFilter.daysToShow == 7,'width15day':matrixFilter.daysToShow==15,'width30day':matrixFilter.daysToShow == 30 }" -->
+                        <div class="md-toolbar-tools">
+                            <h2>
+                                <span style="color: white;">
+                                    {{'AVAILABILITY_MATRIX' | translate}}
+                                </span>
+                            </h2>
+                        </div>
+                    </md-toolbar>
+                    <div layout="row" layout-margin="" layout-wrap="">
+                        <div layout="row" layout-align="space-between center" flex="100">
+                            <div>
+                                <span style="margin: auto 12px;">
+                                    {{'FROM' | translate}}
+                                </span>
+                                <input k-ng-model="matrixFilter.startDate" k-options="DatePickerOption" kendo-date-picker="" ng-model="str" min="matrixFilter.startDate"
+                                    ng-blur="updateAvMatrix(str,matrixFilter.daysToShow)" />
+                            </div>
+                            <div>
+                                <span style="margin: auto 12px;">
+                                    {{'DAYS_TO_SHOW' | translate}}
+                                </span>
+                                <md-input-container>
+                                    <md-select ng-model="matrixFilter.daysToShow" ng-change="updateAvMatrix(str,matrixFilter.daysToShow)">
+                                        <md-option ng-value="day" ng-repeat="day in daysToShowList">
+                                            {{day}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div class="intervals-tables" flex="">
+                            <table class="availability_interval" style="width:100%;table-layout:fixed">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 240px">
+                                            <!-- conflict line -->
+                                            <div class="column-caption" style="overflow: hidden!important;">
+                                                <!-- conflict line -->
+                                                <div class="pull-left" style="margin-right: 10px;">
+                                                    <!-- <i class="fa open-room-types fa-minus-square-o" ng-class="{
+                                                                                    'fa-plus-square-o': isAllRoomTypesMinimized,
+                                                                                    'fa-minus-square-o': !isAllRoomTypesMinimized
+                                                                                }" ng-click="toggleRoomTypes()">
+                                                    </i> -->
+                                                </div>
+                                                <div class="pull-left" style="min-width: calc(100% - 30px);">
+                                                    <!-- conflict line -->
+                                                    {{'ROOM_TYPES' | translate}}
+
+                                                </div>
+                                            </div>
+                                            <table class="av_rooms">
+                                                <tbody>
+                                                    <!-- ngRepeat: (irT, roomType) in ::data track by roomType.id -->
+                                                    <tr class="room_block ng-scope" ng-repeat="roomType in avMatrixData.roomTypes" on-finish-render="ngRepeatFinished">
+                                                        <td class="room-block-properties">
+                                                            <!-- conflict line -->
+                                                            <div class="room-block-name clearfix">
+                                                                <!-- conflict line -->
+                                                                <div class="pull-left" style="margin-right: 10px;">
+                                                                    <!-- <i class="fa-minus-square-o fa open-room-types toggle-room-type">
+                                                                    </i> -->
+                                                                </div>
+                                                                <div class="pull-left room-block-name-right">
+                                                                    <!-- conflict line -->
+                                                                    <div class="h6">
+                                                                        <!-- conflict line -->
+                                                                        <h6 class="bold h6" length-tooltip="">
+                                                                            {{roomType.CMRoomTypeName}}
+                                                                        </h6>
+                                                                        <!-- conflict line -->
+                                                                    </div>
+                                                                    <!-- conflict line -->
+                                                                    <span>
+                                                                        <span class="ng-binding">
+                                                                            {{roomType.RoomTypeName}}
+                                                                        </span>
+                                                                        <br/>
+                                                                        <span class="ng-binding" style="font-size: 12px; color: #ff5722">
+                                                                            <b>{{'NUMBER_PRIORITIZE' | translate}}:  </b> 
+                                                                        </span>
+                                                                        <!-- <span>
+                                                                            <input ng-model="roomType.NumberPrioritize" value="{{roomType.NumberPrioritize}}" type="number" min="0" style="width: 40px">
+                                                                        </span> -->
+                                                                        <span>
+                                                                                <a class="a-avail editable">
+                                                                                        <md-menu md-offset="0 30" md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+                                                                                            <!-- <span class="saved">
+
+                                                                                                    <span class="value-marker saved" ng-if="roomType.CanBeSold != null" ng-click="openEditCanBeSoldMenu($mdOpenMenu, $event, roomType)" ng-style="roomType.CanBeSold==0 && {'color':'rgb(244,81,30)'}" >
+                                                                                                        {{roomType.CanBeSold}}
+                                                                                                    </span>
+                                                                                                    <span class="value-marker" ng-if="roomType.CanBeSold == null" ng-click="openEditCanBeSoldMenu($mdOpenMenu, $event, roomType)">
+                                                                                                        N/A
+                                                                                                    </span>
+
+                                                                                                </span>  -->
+                                                                                            <span class="value-marker" ng-click="openNumberPrioritizeMenu($mdOpenMenu, $event, roomType.NumberPrioritize)">
+                                                                                                    <span  ng-if="roomType.NumberPrioritize != null" ><u style="color: #ff5722;font-size: 15px;"> {{roomType.NumberPrioritize}}</u></span>
+                                                                                            <span class="saved" ng-if="roomType.NumberPrioritize == null"><u style="color: #ff5722;font-size: 15px;">0</u></span>
+                                                                                            </span>
+                                                                                            <md-menu-content width="4">
+                                                                                                <md-menu-item flex="100">
+                                                                                                    <md-input-container flex="50">
+                                                                                                        <label>
+                                                                                                            </label>
+                                                                                                        <input class="CanBeSold" numbers-only ng-model="NumberPrioritize" type="text">
+                                                                                                        <!--  <label>
+                                                                                                            </label> -->
+
+                                                                                                    </md-input-container>
+                                                                                                    <span flex="25" ng-click="saveNumberPrioritize(NumberPrioritize, roomType.CMRoomTypeMappingId)" style="background-color: #259b24; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;">
+                                                                                                            {{'CONFIRM' | translate}}
+                                                                                                        </span>
+                                                                                                    <span flex="" ng-click="changeRoomStatus(room.room, $event)" style="background-color: #f44336; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;">
+                                                                                                            {{'CANCEL' | translate}}
+                                                                                                        </span>
+                                                                                                </md-menu-item>
+                                                                                            </md-menu-content>
+                                                                                        </md-menu>
+                                                                                        <!--  <span class="saved">
+                                                                                                <span class="value-marker">
+                                                                                                    {{roomType.CanBeSold}}
+                                                                                                </span>
+                                                                                            </span> -->
+                                                                                    </a>
+                                                                        </span>           
+                                                                    </span>
+                                                                    <!-- conflict line -->
+                                                                </div>
+                                                                <!-- conflict line -->
+                                                            </div>
+                                                            <!-- conflict line -->
+                                                            <div class="room-collapsible room-0-13863">      
+                                                                    <span class="actions display-option-saleable" ng-if="CMSIsActived">
+                                                                            <p class="" style="color: #27a93e" ng-show="checkRoomTypeIdIsMappedCMS(roomType.RoomTypeId)">
+                                                                                {{'CAN_BE_SOLD_CM' | translate}}
+                                                                            </p>
+                                                                            <p class="" style="color: red" ng-show="!checkRoomTypeIdIsMappedCMS(roomType.RoomTypeId)">
+                                                                                {{'NOT_SOLD_CM' | translate}}
+                                                                            </p>
+                                                                        </span>                                               
+                                                                <span class="actions display-option-saleable">
+                                                                    <p class="">
+                                                                        {{'CM_CAN_BE_SOLD' | translate}}
+                                                                    </p>
+                                                                </span>
+                                                                <span class="actions display-option-available" data-row="available">
+                                                                    <p class="">
+                                                                        {{'CM_AVAILABLE' | translate}}
+                                                                    </p>
+                                                                </span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- end ngRepeat: (irT, roomType) in ::data track by roomType.id -->
+                                                    <!-- end ngRepeat: (irT, roomType) in ::data track by roomType.id -->
+                                                    <!-- end ngRepeat: (irT, roomType) in ::data track by roomType.id -->
+                                                </tbody>
+                                            </table>
+                                            <div class="column-caption"> 
+                                                            <!-- <md-button style="margin-top:20px; margin-left:20px ;background-color: #2ca81c;" ng-click="UpdateStopSellLimit()" class="md-raised md-primary" ng-if="(user.Roles.indexOf('ROLE_HOTEL_OWNER') >= 0 ||  user.Roles.indexOf('ROLE_HOTEL_MANAGER') >= 0)" ng-show="btnShow">
+                                                                {{'UPDATE' | translate}}
+                                                            </md-button>                                -->
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="scroll-wrapper bet-scrolled av_interval_scrolled_layout" style="">
+                                                <!-- <div bet-scrolled-options="::{scrollx: '#layout .av_interval-scroll-x'}" class="bet-scrolled av_interval_scrolled_layout ng-isolate-scope scroll-content scroll-scrollx_visible" style="margin-bottom: 0px; margin-right: 0px;"> -->
+                                                <table style="" class="table av_interval skip_change_listener" ng-class="{allow_overbooking: options.allowOverbooking}">
+                                                    <tbody>
+                                                        <tr>
+                                                            <!-- ngRepeat: (dayIndex, day) in days track by day.value -->
+                                                            <td class="day-column" style="backgroud:white" ng-class="::{weekend: day.isWeekend}" ng-repeat="day in avMatrixData.days">
+                                                                <div class="day-header">
+                                                                    <div class="month">
+                                                                        {{day.month | translate}}
+                                                                    </div>
+                                                                    <div class="day_of_month">
+                                                                        {{day.dayOfMonth}}
+                                                                    </div>
+                                                                    <div class="weekday">
+                                                                        {{day.weekday | translate}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="day-cells">
+                                                                    <!-- ngRepeat: (ind, roomType) in ::data track by roomType.id -->
+                                                                    <div class="text-center availability-cell room-collapsible" day="::day" ng-class="::{
+                                                                                                    row_even: $index % 2 != 0,
+                                                                                                    'room-hidden': minimizedRooms[roomType.id],
+                                                                                                    inload: roomType.availability[day.value].loading
+                                                                                                }" ng-repeat="roomType in day.RoomTypes"
+                                                                                                 
+                                                                        room-type="::roomType">
+                                                                        <div ng-class="CMSIsActived == true?'cell data-loaded height-by-display-options-extra':'cell data-loaded height-by-display-options'">
+                                                                            <div class="room-block-name clearfix">
+                                                                            </div>
+                                                                            <div class="cell-row display-option-available" data-row="available" ng-if="CMSIsActived">
+                                                                                <div class="total physical-availability" style="color: #27a93e">
+                                                                                    {{roomType.CanBeSoldCM}}
+                                                                                </div>       
+                                                                            </div>
+                                                                            <div class="cell-row display-option-saleable saleable edit-mode-available" data-row="saleable">
+                                                                                <div class="editable-outside" ng-class="[{stopSell: ( roomType.isStopSell )},{otherstopSell: roomType.ChannelString.length > 0 &&  !( roomType.isStopSell )}]" title="{{'STOP_AT' | translate}} {{roomType.ChannelString}}">
+                                                                                    <div class="editable-inside modified-marker">
+                                                                                        <a class="a-avail editable" data-click-param="available" href="" ng-class="{'CanBeSoldIsZero':roomType.CanBeSold==0,'Overbooked':roomType.CanBeSold<0,'Potential-Overbooking':roomType.CanBeSold>roomType.Available}">
+                                                                                            <md-menu md-offset="0 30" md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+                                                                                                <!-- <span class="saved">
+
+                                                                                                        <span class="value-marker saved" ng-if="roomType.CanBeSold != null" ng-click="openEditCanBeSoldMenu($mdOpenMenu, $event, roomType)" ng-style="roomType.CanBeSold==0 && {'color':'rgb(244,81,30)'}" >
+                                                                                                            {{roomType.CanBeSold}}
+                                                                                                        </span>
+                                                                                                        <span class="value-marker" ng-if="roomType.CanBeSold == null" ng-click="openEditCanBeSoldMenu($mdOpenMenu, $event, roomType)">
+                                                                                                            N/A
+                                                                                                        </span>
+
+                                                                                                    </span>  -->
+                                                                                                <span class="value-marker" ng-click="openEditCanBeSoldMenu($mdOpenMenu, $event, roomType)">
+                                                                                                        <span  ng-if="roomType.CanBeSold != null" ng-class="{saved:(roomType.CanBeSold>0 && roomType.CanBeSold<=roomType.Available)}" > {{roomType.CanBeSold}}</span>
+                                                                                                <span class="saved" ng-if="roomType.CanBeSold == null">N/A</span>
+                                                                                                </span>
+                                                                                                <md-menu-content width="4">
+                                                                                                    <md-menu-item flex="100">
+                                                                                                        <md-input-container flex="50" style="">
+                                                                                                            <label>
+                                                                                                                </label>
+                                                                                                            <input class="CanBeSold" numbers-only ng-model="$root.newCanBeSold" type="text">
+                                                                                                            <!--  <label>
+                                                                                                                </label> -->
+
+                                                                                                        </md-input-container>
+                                                                                                        <span flex="25" ng-click="saveAvailabilityMatrixData(roomType, day, 'CAN_BE_SOLD')" style="background-color: #259b24; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;">
+                                                                                                                {{'CONFIRM' | translate}}
+                                                                                                            </span>
+                                                                                                        <span flex="" ng-click="changeRoomStatus(room.room, $event)" style="background-color: #f44336; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;">
+                                                                                                                {{'CANCEL' | translate}}
+                                                                                                            </span>
+                                                                                                    </md-menu-item>
+                                                                                                </md-menu-content>
+                                                                                            </md-menu>
+                                                                                            <!--  <span class="saved">
+                                                                                                    <span class="value-marker">
+                                                                                                        {{roomType.CanBeSold}}
+                                                                                                    </span>
+                                                                                                </span> -->
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="cell-row display-option-available" data-row="available">
+                                                                                <div class="total physical-availability">
+                                                                                    {{roomType.Available}}
+                                                                                </div>       
+                                                                            </div>
+                                                                            <!-- <div class="cell-row display-option-available" data-row="available">
+                                                                                    <div class="total physical-availability">
+                                                                                        {{roomType.Available}}
+                                                                                    </div>       
+                                                                                </div> -->
+                                                                            <input class="custom_rooms number edit-field" style="display: none" type="text">
+                                                                            </input>
+                                                                        </div>
+                                                                        <div class="cell for-inload height-by-display-options">
+                                                                            <div class="room-block-name clearfix">
+                                                                            </div>
+                                                                            <div class="loading">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="day-header">
+                                                                    <div class="month">
+                                                                        {{day.month | translate}}
+                                                                    </div>
+                                                                    <div class="day_of_month">
+                                                                        {{day.dayOfMonth | translate}}
+                                                                    </div>
+                                                                    <div class="weekday">
+                                                                        {{day.weekday | translate}}
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <!-- end ngRepeat: (dayIndex, day) in days track by day.value -->
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <!-- </div> -->
+                                                <!-- <div class="scroll-element scroll-y scroll-scrollx_visible">
+                                                    <div class="scroll-element_outer">
+                                                        <div class="scroll-element_size">
+                                                        </div>
+                                                        <div class="scroll-element_track">
+                                                        </div>
+                                                        <div class="scroll-bar" style="height: 0px;">
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            <!--  -->
+                                            <!--  <div class="scroll-element scroll-x av_interval-scroll-x scroll-scrollx_visible" style="">
+                                                <div class="scroll-element_outer">
+                                                    <div class="scroll-element_size">
+                                                    </div>
+                                                    <div class="scroll-element_track">
+                                                    </div>
+                                                    <div class="scroll-bar" style="width: 182px; left: 0px;">
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </md-content>
+                <section flex="100" style="height:50px" layout-align="start start" layout layout-margin layout-wrap>
+                    <section flex-gt-md="15" flex-xs="100" flex-sm="20" flex-md="15" layout>
+                        <section style="width:20px;height:20px;background:#e6f4f9;margin-right:6px"></section>
+                        <section style="color:gray">{{'CM_WEEKEND' | translate}}</section>
+                    </section>
+                    <section flex-gt-md="25" flex-xs="100" flex-sm="25" flex-md="25" layout>
+                        <section style="width:20px;height:20px;background:brown;margin-right:6px"></section>
+                        <section style="color:gray">{{'CM_POTENTIAL_OVERBOOKING_DAY' | translate}}</section>
+                    </section>
+                    <section flex-gt-md="20" flex-xs="100" flex-sm="20" flex-md="15" layout>
+                        <section style="width:20px;height:20px;background:red;margin-right:6px"></section>
+                        <section style="color:gray">{{'CM_OVERBOOKED' | translate}}</section>
+                    </section>
+                    <section flex-gt-md="20" flex-xs="100" flex-sm="20" flex-md="20" layout>
+                        <section style="width:20px;height:20px;background:darkorange;margin-right:6px"></section>
+                        <section style="color:gray">{{'CM_CAN_BE_SOLD_IS_ZERO' | translate}}</section>
+                    </section>
+                </section>
+                <p>
+                    <md-icon md-menu-origin="" md-svg-src="img/icons/ic_warning_48px.svg"></md-icon>
+                    <span class="ipsum"> {{'AVAILABILITYMATRIX_NOTE' | translate}}</span>
+                </p>
+                <p>
+                    <md-icon md-menu-origin="" md-svg-src="img/icons/bulb.svg"></md-icon>
+                    <span class="ipsum"> {{'UPDATE_STOPSELL_NOTE' | translate}}</span>
+                </p>
+            </md-content>
+
+        </md-tab>
+        <md-tab label="{{'INVENTORY_LOGS' | translate}}">
+            <md-content class="md-padding" style="padding-bottom: 16px;margin-bottom: 16px;overflow: auto;display: table;width: 100%;">
+                <md-card flex="100" style="margin:0px;margin-bottom:15px;border-top: 1px solid #eee;min-height:100px;max-height:1000px;">
+                    <section style="">
+                        <div layout="row" layout-align="space-between center" style="">
+                            <span flex class="md-toolbar-tools">
+                                <h2>
+                                        {{'INVENTORY_LOGS' | translate}}
+                                </h2>
+                            </span>
+                            <div>
+                                <md-button id="search" ng-disabled="SearchForm.$invalid" class="md-warn md-raised" ng-click="processSearch()">
+                                    {{'SEARCH' | translate}}
+                                </md-button>
+                            </div>
+                        </div>
+                    </section>
+                    <md-card-content style="padding: 12px;">
+                        <section layout="row" layout-align="space-between center" layout-wrap flex="100">
+                            <section flex-xs="100" flex-sm="100" flex-gt-sm="50" flex-md="100" layout="row" layout-align="space-between center" layout-wrap>
+                                <div flex-xs="55" flex-sm="55" flex-md="50" flex-gt-sm="50" layout="row" layout-align="start center" layout-wrap style="margin: 0px 0px 26px 0px;">
+                                    <div layout="row" layout-align="start center" flex="100">
+                                        <div layout="row" layout-align="start center" flex="45">
+                                            <span flex="75" style="margin: auto;">{{'START_DATE' | translate}}</span>
+                                            <md-checkbox style="margin: 0px;" flex ng-model="search.InventoryIncluded">
+                                            </md-checkbox>
+                                        </div>
+                                        <div flex>
+                                            <input kendo-date-picker ng-disabled="!search.InventoryIncluded" ng-model="inventoryFormString" k-ng-model="search.InventoryDateForm" style="width: 100%;" k-options="DatePickerOption" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div flex-xs="45" flex-md="50" flex-sm="33" flex-gt-sm="45" layout="row" layout-align="start center" layout-wrap style="margin: 0px 0px 26px 0px;">
+                                    <div layout="row" layout-align="start center" flex="100">
+                                        <span flex="25" style="margin: auto;">{{'END_DATE' | translate}}</span>
+                                        <div flex >
+                                            <input kendo-date-picker ng-disabled="!search.InventoryIncluded" ng-model="inventoryToString" k-ng-model="search.InventoryDateTo" style="width: 100%;" k-options="DatePickerOption" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section flex-xs="100" flex-sm="100" flex-gt-sm="50" flex-md="100" layout="row" layout-align="space-between center" layout-wrap>
+                                <div flex-xs="55" flex-sm="55" flex-md="50" flex-gt-sm="45"  layout="row" layout-align="start center" layout-wrap style="margin: 0px 0px 26px 0px;">
+                                    <div layout="row" layout-align="start center" flex="100">
+                                        <span flex="45" style="margin: auto;text-align:center">{{'RES._DATE' | translate}}</span>
+                                        <div flex>
+                                            <input kendo-date-picker ng-model="createFromString" k-ng-model="search.CreateDateForm" style="width: 100%;" k-options="DatePickerOption" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div flex-xs="45" flex-md="50" flex-sm="33" flex-gt-sm="45" layout="row" layout-align="start center" layout-wrap style="margin: 0px 0px 26px 0px;">
+                                    <div layout="row" layout-align="start center" flex="100">
+                                        <span flex="25" style="margin: auto;">{{'TO' | translate}}</span>
+                                        <div flex>
+                                            <input kendo-date-picker ng-model="createToString" k-ng-model="search.CreateDateTo" style="width: 100%;" k-options="DatePickerOption" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </section>
+                            <section flex-sm="100" flex-xs="100" flex-gt-sm="45" flex-md="100" layout="row" layout-align="space-between center" layout-wrap>
+                                <md-select flex="33" flex-xs="50" ng-model="search.RoomTypeId" ng-change="updateRoom()" placeholder="{{'SELECT_ROOM_TYPE' | translate}}"
+                                    style="margin-top: 0px;">
+                                    <md-select-label style="width:100%"></md-select-label>
+                                    <md-option selected value="0">{{'SELECT_TYPE' | translate}}</md-option>
+                                    <md-option ng-repeat="rt in roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName }}</md-option>
+                                </md-select>
+                            </section>
+                        </section>
+                    </md-card-content>
+                </md-card>
+                <md-content class="md-whiteframe-z2" style="width: 100%;">
+                    <!--<md-toolbar class="md-accent">
+                        <div class="md-toolbar-tools">
+                            <h2>
+                                <span style="color: white;">
+                                    {{'INVENTORY_LOGS' | translate}}
+                                </span>
+                            </h2>
+                            <span flex="">
+                            </span>
+                        </div>
+                    </md-toolbar>-->
+                    <div flex="100" class="one">
+                        <div class="table-responsive-vertical shadow-z-1">
+                            <table id="tblInventoryLog" style="width: 100%;">
+                                <thead style="background-color: #d6d6d6;">
+                                    <th>{{'USER/DATE/TIME' | translate}}</th>
+                                    <th>{{'START_DATE' | translate}}</th>
+                                    <th>{{'END_DATE' | translate}}</th>
+                                    <th>{{'ROOM_TYPE' | translate}}</th>
+                                    <th>{{'CHANGE_MADE' | translate}}</th>
+                                    <th>{{'LOG_MESSAGES' | translate}}</th>
+                                    <th ng-if="CMSChannel == 'BOOKLOGIC'">{{'STOPSELL' | translate}}</th>
+                                    <th ng-if="CMSChannel == 'BOOKLOGIC'">{{'CHANNEL_STOPSELL' | translate}}</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="log in inventoryLogData">
+                                        <td>{{log.CreatedDate | date: 'dd/MM/yyyy, HH:mm:ss'}}</br><span style="font-style: italic;">{{log.UserName}}</span>
+                                        </br><span style="font-style: italic;">{{'CHANNEL_UPDATED_DATE' | translate}}: {{log.ActionUpdatedDate | date: 'dd/MM/yyyy, HH:mm:ss'}}</span>
+                                        </td>
+                                        <td>{{log.StartDate | date: 'dd/MM/yyyy'}}</td>
+                                        <td>{{log.EndDate | date: 'dd/MM/yyyy'}}</td>
+                                        <td>{{log.RoomTypeName}}</td>
+                                        <td>{{'CAN_BE_SOLD' | translate}} ({{log.CanbeSold}})</td>
+                                        <td ng-if="log.ActionStatus == 1">{{'SUCCESS' | translate}}</td>
+                                        <td ng-if="log.ActionStatus ==-1">{{'FAIL' | translate}}</td>
+                                        <td ng-if="log.ActionStatus == 0 || log.ActionStatus == 2">{{'CM_PENDING' | translate}}</td>
+                                        <td ng-if="CMSChannel == 'BOOKLOGIC'">{{log.StopSell}}</td>
+                                        <td ng-if="CMSChannel == 'BOOKLOGIC'">{{log.ChannelStopSell}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </md-content>
+
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</div>

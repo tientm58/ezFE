@@ -1,0 +1,41 @@
+<style>
+    md-card{
+        box-shadow:none;
+        background:none;
+        color: white;
+    }
+    md-content{
+        background:none;
+    }
+</style>
+<!--<div style="text-align: center;">
+  <h2 class="md-flex">{{'REGISTRATION_SUCCESSFUL' | translate}}</h2>
+</div>
+<div class="md-padding" style="">
+        <p>
+           {{'SIGN_UP_SUCCESS' | translate}}
+        </p>
+</div>
+
+<md-card>
+    
+</md-card>-->
+
+<md-content class="md-padding" layout="row" layout-align="center center">
+	<md-card flex-sm="100" flex="60" class="md-padding">
+		<section style="text-align: center;">
+			<h2 class="md-flex">{{::'REGISTRATION_SUCCESSFUL' | translate}}</h2>
+		</section>
+		<md-card-content style="padding-bottom: 4px;">
+			<p>
+			   {{'SIGN_UP_SUCCESS' | translate}}
+			</p>
+		</md-card-content>
+		<div class="md-actions" layout="row" layout-align="end center">
+			<md-button class="md-primary md-raised" ng-click="$state.transitionTo('login');">
+				{{::'BACK' | translate}}
+			</md-button>
+		</div>
+	</md-card>
+</md-content>
+

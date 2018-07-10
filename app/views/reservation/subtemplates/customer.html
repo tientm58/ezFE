@@ -1,0 +1,121 @@
+<style>
+    .autocomplete-custom-template li {
+        border-bottom: 1px solid #ccc;
+        height: auto;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        white-space: normal;
+    }
+    
+    .autocomplete-custom-template li:last-child {
+        border-bottom-width: 0;
+    }
+    
+    .autocomplete-custom-template .item-title .item-metadata {
+        display: block;
+        line-height: 2;
+    }
+    
+    .autocomplete-custom-template .item-title md-icon {
+        height: 18px;
+        width: 18px;
+    }
+    
+    .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+    md-card md-card-content {
+        display: block;
+        padding: 0 16px;
+    }
+</style>
+<md-card style="border-top: 1px solid #eee;"> 
+    <div class="box-header">
+        <div ng-if="isCheckOut === false || room.BookingStatus ==='AVAILABLE'"  layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+            <div flex="85" flex-xs="75">
+                <span  class="sub-title">{{'CUSTOMER_INFORMATION' | translate}}</span>
+            </div>
+            <div >
+                <md-button ng-if="!isCheckOut && !isCancel" class="md-primary md-fab md-mini md-button md-ink-ripple" id="btn_add_share" ng-click="addSharer($event)" ng-if="!isCheckOut && !isCancel" >
+                    <md-icon md-svg-src="img/icons/ic_group_add_24px.svg" style=""></md-icon>
+                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md> 
+                        {{'TOOLTIP_ADDSHARER' | translate}}  
+                    </md-tooltip> 
+                </md-button>
+            </div>
+        </div>
+        <md-divider></md-divider>
+    </div>
+<md-card-content class="md-default-theme" style="height:679px">
+        <div flex="100">
+            <md-list style="padding: 0px;">
+                <md-subheader class="md-no-sticky"><md-icon style="cursor: pointer" md-svg-src="img/icons/ic_stars_24px.svg"></md-icon> {{'MAIN_CUSTOMER' | translate}}</md-subheader>
+                <md-list-item ng-if="customer"> 
+                    <p>
+                        <img ng-src="img/flags/24x24/{{getCountryItem(customer.CountryId).CountryCode.toLowerCase()}}.png">
+                            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md> 
+                                {{getCountryItem(customer.CountryId).CountryCode + ' - ' + getCountryItem(customer.CountryId).CountryName}}
+                            </md-tooltip>
+                        </img>
+                        <md-icon  md-svg-src="img/icons/ic_person_24px.svg"></md-icon>
+                        {{customer.Fullname}}
+                    </p>
+                    <p class="md-secondary"> 
+                        <md-icon md-svg-src="img/icons/ic_assignment_ind_24px.svg" style="cursor: pointer;" ng-if=" !isCancel "  ng-click="showConfirm($event,customer)">
+                            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md> 
+                                {{'REGISTRATION_CARD' | translate}}  
+                            </md-tooltip>
+                        </md-icon> 
+                        <md-icon md-svg-src="img/icons/ic_edit_24px.svg" style="cursor: pointer;" ng-if="!isCancel "  ng-click="editCustomer($event)">
+                            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md> 
+                                {{'TOOLTIP_EDITCUSTOMER' | translate}}  
+                            </md-tooltip>
+                        </md-icon> 
+                    </p>
+                </md-list-item>
+            </md-list>
+        </div>
+        <div flex="100" ng-if="sharerList.length > 0">
+            <md-list style="padding: 0px;">
+                <md-subheader class="md-no-sticky">{{'SHARER_INFORMATION' | translate}}</md-subheader>
+                <md-list-item ng-repeat="sharer in sharerList" style="padding-left: 16px;" ng-if="!sharer.isMainCustomer">
+                    <p ng-if="!sharer.isMainCustomer">
+                        <img ng-src="img/flags/24x24/{{getCountryItem(sharer.customer.CountryId).CountryCode.toLowerCase()}}.png">
+                            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md> 
+                                {{getCountryItem(sharer.customer.CountryId).CountryCode + " - " + getCountryItem(sharer.customer.CountryId).CountryName}}
+                            </md-tooltip>
+                        </img>
+                        <md-icon ng-if="sharer.travellerExtraInfo.IsChild" md-svg-src="img/icons/ic_accessibility_24px.svg"></md-icon>
+                        <md-icon ng-if="!sharer.travellerExtraInfo.IsChild" md-svg-src="img/icons/ic_person_24px.svg"></md-icon>
+                        {{sharer.customer.Fullname}}</p>
+                    <!--<p ng-if="sharer.isMainCustomer">
+                        <img src="/img/flags/24x24/{{countries[sharer.customer.CountryId].CountryCode}}.png" title="{{countries[sharer.customer.CountryId].CountryCode}} - {{countries[sharer.customer.CountryId].CountryName}}"/>
+                        <md-icon ng-if="!sharer.travellerExtraInfo.IsChild" md-svg-src="img/icons/ic_stars_24px.svg"></md-icon>
+                        {{sharer.customer.Fullname}}</p>-->
+                    <p class="md-secondary" ng-if="!sharer.isMainCustomer"> 
+                        
+                        <md-button class="md-icon-button" aria-label="Set Main Customer" ng-click="setMainCustomer(sharer)" ng-if="!sharer.travellerExtraInfo.IsChild && !isCheckOut">
+                            <md-icon style="cursor: pointer" md-svg-src="img/icons/ic_stars_24px.svg"></md-icon>
+                            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md> 
+                                {{'SET_THIS_SHARER_TO_MAIN_CUSTOMER' | translate}}  
+                            </md-tooltip>
+                        </md-button>
+                        <md-icon md-svg-src="img/icons/ic_assignment_ind_24px.svg" style="cursor: pointer;" ng-if="!isCheckOut && !isCancel "  ng-click="showConfirm($event,sharer.customer)">
+                            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md> 
+                                {{'REGISTRATION_CARD' | translate}}  
+                            </md-tooltip>
+                        </md-icon> 
+                        <md-icon style="cursor: pointer" md-svg-src="img/icons/ic_edit_24px.svg" ng-if="!isCheckOut && !isCancel "  ng-click="editSharer($event, sharer)">
+                            
+                        </md-icon>
+                        <md-icon style="cursor: pointer" md-svg-src="img/icons/ic_delete_24px.svg" ng-if="!isCheckOut && !isCancel "  ng-click="deleteSharer(sharer)" ></md-icon>
+                    </p>
+                    <!--<p class="md-secondary" ng-if="sharer.isMainCustomer">
+                        {{'MAIN_CUSTOMER' | translate}}
+                    </p>-->
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </div>
+    </md-card-content>
+</md-card>

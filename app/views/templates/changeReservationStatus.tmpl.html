@@ -1,0 +1,36 @@
+<md-dialog aria-label="PRE_CHECKIN" ng-cloak flex-xs="90" flex-sm="90" flex-gt-sm="60">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{action | translate}} {{'CONFIRM' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<form ng-submit="processPreCheckIn()">
+				<button class="hide" id="btn-undocheckin"></button>
+				<div class="md-dialog-content" flex="100" layout="row" layout-wrap>
+					<span flex="100" style="font-style: italic; color: #f44336;" ng-if="action ==='PRE_CHECKIN'">
+						(*){{'WARNING' | translate}}: {{'ALL_EXTRA_SERVICES_AND_PAYMENT_POSTED_AFTER_CHECKIN_POINT_WAS_DELETED_AUTOMATICALLY' | translate}}. {{'PLEASE_PROVIDE_DETAIL_REASON_TO_PERFORM_PRE_CHECKIN_ACTION' | translate}}
+					</span>
+					<span flex="100" style="font-style: italic; color: #f44336;" ng-if="action ==='PRE_CHECKOUT'">
+						{{'PLEASE_PROVIDE_DETAIL_REASON_TO_PERFORM_PRE_CHECKOUT_ACTION' | translate}}
+					</span>
+					<md-input-container flex="100">
+						<label></label>
+						<input md-autofocus name="reason" type="text" required minlength="3" ng-model="reason"/>
+					</md-input-container>
+				</div>
+			</form>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button onclick="jQuery('#btn-undocheckin').click()" class="md-primary" ng-disabled="!reason || reason.trim() ==''">
+				{{'PROCESS' | translate}}
+			</md-button>
+		</md-dialog-actions>
+</md-dialog>

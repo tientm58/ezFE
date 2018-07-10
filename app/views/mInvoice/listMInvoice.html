@@ -1,0 +1,60 @@
+<style>
+    .mdToolbar {
+        border-top: solid 1px white;
+    }
+</style>
+<div layout="column" ng-cloak>
+    <md-toolbar class="md-primary mdToolbar">
+        <div class="md-toolbar-tools">
+            <h2 class="md-flex">{{'LIST_INVOICE' | translate}}</h2>
+        </div>
+    </md-toolbar>
+    <md-table-container style="width:100%;">
+        <table md-table md-progress="promise">
+            <thead md-head md-order="pager.query.order">
+                <tr md-row>
+                    <th md-column md-order-by="">
+                        {{'MA_HOA_DON' | translate}}
+                    </th>
+                    <th md-column md-order-by="">
+                        {{'MA_SO_THUE' | translate}}
+                    </th>
+                    <th md-column md-order-by="">
+                        {{'TEN_KHACH' | translate}}
+                    </th>
+                    <th md-column md-order-by="">
+                        {{'TEN_DON_VI' | translate}}
+                    </th>
+                    <th md-column>
+                        {{'DIA_CHI' | translate}}
+                    </th>
+                    <th md-column>
+                        {{'EMAIL' | translate}}
+                    </th>
+                    <th md-column>
+                        {{'PTTT' | translate}}
+                    </th>
+                    <th md-column>
+                    </th>
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row>
+                    <td md-cell></td>
+                    <td md-cell></td>
+                    <td md-cell></td>  
+                    <td md-cell></td>
+                    <td md-cell></td>
+                    <td md-cell></td> 
+                    <td md-cell></td>
+                    <td md-cell></td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+    <md-table-pagination md-limit="pager.query.PageSize" md-limit-options="pager.config.limitPagination"
+        md-page="pager.query.PageNumber" md-total="{{pager.config.totalItems}}" md-on-paginate="pager.bindingData" md-page-select></md-table-pagination>
+    <md-content>
+
+    </md-content>
+</div>

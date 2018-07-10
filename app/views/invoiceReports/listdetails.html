@@ -1,0 +1,212 @@
+<style>
+	table thead {
+	    background: antiquewhite;
+	}
+	md-table-container{width: 100%;box-shadow: 0px 0px 1px 0px #656565;}
+
+	.head-center{text-align:center !important;}
+	.head-left{text-align: left !important;}
+	.head-right{text-align: right !important;}
+	.tr-bold{font-weight: bold !important;}
+	table.md-table thead.md-head>tr.md-row {
+		height: fit-content;
+	}
+
+	.last_row_ th {
+		border-bottom: 2px solid #ddd;
+	}
+
+	.table>thead>tr>th {
+		vertical-align: bottom;
+		padding: 10px;
+		vertical-align: middle;
+		font-size: 13px;
+		font-weight: 600;
+	}
+
+	table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2),
+	table.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2),
+	table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
+	table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+		padding: 10px;
+	}
+
+	.table>thead>tr>th,
+	.table>tbody>tr>th,
+	.table>tfoot>tr>th,
+	.table>thead>tr>td,
+	.table>tbody>tr>td,
+	.table>tfoot>tr>td {
+		padding: 8px;
+		line-height: 1.42857143;
+		vertical-align: top;
+	}
+	
+	.topHear {
+		background-color: rgb(214, 214, 214);
+	}
+
+	.topHear th,
+	.topHear th md-icon {
+		color: #5c5c5d !important;
+	}
+
+	.hightli {
+		border-right: 1px solid #9e9e9e57 !important;
+		background-color: #f2f2f2;
+	}
+
+	.invoiceDeleted {
+		text-decoration-line: line-through !important;
+	}
+
+	.icon-btn {
+		cursor: pointer;
+	}
+	.row_btn button{
+		min-width: 45px;
+	}
+	.btn_hear md-icon{
+		fill: #fff;
+	}
+	.box_info_dc{
+		font-size: 14px;
+	}
+	.bg_thu{
+		background: #4caf5063;
+	}
+	.bg_chi{
+		background: #ff572278;
+	}
+	.hightli{
+		border-right: 1px solid #9e9e9e57 !important;
+    	background-color: #f2f2f27d;
+	}
+	.hightlicol{
+		border-right: 1px solid #9e9e9e57 !important;
+	}
+	.dat{
+		padding-right: 7px;
+	}
+	.tdlastchild{ padding-left:10px !important;}
+</style>
+<div ng-cloak data-ng-init="action.init()">
+  <md-content layout-margin>
+		<section layout="row" layout-sm="column" layout-align="end center" layout-wrap>
+			<md-button class="btn-c md-raised md-primary" ng-click="action.export.excel('#listInvoiceDetails')"><md-icon md-svg-src="img/icons/ic_import_export_48px.svg"></md-icon>&nbsp;{{'EXPORT_EXCEL' | translate}}</md-button>
+			<md-button class="btn-c md-raised md-warn" ng-click="action.export.pdf('listInvoiceDetails')"><md-icon md-svg-src="img/icons/ic_picture_as_pdf_48px.svg"></md-icon>&nbsp;{{'EXPORT_PDF' | translate}}</md-button>
+		</section>
+	  <div  id="listInvoiceDetails">
+			<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+				<h2><b>{{attributes.reportname | translate}}</b></h2>
+			</section>
+			<section layout="row" layout-align="center center" layout-wrap>
+				<div layout="row" layout-align="space-between center">
+					<label class="dat">{{'FROM_DATE_REPORT' | translate}}:</label>
+				</div>
+				<div layout="row" layout-align="center">
+					<label>{{attributes.filters.startDate |  date:"dd/MM/yyyy" | translate}}</label>
+				</div>
+				<div layout="row" flex="5"></div>
+				<div layout="row" layout-align="space-between center">
+					<label class="dat">{{'TO_DATE_REPORT'| translate}}:  </label>
+				</div>
+				<div layout="row" layout-align="center">
+					<label>{{attributes.filters.endDate |  date:"dd/MM/yyyy"| translate}}</label>
+				</div>
+			</section>
+			<section>
+				<md-table-container style="width:100%;">
+					<table md-table md-progress="promise">
+						<thead md-head>
+							<tr md-row class="topHear">
+								<th md-column class="hightlicol head-center" ><span>{{'STT' | translate}}</span></th>
+								<th md-column class="hightlicol head-center"><span>{{'DATE_REPORT' | translate}}</span></th>
+								<th md-column class="hightlicol head-center"><span>{{'INVOICE_RECEIPT_NO' | translate}}</span></th>
+								<th md-column class="hightlicol head-center"><span>{{'INVOICE_PAYMENT_NO' | translate}}</span></th>
+								<th md-column class="hightlicol head-center"><span>{{'INVOICE_CONTENT' | translate}}</span></th>
+								<th md-column class="hightlicol head-center"  >{{'INVOICE_RECEIPT' | translate}}</th>
+								<th md-column class="hightlicol head-center">{{'INVOICE_PAYMENT' | translate}}</th>
+								<th md-column class="hightlicol head-center">{{'INVOICE_TOTALBLANCE' | translate}}</th>
+								<th md-column class="hightlicol head-center">{{'STAFF' | translate}}</th>
+							</tr>
+							<tr md-row class="gray-box-h1 last_row_">
+								<th md-column class="hightli">
+									<span></span>
+								</th>
+								<th md-column class="hightlicol">
+									<span></span>
+								</th>
+								<th md-column class="hightli">
+									<span></span>
+								</th>
+								<th md-column class="hightlicol">
+									<span></span>
+								</th>
+								<th md-column class="hightli">
+									<span></span>
+								</th>
+								<th md-column class="hightlicol head-right">
+									{{attributes.currency || "VND"}}
+								</th>
+								<th md-column class="hightli head-right">
+									{{attributes.currency || "VND"}}
+								</th>
+								<th md-column class="hightlicol head-right">
+									{{attributes.currency || "VND"}}
+								</th>
+								<th md-column></th>
+							</tr>
+						</thead>
+						<tbody md-body>
+							<tr md-row md-select="invoice" md-select-id="name" md-auto-select ng-repeat="invoice in attributes.data track by $index"> <!-- | limitTo: query.limit: (query.page - 1)*query.limit -->
+								<td md-cell class="hightli head-center">{{$index + 1}}</td>
+								<td md-cell class="hightlicol  head-center">{{action.displayDateTime(invoice.InvoiceDate) | date:"dd/MM/yyyy"}}</td>
+								<td md-cell class="hightli">
+									<a href="#/addReceipt?invoiceId={{invoice.InvoiceId}}&invoiceFund={{invoice.InvoiceFund}}" style="cursor: pointer;color: #4CAF50;text-decoration-line: none;">{{invoice.InvoiceReceiptsNo || ""}}</a>
+								</td>
+								<td md-cell class="hightlicol">
+									<a href="#/addPayment?invoiceId={{invoice.InvoiceId}}&invoiceFund={{invoice.InvoiceFund}}" style="cursor: pointer;color:rgb(255,87,34);text-decoration-line: none;">{{invoice.InvoicePaymentOrdersNo || ""}}</a>									
+								</td>
+								<td md-cell class="hightli">{{invoice.InvoiceContent || ""}}</td>
+								<td md-cell class="hightlicol head-right">
+									<!-- {{obj = action.getAmountByCurrency(curr, invoice.ReceiptMoney);""}} -->
+									{{ action.getAmountByCurrency(attributes.currency, invoice.ReceiptMoney)}}
+									{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+								</td>
+								<td md-cell class="hightli head-right" >
+									<!-- {{obj = action.getAmountByCurrency(curr, invoice.PaymentMoney);""}} -->
+									{{ action.getAmountByCurrency(attributes.currency, invoice.PaymentMoney)}}
+									{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+								</td>
+								<td md-cell class="hightlicol head-right">
+									{{ action.getAmountByCurrency(attributes.currency, invoice.InvoiceTotalBalance)}}
+									{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+								</td>
+								<td md-cell class="hightli tdlastchild">{{invoice.Employee || ""}}</td>
+							</tr>
+							<tr md-row > <!-- | limitTo: query.limit: (query.page - 1)*query.limit -->
+								<td md-cell class="hightlicol head-right tr-bold" colspan="5" >{{"TOTAL" | translate}} </td>
+								<td md-cell class="hightlicol head-right tr-bold">
+									{{action.getAmountByCurrency(attributes.currency, attributes.receiptmoney)}}
+									{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+								</td>
+								<td md-cell class="hightli head-right tr-bold">
+									{{action.getAmountByCurrency(attributes.currency, attributes.paymentmoney)}}
+									{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+								</td>
+								<td md-cell class="hightlicol head-right tr-bold">
+									{{action.getAmountByCurrency(attributes.currency, attributes.totalbalance)}}
+									{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+								</td>
+								<td md-cell></td>
+							</tr>
+						</tbody>
+					</table>
+				</md-table-container>
+			</section>
+	  </div>  	
+   </md-content>
+   <md-content layout-margin>
+   </md-content>
+</div>

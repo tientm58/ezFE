@@ -1,0 +1,81 @@
+<md-toolbar class="md-primary md-default-theme" layout="row">
+    <span flex class="md-toolbar-tools">
+		<md-icon md-svg-src="img/icons/ic_arrow_back_48px.svg" style="margin: auto 8px auto 0px;" ng-if="!planEditMode" ng-click="backToRoomType()">
+        <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_GOBACK' | translate}}
+                    </md-tooltip>
+        </md-icon>
+        <h2>
+			{{currentRoomType.roomType.RoomTypeName | translate}}
+			<span ng-if="planEditMode" style="font-style: italic;">&nbsp;({{'EDIT_MODE' | translate}})</span>
+    </h2>
+    </span>
+    <md-button style="min-width: 0px;margin: auto 0px;" ng-if=" currentRoomType.planListChanged" ng-click="savePlanList()"><!--planEditMode &&-->
+        <md-icon md-svg-src="img/icons/ic_save_48px.svg" style=""></md-icon>
+    </md-button>
+    <md-button style="min-width: 0px;margin: auto 0px;" ng-if="currentRoomType.planList.length != 0 && !roomTypesWorking[currentRoomType.roomType.RoomTypeId].planDetailOn" ng-click="planEditModeProcess()">
+        <md-icon md-svg-src="img/icons/ic_edit_48px.svg" style="" ng-if="!planEditMode">
+            <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'TOOLTIP_EDIT' | translate}}
+            </md-tooltip>
+        </md-icon>
+        </md-icon>
+        <md-icon md-svg-src="img/icons/ic_cancel_48px.svg" ng-if="planEditMode">
+            <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'TOOLTIP_CANCEL' | translate}}
+            </md-tooltip>
+        </md-icon>
+    </md-button>
+    <md-button style="min-width: 0px;margin: auto 8px auto 0px;" ng-if="!roomTypesWorking[currentRoomType.roomType.RoomTypeId].planDetailOn && !planEditMode">
+        <md-icon md-svg-src="img/icons/ic_add_48px.svg" style="" ng-click="addNewPlan(roomTypeModel.roomType)">
+            <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'TOOLTIP_ADDNEW' | translate}}
+            </md-tooltip>
+        </md-icon>
+    </md-button>
+</md-toolbar>
+
+<md-content layout="column" style="padding-top: 0px; padding-bottom: 20px;overflow: auto;margin-top: 20px;">
+    <span style="text-align:center;font-style: italic;" ng-if="currentRoomType.planList.length === 0">
+		  {{'THERE_ARE_NO_PLANS_CREATED' | translate}}
+	</span>
+    <md-list>
+        <md-list-item ng-repeat="plan in currentRoomType.planList" ng-click="$event.stopPropagation();showPlanDetail(plan);" ng-class="{'isSelected': plan.RoomPriceId === currentPlan.Plan.RoomPriceId}">
+<!--            <div ng-click="$event.stopPropagation();removePlan(plan, $index)" ng-if="planEditMode" style="margin: auto auto auto auto;" layout="row">-->
+                <md-button ng-if="planEditMode" ng-click="$event.stopPropagation();removePlan(plan, $index)">
+                    <md-icon  ng-if="planEditMode"   md-svg-src="img/icons/ic_remove_circle_outline_48px.svg" style="fill: #f44336;"  class="md-exclude">
+                         <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                             {{'TOOLTIP_DELETE' | translate}} 
+                        </md-tooltip>
+                    </md-icon>
+                </md-button>
+<!--            </div>-->
+            <md-tooltip md-direction="left" flex-gt-md="100" hide-md hide-xs hide-sm>
+                {{'TOOLTIP_ACTIVE' | translate}} / {{'TOOLTIP_DEACTIVE' | translate}} 
+            </md-tooltip>
+            <md-checkbox aria-label="Plan Status" class="md-warn" style="margin: 0px; padding: 0px;margin-right: 3px;" ng-if="!planEditMode" ng-model="plan.IsActive" ng-model-options="{ debounce: 250 }" ng-change="(plan.IsActive === true)? showPlanDetail(plan): roomTypesWorking[currentRoomType.roomType.RoomTypeId].planDetailOn = false;"></md-checkbox>
+            
+            <p ng-if="!planEditMode" style="word-wrap: break-word;">{{plan.RoomPriceName | translate}}</p>
+            <md-input-container ng-if="planEditMode" style="margin-bottom: 0px;">
+                <input type="text" ng-model="plan.RoomPriceName" />
+            </md-input-container>
+            <div ng-if="planEditMode" class="md-secondary"  style="margin: auto 10px auto auto;" layout="row">
+                <md-icon class="md-secondary" ng-if="planEditMode" md-svg-src="img/icons/ic_arrow_drop_up_48px.svg" style="" ng-click="$event.stopPropagation();planUp(roomTypeModel.roomType, $index)">
+                    <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_UPORDER' | translate}} 
+                    </md-tooltip>
+                </md-icon>
+                <md-icon ng-if="planEditMode" class="md-secondary" md-svg-src="img/icons/ic_arrow_drop_down_48px.svg" style="" ng-click="$event.stopPropagation();planDown(roomTypeModel.roomType, $index)">
+                    <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_DOWNORDER' | translate}} 
+                    </md-tooltip>
+                </md-icon>
+            </div>
+            <md-icon class="md-secondary" md-svg-src="img/icons/ic_arrow_forward_48px.svg" style="" ng-if="plan.IsActive && !planEditMode" ng-click="$event.stopPropagation();showPlanDetail(plan);">
+                 <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                     {{'TOOLTIP_DETAIL' | translate}} 
+                </md-tooltip>
+            </md-icon>
+        </md-list-item>
+    </md-list>
+</md-content>

@@ -1,0 +1,43 @@
+<div class="md-dialog-content" layout="row" layout-wrap flex="100" layout-align="center center">
+    <div flex="100">
+        <md-list>
+            <md-subheader>
+                {{'CURRENT_ROOM' | translate}}
+            </md-subheader>
+            <md-list-item>
+                <p>{{'ROOM_TYPE' | translate}}</p>
+                <p class="md-secondary">{{editRoomRateCtrl.currentRoom.RoomTypes.RoomTypeName}}({{editRoomRateCtrl.currentRoom.RoomTypes.RoomTypeCode}})</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'PRICE' | translate}}</p>
+                <p class="md-secondary">{{editRoomRateCtrl.currentRoom.Price | currency}}</p>
+            </md-list-item>
+        </md-list>
+    </div>
+    <div flex="100">
+        <md-subheader>
+            {{'CHANGE_RATE_TYPE' | translate}}
+        </md-subheader>
+        <div layout="row" layout-align="center center" style="padding: 0 16px;">
+            <span flex="25">{{'NEW_RATE' | translate}}</span>
+            <md-select flex="45" ng-model="editRoomRateCtrl.newRoomPrice.RoomPriceId" style="">
+                <md-select-label style="width:100%"></md-select-label>
+                <md-option ng-repeat="plan in editRoomRateCtrl.planList" ng-value="plan.RoomPriceId" ng-selected="plan.RoomPriceId == editRoomRateCtrl.currentRoom.RoomPrices.RoomPriceId">
+                        {{plan.RoomPriceName | translate}}
+                </md-option>
+            </md-select>
+            <span flex></span>
+            <md-checkbox ng-model="editRoomRateCtrl.newRoomPrice.IsUpdatePrice" style="margin: 0px;">
+                {{'UPDATE_PRICE' | translate}}
+            </md-checkbox>
+        </div>
+    </div> 
+</div>
+<md-dialog-actions layout="row">
+    <md-button ng-click="editRoomRateCtrl.cancel()" class="md-primary">
+        {{'CANCEL' | translate}}
+    </md-button>
+    <md-button ng-click="editRoomRateCtrl.processEditRoomRate()" class="md-primary">
+        {{'APPLY' | translate}}
+    </md-button>
+</md-dialog-actions>

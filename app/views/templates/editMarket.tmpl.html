@@ -1,0 +1,40 @@
+<md-dialog aria-label="Edit Source" flex-gt-xs="40" flex-xs="98">
+	<form ng-submit="editMarket()">
+		<button class="hide" id="btn_editMarket"></button>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'EDIT_MARKET' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+				<md-input-container flex="100">
+					<label>{{'MARKET_CODE' | translate}}</label>
+					<input required ng-model="market.MarketCode" ng-disabled="true">
+				</md-input-container>
+				<md-input-container flex="100">
+					<label>{{'MARKET_NAME' | translate}}</label>
+					<input required ng-model="market.MarketName" ng-change="verifyDuplicate('MARKET_NAME')">
+					<span ng-if="verifyMarketName" style="margin-top: 3px; color: #f44336; font-weight: bold;font-size: 10px;" >
+							{{'MARKET_NAME_ALREADY_IN_USE' | translate}}
+					</span>
+				</md-input-container>
+			</div>
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button onclick="jQuery('#btn_editMarket').click()" class="md-primary" ng-disabled="!market.MarketName || market.MarketName.trim() =='' || verifyMarketName == true || !market.MarketCode || market.MarketCode.trim() =='' || verifyMarketCode == true">
+				{{'SAVE' | translate}}
+			</md-button>
+		</md-dialog-actions>
+	</form>
+
+</md-dialog>

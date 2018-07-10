@@ -1,0 +1,16 @@
+<md-dialog aria-label="Amend Stay" id="AmendStayDialog" flex-xs="98" ng-cloak style="max-height: 90% !important;">
+    <form name="amendStayForm">
+        <md-toolbar style="min-height:64px !important">
+            <div class="md-toolbar-tools">
+                <h2>{{'AMEND_STAY_DURATION' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <amend-stay></amend-stay>
+        </md-dialog-content>
+    </form>
+</md-dialog>

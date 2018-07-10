@@ -1,0 +1,524 @@
+<style>
+    .top-page {
+        background: url(img/bg-header.png);
+        background-repeat: no-repeat;
+        min-height: 55px;
+        border-radius: 0 !important;
+        background-size: cover;
+    }
+
+    .black_t {
+        color: rgba(255, 255, 255, 0.71);
+        /*font-style: italic;*/
+    }
+
+    .yellow_t {
+        color: #FFEB3B;
+        padding-right: 15px;
+    }
+
+    .margin0 {
+        margin: 0px;
+    }
+
+    .hightline {
+        color: #FF9800;
+    }
+
+    .text-date {
+        color: rgba(2, 2, 2, 0.58) !important;
+        font-style: italic;
+        font-size: 12px !important;
+    }
+
+    .sub-title {
+        text-transform: uppercase;
+        font-weight: 600;
+        color: rgba(58, 56, 56, 0.71);
+        line-height: 50px;
+        /*margin-left: 17px !important;*/
+    }
+
+    .showfull {
+        height: initial !important;
+        background-color: rgba(242, 242, 242, 0.15);
+        margin-bottom: 5px;
+    }
+
+    .box-header {
+        padding-left: 17px;
+        padding-right: 17px;
+        /*background: rgba(242, 242, 242, 0.35) !important;*/
+    }
+
+    #main_view,
+    .bg-gray {
+        /*background: #f2f2f2 !important;*/
+    }
+
+    .md-subheader.md-default-theme,
+    .md-subheader {
+        background-color: rgb(245, 245, 245) !important;
+    }
+
+    .bg-waring {
+        background: #FF5722;
+    }
+
+    .margin-bottom-100 {
+        margin-bottom: 100px;
+    }
+
+    .tabs-menu md-tabs-canvas {
+        background-color: #EEEEEE;
+    }
+
+    .box-config md-input-container {
+        width: 200px;
+    }
+
+    .padding015 {
+        padding: 0 15px;
+    }
+
+    .listbox md-list-item {
+        height: 70px;
+        border-bottom: 1px dashed #dadada;
+    }
+
+    .bg_iii {
+        background-color: rgba(255, 255, 255, 0) !important;
+    }
+
+    .btn_ {
+        margin-top: -20px;
+    }
+
+    .margin0 {
+        margin: 0;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .black_icon md-icon {
+        fill: rgb(33, 33, 33) !important;
+    }
+
+    #main_view,
+    .bg-gray {
+        background: #f3f3f3 !important;
+    }
+
+    .btn_success,
+    .btn_success md-icon {
+        fill: #4CAF50;
+        color: #4CAF50;
+    }
+
+    .btn_warning,
+    .btn_warning md-icon {
+        /* fill: #E91E63; */
+        color: rgb(255, 152, 0);
+    }
+
+    .margin_search {
+        /* margin-bottom: -45px;
+        margin-top: -15px; */
+        padding: 0;
+    }
+
+    .iconCountStatus {
+        padding: 0;
+        /* margin-bottom: -10px;
+        margin-top: -10px; */
+    }
+
+    .fill-gray {
+        fill: rgba(0, 0, 0, 0.54) !important;
+    }
+
+    .type_log_email {
+        font-size: 12px;
+        color: rgb(3, 155, 229);
+    }
+
+    .text_time {
+        font-size: 12px;
+        color: #969696;
+    }
+
+    md-list-item.md-3-line,
+    md-list-item.md-3-line>._md-no-style {
+        min-height: 125px;
+    }
+
+    .xs-icon {
+        width: 14px !important;
+    }
+
+    .link_r {
+        text-decoration: none;
+    }
+
+    md-list.md-default-theme md-list-item.md-2-line .md-list-item-text p,
+    md-list md-list-item.md-2-line .md-list-item-text p,
+    md-list.md-default-theme md-list-item.md-3-line .md-list-item-text p,
+    md-list md-list-item.md-3-line .md-list-item-text p {
+        color: rgba(0, 0, 0, 0.84);
+        /* align-content: left; */
+    }
+
+    .layout-align-center-center,
+    .layout-align-end-center,
+    .layout-align-space-around-center,
+    .layout-align-space-between-center,
+    .layout-align-start-center {
+        align-content: left;
+    }
+
+    @media (max-width: 959px) and (min-width: 600px) {
+
+        .flex-sm-100,
+        .layout-column>.flex-sm-100,
+        .layout-row>.flex-sm-100,
+        .layout-sm-column>.flex-sm-100,
+        .layout-sm-row>.flex-sm-100 {
+            max-height: 40px;
+        }
+    }
+
+    div.md-list-item-text.layout-column.flex-xs-100 {
+        text-align: left;
+        overflow: hidden;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        background-color: #FFFDFD;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 0px;
+    }
+
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+    #main {
+        transition: margin-left .5s;
+        padding: 16px;
+    }
+
+    @media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 0;
+        }
+        .sidenav a {
+            font-size: 18px;
+        }
+        md-button {
+            min-width: auto;
+        }
+        p {
+            overflow: hidden;
+        }
+        /* md-content {
+            overflow: hidden;
+        }       */
+    }
+
+    .md-datepicker-input-container {
+        min-width: fit-content;
+        margin-left: 0;
+    }
+
+    md-slidenav {
+        padding: 20px 10px;
+        background-color: rgb(63, 81, 181);
+    }
+
+    p.mobile_p {
+        margin-top: 2px;
+        margin-bottom: 2px;
+        text-align: left;
+       
+    }
+
+    md-list-item.mdListMobile {
+        height: fit-content;
+        border-bottom: 1px dashed rgb(66, 63, 63);
+        margin-top: 5px;
+        align-items: left;
+        margin-bottom: 5px;
+    }
+
+    p.mobile_btn {
+        text-align: center;
+        align-items: center;
+    }
+
+    .mdcontent_mb {
+        padding: 5px;
+        margin: 0 auto;
+        min-width: fit-content;
+        overflow: hidden;
+    }
+
+    .inp_mb {
+        min-width: fit-content;
+    }
+
+    .button {
+        padding: 0 6px 0 6px;
+        margin: 6px 8px 6px 8px;
+        min-width: 88px;
+        border-radius: 3px;
+        font-size: 14px;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        border: none;
+        outline: none;
+        padding: 0 6px;
+        margin: 6px 8px;
+        border: 1px solid rgba(226, 222, 222, 0.96);
+        background-color: transparent;
+    }
+</style>
+<md-content class="tabsdemoDynamicHeight bg_iii" style="">
+    <md-card-content id="height" flex="100">
+        <md-toolbar md-scroll-shrink class="top-page md-primary md-default-theme md-whiteframe-z1" layout="row" style="border-radius: 3px 3px 0 0;box-shadow: 0 1px rgba(255, 255, 255, 0.1); background-color: #eee;">
+            <div layout="row" layout-align="space-between center" flex="100">
+                <div flex-gt-sm="75" flex-xs="75" flex-sm="75" class="md-toolbar-tools" style="height:40px;">
+                    <h1 class="md-headline" style="padding-left: 8px;color: #444;">
+                        <span class="black_t">{{'EMAIL_TASK'|translate}}</span>
+                    </h1>
+                </div>
+
+                <div flex-gt-sm="25" flex-xs="25" flex-sm="25" layout="row" layout-align="end center">
+                    <md-button class="md-raised md-fab md-mini launch md-button md-ink-ripple black_icon hide-gt-xs" style="" onclick="openNav()">
+                        <md-tooltip md-direction="right" flex-gt-md="100" hide-xs hide-sm hide-md>
+                            {{'ADD' | translate}}
+                        </md-tooltip>
+                        <md-icon md-svg-icon="img/icons/ic_add_48px.svg" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon>
+                    </md-button>
+
+                </div>
+            </div>
+        </md-toolbar>
+    </md-card-content>
+    <md-content style="" id="height100" class="bg_iii" ng-cloak>
+        <md-card flex style="border-top: 1px solid #eee;" hide-xs>
+            <md-card-content style="padding: 12px;">
+                <form class="margin0" ng-submit="getAllLogEmail(search)">
+                    <button class="hide" id="btn_dosearch"></button>
+                    <section flex-sm="100" layout="row" layout-align="space-around center" layout-wrap class="margin_search">
+
+                        <md-input-container flex="20" flex-xs="50" style="margin-top: -6px;">
+                            <label>{{'EMAIL_TASK' | translate}}</label>
+                            <md-select ng-model="search.Task">
+                                <md-option ng-value="0"><em>{{'ALL'|translate}}</em></md-option>
+                                <md-option ng-repeat="task in listTask" ng-value="task.HotelEmailTaskId" ng-if="task.Status > 0">
+                                    {{task.Subject}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container flex="20" flex-xs="50" placeholder="{{'ROOM' | translate}}">
+                            <label>{{'RES_NO'|translate}}</label>
+                            <input type="number" ng-model="search.Room" min="1">
+                        </md-input-container>
+
+                        <md-input-container flex="20" flex-xs="50">
+                            <md-icon md-svg-icon="img/icons/ic_mail_48px.svg" class="fill-gray"></md-icon>
+                            <label>Email</label>
+                            <input ng-model="search.Email" type="email">
+                        </md-input-container>
+
+                        <md-datepicker id="dateLogEmail" flex="20" flex-xs="50" ng-model="search.Date" ng-value="" md-placeholder="{{'DATE_TIME' | translate}}"
+                            style="margin-top: -25px;">
+                        </md-datepicker>
+
+                        <md-button class="btn-c btn_ md-raised" style="" onclick="jQuery('#btn_dosearch').click()">
+                            <md-icon md-svg-icon="img/icons/ic_search_48px.svg" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon> {{'SEARCH'| translate}}
+                        </md-button>
+                    </section>
+                </form>
+            </md-card-content>
+        </md-card>
+        <md-card flex="100" style="border-top: 1px solid #eee;">
+            <md-card-content flex-sm="100" layout="row" layout-xs="row" layout-align="space-around center" class="iconCountStatus">
+                <md-button flex-sm="25" class="btn_primary" ng-click="StatusChange(2)" style="min-width: fit-content;">
+                    <md-tooltip md-direction="bottom">{{'ALL' | translate}}</md-tooltip>
+                    <md-icon md-svg-icon="img/icons/ic_select_all_24px.svg" aria-label="Send Email" class="md-hue-3"></md-icon> {{emailAll}}
+                </md-button>
+                <md-button flex-sm="25" class="btn_success" ng-disabled="emailSuccess == 0" ng-click="StatusChange(1)" style="min-width: fit-content;">
+                    <md-tooltip md-direction="bottom">{{'SUCCESS' | translate}}</md-tooltip>
+                    <md-icon md-svg-icon="img/icons/ic_done_24px.svg" aria-label="Send Email" class="md-hue-3"></md-icon> {{emailSuccess}}
+                </md-button>
+                <md-button flex-sm="25" class="btn_warning" ng-disabled="emailFail == 0" ng-click="StatusChange(-1)" style="min-width: fit-content;">
+                    <md-tooltip md-direction="bottom">{{'ERROR' | translate}}</md-tooltip>
+                    <md-icon md-svg-icon="img/icons/ic_error_outline_24px.svg" aria-label="Send Email" class="md-hue-3"></md-icon> {{emailFail}}
+                </md-button>
+                <md-button flex-sm="25" class="btn_default" ng-disabled="emailSaveforlater == 0" ng-click="StatusChange(0)" style="min-width: fit-content;">
+                    <md-tooltip md-direction="bottom">{{'SAVE_FOR_LATER' | translate}}</md-tooltip>
+                    <md-icon md-svg-icon="img/icons/ic_access_alarms_24px.svg" aria-label="Send Email" class="md-hue-3"></md-icon> {{emailSaveforlater}}
+                </md-button>
+            </md-card-content>
+        </md-card>
+        <md-card class="margin-bottom50">
+            <md-card-content>
+                <md-list ng-cloak class="listbox" hide-xs>
+                    <md-list-item class="md-3-line" layout-xs="column" layout-align="start center" ng-repeat="log in listLog1 | startFrom:currentPage*pageSize | limitTo:pageSize"
+                        class="noright" layout-wrap>
+                        <div class="{{listStatus[log.HotelEmailLog.Status+1].class}} hide-xs" style="margin:0 10px;padding:0 !important;height:100%;"
+                            layout="column">
+                            <md-tooltip md-direction="bottom">{{listStatus[log.HotelEmailLog.Status+1].status | translate}}</md-tooltip>
+                            <md-icon md-svg-icon="{{listStatus[log.HotelEmailLog.Status+1].img}}" aria-label="Send Email" class="md-hue-3"></md-icon>
+                        </div>
+                        <div class="md-list-item-text" layout="column" flex-xs="100">
+                            <p class="text_date"><strong>{{ log.htLog_CusName }}</strong>
+                                <md-icon md-svg-icon="img/icons/ic_mail_48px.svg" aria-label="Send Email" class=" xs-icon fill-gray"></md-icon> {{log.HotelEmailLog.Email}}
+                                <a hide-xs ng-if="log.htLog_RoomName != ''" href="#/reservation/{{log.HotelEmailLog.ReservationRoomId}}" target="_blank"
+                                    class="link_r">{{'ROOM'|translate}}.{{log.htLog_RoomName}}</a>
+                            </p>
+                            <p class="text_date">{{  log.HotelEmailTask.Subject}}</p>
+                            <p class="text_date">
+                                <md-icon md-svg-icon="img/icons/ic_add_24px.svg" class=" xs-icon fill-gray"></md-icon> {{log.HotelEmailLog.UserId}}: {{log.HotelEmailLog.CreatedAt |date:'dd/MM/yyyy, HH:mm'}}
+                            </p>
+                            <p class="text_date">
+                                <span ng-if="log.HotelEmailLog.UpdatedAt != null"> <md-icon  md-svg-icon="img/icons/ic_trending_neutral_24px.svg" class=" xs-icon fill-gray"></md-icon>{{'SENT'|translate}}: </span>{{log.HotelEmailLog.UpdatedAt
+                                | date:'dd/MM/yyyy, HH:mm'}}
+                                </span>
+                            </p>
+                            <p class="hide-gt-xs hide-md" style="text-align:center;">
+                                <md-button class=" btn_default" ng-click="showEmail(log)">
+                                    {{'DETAIL'|translate}}
+                                </md-button>
+                                <a ng-if="log.HotelEmailLog.ReservationRoomId != null" href="#/reservation/{{log.HotelEmailLog.ReservationRoomId}}" target="_blank"
+                                    class="button" style="text-decoration: none;">{{'ROOM'|translate}}.{{log.htLog_RoomName}}</a>
+                            </p>
+                            <md-button class="hide-xs md-secondary btn_default" ng-click="showEmail(log)">
+                                <md-tooltip md-direction="bottom">{{'VIEW' | translate}}</md-tooltip>
+                                <md-icon md-svg-icon="img/icons/ic_visibility_48px.svg" aria-label="Send Email" class="md-hue-3"></md-icon>
+                            </md-button>
+                        </div>
+                    </md-list-item>
+                </md-list>
+                <!-- mobile -->
+                <md-list ng-cloak hide-gt-xs hide-md>
+                    <md-list-item layout-xs="column" class="mdListMobile" ng-repeat="log in listLog1 | startFrom:currentPage*pageSize | limitTo:pageSize">
+                        <div layout="column" style="width: -webkit-fill-available;">
+                            <p class="mobile_p"><strong>{{ log.htLog_CusName }}</strong>
+                                <md-icon md-svg-icon="img/icons/ic_mail_48px.svg" aria-label="Send Email" class=" xs-icon fill-gray"></md-icon> {{log.HotelEmailLog.Email}}
+                            </p>
+                            <p class="mobile_p">{{log.HotelEmailTask.Subject}}</p>
+                            <p class="mobile_p">
+                                <md-icon md-svg-icon="img/icons/ic_add_24px.svg" class=" xs-icon fill-gray"></md-icon> {{log.HotelEmailLog.UserId}}: {{log.HotelEmailLog.CreatedAt | date:"dd/MM/yyyy, HH:mm"}}
+                            </p>
+                            <p class="mobile_p">
+                                <span ng-if="log.HotelEmailLog.UpdatedAt != null"> <md-icon  md-svg-icon="img/icons/ic_trending_neutral_24px.svg" class=" xs-icon fill-gray"></md-icon>{{'SENT'|translate}}: </span>{{log.HotelEmailLog.UpdatedAt
+                                | date:'dd/MM/yyyy, HH:mm'}}
+                                </span>
+                            </p>
+                            <p class="mobile_p mobile_btn" flex-xs="100">
+                                <md-button class="button btn_default" flex-xs="50" ng-click="showEmail(log)">
+                                    {{'DETAIL'|translate}}
+                                </md-button>
+                                <a flex-xs="50" ng-if="log.htLog_RoomName != ''" href="#/reservation/{{log.HotelEmailLog.ReservationRoomId}}" target="_blank" class="button"
+                                    style="text-decoration: none;padding: 10px 8px;">{{'ROOM'|translate}}.{{log.htLog_RoomName}}</a>
+                            </p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+                <!-- end -->
+                <div layout="row" layout-sm="row" layout-xs="row" layout-align="center center" ng-hide="!isShowPaging()">
+                    <md-button class="md-raised" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">{{'PREVIOUS'|translate}}</md-button>
+                    {{currentPage+1}}/{{numberOfPages()}}
+                    <md-button class="md-raised" ng-disabled="currentPage >= totalRecord/pageSize - 1" ng-click="currentPage=currentPage+1">{{'NEXT'|translate}}</md-button>
+                </div>
+                <!-- khi không có dữ liệu đưa ra thông báo -->
+                <div layout="row" layout-sm="column" layout-align="center center" layout-wrap ng-if="numberOfPages() == 0">
+                    <p>{{'IS_EMTY_DATA'|translate}}</p>
+                </div>
+                <!-- end -->
+            </md-card-content>
+        </md-card>
+    </md-content>
+</md-content>
+
+<div id="mySidenav" class="sidenav" layout-xs="column">
+    <md-slidenav>
+        <b>{{'SEARCH'|translate}}</b>
+        <md-icon md-svg-icon="img/icons/ic_close_24px.svg" onclick="closeNav()" aria-label="Send Email" class="md-hue-3" style="float:right;"></md-icon>
+    </md-slidenav>
+    <md-content layout-xs="column" class="mdcontent_mb" style="">
+        <md-input-container style="margin-top: 35px;">
+            <label>{{'EMAIL_TASK' | translate}}</label>
+            <md-select ng-model="search.Task" flex-xs="95" class="inp_mb">
+                <md-option ng-value="0"><em>{{'ALL'|translate}}</em></md-option>
+                <md-option ng-repeat="task in listTask" ng-value="task.HotelEmailTaskId" ng-if="task.Status > 0">
+                    {{task.Subject}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container placeholder="{{'ROOM' | translate}}" class="inp_mb" style="margin-top: 0;">
+            <label>{{'RES_NO'|translate}}</label>
+            <input type="number" flex-xs="95" ng-model="search.Room" min="1">
+        </md-input-container>
+        <md-input-container class="inp_mb" style="margin-top: auto;">
+            <md-icon md-svg-icon="img/icons/ic_mail_48px.svg" class="fill-gray"></md-icon>
+            <label>Email</label>
+            <input ng-model="search.Email" type="email" flex-xs="95">
+        </md-input-container>
+
+        <md-datepicker id="dateLogEmail" ng-model="search.Date" md-placeholder="{{'DATE_TIME' | translate}}" style="margin-left: -12px;">
+        </md-datepicker>
+
+        <md-button class="btn-c btn_ md-raised" class="inp_mb" style="margin-top:30px;" onclick="jQuery('#btn_dosearch').click(); closeNav()">
+            <md-icon md-svg-icon="img/icons/ic_search_48px.svg" aria-label="Send Email" class="md-secondary md-hue-3"></md-icon> {{'SEARCH'| translate}}
+        </md-button>
+    </md-content>
+
+</div>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        // document.getElementById("main").style.marginLeft = "250px";
+        document.body.style.backgroundColor = "gray";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        // document.getElementById("main").style.marginLeft = "0";
+        document.body.style.backgroundColor = "white";
+    }
+
+</script>

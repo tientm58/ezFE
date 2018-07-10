@@ -1,0 +1,112 @@
+<md-dialog aria-label="Add Source" flex-gt-xs="98" flex-xs="98">
+	<form>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'ADD_NEW_COMPANY' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100" layout-align="space-between start">
+				<div layout="row" layout-wrap flex-gt-sm="45" flex-xs="100" flex-sm="100" style="margin-right: 12px;">
+					<md-subheader class="md-primary">
+						{{'COMPANY_INFORMATION' | translate}}
+					</md-subheader>
+					<md-input-container flex="100">
+						<label>{{'COMPANY_CODE' | translate}}({{'REQUIRED' | translate}})</label>
+						<input required ng-model="newCompany.CompanyCode" ng-change="verifyDuplicate('COMPANY_CODE')">
+						<span ng-if="verifyCompanyCode" style="margin-top: 3px; color: #f44336; font-weight: bold;font-size: 10px;">
+							{{'COMPANY_CODE_ALREADY_IN_USE' | translate}}
+					</span>
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'COMPANY_NAME' | translate}}({{'REQUIRED' | translate}})</label>
+						<input required ng-model="newCompany.CompanyName" ng-change="verifyDuplicate('COMPANY_NAME')">
+						<span ng-if="verifyCompanyName" style="margin-top: 3px; color: #f44336; font-weight: bold;font-size: 10px;">
+							{{'COMPANY_NAME_ALREADY_IN_USE' | translate}}
+					</span>
+					</md-input-container>
+
+
+					<md-input-container flex="100">
+						<label>{{'DESCRIPTION' | translate}}</label>
+						<input ng-model="newCompany.Description">
+					</md-input-container>
+
+					<md-input-container flex="100">
+						<label>{{'DEFAULT_SOURCE' | translate}} </label>
+						<md-select ng-model="newCompany.SourceId" style="margin-bottom: 24px;">
+							<md-option value="0" selected>{{'SELECTET_A_SOURCE' | translate}}</md-option>
+							<md-option ng-repeat="source in sourceList" ng-value="source.SourceId">{{source.SourceName}}</md-option>
+						</md-select>
+					</md-input-container>
+
+					<md-input-container flex="100">
+						<label>{{'COMPANY_MOBILE' | translate}}</label>
+						<input ng-model="newCompany.CompanyMobile">
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'COMPANY_PHONE' | translate}}</label>
+						<input required ng-model="newCompany.CompanyPhone">
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'COMPANY_EMAIL' | translate}}</label>
+						<input required ng-model="newCompany.CompanyEmail">
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'COMPANY_FAX' | translate}}</label>
+						<input required ng-model="newCompany.CompanyFax">
+					</md-input-container>
+				</div>
+				<div flex layout="row" layout-wrap>
+					<md-subheader class="md-primary">
+						{{'CONTACT_INFORMATION' | translate}}
+					</md-subheader>
+					<md-input-container flex="100">
+						<label>{{'CONTACT_NAME' | translate}}</label>
+						<input ng-model="newCompany.ContactName">
+					</md-input-container>
+					<!-- mã số thuế -->
+					<md-input-container flex="100">
+						<label>{{'COMPANY_VATCODE' | translate}}</label>
+						<input ng-model="newCompany.CompanyVatCode" ng-change="verifyDuplicate('COMPANY_VATCODE')">
+						<span ng-if="verifyCompanyVatCode" style="margin-top: 3px; color: #f44336; font-weight: bold;font-size: 10px;">
+							{{'COMPANY_VATCODE_ALREADY_IN_USE' | translate}}
+					</span>
+					</md-input-container>
+					<!-- end -->
+					<md-input-container flex="100">
+						<label>{{'CONTACT_EMAIL' | translate}}</label>
+						<input required ng-model="newCompany.ContactEmail">
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'CONTACT_MOBILE' | translate}}</label>
+						<input required ng-model="newCompany.ContactMobile">
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'CONTACT_ADDRESS' | translate}}</label>
+						<input required ng-model="newCompany.ContactAddress">
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'CONTACT_POSITION' | translate}}</label>
+						<input required ng-model="newCompany.ContactPosition">
+					</md-input-container>
+				</div>
+			</div>
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-click="addNewCompany()" class="md-primary" ng-disabled="!newCompany.CompanyName || newCompany.CompanyName.trim() =='' || verifyCompanyName == true || !newCompany.CompanyCode || newCompany.CompanyCode.trim() =='' || verifyCompanyCode == true">
+				{{'ADD' | translate}}
+			</md-button>
+		</md-dialog-actions>
+	</form>
+
+</md-dialog>

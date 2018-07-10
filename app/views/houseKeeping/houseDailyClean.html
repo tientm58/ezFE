@@ -1,0 +1,344 @@
+﻿<style>
+    .colorBlack {
+        color: #282828;
+    }
+
+    select[disabled='disabled'] {
+        cursor: not-allowed;
+    }
+
+    .heightAv {
+        height: 90%;
+    }
+
+    md-tooltip ._md-content {
+        height: auto;
+    }
+
+    .hight_line2 {
+        /* font-style: italic; */
+        font-size: 12px;
+        color: #FF9800;
+        padding-bottom: 6px;
+    }
+
+    .hearderStatus {
+        padding-bottom: 0;
+    }
+
+    .max-fit-content {
+        max-height: fit-content !important;
+    }
+
+    .tmp_table_2 {
+        min-width: fit-content !important;
+    }
+</style>
+<link rel="stylesheet" href="lib/housekeeping.css">
+<md-content layout="row" layout-wrap class="" style="overflow-y:hidden">
+    <div ng-if="$mdMedia('gt-sm') == true" class="md-padding padding-bottom0 hearderStatus" flex="100" layout="row" layout-align="space-between start"
+        layout-wrap>
+        <div layout="row" layout-wrap flex="50" layout-align="start center">
+            <md-button aria-label="{{'CHECKIN' | translate}}" style="background-color: {{StatusColor.CheckinColors}}">
+                <span class="btn_status_" style="color: #fff;font-size: 0.8em;">
+                    {{'CHECKIN' | translate}}
+                </span>
+            </md-button>
+            <md-button aria-label="{{'BOOKED' | translate}}" style="background-color: {{StatusColor.BookColors}}">
+                <span class="btn_status_" style="color: #fff;font-size: 0.8em;">
+                    {{'BOOKED' | translate}}
+                </span>
+            </md-button>
+            <md-button aria-label="{{'REPAIR' | translate}}" style="background-color: {{StatusColor.RepairColors}}">
+                <span class="text" style="color: #fff;font-size: 0.8em;">
+                    {{'REPAIR' | translate}}
+                </span>
+            </md-button>
+        </div>
+        <div layout="row" layout-wrap flex="50" flex-gt-xs="50" layout-align="end center">
+            <md-datepicker ng-model="DateDailyClean" md-placeholder="Enter date" ng-change="changeDate(DateDailyClean)" md-min-date="Today"
+                style="margin-top: 1px"></md-datepicker>
+            <md-input-container flex="20">
+                <label></label>
+                <md-select ng-model="sortBy" ng-change="changeSortBy(sortBy)">
+                    <md-option value="ROOM">{{'ROOM' | translate}}</md-option>
+                    <md-option value="FLOOR">{{'FLOOR' | translate}}</md-option>
+                    <md-option value="ROOM_TYPE">{{'ROOM_TYPE' | translate}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="20">
+                <label></label>
+                <md-select ng-model="durationTimeLine" ng-change="changeDurationTimeLine(durationTimeLine)">
+                    <md-option value="7">{{'SEVEN_DAYS' | translate}}</md-option>
+                    <md-option value="14">{{'FORTEEN_DAYS' | translate}}</md-option>
+                    <md-option value="30">{{'THIRTY_DAYS' | translate}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </div>
+    <div ng-if="$mdMedia('xs') == true" class="md-padding " flex="100" layout="column" layout-align="space-between start" layout-wrap>
+        <div layout="row" layout-wrap layout-align="start center">
+            <md-button aria-label="{{'CHECKIN' | translate}}" style="background-color: {{StatusColor.CheckinColors}}">
+                <span class="btn_status_" style="color: #fff;font-size: 0.8em;">
+                    {{'CHECKIN' | translate}}
+                </span>
+            </md-button>
+            <md-button aria-label="{{'BOOKED' | translate}}" style="background-color: {{StatusColor.BookColors}}">
+                <span class="btn_status_" style="color: #fff;font-size: 0.8em;">
+                    {{'BOOKED' | translate}}
+                </span>
+            </md-button>
+            <md-button aria-label="{{'REPAIR' | translate}}" style="background-color: {{StatusColor.RepairColors}}">
+                <span class="text" style="color: #fff;font-size: 0.8em;">
+                    {{'REPAIR' | translate}}
+                </span>
+            </md-button>
+        </div>
+        <div layout="row" layout-wrap layout-align="start center">
+            <md-input-container flex="30">
+                <label></label>
+                <md-select ng-model="sortBy" ng-change="changeSortBy(sortBy)">
+                    <md-option value="ROOM">{{'ROOM' | translate}}</md-option>
+                    <md-option value="FLOOR">{{'FLOOR' | translate}}</md-option>
+                    <md-option value="ROOM_TYPE">{{'ROOM_TYPE' | translate}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label></label>
+                <md-select ng-model="durationTimeLine" ng-change="changeDurationTimeLine(durationTimeLine)">
+                    <md-option value="7">{{'SEVEN_DAYS' | translate}}</md-option>
+                    <md-option value="14">{{'FORTEEN_DAYS' | translate}}</md-option>
+                    <md-option value="30">{{'THIRTY_DAYS' | translate}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-datepicker flex ng-model="DateDailyClean" md-placeholder="Enter date" ng-change="changeDate(DateDailyClean)" md-min-date="Today"></md-datepicker>
+        </div>
+    </div>
+    <div class="md-padding heightAv" layout="row" flex="100" layout-wrap layout-align="start start" style="padding-bottom:5px;padding-top:0px;">
+        <div class=" hight_line2 margin0 ">{{'DESCRIPTION_REPORT_HOUSE_DAILY_CLEAN' | translate}}</div>
+
+        <section flex="100" layout="row" layout-wrap style="border-bottom:rgba(0,0,0,0.12) thin solid" class="table_auto_scroll heightAv max-fit-content"
+            ng-if="sortBy=='ROOM'">
+            <table class="tmp_table_2 table table-bordered table-hover table-cell-middle margin00" table-fixed-header="2" flex="100">
+                <thead flex="100">
+                    <tr class="info ">
+                        <th ng-repeat="timelineColumn in timelineColumns" class="name_sort" ng-class="{'isWeekend':isWeekend(timelineColumn.ArrivalDate)}">
+                            <span ng-if="!timelineColumn.ColumnName">{{'ROOM' | translate}}</span>
+                            <span ng-if="timelineColumn.ColumnName">{{timelineColumn.ColumnName}}</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody flex="100">
+                    <tr ng-repeat="room in timelineRooms">
+                        <td class="text-center " ng-repeat="dailyClean in room.DailyCleans">
+                            <div ng-if="dailyClean.RoomName" class="border0">
+                                <span>{{room.RoomName}}</span>
+                            </div>
+                            <md-tooltip md-direction="top" ng-if="!dailyClean.RoomName && dailyClean.TooltipTitle">
+                                {{'GUESTS' | translate}}: {{dailyClean.TooltipTitle.GuestName}}
+                                <br> {{'RES_NO' | translate}}: {{dailyClean.TooltipTitle.ReservationNumber}},
+                                <br> {{'ARRIVAL' | translate}}: {{dailyClean.TooltipTitle.ArrivalDate | date:'dd/MM/yyyy HH:mm'}},
+                                <br> {{'DEPARTURE' | translate}}: {{dailyClean.TooltipTitle.DepartureDate | date:'dd/MM/yyyy
+                                HH:mm'}},
+                                <br>{{'NIGHTS_REPORT' | translate}}: {{dailyClean.TooltipTitle.NoOfNights}}</md-tooltip>
+                            <div ng-if="!dailyClean.RoomName">
+                                <select id="dailyClean" ng-disabled="dailyClean.BookingStatus === 'REPAIR'" ng-style="{'background-color': dailyClean.ColorCode}"
+                                    ng-model="dailyClean.ServiceCode" ng-change="changeDailyClean(dailyClean, dailyClean.ServiceCode)">
+                                    <option value=""></option>
+                                    <option value="S" class="colorBlack">S</option>
+                                    <option value="FS" class="colorBlack">FS</option>
+                                    <option value="AR" class="colorBlack">ARR</option>
+                                    <option value="DE" class="colorBlack">DEP</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot flex="100">
+                    <tr class="info">
+                        <td class="text-center name_sort" ng-repeat="footerColumn in footerColumns ">
+                            <div ng-if="!footerColumn.ColumnName">
+                                <span>S/FS/AR/DE</span>
+                            </div>
+                            <div ng-if="footerColumn.ColumnName">
+                                <span>{{footerColumn.TotalS}}</span>
+                                <span>/{{footerColumn.TotalFS}}</span>
+                                <span>/{{footerColumn.TotalAR}}</span>
+                                <span>/{{footerColumn.TotalDE}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+        <section flex="100" layout="row" layout-wrap style="border-bottom:rgba(0,0,0,0.12) thin solid" class="table_auto_scroll heightAv"
+            ng-if="sortBy=='FLOOR'">
+            <table class="tmp_table_2 table table-bordered table-hover table-cell-middle margin00" table-fixed-header>
+                <thead>
+                    <tr class="info">
+                        <th class="name_sort">{{'FLOOR' | translate}}</th>
+                        <th ng-repeat="timelineColumn in timelineColumns" ng-class="{'isWeekend':isWeekend(timelineColumn.ArrivalDate)}">
+                            <span ng-if="!timelineColumn.ColumnName">{{'ROOM' | translate}}</span>
+                            <span ng-if="timelineColumn.ColumnName">{{timelineColumn.ColumnName}}</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat-start="floor in floorList">
+                        <td class="text-center border_top" rowspan="{{floor.Rooms.length}}">{{floor.FloorName }}</td>
+                        <td class="text-center" ng-repeat="dailyClean in floor.Rooms[0].DailyCleans">
+                            <div ng-if="dailyClean.RoomName" class="  ">
+                                <span>{{floor.Rooms[0].RoomName}}</span>
+                            </div>
+                            <md-tooltip md-direction="top" ng-if="!dailyClean.RoomName && dailyClean.TooltipTitle">
+                                {{'GUESTS' | translate}}: {{dailyClean.TooltipTitle.GuestName}}
+                                <br> {{'RES_NO' | translate}}: {{dailyClean.TooltipTitle.ReservationNumber}},
+                                <br> {{'ARRIVAL' | translate}}: {{dailyClean.TooltipTitle.ArrivalDate | date:'dd/MM/yyyy HH:mm'}},
+                                <br> {{'DEPARTURE' | translate}}: {{dailyClean.TooltipTitle.DepartureDate | date:'dd/MM/yyyy
+                                HH:mm'}},
+                                <br>{{'NIGHTS_REPORT' | translate}}: {{dailyClean.TooltipTitle.NoOfNights}}</md-tooltip>
+                            <div ng-if="!dailyClean.RoomName">
+                                <select id="dailyClean" ng-disabled="dailyClean.BookingStatus === 'REPAIR'" ng-style="{'background-color': dailyClean.ColorCode}"
+                                    ng-model="dailyClean.ServiceCode" ng-change="changeDailyClean(dailyClean, dailyClean.ServiceCode)">
+                                    <option value=""></option>
+                                    <option value="S" class="colorBlack">S</option>
+                                    <option value="FS" class="colorBlack">FS</option>
+                                    <option value="AR" class="colorBlack">ARR</option>
+                                    <option value="DE" class="colorBlack">DEP</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="room in floor.Rooms.slice(1)" ng-if="room.FloorId == floor.FloorId  && sortBy == 'FLOOR'">
+                        <td class="border0"></td>
+                        <td class="text-center" ng-repeat="dailyClean in room.DailyCleans">
+                            <div ng-if="dailyClean.RoomName" style="text-align:center; vertical-align:middle;">
+                                <span>{{room.RoomName}}</span>
+                            </div>
+                            <md-tooltip md-direction="top" ng-if="!dailyClean.RoomName && dailyClean.TooltipTitle">
+                                {{'GUESTS' | translate}}: {{dailyClean.TooltipTitle.GuestName}}
+                                <br> {{'RES_NO' | translate}}: {{dailyClean.TooltipTitle.ReservationNumber}},
+                                <br> {{'ARRIVAL' | translate}}: {{dailyClean.TooltipTitle.ArrivalDate | date:'dd/MM/yyyy HH:mm'}},
+                                <br> {{'DEPARTURE' | translate}}: {{dailyClean.TooltipTitle.DepartureDate | date:'dd/MM/yyyy
+                                HH:mm'}},
+                                <br> {{'NIGHTS_REPORT' | translate}}: {{dailyClean.TooltipTitle.NoOfNights}}</md-tooltip>
+                            <div ng-if="!dailyClean.RoomName">
+                                <select id="dailyClean" ng-disabled="dailyClean.BookingStatus === 'REPAIR'" ng-style="{'background-color': dailyClean.ColorCode}"
+                                    ng-model="dailyClean.ServiceCode" ng-change="changeDailyClean(dailyClean, dailyClean.ServiceCode)">
+                                    <option value=""></option>
+                                    <option value="S" class="colorBlack">S</option>
+                                    <option value="FS" class="colorBlack">FS</option>
+                                    <option value="AR" class="colorBlack">ARR</option>
+                                    <option value="DE" class="colorBlack">DEP</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat-end=""></tr>
+                </tbody>
+                <tfoot>
+                    <tr class="info">
+                        <td class="text-center border_top"></td>
+                        <td class="text-center" ng-repeat="footerColumn in footerColumns">
+                            <div ng-if="!footerColumn.ColumnName">
+                                <span>S/FS/ARR/DEP</span>
+                            </div>
+                            <div ng-if="footerColumn.ColumnName">
+                                <span>{{footerColumn.TotalS}}</span>
+                                <span>/{{footerColumn.TotalFS}}</span>
+                                <span>/{{footerColumn.TotalAR}}</span>
+                                <span>/{{footerColumn.TotalDE}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+        <section flex="100" layout="row" layout-wrap style="border-bottom:rgba(0,0,0,0.12) thin solid" class="table_auto_scroll heightAv"
+            ng-if="sortBy=='ROOM_TYPE'">
+            <table class="tmp_table_2 table table-bordered table-hover table-cell-middle margin00" table-fixed-header="2">
+                <thead>
+                    <tr class="info">
+                        <th class="name_sort">
+                            <span>{{'ROOM_TYPE' | translate}}</span>
+
+                        </th>
+                        <th ng-repeat="timelineColumn in timelineColumns" ng-class="{'isWeekend':isWeekend(timelineColumn.ArrivalDate)}">
+                            <span ng-if="!timelineColumn.ColumnName">{{'ROOM' | translate}}</span>
+                            <span ng-if="timelineColumn.ColumnName">{{timelineColumn.ColumnName}}</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat-start="roomType in roomTypeList">
+                        <td class="text-center   border_top" rowspan="{{roomType.Rooms.length}}">{{roomType.RoomTypeCode }}</td>
+                        <td class="text-center" ng-repeat="dailyClean in roomType.Rooms[0].DailyCleans">
+                            <div ng-if="dailyClean.RoomName" style="text-align:center; vertical-align:middle;">
+                                <span style="">{{roomType.Rooms[0].RoomName}}</span>
+                            </div>
+                            <md-tooltip md-direction="top" ng-if="!dailyClean.RoomName && dailyClean.TooltipTitle">
+                                {{'GUESTS' | translate}}: {{dailyClean.TooltipTitle.GuestName}}
+                                <br> {{'RES_NO' | translate}}: {{dailyClean.TooltipTitle.ReservationNumber}},
+                                <br> {{'ARRIVAL' | translate}}: {{dailyClean.TooltipTitle.ArrivalDate | date:'dd/MM/yyyy HH:mm'}},
+                                <br> {{'DEPARTURE' | translate}}: {{dailyClean.TooltipTitle.DepartureDate | date:'dd/MM/yyyy
+                                HH:mm'}},
+                                <br> {{'NIGHTS_REPORT' | translate}}: {{dailyClean.TooltipTitle.NoOfNights}}</md-tooltip>
+                            <div ng-if="!dailyClean.RoomName">
+                                <select id="dailyClean" ng-disabled="dailyClean.BookingStatus === 'REPAIR'" ng-style="{'background-color': dailyClean.ColorCode}"
+                                    ng-model="dailyClean.ServiceCode" ng-change="changeDailyClean(dailyClean, dailyClean.ServiceCode)">
+                                    <option value=""></option>
+                                    <option value="S" class="colorBlack">S</option>
+                                    <option value="FS" class="colorBlack">FS</option>
+                                    <option value="AR" class="colorBlack">ARR</option>
+                                    <option value="DE" class="colorBlack">DEP</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="room in roomType.Rooms.slice(1)" ng-if="room.RoomTypeId == roomType.RoomTypeId  && sortBy == 'ROOM_TYPE'">
+                        <td class="border0"></td>
+                        <td class="text-center" ng-repeat="dailyClean in room.DailyCleans">
+                            <div ng-if="dailyClean.RoomName" style="text-align:center; vertical-align:middle;">
+                                <span>{{room.RoomName}}</span>
+                            </div>
+                            <md-tooltip md-direction="top" ng-if="!dailyClean.RoomName && dailyClean.TooltipTitle">
+                                {{'GUESTS' | translate}}: {{dailyClean.TooltipTitle.GuestName}}
+                                <br> {{'RES_NO' | translate}}: {{dailyClean.TooltipTitle.ReservationNumber}},
+                                <br> {{'ARRIVAL' | translate}}: {{dailyClean.TooltipTitle.ArrivalDate | date:'dd/MM/yyyy HH:mm'}},
+                                <br> {{'DEPARTURE' | translate}}: {{dailyClean.TooltipTitle.DepartureDate | date:'dd/MM/yyyy
+                                HH:mm'}},
+                                <br>{{'NIGHTS_REPORT' | translate}}: {{dailyClean.TooltipTitle.NoOfNights}}</md-tooltip>
+                            <div ng-if="!dailyClean.RoomName">
+                                <select id="dailyClean" ng-disabled="dailyClean.BookingStatus === 'REPAIR'" ng-style="{'background-color': dailyClean.ColorCode}"
+                                    ng-model="dailyClean.ServiceCode" ng-change="changeDailyClean(dailyClean, dailyClean.ServiceCode)">
+                                    <option value=""></option>
+                                    <option value="S" class="colorBlack">S</option>
+                                    <option value="FS" class="colorBlack">FS</option>
+                                    <option value="AR" class="colorBlack">ARR</option>
+                                    <option value="DE" class="colorBlack">DEP</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat-end=""></tr>
+                </tbody>
+                <tfoot>
+                    <tr class="info">
+                        <td class="text-cente border_top"></td>
+                        <td class="text-center" ng-repeat="footerColumn in footerColumns">
+                            <div ng-if="!footerColumn.ColumnName">
+                                <span>S/FS/ARR/DEP</span>
+                            </div>
+                            <div ng-if="footerColumn.ColumnName">
+                                <span>{{footerColumn.TotalS}}</span>
+                                <span>/{{footerColumn.TotalFS}}</span>
+                                <span>/{{footerColumn.TotalAR}}</span>
+                                <span>/{{footerColumn.TotalDE}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+    </div>
+</md-content>

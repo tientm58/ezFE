@@ -1,0 +1,246 @@
+<style>
+    md-dialog {
+        width: 50% !important;
+    }
+
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+
+    .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .maxWidth30p {
+        max-width: 35%;
+    }
+
+    .maxWidth70p {
+        max-width: 70%;
+    }
+
+    md-tabs.md-default-theme .md-tab .md-ripple-container,
+    md-tabs .md-tab .md-ripple-container {
+        color: rgb(179, 229, 252);
+    }
+
+    .listbox md-list-item {
+        height: 60px;
+        border-bottom: 1px dashed #dadada;
+    }
+
+    .listbox button {
+        height: 70px !important;
+    }
+
+    .listbox .md-button._md-no-style {
+        height: 80px !important;
+    }
+
+    md-list-item.md-3-line,
+    md-list-item.md-3-line>._md-no-style {
+        min-height: 70px;
+    }
+
+    .btn_done {
+        display: none;
+    }
+
+    .md-3-line:hover .btn_done {
+        display: block;
+    }
+
+    .md-button.md-fab.md-mini {
+        line-height: 40px;
+        width: 40px;
+        height: 40px !important;
+    }
+
+    md-list.md-default-theme md-list-item.md-2-line .md-list-item-text p,
+    md-list md-list-item.md-2-line .md-list-item-text p,
+    md-list.md-default-theme md-list-item.md-3-line .md-list-item-text p,
+    md-list md-list-item.md-3-line .md-list-item-text p {
+        color: rgba(2, 2, 2, 0.75);
+    }
+
+    md-tooltip ._md-content {
+        max-width: 500px;
+        white-space: pre-line;
+        height: auto;
+        font-size: 14px;
+        color: black;
+        background-color: darkgray;
+    }
+
+    .todolistDel {
+        text-decoration-line: line-through;
+    }
+
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+
+    .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+   .md-list-item-text p {
+        white-space: nowrap;
+   }
+</style>
+<md-dialog flex-xs="100" ng-init="isShow = true">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{'TODOLIST' | translate}}</h2>
+            <span flex></span>
+            <md-datepicker ng-model="today" ng-change="getListTodolistDoneOrDelByDate()" ng-hide="isShow" md-placeholder="Enter date"></md-datepicker>
+            <md-button ng-hide="!isShow" class="md-icon-button md-button" ng-click="changeStatusTodolist()">
+                <md-icon style="fill: white;" md-svg-icon="img/icons/ic_add_alert_24px.svg"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-tabs class="fit-content" ng-cloak md-dynamic-height md-border-bottom>
+            <md-tab ng-click="isShow = true" label="{{'PROCESSING' | translate}} ({{countItems(listtodo,1)}})" md-active="true">
+                <md-content class="max-fit-content fit-content  ">
+                    <div ng-if="toDoList.isAddTodolist">
+                        <form name="todolistForm" class="padding10" ng-submit="saveTodolist(toDoList)">
+
+                            <button class="hide" id="btnSaveTodolist"></button>
+                            <div layout="row" hide-xs layout-align="space-between center">
+                                <md-input-container class="maxWidth30p">
+                                    <label for="roomselect">{{'ROOM_SELECT' | translate}}</label>                                                                     
+                                    <md-autocomplete ng-disabled="DisableMdAutocomplete" md-selected-item="selectedRoom" md-search-text-change="searchRoomTextChange(searchRoomText)" md-search-text="searchRoomText" md-selected-item-change="selectedRoomChange(item)" md-items="item in queryRoomSearch(searchRoomText)" md-item-text="mdItemText(item)" md-min-length="1" md-menu-class="autocomplete-custom-template" required >
+                                        <md-item-template>
+                                            <span ng-if="item.RoomName != null">{{item.RoomName}} - {{'RES_NO_SHORT' | translate}}{{item.ReservationNumber}}&nbsp;{{item.Fullname}}</span>
+                                            <md-option ng-if="item.RoomName == null">{{'RES_NO_SHORT' | translate}}{{item.ReservationNumber}}&nbsp;{{item.Fullname}}</span>
+                                        </md-item-template>
+
+                                        <md-not-found>
+                                            No matches found.
+                                        </md-not-found>
+                                    </md-autocomplete>
+
+                                </md-input-container>
+                                <div>
+                                    <label>{{'END_DATE' | translate}}</label>
+                                    <input kendo-date-time-picker k-ng-model="toDoList.dateTodolist" min="toDoList.dateTodolist" k-options="DatePickerOption"
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div layout="column" hide-gt-xs layout-align="start center">
+                                <div layout="row" layout-align="space-between center" style="width: 100%;">
+                                    <md-input-container>
+                                        <label for="roomselect">{{'ROOM_SELECT' | translate}}</label>
+                                        <md-autocomplete ng-disabled="DisableMdAutocomplete" md-selected-item="selectedRoom" md-search-text-change="searchRoomTextChange(searchRoomText)" md-search-text="searchRoomText" md-selected-item-change="selectedRoomChange(item)" md-items="item in queryRoomSearch(searchRoomText)" md-item-text="mdItemText(item)" md-min-length="1" md-menu-class="autocomplete-custom-template" required >
+                                            <md-item-template>
+                                                <span ng-if="item.RoomName != null">{{item.RoomName}} - {{'RES_NO_SHORT' | translate}}{{item.ReservationNumber}}&nbsp;{{item.Fullname}}</span>
+                                                <md-option ng-if="item.RoomName == null">{{'RES_NO_SHORT' | translate}}{{item.ReservationNumber}}&nbsp;{{item.Fullname}}</span>
+                                            </md-item-template>
+    
+                                            <md-not-found>
+                                                No matches found.
+                                            </md-not-found>
+                                        </md-autocomplete>
+                                    </md-input-container>
+                                </div>
+                                <div style="width: 100%;">
+                                    <label>{{'END_DATE' | translate}}</label>
+                                    <input kendo-date-time-picker k-ng-model="toDoList.dateTodolist" min="toDoList.dateTodolist" k-options="DatePickerOption"
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <md-input-container style="width:99%;">
+                                    <label for="note">{{'NOTE' | translate}}</label>
+                                    <textarea id="note" required ng-model="toDoList.note" rows="4" maxlength="400" md-maxlength="400"></textarea>
+                                </md-input-container>
+                            </div>
+                            <div layout="row" flex="100" layout-align="center center">
+                                <md-button class="md-fab md-mini md-primary" onclick="jQuery('#btnSaveTodolist').click()">
+                                    <md-icon md-svg-src="img/icons/ic_done_24px.svg"></md-icon>
+                                </md-button>
+                                <md-button class="md-fab md-mini md-raised" ng-click="changeStatusTodolist()">
+                                    <md-icon md-svg-src="img/icons/ic_delete_24px.svg"></md-icon>
+                                </md-button>
+                            </div>
+                        </form>
+                    </div>
+                    <md-list ng-cloak class="listbox ">
+                        <md-list-item ng-if="item.Status == 1" class="md-3-line" ng-repeat="item in listtodo">
+                            <div flex="100" layout="row" layout-align="space-between center">
+                                <!-- <div>&nbsp;</div> -->
+                                <div class="md-list-item-text">
+                                    <h3 class="marginb5">
+                                        <strong>{{item.RoomName}} - {{item.GuestName}}</strong>
+                                    </h3>
+                                    <md-tooltip md-direction="bottom" ng-if="item.Note.length > 80">{{item.Note}}</md-tooltip>
+                                    <p>{{item.Note | limitTo:80}}{{item.Note.length > 80? "..." : ""}}</p>
+                                    <p>{{item.UserName}}&nbsp;{{item.EndDate | date: 'MM/dd/yyyy HH:mm'}}</p>
+                                </div>
+                                <div layout="row" layout-align="end center">
+                                    <md-button class="md-fab md-mini md-raised btn_done" ng-click="editTodolist(item)">
+                                        <md-icon md-svg-icon="img/icons/ic_create_24px.svg"></md-icon>
+                                    </md-button>
+                                    <md-button class="md-fab md-mini md-primary btn_done" ng-click="updateDoneTodolist(item)">
+                                        <md-icon md-svg-icon="img/icons/ic_done_24px.svg"></md-icon>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+            </md-tab>
+            <md-tab ng-click="isShow = false" label="{{'DONE' | translate}} ({{countItems(listtodo,2)}})">
+                <md-content class="max-fit-content fit-content  padding0 padding-left5">
+                    <md-list class="listbox ">
+                        <md-list-item ng-if="item.Status != 1" class="md-3-line" ng-repeat="item in listtodo">
+                            <div flex="100" layout="row" layout-align="space-between center" ng-class="{'todolistDel' : item.Status == 3}">
+                                <div class="md-list-item-text">
+                                    <h3 class="marginb5">
+                                        <strong>{{item.RoomName}} - {{item.GuestName}}</strong>
+                                    </h3>
+                                    <md-tooltip md-direction="bottom" ng-if="item.Note.length > 80">{{item.Note}}</md-tooltip>
+                                    <p>{{item.Note | limitTo:80}}{{item.Note.length > 80? "..." : ""}}</p>
+                                    <p>{{item.UserName}}&nbsp;{{item.EndDate | date: 'MM/dd/yyyy HH:mm'}}</p>
+                                </div>
+                                <div layout="row" layout-align="end center" ng-if="item.Status != 3">
+                                    <md-button class="md-fab md-mini md-primary btn_done" ng-click="reopenDoneTodolist(item)">
+                                        <md-icon md-svg-icon="img/icons/ic_restore_24px.svg"></md-icon>
+                                    </md-button>
+                                    <md-button class="md-fab md-mini md-warn btn_done" ng-click="deleteTodolist(item)">
+                                        <md-icon md-svg-icon="img/icons/ic_delete_24px.svg"></md-icon>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="cancel()">
+            {{'CLOSE' | translate}}
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

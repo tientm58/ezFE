@@ -1,0 +1,54 @@
+<!--<style>
+	.cg-busy-backdrop {
+		background-color: gray;
+		opacity: .7;
+	}
+</style>
+<div layout="column" layout-align="space-around center">
+	<span>
+		<md-progress-circular class="md-warn" md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+	</span>
+</div>-->
+<style>
+.circular-progress-button {
+    height: 36px;
+}
+
+.circular-progress-button>md-progress-circular {
+/*    margin: auto;*/
+    /*margin-top: -30px;*/
+    /*margin-left: -36px;*/
+    /*margin-bottom: -18px;
+	margin-right: : -36px;*/
+}
+
+.circular-progress-button>md-progress-circular .md-half-circle {
+    border-top-color: white!important;
+}
+
+.circular-progress-button>md-progress-circular .md-left>.md-half-circle {
+    border-left-color: white;
+}
+
+.circular-progress-button>md-progress-circular .md-right>.md-half-circle {
+    border-right-color: white;
+}
+md-progress-circular{
+	left:-2px;
+	top:-1px;
+}
+md-progress-circular svg{
+        width:20px;
+        height:20px;
+        margin-left:-8px;
+        margin-top:-9px;
+        transform-origin:inherit;
+}
+</style>
+
+<!-- <div layout="row" layout-align="center center"> -->
+<div layout="row" layout-sm="column" layout-align="space-around" style="z-index: 999999;">
+	<md-button class="md-raised md-fab md-mini">
+		<md-progress-circular md-mode="indeterminate" md-diameter="20" class="md-warn md-hue-3" ></md-progress-circular>
+	</md-button>
+</div>

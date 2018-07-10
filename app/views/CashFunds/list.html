@@ -1,0 +1,225 @@
+<style>
+	md-table-container {
+		width: 100%;
+		/* box-shadow: 0px 0px 1px 0px #656565; */
+	}
+
+	md-tabs-wrapper {}
+
+	md-table-pagination {
+		width: 100%;
+		/* font-weight: bold; */
+		/* box-shadow: 1px 1px 5px 1px; */
+	}
+
+	table.md-table thead.md-head>tr.md-row {
+		height: fit-content;
+	}
+
+	.last_row_ th {
+		/* border-bottom: 2px solid #ddd; */
+		padding: 2px !important;
+	}
+
+	.table>thead>tr>th {
+		vertical-align: bottom;
+		padding: 10px;
+		vertical-align: middle;
+		font-size: 13px;
+		font-weight: 600;
+	}
+
+	table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2),
+	table.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2),
+	table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
+	table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+		padding: 10px;
+	}
+
+	.table>thead>tr>th,
+	.table>tbody>tr>th,
+	.table>tfoot>tr>th,
+	.table>thead>tr>td,
+	.table>tbody>tr>td,
+	.table>tfoot>tr>td {
+		padding: 8px;
+		line-height: 1.42857143;
+		vertical-align: top;
+	}
+
+	.topHear {
+		background-color: rgb(214, 214, 214);
+	}
+
+	.topHear th,
+	.topHear th md-icon {
+		color: #5c5c5d !important;
+	}
+
+	.hightli {
+		border-right: 1px solid #9e9e9e57 !important;
+		background-color: #f2f2f2;
+	}
+
+	.invoiceDeleted {
+		text-decoration-line: line-through !important;
+	}
+
+	.icon-btn {
+		cursor: pointer;
+	}
+	.row_btn button{
+		min-width: 45px;
+	}
+	.btn_hear md-icon{
+		fill: #fff;
+	}
+	.box_info_dc{
+		font-size: 14px;
+	}
+	.bg_thu{
+		background: #4caf5063;
+	}
+	.bg_chi{
+		background: #ff572278;
+	}
+</style>
+
+<div ng-cloak data-ng-init="action.init()">
+	<md-content>
+		<md-tabs md-dynamic-height md-border-bottom>
+			<md-tab label="{{'EXPENDITURE_CREATE' | translate}}">
+				<md-content class="md-padding">
+					<section layout="row" layout-align="space-between center" layout-wrap>
+						<md-select placeholder="Chọn ngày" ng-model="self.filters.selectedTime" ng-change="action.setDatePicker()" style="min-width: 200px;">
+							<md-option ng-value="time.value" ng-repeat="time in self.times" ng-selected="$index == 0 ? true : false">{{time.description}}</md-option>
+						</md-select>
+						<div layout="row" layout-align="space-between center">
+							<label>{{'START_DATE' | translate}}</label>
+							<md-datepicker md-max-date="self.maxDate" ng-change="action.invoices.selectDate()" ng-model="self.filters.startDate" md-placeholder="Start date"></md-datepicker>
+						</div>
+						<div layout="row" layout-align="space-between center">
+							<label>{{'END_DATE' | translate}}</label>
+							<md-datepicker md-max-date="self.maxDate" ng-change="action.invoices.selectDate()" ng-model="self.filters.endDate" md-placeholder="Enter date"></md-datepicker>
+						</div>
+						<md-select placeholder="Choose date" ng-model="self.filters.selectedItemType" md-on-open="" style="min-width: 200px;">
+							<md-option ng-value="type.value" ng-repeat="type in self.itemsType" ng-selected="$index == 0 ? true : false">{{type.description}}</md-option>
+						</md-select>
+						<md-button class="btn-c md-raised md-info" ng-click="action.invoices.searchInvoice()">
+							<md-icon md-svg-src="img/icons/ic_search_48px.svg"></md-icon>&nbsp;{{'SEARCH' | translate}}</md-button>
+					</section>
+
+					<section layout="column" layout-align="center start">
+						<!-- <md-progress-linear md-mode="determinate" value="{{self.startSearch}}"></md-progress-linear> -->
+						<md-toolbar class="md-table-toolbar alternate" layout-align="space-between center" ng-show="selected.length" aria-hidden="false"
+						  style="color: #1e88e5;font-size: 16px;background-color: #ffffff;">
+							<div class="md-toolbar-tools layout-align-space-between-stretch">
+								<div>
+									<md-subheader class="md-warn">
+										<b>{{selected.length}}</b> {{'EXPENDITURE_ITEM_SELECTED' | translate}}</md-subheader>
+								</div>
+								<button class="md-icon-button md-button md-ink-ripple md-raised md-primary" type="button" ng-click="action.invoices.deleteInvoice($event)"
+								  aria-label="delete">
+									<md-tooltip md-direction="left">{{'VOUCHER_DELETE' | translate}}</md-tooltip>
+									<md-icon md-svg-src="img/icons/ic_delete_48px.svg"></md-icon>
+								</button>
+							</div>
+						</md-toolbar>
+						<md-table-container style="width:100%;">
+							<table md-table ng-model="selected" md-progress="promise">
+								<thead md-head md-order="pager.query.order" md-on-reorder="">
+									<tr md-row class="topHear">
+										<th md-column md-order-by="nameToLower" style="width:100px">
+											<md-icon md-svg-src="img/icons/ic_access_time_24px.svg"></md-icon>
+											<span>{{'DATE' | translate}}</span>
+										</th>
+										<th md-column>
+											<md-icon md-svg-src="img/icons/ic_account_box_24px.svg"></md-icon>
+											<span>{{'ACCOUNT' | translate}}</span>
+										</th>
+										<th md-column md-order-by="calories.value" style="width:100px">
+											<md-icon md-svg-src="img/icons/ic_format_list_numbered_24px.svg"></md-icon>
+											<span>{{'VOUCHER_NO' | translate}}</span>
+										</th>
+										
+										<th md-column colspan="{{self.currency.length}}" style="text-align:center;">
+											<md-icon md-svg-src="img/icons/ic_attach_money_24px.svg"></md-icon>
+											<span>{{'PAY_AMOUNT' | translate}}</span>
+										</th>
+										<th md-column>
+											<md-icon md-svg-src="img/icons/ic_insert_comment_24px.svg"></md-icon>
+											<span>{{'REPAIR_REASON_REPORT' | translate}}</span>
+										</th>
+										<th colspan="2" class="btn_hear row_btn text-right" style="width: 120px;min-width: 120px;">
+											<md-button class="btn-c md-raised md-primary margin00" ng-click="action.createReceipt()">
+												<md-icon md-svg-src="img/icons/ic_add_48px.svg"></md-icon>
+												<md-tooltip md-direction="bottom">&nbsp;{{'EXPENDITURE_CREATE_RECEIPT' | translate}}</md-tooltip>
+											</md-button>
+											<md-button class="btn-c md-raised md-warn margin00" ng-click="action.createPayment()">
+												<md-icon md-svg-src="img/icons/ic_add_48px.svg"></md-icon>
+												<md-tooltip md-direction="bottom">&nbsp;{{'EXPENDITURE_CREATE_PAYMENT' | translate}}</md-tooltip>
+											</md-button>
+										</th>
+									</tr>
+									<tr class="gray-box-h1 last_row_">
+										<th md-column>
+											<span></span>
+										</th>
+										<th md-column>
+											<span></span>
+										</th>
+										<th md-column>
+											<span></span>
+										</th>
+										<!-- <th md-column></th> -->
+										<th class="text-center hightli" md-column ng-repeat="curr in self.currency">
+											{{curr || "VND"}}
+										</th>
+										<!-- <th md-column></th> -->
+										<th md-column></th>
+										<th md-column></th>
+										<th md-column></th>
+									</tr>
+								</thead>
+								<tbody md-body>
+									<tr md-row md-select="invoice" md-select-id="name" md-auto-select ng-repeat="invoice in self.data track by $index">
+										<!-- | limitTo: query.limit: (query.page - 1)*query.limit -->
+										<td ng-class="{'invoiceDeleted': invoice.Status == 3}" md-cell>{{invoice.InvoiceDate | date:"dd/MM/yyyy"}}</td>
+										<td ng-class="{'invoiceDeleted': invoice.Status == 3}" md-cell>{{action.invoices.getBankName(invoice)}}</td>
+										<td ng-class="{'invoiceDeleted': invoice.Status == 3}" md-cell>
+											<a ng-if="invoice.InvoiceGroup === 1" href="#/addReceipt?invoiceId={{invoice.InvoiceId}}&invoiceFund={{invoice.InvoiceFund}}" style="cursor: pointer;color: #4CAF50;text-decoration-line: none;">{{invoice.InvoiceNo || ""}}</a>
+											<a ng-if="invoice.InvoiceGroup === 2" href="#/addPayment?invoiceId={{invoice.InvoiceId}}&invoiceFund={{invoice.InvoiceFund}}" style="cursor: pointer;color:rgb(255,87,34);text-decoration-line: none;">{{invoice.InvoiceNo || ""}}</a>
+											<!-- {{invoice.InvoiceNo || ""}} -->
+										</td>
+										<td ng-class="{'invoiceDeleted': invoice.Status == 3}" md-cell class="text-right hightli" ng-repeat="curr in self.currency">
+											{{obj = action.invoices.getAmountDetailByCurrency(curr, invoice, null);""}} {{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+										</td>
+										<td ng-class="{'invoiceDeleted': invoice.Status == 3}" md-cell>{{invoice.InvoiceContent || ""}}</td>
+										<td md-cell class=" row_btn padding0 text-right" colspan="2">
+											<md-button class="hide-xs md-secondary btn_default margin00"  ng-if="invoice.Status != 3" ng-click="action.invoices.editInvoice(invoice)">
+												<md-tooltip md-direction="bottom">{{'EDIT' | translate}}</md-tooltip>
+												<md-icon md-svg-icon="img/icons/ic_edit_48px.svg" style="fill:#666 " aria-label="Send Email" class="md-hue-3"></md-icon>
+											</md-button>
+											<md-button class="hide-xs md-secondary btn_default margin00"  ng-if="invoice.Status != 3 && invoice.PostFrom != 1" ng-click="action.invoices.deleteInvoiceId(invoice.InvoiceId)">
+												<md-icon md-svg-icon="img/icons/ic_delete_48px.svg" class="md-secondary icon-btn md-hue-3">
+												</md-icon>
+											</md-button>
+										</td> 
+									</tr>
+								</tbody>
+							</table>
+						</md-table-container>
+						<md-table-pagination md-label="{{pager.config.label}}" md-limit="pager.query.PageSize" md-limit-options="pager.config.limitPagination"
+						  md-page="pager.query.PageNumber" md-total="{{pager.config.totalItems}}" md-on-paginate="pager.bindingData" md-page-select></md-table-pagination>
+					</section>
+				</md-content>
+			</md-tab>
+			<md-tab label="{{ 'CONTRAST' | translate}}" ng-click="action.contrast.searchAuditDeposit()">
+				<ng-include src="'views/templates/Contrast.tmpl.html'" autoscroll="true"></ng-include>
+			</md-tab>
+			<md-tab label="{{ 'CASH_FUNDS_DETAIL' | translate }}" ng-click="action.bookDetails.getList('search')">
+				<ng-include src="'views/templates/bookDetails.tmpl.html'" autoscroll="true"></ng-include>
+			</md-tab>
+		</md-tabs>
+	</md-content>
+</div>

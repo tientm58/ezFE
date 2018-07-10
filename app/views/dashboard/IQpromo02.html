@@ -1,0 +1,316 @@
+<style>
+    .al-wrap {
+        background: url(img/pattern.jpg) repeat;
+        height: 100%;
+    }
+
+    .x-contaner {
+        max-width: 840px;
+        background-color: #fff;
+        border-radius: 10px;
+        margin: 30px auto;
+        -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+        padding: 50px 30px;
+    }
+
+    .cl {
+        clear: both;
+    }
+
+    .x-contaner-h1 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        color: #666;
+        text-align: left;
+        font-weight: 400;
+        line-height: 30px;
+        /* position: relative; */
+        width: 100%;
+        /* float: left; */
+    }
+
+    .x-contaner-h1 span {
+        font-size: 25px;
+        color: #3e50b4;
+        display: block;
+        font-weight: 700;
+    }
+
+    .x-descript {
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        color: #666;
+        text-align: center;
+        line-height: 24px;
+        width: 100%;
+        float: left;
+    }
+
+    .x-descript strong {
+        color: #3e50b4;
+        font-size: 18px;
+    }
+
+    .x-card-code {
+        font-family: 'Roboto', sans-serif;
+        width: 100%;
+        height: 70px;
+        float: left;
+        background-color: #ccc;
+        color: #fff;
+        border-radius: 10px;
+        padding: 30px 0px;
+        text-align: center;
+        background: rgba(62, 80, 180, 1);
+        background: -moz-linear-gradient(left, rgba(62, 80, 180, 1) 0%, rgba(72, 194, 255, 1) 100%);
+        background: -webkit-gradient(left top, right top, color-stop(0%, rgba(62, 80, 180, 1)), color-stop(100%, rgba(72, 194, 255, 1)));
+        background: -webkit-linear-gradient(left, rgba(62, 80, 180, 1) 0%, rgba(72, 194, 255, 1) 100%);
+        background: -o-linear-gradient(left, rgba(62, 80, 180, 1) 0%, rgba(72, 194, 255, 1) 100%);
+        background: -ms-linear-gradient(left, rgba(62, 80, 180, 1) 0%, rgba(72, 194, 255, 1) 100%);
+        background: linear-gradient(to right, rgba(62, 80, 180, 1) 0%, rgba(72, 194, 255, 1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e50b4', endColorstr='#48c2ff', GradientType=1);
+    }
+
+    .x-card-code small {
+        font-size: 13px;
+        opacity: .6;
+        text-spacing: 1;
+    }
+
+    .x-card-code h2 {
+        font-size: 40px;
+        margin: 0px;
+    }
+
+    .x-text-wrap {
+        width: 100%;
+        float: left;
+        /*font-family: 'Roboto', sans-serif;*/
+        margin-top: 50px;
+        line-height: 24px;
+        text-align: justify;
+    }
+
+    .x-50 {
+        width: 50%;
+        float: left;
+    }
+
+    .x-3e50b4 {
+        color: #3e50b4;
+    }
+
+    .x-3b3b3b {
+        color: #3b3b3b;
+    }
+
+    .x-pp {
+        margin: 0px;
+        font-size: 14px;
+    }
+
+    .x-47b5f7 {
+        color: #47b5f7;
+    }
+
+    .x-btn-share {
+        width: 100%;
+        float: left;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .x-btn {
+        padding: 0px 20px;
+        background-color: #ccc;
+        border-radius: 3px;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        text-decoration: none;
+        color: #fff !important;
+        display: inline-block;
+        height: 36px;
+        line-height: 36px;
+        margin-bottom: 5px;
+    }
+
+    .x-f {
+        background-color: #3b5998;
+    }
+
+    .x-t {
+        background-color: #00aced;
+    }
+
+    .x-g {
+        background-color: #d14836;
+    }
+
+    .x-img-respon {
+        width: 100%;
+        max-height: 270px;
+    }
+
+    .p-r-30 {
+        width: calc( 50% - 30px);
+        padding-right: 30px;
+    }
+
+    @media screen and ( max-width:500px) {
+        .x-contaner {
+            width: 80% !important;
+            margin: 10% auto;
+        }
+        .x-50 {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .x-btn {
+            width: 100%;
+            padding: 0px;
+        }
+    }
+
+    /* ----- */
+a{
+ text-decoration: none;
+}
+a.md-default-theme:not(.md-button), a:not(.md-button) { color: rgb(255, 229, 43); }
+    /*--Default--*/
+</style>
+
+<div class="al-wrap" ng-if="language == 'vn'">
+    <div class="x-contaner">
+        <h1 class="x-contaner-h1">Self-Check App PLUS HIQ Standards Bundle (from $99 / month)
+        </h1>
+        <div class="x-text-wrap margin00">
+            <p class="x-pp x-3b3b3b">
+                Get your own set of Hotel IQ’s recommended Standards for each area in your hotel, then check them with your smartphones and
+                tablets. Use the user-friendly Dashboard and Reporting portal and make progressive improvements to your Guest
+                Experience.
+            </p>
+        </div>
+        <div class="x-text-wrap">
+
+            <div class="x-50">
+                <p class="x-pp x-3b3b3b" style="    text-align: start;">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <b>Self-Check App (2 users, monthly) or “Pay-As-You-Go” Checks</b>
+                    <br>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <b>Q Dashboard & Reporting Portal access (2 users)</b>
+                    <br>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <b>Offline (.xls) Action Plans for each Zone after every Self-Check</b>
+                    <br>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <b>Guest Experience & Quality Standards (3/4/5 star) for 5 Essential Zones:</b>
+                    <br>
+                    <div style="    padding-left: 18px;
+    font-size: 14px;
+    text-align: start;">
+    <ul>
+<li>Front Office (Check-in/Check-out/Guest Services)</li>
+<li>Guest Room (Quality, Set-up, Housekeeping)</li>
+<li>Breakfast (Service, Set-up, Product & Venue)</li>
+<li>Leisure (Pool and Gym Quality & Set-Up)</li>
+<li>Guest Access Areas (Lobby, Corridors, Elevators, Hotel Grounds)</li>
+    </ul>
+                            
+
+                    </div>
+                </p>
+            </div>
+            <div class="x-50 p-r-30">
+                <img class="x-img-respon" src="img/Promotion/Standards + App bundle.gif" alt="a">
+            </div>
+        </div>
+
+
+        <div class="x-text-wrap">
+            <div style="width:100%;color: #3e50b4">
+            </div>
+            <div style="width:100%;">
+                <p class="x-pp x-3b3b3b" style="    margin-top: -15px !important;
+    text-align: center;
+    background: #1b2144;
+    color: #e2e22e;
+    padding: 20px;
+ font-size: 20px;">
+<a href="http://hoteliq.com/contact-us/" target="_blank">
+                    CONTACT HOTEL IQ AND QUOTE THE PROMO CODE TODAY!
+</a>
+                </p>
+            </div>
+        </div>
+        <div class="cl"></div>
+    </div>
+</div>
+<div class="al-wrap" ng-if="language == 'en'">
+<div class="x-contaner">
+    <h1 class="x-contaner-h1">Self-Check App PLUS HIQ Standards Bundle (from $99 / month)
+    </h1>
+    <div class="x-text-wrap margin00">
+        <p class="x-pp x-3b3b3b">
+            Get your own set of Hotel IQ’s recommended Standards for each area in your hotel, then check them with your smartphones and
+            tablets. Use the user-friendly Dashboard and Reporting portal and make progressive improvements to your Guest
+            Experience.
+        </p>
+    </div>
+    <div class="x-text-wrap">
+
+        <div class="x-50">
+            <p class="x-pp x-3b3b3b" style="    text-align: start;">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                <b>Self-Check App (2 users, monthly) or “Pay-As-You-Go” Checks</b>
+                <br>
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                <b>Q Dashboard & Reporting Portal access (2 users)</b>
+                <br>
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                <b>Offline (.xls) Action Plans for each Zone after every Self-Check</b>
+                <br>
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                <b>Guest Experience & Quality Standards (3/4/5 star) for 5 Essential Zones:</b>
+                <br>
+                <div style="    padding-left: 18px;
+    font-size: 14px;
+    text-align: start;">
+<ul>
+    <li>Front Office (Check-in/Check-out/Guest Services)</li>
+    <li>Guest Room (Quality, Set-up, Housekeeping)</li>
+    <li>Breakfast (Service, Set-up, Product & Venue)</li>
+    <li>Leisure (Pool and Gym Quality & Set-Up)</li>
+    <li>Guest Access Areas (Lobby, Corridors, Elevators, Hotel Grounds)</li>
+</ul>
+
+                </div>
+            </p>
+        </div>
+        <div class="x-50 p-r-30">
+            <img class="x-img-respon" src="img/Promotion/Standards + App bundle.gif" alt="a">
+        </div>
+    </div>
+
+
+    <div class="x-text-wrap">
+        <div style="width:100%;color: #3e50b4">
+        </div>
+        <div style="width:100%;">
+            <p class="x-pp x-3b3b3b" style="    margin-top: -15px !important;
+    text-align: center;
+    background: #1b2144;
+    color: #e2e22e;
+    padding: 20px;
+ font-size: 20px;">
+<a href="http://hoteliq.com/contact-us/" target="_blank">
+                CONTACT HOTEL IQ AND QUOTE THE PROMO CODE TODAY!
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="cl"></div>
+</div>
+</div>

@@ -1,0 +1,278 @@
+<style>
+    .fabToolbardemoBasicUsage md-fab-toolbar.md-left md-fab-trigger.align-with-text {
+        left: 7px;
+    }
+    
+    md-input-container.md-default-theme label,
+    md-input-container.md-default-theme .md-placeholder {
+        color: grey !important;
+        font-weight: bold !important;
+    }
+    
+    .text {
+        display: inline;
+        padding: .0em .0em .0em;
+        font-weight: 600;
+        text-transform: none;
+        word-break: break-all;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+    
+    .disabled {
+        background: #dddddd;
+    }
+    
+    .textDiabled {
+        text-decoration: line-through
+    }
+    
+    .container {
+        font-size: 16px;
+        line-height: 16px;
+        height: 32px;
+        overflow: hidden;
+    }
+    
+    .show {
+        overflow: visible;
+        height: auto;
+    }
+    
+    .test {
+        width: 11em;
+        border: 1px solid #eee;
+        word-wrap: break-word;
+    }
+    
+    .Genaral {
+        min-height: 550px !important;
+        max-height: 1000px !important;
+    }
+    .child-padding0 md-list-item{
+        padding-left:0px !important;
+        max-height: 35px !important; 
+        min-height: 35px !important;
+    }
+    .child-padding0 md-list-item:last-child {
+        min-height: 100px !important;
+        max-height: 100px !important;
+    }
+    .child-padding0 md-list-item ._md-secondary-container{
+        max-height: 35px !important; 
+    }
+</style>
+<md-card class="custom-card">
+    <md-card-title class="padding-bottom0-important">
+        <md-card-title-text flex="100">
+            <span class="md-headline">
+                {{'STAY_INFORMATION' | translate}}
+                <md-icon class="bt-add" md-svg-src="img/ic_stopwatch.svg" ng-click="rrDetailCtrl.processAmendStay()" ng-if="rrDetailCtrl.room.BookingStatus !== 'CHECKOUT' && rrDetailCtrl.room.BookingStatus !== 'CANCELLED'">
+                </md-icon>
+            </span>
+        </md-card-title-text>
+    </md-card-title>
+    <!--<section style="">
+        <div layout="row" layout-align="space-between center" style="">
+            <span class="md-toolbar-tools" flex="">
+                <h2>
+                    {{'STAY_INFORMATION' | translate}}
+                </h2>
+            </span>
+            <div layout="column" layout-align="center center" ng-if="rrDetailCtrl.room.BookingStatus !== 'CHECKOUT' && rrDetailCtrl.room.BookingStatus !== 'CANCELLED'" style="margin: auto 0px;">
+                <md-button aria-label="Room Edit" class="md-icon-button launch" ng-click="rrDetailCtrl.processAmendStay()" ng-if="rrDetailCtrl.room.BookingStatus !== 'CHECKOUT' && rrDetailCtrl.room.BookingStatus !== 'CANCELLED'" style="padding: 0px; margin: 0px;">
+                    <md-icon md-svg-src="img/ic_stopwatch.svg">
+                    </md-icon>
+                </md-button>
+                <span style="display: inline;
+                    padding: .2em .6em .3em;
+                    font-size: 50%;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    line-height: 1;
+                    text-align: left;
+                    white-space: nowrap;
+                    vertical-align: baseline;
+                    border-radius: .25em;">
+                    {{'AMEND_STAY' | translate}}
+                </span>
+            </div>
+        </div>
+    </section>-->
+    <md-card-content class="md-default-theme Genaral" >
+        <span ng-if="rrDetailCtrl.applyPastCheckOut">
+            ({{'ALREADY_APPLY_PAST_CHECKOUT' | translate}})
+        </span>
+        <span ng-if="rrDetailCtrl.pastCheckOutReason">
+            {{ rrDetailCtrl.pastCheckOutReason }}
+        </span>
+        <md-list class="child-padding0" >
+            <md-list-item>
+                <p>
+                    {{ 'RES_NO' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: 500;">
+                    {{ rrDetailCtrl.reservationNumber }}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="rrDetailCtrl.CMBookingId">
+                <p>
+                    {{ 'BOOKING_ID' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: 500;">
+                    {{ rrDetailCtrl.CMBookingId }} ({{ rrDetailCtrl.CMChannelRef }})
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="rrDetailCtrl.room.BookingStatus == 'CANCELLED'">
+                <p style="font-weight: bold; color: #f44336;">
+                    {{ 'CANCELLED' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: bold; color: #f44336;">
+                    {{ rrDetailCtrl.room.CancelReason }}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="rrDetailCtrl.roomInfo.RoomId > 0">
+                <p>
+                    {{ 'ROOM' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: 500;">
+                    {{ rrDetailCtrl.roomInfo.RoomName }}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="rrDetailCtrl.roomInfo.RoomId === 0">
+                <p>
+                    {{ 'ROOM' | translate }}
+                </p>
+                <p class="md-secondary" layout="row" layout-align="end center" style="font-weight: 500;font-style: italic;">
+                    <md-icon md-svg-src="img/icons/ic_add_circle_outline_48px.svg" ng-click="rrDetailCtrl.processAssignRoom()" ng-if="rrDetailCtrl.room.BookingStatus !== 'CANCELLED'"
+                        style="cursor: pointer;">
+                    </md-icon>
+                    {{ 'NOT_ASSIGNED' | translate }}
+                </p>
+            </md-list-item>
+            <md-list-item>
+                <p>
+                    {{ 'ROOM_TYPE' | translate }}
+                </p>
+                <p class="md-secondary">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="rrDetailCtrl.processAssignRoom()" ng-if="!rrDetailCtrl.room.RoomId && (rrDetailCtrl.room.BookingStatus === 'BOOKED' || rrDetailCtrl.room.BookingStatus === 'NOSHOW')"
+                        style="cursor: pointer;">
+                    </md-icon>
+                    {{ rrDetailCtrl.roomTypeInfo.RoomTypeName | translate}}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="rrDetailCtrl.room.RoomPriceId">
+                <p>
+                    {{ 'PRICE_RATES' | translate }}
+                </p>
+                <p class="md-secondary">
+                    {{ rrDetailCtrl.planInfo.RoomPriceName | translate}}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="rrDetailCtrl.room.RoomPriceId && rrDetailCtrl.room.BookingStatus !== 'CHECKOUT' && rrDetailCtrl.room.BookingStatus !== 'CANCELLED'">
+                <p>
+                    {{ 'PRICE' | translate }}
+                </p>
+                <p class="md-secondary" ng-if="rrDetailCtrl.planInfo.UseHourlyPrice == true || rrDetailCtrl.planInfo.UseDayNightPrice == true">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="rrDetailCtrl.processEditPrice()" style="cursor: pointer;">
+                    </md-icon>
+                    {{ rrDetailCtrl.priceIfHasHourlyOrDayNight | currency}}
+                </p>
+                <p class="md-secondary" ng-if="rrDetailCtrl.planInfo.UseHourlyPrice == false && rrDetailCtrl.planInfo.UseDayNightPrice == false">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="rrDetailCtrl.processEditPrice()" style="cursor: pointer;">
+                    </md-icon>
+                    {{ rrDetailCtrl.priceIfHasNoHourlyAndDayNight | currency}}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="!rrDetailCtrl.room.RoomPriceId">
+                <p>
+                    {{ 'PRICE_RATES' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: 500;font-style: italic;">
+                    {{ 'NOT_ASSIGNED' | translate }}
+                    <md-icon md-svg-src="img/icons/ic_add_circle_outline_48px.svg" ng-click="rrDetailCtrl.assignRate()" ng-if="rrDetailCtrl.room.BookingStatus !== 'CANCELLED'" style="cursor: pointer;">
+                    </md-icon>
+                </p>
+            </md-list-item>
+            <md-list-item>
+                <p>
+                    {{ 'ARRIVAL' | translate }}
+                </p>
+                <p class="md-secondary">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="rrDetailCtrl.processEditCheckInTime()" ng-if="(user.Roles.indexOf('ROLE_HOTEL_OWNER') >= 0 || user.Roles.indexOf('ROLE_SYS_ADMIN') >= 0 || user.Roles.indexOf('ROLE_HOTEL_MANAGER') >=0) && rrDetailCtrl.room.BookingStatus !== 'CHECKOUT' && rrDetailCtrl.room.BookingStatus !== 'CANCELLED' && rrDetailCtrl.room.BookingStatus !== 'BOOKED' && rrDetailCtrl.room.BookingStatus !== 'NOSHOW'"
+                        style="cursor: pointer;">
+                    </md-icon>
+                    {{ rrDetailCtrl.room.ArrivalDate | date:'dd/MM/yyyy, HH:mm' }}
+                </p>
+            </md-list-item>
+            <md-list-item>
+                <p>
+                    {{ 'DEPARTURE' | translate }}
+                </p>
+                <p class="md-secondary">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="rrDetailCtrl.processCheckOutInThePast()" ng-if="(user.Roles.indexOf('ROLE_HOTEL_OWNER') >= 0 || user.Roles.indexOf('ROLE_SYS_ADMIN') >= 0 || user.Roles.indexOf('ROLE_HOTEL_MANAGER') >=0) && rrDetailCtrl.room.BookingStatus !== 'CHECKOUT' && rrDetailCtrl.room.BookingStatus !== 'CANCELLED' && rrDetailCtrl.room.BookingStatus !== 'BOOKED' && rrDetailCtrl.room.BookingStatus !== 'NOSHOW'"
+                        style="cursor: pointer;">
+                    </md-icon>
+                    {{ rrDetailCtrl.room.DepartureDate | date:'dd/MM/yyyy, HH:mm' }}
+                </p>
+            </md-list-item>
+            <md-list-item>
+                <p>
+                    {{ 'ADULT' | translate }}
+                </p>
+                <p class="md-secondary">
+                    {{ rrDetailCtrl.room.Adults }}
+                </p>
+            </md-list-item>
+            <md-list-item>
+                <p>
+                    {{ 'CHILDREN' | translate }}
+                </p>
+                <p class="md-secondary">
+                    {{ rrDetailCtrl.room.Child }}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="rrDetailCtrl.room.Foc === true">
+                <p>
+                    {{ 'FREE_OF_CHARGE' | translate }}
+                </p>
+                <p class="md-secondary" style="font-weight: bold; color: #f44336;">
+                    {{'FREE' | translate}}
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="rrDetailCtrl.room.DiscountPercentage > 0">
+                <p>
+                    {{ 'PERCENT_OFF' | translate }}
+                </p>
+                <p class="md-secondary">
+                    {{rrDetailCtrl.room.DiscountPercentage}} (%)
+                </p>
+            </md-list-item>
+            <md-list-item ng-if="rrDetailCtrl.room.DiscountFlat > 0">
+                <p>
+                    {{ 'MONEY_OFF' | translate }}
+                </p>
+                <p class="md-secondary">
+                    {{rrDetailCtrl.room.DiscountFlat | currency}}
+                </p>
+            </md-list-item>
+            <md-list-item>
+                <p>
+                    {{ 'NOTE' | translate }}
+                </p>
+                <p class="md-secondary">
+                    <md-icon md-svg-src="img/icons/ic_edit_24px.svg" ng-click="rrDetailCtrl.processEditNote()" ng-if="rrDetailCtrl.room.BookingStatus === 'CHECKIN' || rrDetailCtrl.room.BookingStatus === 'BOOKED' "
+                        style="cursor: pointer;">
+                    </md-icon>
+                </p>
+            </md-list-item>
+            <md-list-item>
+                <textarea columns="1" ng-bind="rrDetailCtrl.room.Note" ng-disabled="true" rows="5" style="width: 100%; border: none;">
+                </textarea>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+</md-card>

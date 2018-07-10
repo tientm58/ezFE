@@ -1,0 +1,553 @@
+<style>
+  legend h3 {
+    color: rgb(126, 128, 130);
+    font-weight: 200px;
+  }
+
+  .field_set {
+    /*border-color: rgb(3,155,229);*/
+    background-color: aliceblue;
+    box-shadow: 0px 0px 1px 0px #656565;
+    border-style: solid;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-width: thin;
+    min-height: 400px;
+  }
+
+  .field_set p {
+    padding: 5px;
+  }
+
+  md-list-item {
+    max-height: 40px;
+    margin: 0px;
+  }
+
+  md-list-item>p {
+    font-size: 15px;
+  }
+
+  /* table thead {background: antiquewhite;} */
+
+  .addItem>div>._md-subheader-content {
+    flex-flow: row wrap;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 22px;
+    text-align: left;
+    position: relative;
+    left: -15px;
+    bottom: 5px;
+  }
+
+  .addItem {
+    max-height: 60px;
+  }
+
+  .addItem.md-subheader {
+    background: white;
+    color: rgb(63, 81, 181);
+  }
+
+  .addInv {
+    width: 100%;
+    display: block;
+  }
+
+  .addInv>div:first-child {
+    border-bottom: 2px solid #2a2ea5;
+  }
+
+  md-card {
+    max-height: 320px !important;
+  }
+
+  /*.addInv{transition: all linear 0.5s;};
+  .addInv.ng-hide{opacity: 0;};*/
+
+  .md-subheader {
+    color: white;
+    font-weight: bold;
+  }
+
+  /*.formInfo{border-bottom: 2px solid #f35800;}*/
+
+  .tabsDetail {
+    box-shadow: 0px 0px 1px 0px #656565;
+  }
+
+  .bgOpacity {
+    opacity: 0.3;
+  }
+
+  .progressCircular {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+
+  .bias {
+    margin: 0px;
+    font-weight: bold;
+    padding: 0px !important;
+  }
+
+  .date-picker-row,
+  .time-picker-row {
+    margin-left: -15px;
+    position: relative;
+    min-height: 60px;
+  }
+
+  .date-picker-row label {
+    position: absolute;
+    top: -10px;
+    left: 50px;
+    color: rgba(0, 0, 0, 0.541176);
+    font-size: 12px;
+  }
+
+  .time-picker-row label {
+    position: absolute;
+    top: 10px;
+    left: 50px;
+    color: rgba(0, 0, 0, 0.541176);
+    font-size: 12px;
+  }
+
+  .date-picker-row .md-datepicker-input-container {
+    margin-left: 0;
+  }
+
+  .padding-bottom50 {
+    padding-bottom: 50px;
+  }
+
+  .height100 {
+    /* height: 100% !important; */
+    /* min-height: 100% !important; */
+  }
+
+  .box-header {
+    padding-left: 17px;
+    padding-right: 17px;
+    /*background: rgba(242, 242, 242, 0.35) !important;*/
+  }
+
+  .max-height50,
+  .max-height50 div {
+    max-height: 50px !important;
+    min-height: 50px !important;
+  }
+
+  .sub-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(58, 56, 56, 0.71);
+    line-height: 50px;
+    /*margin-left: 17px !important;*/
+  }
+
+  .inventoryReject {
+    text-decoration-line: line-through !important;
+  }
+
+  .inventoryActive {
+    color: blue;
+    font-weight: bold;
+  }
+
+  .invoiceReff {
+    position: relative;
+  }
+
+  .invoiceReff button {
+    position: absolute;
+    left: 0px;
+  }
+
+  .marginL10p {
+    margin-left: 10px !important;
+  }
+
+  .marginR10p {
+    margin-right: 10px !important;
+  }
+
+  .width15p {
+    width: 15%;
+  }
+
+  .width30p {
+    width: 30%;
+  }
+
+  .width10p {
+    width: 10%;
+  }
+    .top-page {
+    background: url(img/bg-header.png);
+    background-repeat: no-repeat;
+    min-height: 55px;
+    border-radius: 0 !important;
+    background-size: cover;
+  }
+</style>
+<md-content class="padding-bottom50">
+  <section layout-margin layout="row" layout-sm="column" layout-align="end center" layout-wrap ng-if="!self.inventory.showFormAddAudit">
+    <md-button class="btn-c md-raised {{self.inventory.colorButton}}" layout-align="end center" ng-click="action.inventory.showFormAddAudit()">
+      <md-icon md-svg-src="{{self.inventory.iconInvTextButton}}"></md-icon>&nbsp;{{self.inventory.invTextButton}}
+    </md-button>
+  </section>
+  <div class="progressCircular" ng-show="self.inventory.isProcess" layout="row" layout-sm="column" layout-align="space-around"
+    ng-if="!self.inventory.showFormAddAudit">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+  <section layout="column" layout-sm="column" layout-align="center start" id="listInv">
+    <md-table-container ng-if="!self.inventory.showFormAddAudit">
+      <table md-table md-progress="promiseInventories">
+        <thead class="md-table-progress">
+          <tr>
+            <th colspan="12">
+              <md-progress-linear ng-show="deferred()" md-mode="indeterminate" aria-valuemin="0" aria-valuemax="100" role="progressbar"
+                aria-hidden="true" class="ng-hide" style="">
+                <div class="md-container md-mode-indeterminate">
+                  <div class="md-dashed"></div>
+                  <div class="md-bar md-bar1"></div>
+                  <div class="md-bar md-bar2"></div>
+                </div>
+              </md-progress-linear>
+            </th>
+          </tr>
+        </thead>
+        <thead md-head md-order="query.order" class="topHear" md-on-reorder="getDesserts">
+          <tr md-row class="topHear">
+            <th md-column md-order-by="nameToLower" class="width15p text-center">
+              <md-icon md-svg-src="img/icons/ic_credit_card_24px.svg"></md-icon>
+              <span>{{'INVENTORY_NO' | translate}}</span>
+            </th>
+            <th md-column md-order-by="calories.value" class="width15p text-center">
+              <md-icon md-svg-src="img/icons/ic_access_time_24px.svg"></md-icon>
+              <span>{{'AUDIT_DATE' | translate}}</span>
+            </th>
+            <th md-column class="width15p text-center">
+              <md-icon md-svg-src="img/icons/ic_access_time_24px.svg"></md-icon>
+              <span>{{'AUDIT_TIME' | translate}}</span>
+            </th>
+            <th md-column class="width15p text-center">
+              <md-icon md-svg-src="img/icons/ic_access_time_24px.svg"></md-icon>
+              <span>{{'AUDIT_TO_DATE' | translate}}</span>
+            </th>
+            <th md-column class="width30p text-center">
+              <md-icon md-svg-src="img/icons/ic_label_outline_24px.svg"></md-icon>
+              <span>{{'PURPOSE' | translate}}</span>
+            </th>
+            <th md-column class="width10p text-right" style="min-width: 120px;width: 120px;"></th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="dessert in self.inventory.data track by $index">
+            <td ng-class="{'inventoryReject': dessert.Status == 3}" md-cell class="width15p text-center"><a ng-click="action.inventory.viewInventoryDetail($event, dessert)" style="cursor: pointer">{{dessert.AuditNo}}</a></td>
+            <td ng-class="{'inventoryReject': dessert.Status == 3}" md-cell class="width15p text-center">{{dessert.DateAudit | date:"dd/MM/yyyy"}}</td>
+            <td ng-class="{'inventoryReject': dessert.Status == 3}" md-cell class="width15p text-center">{{dessert.TimeAudit}}</td>
+            <td ng-class="{'inventoryReject': dessert.Status == 3}" md-cell class="width15p text-center">{{dessert.AuditToDate | date:"dd/MM/yyyy"}}</td>
+            <td ng-class="{'inventoryReject': dessert.Status == 3}" md-cell class="width30p text-center">{{dessert.Purpose}}</td>
+            <td md-cell class="width10p text-right">
+              <md-button ng-disabled="dessert.Status == 3" class="md-mini md-icon-button padding0 margin00" ng-click="action.inventory.viewInventoryDetail($event, dessert)"
+                aria-label="viewDetail">
+                <md-tooltip md-direction="left">{{'INVENTORY_DETAIL' | translate}}</md-tooltip>
+                <md-icon md-svg-src="img/icons/ic_remove_red_eye_24px.svg"></md-icon>
+              </md-button>
+              <md-button ng-disabled="dessert.Status == 3" class="md-mini md-icon-button padding0 margin00" ng-click="action.inventory.deleteInventory($event, dessert)"
+                aria-label="delete">
+                <md-tooltip md-direction="left">{{'INVENTORY_DELETE' | translate}}</md-tooltip>
+                <md-icon md-svg-src="img/icons/ic_delete_24px.svg"></md-icon>
+              </md-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <md-table-pagination ng-if="!self.inventory.showFormAddAudit" md-label="{{pagerInventories.config.label}}" md-limit="pagerInventories.query.PageSize"
+      md-limit-options="pagerInventories.config.limitPagination" md-page="pagerInventories.query.PageNumber" md-total="{{pagerInventories.config.totalItems}}"
+      md-on-paginate="pagerInventories.bindingData" md-page-select>
+    </md-table-pagination>
+    <md-divider></md-divider ng-if="!self.inventory.showFormAddAudit">
+    <div class="addInv" ng-show="self.inventory.showFormAddAudit">
+      
+
+      <md-toolbar id="addInv" md-scroll-shrink class="top-page md-primary md-default-theme md-whiteframe-z1">
+        <div class="md-toolbar-tools">
+          <div layout="row" layout-sm="column" style="width:100%;" layout-align="space-between center">
+            <div layout="row">
+              <md-icon md-svg-src="img/icons/ic_payment_48px.svg"></md-icon>&nbsp;&nbsp;
+              <h2 md-truncate flex class="form-title">
+                <b ng-show="self.inventory.showProcess">{{'ADD_INVENTORY' | translate}}</b>
+                <b ng-show="!self.inventory.showProcess">{{'DETAIL' | translate}} [{{self.inventory.currentInventory.inventoryNum}}]</b>
+              </h2>
+            </div> 
+          </div>
+        </div>
+      </md-toolbar>
+
+      <div layout="row" layout-sm="column" layout-xs="column" class="formInfo">
+        <md-card flex-gt-sm="55" flex-sm="100" flex-xs="100" flex>
+
+          <div class="box-header">
+            <div layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+              <div flex="85" flex-xs="75">
+                <span class="sub-title">{{'GENERAL_INFOMATION' | translate}}</span>
+              </div>
+              <div>
+              </div>
+            </div>
+            <md-divider></md-divider>
+          </div>
+          <md-card-content>
+            <md-input-container flex="100" class="md-block" flex-gt-xs>
+              <label>{{'PURPOSE' | translate}}</label>
+              <input ng-model="self.inventory.currentInventory.target">
+            </md-input-container>
+            <div layout="row" layout-align="start center" layout-wrap>
+              <md-input-container flex="70" flex-sm="100" flex-xs="100" class="md-block" flex-gt-xs>
+                <label>{{'INVOICE_REFERENCE' | translate}}</label>
+                <input ng-model="self.inventory.invoiceReference.InvoiceId" ng-disabled="true">
+                <md-button style="margin: 6px 0px;" ng-show="self.inventory.invoiceReference.InvoiceId" class="btn-c md-raised md-primary"
+                  ng-click="action.inventory.seeInvReference()">
+                  <md-icon md-svg-src="img/icons/ic_chevron_right_24px.svg"></md-icon>&nbsp;{{'DETAIL' | translate}}
+                </md-button>
+              </md-input-container>
+              <div flex="30" flex-sm="100" flex-xs="100" flex-gt-sm class="date-picker-row">
+                <label for="" translate>{{'AUDIT_TO_DATE' | translate}}</label>
+                <md-datepicker ng-model="self.inventory.currentInventory.endDate" md-placeholder=""></md-datepicker>
+              </div>
+
+            </div>
+          </md-card-content>
+        </md-card>
+
+        <md-card flex-gt-sm="55" flex-sm="100" flex-xs="100" flex>
+          <div class="box-header">
+            <div layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+              <div flex="85" flex-xs="75">
+                <span class="sub-title">{{'VOUCHER' | translate}}</span>
+              </div>
+              <div>
+              </div>
+            </div>
+            <md-divider></md-divider>
+          </div>
+          <md-card-content>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>{{'INVENTORY_NO' | translate}}</label>
+              <input ng-model="self.inventory.currentInventory.inventoryNum">
+            </md-input-container>
+            <div layout-gt-xs="row" layout-align="space-between center" layout-wrap>
+              <div flex-gt-sm class="date-picker-row">
+                <label for="" translate>{{'AUDIT_DATE' | translate}}</label>
+                <md-datepicker ng-model="self.inventory.currentInventory.auditDate" md-placeholder="" md-open-on-focus></md-datepicker>
+              </div>
+              <div flex-gt-sm class="time-picker-row">
+                <label for="" translate>{{'AUDIT_TIME' | translate}}</label>
+                <mdp-time-picker ng-model="self.inventory.currentInventory.auditTime" mdp-auto-switch="true">
+                </mdp-time-picker>
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
+      </div>
+      <div class="marginL10p marginR10p">
+        <md-tabs md-dynamic-height md-border-bottom class="tabsDetail gray-box-h1">
+          <md-tab label="{{'DETAIL' | translate}}">
+            <md-content class="md-padding">
+              <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+                <md-table-container style="width: 100%;">
+                  <table md-table class="table">
+                    <thead md-head md-order="query.order">
+                      <tr md-row class="topHear">
+                        <th md-column>
+                          <span>{{'STT' | translate}}</span>
+                        </th>
+                        <th md-column>
+                          <span>{{'PRICE' | translate}}</span>
+                        </th>
+                        <th md-column>
+                          <span>{{'QUANTITY' | translate}}</span>
+                        </th>
+                        <th md-column>
+                          <span>{{'THE_AMOUNT' | translate}}</span>
+                        </th>
+                        <th md-column>
+                          <span>{{'DESCRIPTION' | translate}}</span>
+                        </th>
+                        <td md-column></td>
+                      </tr>
+                    </thead>
+                    <tbody md-body ng-repeat="curr in self.inventory.dataToAddAudit | filter: action.inventory.filterData track by $index">
+                      <tr md-row>
+                        <td md-cell>I</td>
+                        <td md-cell>{{'CASH_BALANCE' | translate}} ({{curr.MoneyName.toUpperCase() || ""}})</td>
+                        <td md-cell></td>
+                        <td md-cell>{{curr.Balance | currency:"":self.indexCurrencies[curr.MoneyName].Currencies.MinorUnit}}</td>
+                        <td md-cell></td>
+                        <td md-cell></td>
+                      </tr>
+                      <tr md-row style="background: antiquewhite;">
+                        <td md-cell>II</td>
+                        <td md-cell>{{'REAL_AUDIT_MONEY' | translate}} ({{curr.MoneyName.toUpperCase() || ""}})</td>
+                        <td md-cell></td>
+                        <td md-cell>{{(action.inventory.getTotalAmount(curr.MoneyName) / action.inventory.getExchangeRate(curr.MoneyName))
+                          | currency:"":self.indexCurrencies[curr.MoneyName].Currencies.MinorUnit}}</td>
+                        <td md-cell></td>
+                        <td md-cell class="text-right">
+                          <md-button class="btn-c md-raised md-primary margin00" ng-click="action.inventory.addCheckRealAudit(curr.MoneyName)">
+                            <md-icon md-svg-src="img/icons/ic_add_48px.svg" class="white-icon"></md-icon>&nbsp;{{'ADD' | translate}}
+                          </md-button>
+                        </td>
+                      </tr>
+                      <tr md-row ng-repeat="audit in action.inventory.checkAuditData(curr.MoneyName) track by $index" style="background: #f2f2f2;">
+                        <td md-cell></td>
+                        <td md-cell layout="row">
+                          <md-input-container style="position: relative;top:10px;" class="md-block" flex-gt-xs>
+                            <label>{{'ENTER_PRICE' | translate}}</label>
+                            <input type="text" ui-number-mask="action.inventory.getMinorUnitCurrency(curr.MoneyName)" class="ng-pristine ng-valid md-input ng-empty ng-touched" aria-invalid="false"
+                              required ui-negative-number ng-model="audit.price" ng-change="action.inventory.calcAmount(audit)"
+                              min="0" max="99999999999999999999999999" />
+                          </md-input-container>
+                        </td>
+                        <td md-cell>
+                          <md-input-container style="position: relative;top:10px;" class="md-block" flex-gt-xs>
+                            <label>{{'ENTER_QA' | translate}}</label>
+                            <input type="number" ng-model="audit.quantity" ng-change="action.inventory.calcAmount(audit)" min="0" max="99999999999999999999999999"
+                            />
+                          </md-input-container>
+                        </td>
+                        <td md-cell>
+                          <md-input-container style="position: relative;top:10px;" class="md-block" flex-gt-xs>
+                            <input placeholder="{{'ENTER_THE_AMOUNT' | translate}}" type="text" ui-number-mask="action.inventory.getMinorUnitCurrency(curr.MoneyName)" class="ng-pristine ng-valid md-input ng-empty ng-touched"
+                              aria-invalid="false" required ui-negative-number ng-model="audit.amount" min="0" max="99999999999999999999999999">
+                          </md-input-container>
+                        </td>
+                        <td md-cell>
+                          <md-input-container class="md-block" style="position: relative;top:10px;" flex-gt-xs>
+                            <label>{{'DESCRIPTION' | translate}}</label>
+                            <input ng-model="audit.description">
+                          </md-input-container>
+                        </td>
+                        <td md-cell>
+                          <md-button class="btn-c md-raised md-warn" ng-click="action.inventory.removeCheckRealAudit(curr.MoneyName, audit)">
+                            <md-icon md-svg-src="img/icons/ic_delete_48px.svg"></md-icon>&nbsp;{{'DELETE' | translate}}
+                          </md-button>
+                        </td>
+                      </tr>
+                      <tr md-row>
+                        <td md-cell>IV</td>
+                        <td md-cell>{{'DIFFIRENCE' | translate}}</td>
+                        <td md-cell></td>
+                        <td md-cell class="bias">{{ (action.inventory.getBias(curr)) | currency }}</td>
+                        <td md-cell></td>
+                        <td md-cell></td>
+                      </tr>
+
+                    </tbody>
+                    <tfoot md-foot>
+                      <tr md-row>
+                        <td md-cell></td>
+                        <td md-cell colspan="2"></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </md-table-container>
+
+                <section class="balance-container " layout="row" layout-align="start center" layout-wrap style="width:100%;">
+                  <div flex="45"></div>
+                  <div flex-sm="100" flex-xs="100" flex="55">
+                    <md-whiteframe class="box_sumtotal" layout="column" layout-align="start start">
+                      <div layout="row" layout-align="space-between center">
+                        <label>
+                          <md-icon md-svg-src="img/icons/ic_arrow_forward_48px.svg"></md-icon>&nbsp;{{'LACK' | translate}} </label>
+                        <label>{{ (action.inventory.getTotalDiff()) | currency }}</label>
+                      </div>
+                      <md-divider></md-divider>
+                      <div layout="row" layout-align="space-between center">
+                        <label></label>
+                        <label>
+                          <md-button class="btn-c md-raised md-primary" ng-click="action.inventory.process()" ng-show="self.inventory.showProcess">
+                            <md-icon md-svg-src="img/icons/ic_done_48px.svg"></md-icon>&nbsp;{{'PROCESS' | translate}}
+                          </md-button>
+                          <md-button class="btn-c md-raised md-warn" ng-click="action.inventory.hiddenForm()">
+                            <md-icon md-svg-src="img/icons/ic_cancel_48px.svg"></md-icon>&nbsp;{{'CANCEL' | translate}}
+                          </md-button>
+                        </label>
+                      </div>
+
+                    </md-whiteframe>
+                  </div>
+                </section>
+
+              </section>
+            </md-content>
+          </md-tab>
+          <md-tab label="{{'PARTICIPANT' | translate}}">
+            <md-content layout-padding>
+              <section layout="row" layout-align="start center" layout-wrap>
+                <md-table-container style="width:100%;">
+                  <table md-table>
+                    <thead md-head md-order="query.order">
+                      <tr md-row class="topHear">
+                        <th md-column>
+                          <span>{{'FULL_NAME' | translate}}</span>
+                        </th>
+                        <th md-column>
+                          <span>{{'TITLES' | translate}}</span>
+                        </th>
+                        <th md-column >
+                          {{'REPRESENT' | translate}}
+                        </th>
+                        <th md-column class="padding0 text-right">
+                          <md-button style="float:right;" class="btn-c md-raised md-primary margin00" ng-click="action.inventory.addParticipant()">
+                            <md-icon md-svg-src="img/icons/ic_add_48px.svg" class="white-icon"></md-icon>&nbsp;{{'ADD' | translate}}
+                          </md-button>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody md-body>
+                      <tr md-row ng-repeat="p in self.inventory.participant track by $index" class="md-body-2">
+                        <td md-cell>
+                          <md-input-container class="md-block" flex-gt-xs>
+                            <label>{{'FULL_NAME' | translate}}</label>
+                            <input ng-model="p.fullName">
+                          </md-input-container>
+                        </td>
+                        <td md-cell>
+                          <md-input-container class="md-block" flex-gt-xs>
+                            <label>{{'TITLES' | translate}}</label>
+                            <input ng-model="p.title">
+                          </md-input-container>
+                        </td>
+                        <td md-cell>
+                          <md-input-container class="md-block" flex-gt-xs>
+                            <label>{{'REPRESENT' | translate}}</label>
+                            <input ng-model="p.represent">
+                          </md-input-container>
+                        </td>
+                        <td md-cell>
+                          <md-button class="btn-c md-warn" ng-click="action.inventory.removeParticipant(p, $index)">
+                            <md-icon md-svg-src="img/icons/ic_remove_24px.svg"></md-icon>&nbsp;{{'REMOVE' | translate}}
+                          </md-button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </md-table-container>
+              </section>
+            </md-content>
+          </md-tab>
+        </md-tabs>
+      </div>
+    </div>
+  </section>
+</md-content>

@@ -1,0 +1,19 @@
+<div flex="100" flex-xs="100" layout="row"  layout-align="end center"  class=" font-size14">
+    <md-button class="min-width37 margin0 md-icon-button" aria-label="Prev All">
+        <md-icon ng-class="{'icon-black':pagination.page > 1}" ng-click="pagination.firstPage()" class="md-grid-text bt-first-page" md-svg-src="img/icons/ic_keyboard_capslock_24px.svg"></md-icon>
+    </md-button>
+    <md-button class="min-width37 margin0 md-icon-button" aria-label="Prev">
+        <md-icon ng-class="{'icon-black':pagination.page > 1}" ng-click="pagination.prevPage()" class="md-grid-text" md-svg-src="img/icons/ic_keyboard_arrow_left_24px.svg"></md-icon>
+    </md-button>
+    <span>
+    <select class="padding-left-right10 border-table" ng-chane="pagination.toPage(pagination.page)" ng-model="pagination.page" convert-to-number>
+        <option ng-value="{{$index + 1}}" ng-repeat="page in [] | range:pagination.numPages">{{$index + 1}}</option>
+    </select>
+    </span>
+    <md-button class="min-width37 margin0 md-icon-button" aria-label="Next">
+        <md-icon ng-class="{'icon-black':pagination.page < pagination.numPages}" ng-click="pagination.nextPage()" class="md-grid-text" md-svg-src="img/icons/ic_keyboard_arrow_right_24px.svg"></md-icon>
+    </md-button>
+    <md-button class="min-width37 margin0 md-icon-button"  aria-label="Next All">
+        <md-icon ng-class="{'icon-black':pagination.page < pagination.numPages}" ng-click="pagination.lastPage()" class="md-grid-text bt-last-page" md-svg-src="img/icons/ic_keyboard_capslock_24px.svg"></md-icon>
+    </md-button>
+</div>

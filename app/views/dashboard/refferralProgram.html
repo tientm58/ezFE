@@ -1,0 +1,197 @@
+<style>
+        .al-wrap{
+            background:  url(img/pattern.jpg) repeat;
+        }
+        .x-contaner{
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 30px auto;  
+            -webkit-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.1);
+            -moz-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.1);
+            box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.1);  
+            padding: 50px 30px;            
+        }
+        .cl{
+            clear: both;
+        }
+        .x-contaner-h1{
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+            color: #666;
+            text-align: center;
+            font-weight: 400;
+            line-height: 30px;
+            position: relative;
+            width: 100%;
+            float: left;
+        }
+        .x-contaner-h1 span{                
+            font-size: 25px;
+            color: #3e50b4;
+            display: block;
+            font-weight: 700;
+        }
+        .x-contaner-h1:after{
+            width: 20px;
+            height: 4px;
+            border-radius: 2px;
+            background-color: #3e50b4;
+            position: absolute;
+            content: "";                
+            margin: auto;
+            margin-top: 10px; 
+        }
+        .x-descript{
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            color: #666;
+            text-align: center;               
+            line-height: 24px; 
+            margin-top: 20px;
+            width: 100%;
+            float: left;
+        }
+        .x-descript strong{
+            color: #3e50b4;
+            font-size: 18px;
+        }
+        .x-card-code{
+            font-family: 'Roboto', sans-serif;
+            width: 100%;
+            height: 70px;
+            float: left;
+            background-color: #ccc;
+            color: #fff;                
+            border-radius: 10px;
+            padding: 30px 0px;
+            text-align: center;
+            background: rgba(62,80,180,1);
+            background: -moz-linear-gradient(left, rgba(62,80,180,1) 0%, rgba(72,194,255,1) 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(62,80,180,1)), color-stop(100%, rgba(72,194,255,1)));
+            background: -webkit-linear-gradient(left, rgba(62,80,180,1) 0%, rgba(72,194,255,1) 100%);
+            background: -o-linear-gradient(left, rgba(62,80,180,1) 0%, rgba(72,194,255,1) 100%);
+            background: -ms-linear-gradient(left, rgba(62,80,180,1) 0%, rgba(72,194,255,1) 100%);
+            background: linear-gradient(to right, rgba(62,80,180,1) 0%, rgba(72,194,255,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e50b4', endColorstr='#48c2ff', GradientType=1 );
+        }
+        .x-card-code small{
+            font-size: 13px;
+            opacity: .6;
+            text-spacing: 1;
+        }
+        .x-card-code h2{
+            font-size: 40px;  
+            margin: 0px;              
+        }
+        .x-text-wrap{
+            width: 100%;
+            float: left;
+            /*font-family: 'Roboto', sans-serif;*/
+            margin-top: 50px;
+            line-height: 24px;
+            text-align: justify; 
+        }
+        .x-50{
+            width: 50%;
+            float: left;     
+        }
+        .x-3e50b4{
+            color: #3e50b4;
+        }
+        .x-pp{
+            margin: 0px;
+        }
+        .x-47b5f7{
+            color: #47b5f7;
+        }
+        .x-btn-share{
+            width: 100%;
+            float: left;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .x-btn{
+            padding: 0px 20px;
+            background-color: #ccc;
+            border-radius: 3px;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            text-decoration: none;
+            color: #fff !important;
+            display: inline-block;
+            height: 36px;
+            line-height: 36px;
+            margin-bottom: 5px;
+        }
+        .x-f{
+            background-color: #3b5998;
+        }
+        .x-t{
+            background-color: #00aced;
+        }
+        .x-g{
+            background-color: #d14836;
+        }
+        .x-img-respon{
+            width: 100%;
+        }
+        .p-r-30{
+            width: calc( 50% - 30px);
+            padding-right: 30px;
+        }
+        @media screen and ( max-width:500px ){
+            .x-contaner{
+                width: 80% !important;
+                margin: 10% auto;  
+            }
+            .x-50{
+                width: 100%;
+                margin-bottom: 20px; 
+            }
+            .x-btn{
+                width: 100%;
+                padding: 0px;
+            }
+        }
+        /* ----- */
+    </style>
+    <div class="al-wrap">
+        <div class="x-contaner">
+            <h1 class="x-contaner-h1">{{'REFFERRAL_PROGRAM_TITLE' | translate}}
+            <span>{{'FREE_SOFTWARE' | translate}}</span></h1>
+            <div class="x-descript">
+                <p>
+                    {{'REFFERRAL_PROGRAM_INTRODUCTION' | translate}}
+                    <strong>{{'EZCLOUD_HOTEL' | translate}}.</strong>
+                </p> 
+            </div>
+            <div class="x-card-code" ng-if="refferralProgram.currentHotel && refferralProgram.currentHotel.EzReferralCodesList.length > 0">
+                <small>{{'SHARE_YOU_INVITE_CODE' | translate}}</small>
+                <h2 >{{refferralProgram.currentHotel.EzReferralCodesList[0].Code}}</h2>
+            </div>
+            <div class="x-card-code" ng-if="!refferralProgram.currentHotel || refferralProgram.currentHotel.EzReferralCodesList.length === 0">
+                <small></small>
+                <h2 style="padding-top:12px">{{'CODE_NOT_AVAILABLE' | translate}}</h2>
+            </div>
+            <div class="x-btn-share" ng-if="refferralProgram.currentHotel && refferralProgram.currentHotel.EzReferralCodesList.length > 0">
+                <a ng-click="refferralProgram.shareFB()" class="x-btn x-f" style="cursor: pointer;"><i class="fa fa-facebook-square"></i> {{'SHARE_ON_FB' | translate}}</a>
+                <a ng-click="refferralProgram.shareTweet()" class="x-btn x-t" style="cursor: pointer;"><i class="fa fa-twitter"></i> {{'SHARE_ON_TWITTER' | translate}}</a>                    
+            </div>
+            <div class="x-text-wrap">
+                <div class="x-50 p-r-30">
+                    <img class="x-img-respon" src="img/ilus.jpg" alt="a">
+                </div>
+                <div class="x-50">
+                    <strong class="x-3e50b4">{{'DISCOUNT_TITLE' | translate}}</strong> {{'DISCOUNT_INTRODUCTION' | translate}} <strong>{{'EZCLOUD_HOTEL' | translate}}</strong> <br>
+                    <strong class="x-3e50b4">{{'IN_WHICH' | translate}} :</strong>
+                    <p class="x-pp x-3e50b4">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i> {{'RP_DISCOUNT_DESCRIPTION1'| translate}}<br>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i> {{'RP_DISCOUNT_DESCRIPTION2'| translate}}<br>
+                    </p>
+                    {{'MORE_REFERRAL_PROGRAM_DETAILS' | translate}} <span class="x-47b5f7" style="cursor: pointer;" ng-click="refferralProgram.goToReferralPage()">{{'LINK_WEBSITE' | translate}}</span><br>
+                </div>
+            </div>
+            <div class="cl"></div>
+        </div>
+    </div> 

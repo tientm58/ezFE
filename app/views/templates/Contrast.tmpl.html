@@ -1,0 +1,211 @@
+<style>
+	.bankName {
+		position: relative;
+		top: 10px;
+	}
+
+	.select_left10 {
+		margin-left: 10px;
+	}
+
+	.totalExchangeCash {
+		background: rgb(63, 81, 181);
+		color: white;
+		font-weight: bold;
+		white-space: nowrap;
+	}
+	
+	.input_normal_ty{
+		border-radius: 3px !important;
+    border: 1px solid #c5c5c5;
+    padding: 4px;
+    text-align: right;
+	}
+</style>
+<md-content layout-wrap layout-padding data-ng-init="action.contrast.initData()">
+	<section class="filter" layout="row" layout-align="space-between center" layout-wrap>
+		<div layout="row" layout-align="space-between center">
+			<label>
+				{{'BANK_ACCOUNT' | translate}}
+			</label>
+			<div flex="5" hide-xs hide-sm>
+			</div>
+			<md-select ng-model="self.contrast.filters.BankAccount">
+				<md-option value="all" selected>{{'ALL' | translate}}</md-option>
+				<md-option value="{{bank.HotelBankAccountId}}" ng-repeat="bank in self.contrast.banklist">{{bank.AcctNo || ""}}</md-option>
+			</md-select>
+			<div flex="5" hide-xs hide-sm>
+			</div>
+			<md-input-container class="bankName" class="md-block" flex-gt-xs>
+				<label>
+					{{action.contrast.getBankSelectedName() || ""}}
+				</label>
+				<input disabled>
+			</md-input-container>
+		</div>
+		<div layout="row" layout-align="space-between center">
+			<label>
+				{{'STATUS' | translate}}
+			</label>
+			<div flex="3" hide-xs hide-sm>
+			</div>
+			<md-select class="select_left10" placeholder="" ng-model="self.contrast.filters.AuditStatus">
+				<md-option value="0" selected>{{'UNRESOLVED' | translate}}</md-option>
+				<md-option value="1">{{'UNCONTRASTED' | translate}}</md-option>
+			</md-select>
+		</div>
+		<md-button class="btn-c md-raised md-info" ng-click="action.contrast.searchAuditDeposit()">
+			<md-icon md-svg-src="img/icons/ic_search_48px.svg"></md-icon>&nbsp;{{'SEARCH' | translate}}
+		</md-button>
+	</section>
+
+	<section layout="column" layout-align="center start">
+		<md-table-container style="width:100%;">
+			<table md-table md-progress="promise">
+				<thead md-head md-order="pager.query.order" md-on-reorder="">
+					<tr class="topHear">
+						<th md-column>
+							<span>{{'STT' | translate}}</span>
+						</th>
+						<th md-column>
+							<span>{{'EXPENDITURE_MANAGE_RECEIPT_NUMBER' | translate}}</span>
+						</th>
+						<th md-column>
+							<span>{{'WORKORDER_DATE' | translate}}</span>
+						</th>
+						<th md-column>{{'ACCOUNT' | translate}}</th>
+						<th md-column>{{'REPAIR_REASON_REPORT' | translate}}</th>
+						<th md-column md-numeric colspan="{{self.currency.length || 1}}" style="text-align:center;">{{'PAY_AMOUNT' | translate}}</th>
+						<th md-column class="text-right">{{'EXCHANGE_CASH' | translate}}</th>
+						<th md-column></th>
+						<th md-column></th>
+					</tr>
+					<tr class="gray-box-h1 last_row_">
+						<th md-column>
+							<span></span>
+						</th>
+						<th md-column>
+							<span></span>
+						</th>
+						<th md-column>
+							<span></span>
+						</th>
+						<th md-column></th>
+						<th md-column></th>
+						<th md-column class="text-center hightli" ng-repeat="curr in self.currency">
+							{{curr || "VND"}}
+						</th>
+						<th md-column></th>
+						<th md-column></th>
+						<th md-column></th>
+					</tr>
+				</thead>
+				<tbody md-body>
+					<tr md-row ng-show="self.contrast.dataList.length == 0">
+						<td md-cell class="center" colspan="{{((self.currency.length || 1) + 8)}}">{{'IS_EMTY_DATA' | translate}}</td>
+					</tr>
+					<tr md-row ng-repeat="invoice in self.contrast.dataList track by $index">
+						<td md-cell>{{$index+1}}</td>
+						<td md-cell>{{invoice.InvoiceNo || ""}}</td>
+						<td md-cell>{{invoice.CreatedDate | date:"dd/MM/yyyy"}}</td>
+						<td md-cell>
+							<md-select ng-if="invoice.InvoiceGroup == 1" placeholder="{{'DONT_HAVE_ACCOUNT' | translate}}" ng-model="invoice.BankAccReceive">
+								<md-option ng-selected="action.contrast.getAccountDefault(invoice, bank)" value="{{bank.HotelBankAccountId}}" ng-repeat="bank in self.contrast.banklist">{{bank.AcctNo || ""}}</md-option>
+							</md-select>
+							<md-select ng-if="invoice.InvoiceGroup == 2" placeholder="{{'DONT_HAVE_ACCOUNT' | translate}}" ng-model="invoice.HotelBankAccountId">
+								<md-option ng-selected="action.contrast.getAccountDefault(invoice, bank)" value="{{bank.HotelBankAccountId}}" ng-repeat="bank in self.contrast.banklist">{{bank.AcctNo || ""}}</md-option>
+							</md-select>
+						</td>
+						<td md-cell>
+							<md-input-container style="position: relative;top:11px;" class="md-block padding0 margin0" flex-gt-xs>
+								<!-- <label>{{'ENTER' | translate}}</label> -->
+								<input ng-model="invoice.Description">
+							</md-input-container>
+						</td>
+						<td md-cell ng-repeat="curr in self.currency" class="text-right">
+							{{obj = action.invoices.getAmountDetailByCurrency(curr, invoice, null);""}} {{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+						</td>
+						<td md-cell class="text-right">{{invoice.Amount || 0 | currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}</td>
+						<td md-cell>
+							<md-button ng-show="invoice.IsCompare != 1" ng-disabled="!self.contrast.isSent" class="btn-c md-raised md-primary" ng-click="action.contrast.confirmInvoice(invoice)">
+								<md-tooltip>{{ 'CONFIRM' | translate }}</md-tooltip>
+								<md-icon md-svg-src="img/icons/ic_done_48px.svg"></md-icon>
+							</md-button>
+						</td>
+						<td md-cell></td>
+					</tr>
+				</tbody>
+				<tfoot md-foot>
+					<tr md-row>
+						<td md-cell></td>
+						<td md-cell></td>
+						<td md-cell></td>
+						<td md-cell></td>
+						<td md-cell></td>
+						<td md-cell></td>
+						<td md-cell colspan="(self.currency.length || 1) + 2">
+						</td>
+						<td md-cell>
+							<!-- <strong>{{ 'TOTAL' | translate }}</strong> -->
+						</td>
+						<td md-cell>
+							<!-- <strong style="top:10px;position: relative;">
+								{{ action.contrast.getTotalExchangeCash() || 0 | currency }}
+							</strong> -->
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</md-table-container>
+		<md-divider></md-divider>
+		<section style="width:100%;" class="balance-container box_info_dc" layout="row" layout-align="space-between center" layout-wrap>
+			<div flex="45" flex-sm="100" flex-xs="100">
+				<md-whiteframe class="box_sumtotal" layout="column" layout-align="start start">
+					<div layout="row" layout-align="space-between center">
+						<label>I.{{'DAY_BEGIN_PERIOD_BALANCE' | translate}}:</label>
+						<label>{{self.contrast.Balance | currency}}</label>
+					</div>
+					<md-divider></md-divider>
+					<div layout="row" layout-align="space-between center">
+						<label>II.{{'TOTAL_AMOUNT_RECEIVE_IN_PERIOD' | translate}}:</label>
+						<label>{{self.contrast.IncomeInPeriod | currency}}</label>
+					</div>
+					<md-divider></md-divider>
+					<div layout="row" layout-align="space-between center">
+						<label>III.{{'TOTAL_AMOUNT_PAID_IN_PERIOD' | translate}}:</label>
+						<label>{{self.contrast.OutcomeInPeriod | currency}}</label>
+					</div> 
+				</md-whiteframe>
+			</div>
+			<div flex="10"></div>
+			<div flex-sm="100" flex-xs="100" flex="45">
+				<md-whiteframe class="box_sumtotal" layout="column" layout-align="start start">
+					<div layout="row" layout-align="space-between center">
+						<label>IV.{{'COMPARE_END_PERIOD_BALANCE' | translate}} ( I + II - III ):</label>
+						<label>{{ action.contrast.getEndingBalance() | currency}}</label>
+					</div>
+					<md-divider></md-divider>
+					<div layout="row" layout-align="space-between center">
+						<label>V.{{'ENDING_BALANCE_BANKING_BOOK' | translate}}:</label>
+						<input ng-model="self.contrast.endingBalanceOnBankAccount" ng-change="action.contrast.getDiffAmount()" type="text" ui-number-mask="decimal" ng-disabled="self.contrast.filters.BankAccount === 'all'" class="ng-pristine ng-valid md-input ng-empty ng-touched input_normal_ty"
+						  aria-invalid="false" required ui-negative-number onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 45"
+						  required md-max="{{action.contrast.getEndingBalance()}}">
+					</div>
+					<md-divider></md-divider>
+					<div layout="row" layout-align="space-between center">
+						<label>VI.{{'DIFFIRENCE' | translate}} (IV - V):</label>
+						<label>{{ self.contrast.DiffAmount | currency}}</label>
+						<!-- <label>{{ action.contrast.getDiffAmount() | currency}}</label> -->
+					</div>
+				</md-whiteframe>
+			</div>
+			<md-divider></md-divider>
+			<label>
+				<md-button class="btn-c md-raised md-primary" ng-click="action.contrast.process()" ng-disabled="self.contrast.filters.BankAccount === 'all'" ng-style="self.contrast.filters.BankAccount === 'all' && {'background-color':'#c3c3c3 !important'}">
+					<md-icon md-svg-src="img/icons/ic_done_48px.svg"></md-icon>&nbsp;{{'PROCESS' | translate}}
+				</md-button>
+			</label>
+
+		</section>
+	</section>
+</md-content>

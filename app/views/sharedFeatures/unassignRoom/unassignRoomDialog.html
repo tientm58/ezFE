@@ -1,0 +1,27 @@
+<style>
+	md-dialog-content{
+		width: 100%;
+	}
+	table,thead,tbody{
+		width: 98%;
+	}
+	tr{
+		width: 100%;
+		text-align: center;
+	}
+
+</style>
+<md-dialog aria-label="Unassign Room" flex-sm="70" flex-gt-md="70" flex-xs="100" flex-md="75" ng-cloak>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'UNASSIGN_ROOM_LIST' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="hide()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+        <md-dialog-content>
+            <unassign-room></unassign-room>
+        </md-dialog-content>
+</md-dialog>

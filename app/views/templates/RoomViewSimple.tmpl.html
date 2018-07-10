@@ -1,0 +1,34 @@
+<md-card-content style="padding: 0px;color: rgba(255,255,255,0.87); " layout="row " flex="100 ">
+    <md-tooltip hide-xs hide-sm hide-md>{{item.BookingStatus | translate}}{{item.reservationRoom.Travellers.Fullname? ' | ' + item.reservationRoom.Travellers.Fullname:
+        ''}}
+    </md-tooltip>
+
+    <div layout="column " layout-align="start center " ng-style="{ 'background-color': getColor(item)} " style="width: 100%; ">
+        <div style="margin: 6px auto;">
+            <span class="text " style="font-size: 60%;padding: .2em .6em .1em; ">{{item.roomType.RoomTypeCode}}</span>
+        </div>
+        <div style="margin: 5px auto;text-align:center !important;padding-top: 3px;">
+            <!--margin-bottom: 0px;-->
+            <span class="text " style="font-size: 150%;">
+                {{item.RoomName}}
+            </span>
+        </div>
+        <div style="text-align:center;;width:72px !important" ng-style="item.reservationRoom.Reservations.IsGroup && {'text-align':'left'}">
+            <md-button ng-if="item.reservationRoom.Reservations.IsGroup == true" class="md-icon-button" style="height: 21px;padding:0px;margin:0px;width:21px !important "
+                aria-label="{{item.BookingStatus | translate}} ">
+                <md-icon md-svg-src="img/icons/ic_group_24px.svg" style="fill: {{item.reservationRoom.Reservations.Color}};height: 21px; width: 21px; color: #666; "></md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="buttonClick($event,item) " style="height: 21px;padding:0px;margin:0px;width:21px !important "
+                aria-label="{{item.BookingStatus | translate}}">
+                <md-icon md-svg-src="img/icons/{{bookingStatusMapping[item.BookingStatus]}} " style="fill: #fff;height: 21px; width: 21px; color: #666; "></md-icon>
+                <md-tooltip hide-xs hide-sm hide-md ng-if="(item.BookingStatus=='CHECKIN' || item.BookingStatus=='OVERDUE')">{{'QUICK_CHECK_OUT' | translate}}</md-tooltip>
+                <md-tooltip hide-xs hide-sm hide-md ng-if="(item.BookingStatus=='AVAILABLE')">{{'QUICK_CHECK_IN' | translate}}</md-tooltip>
+                <md-tooltip hide-xs hide-sm hide-md ng-if="(item.BookingStatus=='BOOKED' || item.BookingStatus=='NOSHOW')">{{'CHECKIN' | translate}}</md-tooltip>
+            </md-button>
+            <md-button ng-if="item.reservationRoom.Reservations.IsGroup == true && item.reservationRoom.IsGroupMaster == true" class="md-icon-button"
+                style="height: 21px;padding:0px;margin:0px;width:21px !important " aria-label="{{item.BookingStatus | translate}} ">
+                <md-icon md-svg-src="img/icons/ic_flag_24px.svg" style="fill: #fff;height: 21px; width: 21px; color: #666; "></md-icon>
+            </md-button>
+        </div>
+    </div>
+</md-card-content>

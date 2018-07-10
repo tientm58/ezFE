@@ -1,0 +1,172 @@
+<style>
+    .rowRoomType {
+        cursor: pointer;
+    }
+
+    #boundary {
+        margin-left: auto;
+        margin-right: auto;
+        height: 80%;
+    }
+
+    .sv_grid {
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .text-gr {
+        color: #16A086;
+    }
+
+    .tool-tip::after {
+        /*content: "";*/
+        border-top: 70px solid transparent;
+        border-left: 40px solid #fff;
+        border-right: 40px solid #fff;
+    }
+
+    .ui-tooltip {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: rgba(49, 49, 49, 0) !important;
+        border-radius: 1px;
+        border: 0px solid #16A086 !important;
+    }
+
+    #gridHeader input[type="search"]::-webkit-input-placeholder {
+        color: #939393;
+    }
+
+    .ui-tooltip div {
+        padding: 0;
+    }
+
+    #room_type md-autocomplete-wrap {
+        margin-left: -16px;
+    }
+
+    #change_date {
+        width: 130px;
+    }
+
+    #change_date .md-datepicker-input-container {
+        width: 73px;
+    }
+
+    .checkbox_viewdate {
+        margin: 0;
+        line-height: 41px;
+        margin-left: 10px !important;
+    }
+
+    #myMenu li a {
+        width: 100%;
+
+    }
+
+    #myMenu li a:hover {
+        /* color: #fff; */
+    }
+
+    #myMenu li {
+        overflow: hidden;
+        border: 0;
+        border-left: 4px solid #939393;
+    }
+
+    #myMenu li.hover {
+
+        border-left: 4px solid #2aade3 !important;
+    }
+
+    #myMenu li.hover a {
+        background-color: #f2f2f2;
+    }
+
+    md-autocomplete input:not(.md-input) {
+        cursor: pointer !important;
+    }
+
+    .text_heighline {
+        color: yellow;
+    }
+
+    .text_date {
+        color: #ffffffcf;
+        font-size: 14px;
+    }
+
+    .isNowDate {
+        background: #FFEB3B
+    }
+
+    .tool-tip tr td {
+        text-align: left;
+        height: fit-content !important;
+    }
+
+    .tool-tip {
+        min-width: 200px;
+    }
+</style>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2 class="md-flex">{{sbCtrl.urListTemp.Quantity}} {{'ROOM' | translate}}
+            <span class="text_heighline">({{sbCtrl.urListTemp.DirectRooms}} Direct) </span>{{sbCtrl.urListTemp.RoomTypeCode}}
+            <span class="text_date">{{sbCtrl.urListTemp.ArrivalDate | date:'dd/MM/yyyy HH:mm'}} - {{sbCtrl.urListTemp.DepartureDate | date:'dd/MM/yyyy HH:mm'}}
+                <span class="text_heighline">({{sbCtrl.urListTemp.Nights}} {{'NIGHT_REPORT' | translate}})</span>
+            </span>
+        </h2>
+        <md-button title="{{'ADULT' | translate}}">
+            <md-icon md-svg-src="img/icons/ic_account_circle_24px.svg"></md-icon>
+            <span>{{sbCtrl.urListTemp.Adults}}</span>
+        </md-button>
+        <md-button title="{{'CHILDREN' | translate}}">
+            <md-icon md-svg-src="img/icons/baseline-child_care-24px.svg"></md-icon>
+            <span>{{sbCtrl.urListTemp.Child}}</span>
+        </md-button>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="sbCtrl.hide()">
+            <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-dialog-content>
+    <md-content style="" id="wrap-content">
+        <div class="md-padding padding0" layout="row" layout-wrap layout-align="start start" style="height: auto;">
+            <div id="boundary" md-whiteframe="3" class="padding0 white font-sizec12 padding-left-right15" ng-class="[{'isViewDate':(parameter=='1')},{'isViewMonth':(parameter=='30')}]">
+                <div class="sv_grid tabcontent tabmain container flexouter boxflex" id="room_view">
+                    <div id="gridHeader" class="">
+                        <span class="roomtype_title position-relative">
+                            <span id="room_type" class=" position-absolute">
+
+                            </span>
+                        </span>
+
+                        <!-- Date Table -->
+                        <ol id="datetable" class="margin-top0" style="float:left">
+                            <ol id="datetable" style="float:left">
+                                <!-- Date Item -->
+                                <!-- End of Date Item -->
+                            </ol>
+                        </ol>
+                        <!-- End of Date Table -->
+                    </div>
+                    <div id="grid" class="border-table grdControll scroll-pane-grid boxflex" style="float:left">
+                        <div id="tplLeft">
+                        </div>
+                        <span id="tplRight" style="float:left">
+                            <div id="conRight">
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <ul id="myMenu2" class="contextMenu">
+            </ul>
+            <ul id="myMenu" class="contextMenu">
+            </ul>
+        </div>
+        </div>
+    </md-content>
+</md-dialog-content>

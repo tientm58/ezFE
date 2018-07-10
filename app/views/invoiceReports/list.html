@@ -1,0 +1,445 @@
+<style>
+	/*table thead {
+	    background: antiquewhite;
+	}*/
+	md-table-container{box-shadow: 0px 0px 1px 0px #656565;}
+
+	.head-center{text-align:center !important;}
+	.head-left{text-align: left !important; font-weight:bold;}
+	.head-right{text-align: right !important;}
+	.tr-bold{font-weight: bold !important;}
+
+	#tableReport td,#tableReport th {width: 100px !important;}
+
+	table.md-table thead.md-head>tr.md-row {
+		height: fit-content;
+	}
+
+	.last_row_ th {
+		border-bottom: 2px solid #ddd;
+	}
+
+	.table>thead>tr>th {
+		vertical-align: bottom;
+		padding: 10px;
+		vertical-align: middle;
+		font-size: 13px;
+		font-weight: 600;
+	}
+
+	.html2canvas-container { width: 10000px !important; height: 10000px !important; }
+
+	table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2),
+	table.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2),
+	table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
+	table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+		padding: 10px;
+	}
+
+	.table>thead>tr>th,
+	.table>tbody>tr>th,
+	.table>tfoot>tr>th,
+	.table>thead>tr>td,
+	.table>tbody>tr>td,
+	.table>tfoot>tr>td {
+		padding: 8px;
+		line-height: 1.42857143;
+		vertical-align: top;
+	}
+	
+	.topHear {
+		background-color: rgb(214, 214, 214);
+	}
+
+	.topHear th,
+	.topHear th md-icon {
+		color: #5c5c5d !important;
+	}
+
+	.hightli {
+		border-right: 1px solid #9e9e9e57 !important;
+		background-color: #f2f2f2;
+	}
+
+	.invoiceDeleted {
+		text-decoration-line: line-through !important;
+	}
+
+	.icon-btn {
+		cursor: pointer;
+	}
+	.row_btn button{
+		min-width: 45px;
+	}
+	.btn_hear md-icon{
+		fill: #fff;
+	}
+	.box_info_dc{
+		font-size: 14px;
+	}
+	.bg_thu{
+		background: #4caf5063;
+	}
+	.bg_chi{
+		background: #ff572278;
+	}
+	.hightli{
+		border-right: 1px solid #9e9e9e57 !important;
+    	background-color: #f2f2f27d;
+	}
+	.hightlicol{
+		border-right: 1px solid #9e9e9e57 !important;
+	}
+
+	.link{
+		text-decoration: underline;
+		font-weight: bold;
+		color: rgb(3,155,229) !important;
+	}
+	.bottom{
+		margin-bottom: 40px;
+	}
+
+	table tbody tr td {
+	    overflow: hidden;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    max-width: 100px;
+	  } 
+</style>
+<div ng-cloak data-ng-init="action.init()">
+	<md-content padding>
+		<section flex="100" ng-show="attributes.currency.length > 0" layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+		</section>
+	</md-content>
+  <md-content layout-margin id="listInvoices">
+	<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+  		<h2><b>{{'INCOME_OUTCOME_SITUATION' | translate}}</b></h2>
+  	</section>
+  	<section layout="row" layout-align="center center" layout-wrap>
+		<md-select placeholder="{{'DAILYCLEAN_DETAILS_CHANGEDATE' | translate}}" ng-model="attributes.filters.selectedTime" ng-change="action.setDatePicker()"
+		 style="min-width: 200px;">
+			<md-option ng-value="time.value" ng-repeat="time in attributes.times" ng-selected="$index == 0 ? true : false">{{time.description}}</md-option>
+		</md-select>
+	    <div layout="row" layout-align="space-between center">
+	    	<label>{{'START_DATE' | translate}}</label>
+			<md-datepicker md-max-date="attributes.maxDate" ng-model="attributes.filters.startDate" md-placeholder="Start date"></md-datepicker>
+	    </div>
+	    <div layout="row" flex="5"></div>
+	    <div layout="row" layout-align="space-between center">
+	    	<label>{{'END_DATE' | translate}}</label>
+			<md-datepicker md-max-date="attributes.maxDate" ng-model="attributes.filters.endDate" md-placeholder="Enter date"></md-datepicker>
+		</div>
+		<md-button class="btn-c md-raised md-info" ng-click="action.searchInvoice()">
+		<md-icon md-svg-src="img/icons/ic_search_48px.svg"></md-icon>&nbsp;{{'SEARCH' | translate}}</md-button>
+		<md-button class="btn-c md-raised md-primary" ng-click="action.export.excel('#listInvoicesExcel')">
+			<md-icon md-svg-src="img/icons/ic_import_export_48px.svg"></md-icon>&nbsp;{{'EXPORT_EXCEL' | translate}}</md-button>
+		<md-button class="btn-c md-raised md-warn" ng-click="action.export.pdf('listInvoices')">
+			<md-icon md-svg-src="img/icons/ic_picture_as_pdf_48px.svg"></md-icon>&nbsp;{{'EXPORT_PDF' | translate}}</md-button>
+	</section>
+	<md-table-container class="bottom">
+	  <table  md-table ng-model="selected" md-progress="promise">
+	  	<thead class="md-table-progress"><tr><th colspan="{{2 + attributes.currency.length*2 || 3}}"><md-progress-linear ng-show="deferred()" md-mode="indeterminate" aria-valuemin="0" aria-valuemax="100" role="progressbar" aria-hidden="true" class="ng-hide" style=""><div class="md-container md-mode-indeterminate"><div class="md-dashed"></div><div class="md-bar md-bar1"></div><div class="md-bar md-bar2"></div></div></md-progress-linear></th></tr></thead>
+	    <thead md-head md-order="pager.query.order" md-on-reorder="">
+	      <tr md-row class="topHear">
+	        <th md-column class="hightlicol" md-order-by="nameToLower" class="head-center"><span>{{'STT' | translate}}</span></th>
+	        <th md-column class="hightlicol" md-order-by="calories.value" class="head-center"><span>{{'TARGETS' | translate}}</span></th>
+	        <th md-column class="hightlicol" colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'CASH' | translate}}</th>
+	        <th md-column class="hightlicol" colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'DEPOSITS' | translate}}</th>
+	        <th md-column class="hightlicol" colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'TOTAL' | translate}}</th>
+	      </tr>
+	      <tr class="gray-box-h1 last_row_" md-row>
+			<th md-column class="hightli">
+			</th>
+			<th md-column class="hightlicol">
+			</th>
+			<th md-column ng-repeat="curr in attributes.currency" class="hightli head-center">
+				{{curr || "VND"}}
+			</th>
+			<th md-column ng-repeat="curr in attributes.currency" class="hightli head-center">
+				{{curr || "VND"}}
+			</th>
+			<th md-column ng-repeat="curr in attributes.currency" class="hightli head-center">
+				{{curr || "VND"}}
+			</th>
+			</tr>
+	    </thead>
+	    <tbody md-body>
+	    	<tr md-row class="tr-bold">
+	    		<td md-cell class="head-left hightli">I</td>
+	    		<td md-cell class="head-left hightlicol">{{attributes.data.Openbalance.Name || "STARTING_BALANCE" | translate}}</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, attributes.data.Openbalance.CashFunds)}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" md-cell class="hightlicol head-right">
+	    			{{action.getAmountByCurrency(curr, attributes.data.Openbalance.DepositFunds)}}
+	    		</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, attributes.data.Openbalance.TotalFunds)}}
+	    		</td>
+	    	</tr>
+	    	<tr ng-show="attributes.data.Openbalance.Details !== null && attributes.data.Openbalance.Details.length > 0" md-row ng-repeat="record in attributes.data.Openbalance.Details track by $index"> 
+	           	<td md-cell class="hightli head-right">{{$index + 1}}</td>
+	    		<td md-cell class="hightlicol">{{record.Name || ""}}</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, record.CashFunds)}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" md-cell class="hightlicol head-right">
+	    			{{action.getAmountByCurrency(curr, record.DepositFunds)}}
+	    		</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, record.TotalFunds)}}
+	    		</td>
+	       </tr>
+	       <tr md-row class="tr-bold">
+	    		<td md-cell class="hightli head-left">II</td>
+	    		<td md-cell class="hightlicol head-left">{{attributes.data.TotalPeriodReceiptsBalance.Name || "CASH_INCOMING" | translate}}</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodReceiptsBalance.CashFunds)}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" md-cell class="hightlicol head-right">
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodReceiptsBalance.DepositFunds)}}
+	    		</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodReceiptsBalance.TotalFunds)}}
+	    		</td>
+	    	</tr>
+	       <tr ng-show="attributes.data.TotalPeriodReceiptsBalance.Details !== null && attributes.data.TotalPeriodReceiptsBalance.Details.length > 0" md-row ng-repeat="record in attributes.data.TotalPeriodReceiptsBalance.Details track by $index"> 
+	           	<td md-cell class="hightli head-right">{{$index + 1}}</td>
+	    		<td md-cell class="hightlicol link" ng-click="action.viewReportDetail('receiptdetails', record, $index, 1)">{{record.Name || ""}}</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, record.CashFunds)}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" md-cell class="hightlicol head-right">
+	    			{{action.getAmountByCurrency(curr, record.DepositFunds)}}
+	    		</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, record.TotalFunds)}}
+	    		</td>
+	       </tr>
+	       <tr md-row class="tr-bold">
+	    		<td md-cell class="hightli head-left">III</td>
+	    		<td md-cell class="hightlicol head-left">{{attributes.data.TotalPeriodPaymentOrderBalance.Name || "CASH_OUTGOING" | translate}}</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodPaymentOrderBalance.CashFunds)}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" md-cell class="hightlicol head-right">
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodPaymentOrderBalance.DepositFunds)}}
+	    		</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodPaymentOrderBalance.TotalFunds)}}
+	    		</td>
+	    	</tr>
+	       <tr ng-show="attributes.data.TotalPeriodPaymentOrderBalance.Details !== null && attributes.data.TotalPeriodPaymentOrderBalance.Details.length > 0" md-row ng-repeat="record in attributes.data.TotalPeriodPaymentOrderBalance.Details track by $index"> 
+	           	<td md-cell class="hightli head-right">{{$index + 1}}</td>
+	    		<td class="hightlicol link" ng-click="action.viewReportDetail('paymentdetails', record, $index, 2)" md-cell>
+	    			{{record.Name || ""}}
+	    		</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, record.CashFunds)}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" md-cell class="hightlicol head-right">
+	    			{{action.getAmountByCurrency(curr, record.DepositFunds)}}
+	    		</td>
+	    		<td ng-repeat="curr in attributes.currency" md-cell class="hightli head-right">
+	    			{{action.getAmountByCurrency(curr, record.TotalFunds)}}
+	    		</td>
+	       </tr>
+	       <tr md-row class="tr-bold">
+	    		<td md-cell  class="hightli head-left">IV</td>
+	    		<td md-cell  class="hightlicol head-left">{{attributes.data.TotalBalance.Name || "ENDING_BALANCE" | translate}}</td>
+	    		<td class="head-right link hightli" ng-click="action.viewBookDetail('listdetails', curr, 1)" ng-repeat="curr in attributes.currency" md-cell >
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalBalance.CashFunds)}}
+				</td>
+				<td class="head-right link hightlicol" ng-click="action.viewBookDetail('listdetails', curr, 2)" ng-repeat="curr in attributes.currency" md-cell>
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalBalance.DepositFunds)}}
+	    		</td>
+	    		<td class="head-right hightli" ng-repeat="curr in attributes.currency" md-cell>
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalBalance.TotalFunds)}}
+	    		</td>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</md-table-container>
+   </md-content>
+
+   <!--export excel-->
+  <div flex="100" id="listInvoicesExcel" ng-show="false">
+  	<section style="text-align: center;">
+  		<h2><b>{{'INCOME_OUTCOME_SITUATION' | translate}}</b></h2>
+  	</section>
+  	<section style="display:flex;">
+	    <div>
+			<p><label>{{'START_DATE' | translate}}</label>&nbsp;&nbsp;{{attributes.filters.startDate | date:"yyyy-MM-dd"}}</p>
+	    </div>
+	    <div >
+			<p><label>{{'END_DATE' | translate}}</label>&nbsp;&nbsp;{{attributes.filters.endDate | date:"yyyy-MM-dd"}}</p>
+	    </div>
+	</section>
+
+	  <table id="tableReport">
+	    <thead>
+	      <tr>
+	        <th style="width:100px;"><span>{{'STT' | translate}}</span></th>
+	        <th ><span>{{'TARGETS' | translate}}</span></th>
+			<th colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'CASH' | translate}}</th>
+			<th colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'DEPOSITS' | translate}}</th>
+	        <th colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'TOTAL' | translate}}</th>
+	      </tr>
+	      <tr style="background: #5ab2ff;">
+			<th  >
+			</th>
+			<th  >
+			</th>
+			<th ng-repeat="curr in attributes.currency" style="background: #5ab2ff;">
+				{{curr || "VND"}}
+			</th>
+			<th ng-repeat="curr in attributes.currency" style="background: #5ab2ff;">
+				{{curr || "VND"}}
+			</th>
+			<th  ng-repeat="curr in attributes.currency" style="background: #5ab2ff;">
+				{{curr || "VND"}}
+			</th>
+			</tr>
+	    </thead>
+	    <tbody>
+	    	<tr >
+	    		<td    class="head-left">I</td>
+	    		<td  >{{attributes.data.Openbalance.Name || "Tiền đầu kỳ"}}</td>
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.Openbalance.CashFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.Openbalance.DepositFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    		<!-- <td >{{attributes.data.Openbalance.DepositFunds.SumAmount || 0 | currency}}</td> -->
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.Openbalance.TotalFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    	</tr>
+	    	<tr ng-show="attributes.data.Openbalance.Details !== null && attributes.data.Openbalance.Details.length > 0"  ng-repeat="record in attributes.data.Openbalance.Details track by $index"> 
+	           	<td md-cell class="{{$index == 0 ? 'head-left' : 'head-right'}} md-cell">{{$index + 1}}</td>
+	    		<td >{{action.displayName(record.Name) || ""}}</td>
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.CashFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.DepositFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    		<!-- <td >{{record.DepositFunds.SumAmount || 0 | currency}}</td> -->
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.TotalFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	       </tr>
+	       <tr >
+	    		<td class="head-left">II</td>
+	    		<td >{{attributes.data.TotalPeriodReceiptsBalance.Name || "Tiền thu trong kỳ"}}</td>
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodReceiptsBalance.CashFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodReceiptsBalance.DepositFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    		<!-- <td >{{attributes.data.TotalPeriodReceiptsBalance.DepositFunds.SumAmount || 0 | currency}}</td> -->
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodReceiptsBalance.TotalFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    	</tr>
+	       <tr ng-show="attributes.data.TotalPeriodReceiptsBalance.Details !== null && attributes.data.TotalPeriodReceiptsBalance.Details.length > 0"  ng-repeat="record in attributes.data.TotalPeriodReceiptsBalance.Details track by $index"> 
+	           	<td  class="{{$index == 0 ? 'head-left' : 'head-right'}}">{{$index + 1}}</td>
+	    		<td>{{action.displayName(record.Name) || ""}}</td>
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.CashFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.DepositFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    		<!-- <td >{{record.DepositFunds.SumAmount || 0 | currency}}</td> -->
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.TotalFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	       </tr>
+	       <tr >
+	    		<td  class="head-left">III</td>
+	    		<td >{{attributes.data.TotalPeriodPaymentOrderBalance.Name || "Tiền chi trong kỳ"}}</td>
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodPaymentOrderBalance.CashFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodPaymentOrderBalance.DepositFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    		<!-- <td >{{attributes.data.TotalPeriodPaymentOrderBalance.DepositFunds.SumAmount || 0 | currency}}</td> -->
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalPeriodPaymentOrderBalance.TotalFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    	</tr>
+	       <tr ng-show="attributes.data.TotalPeriodPaymentOrderBalance.Details !== null && attributes.data.TotalPeriodPaymentOrderBalance.Details.length > 0"  ng-repeat="record in attributes.data.TotalPeriodPaymentOrderBalance.Details track by $index"> 
+	           	<td  class="{{$index == 0 ? 'head-left' : 'head-right'}}">{{$index + 1}}</td>
+	    		<td ng-class="{'link': $index == 0}" ng-click="action.viewReportDetail('paymentdetails', record, $index, 2)" >{{record.Name || ""}}</td>
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.CashFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.DepositFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    		<!-- <td >{{record.DepositFunds.SumAmount || 0 | currency}}</td> -->
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.TotalFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	       </tr>
+	       <tr >
+	    		<td >IV</td>
+	    		<td >{{attributes.data.TotalBalance.Name || "Tiền cuối kỳ"}}</td>
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalBalance.CashFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalBalance.DepositFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    		<!-- <td >{{attributes.data.TotalBalance.DepositFunds.SumAmount || 0 | currency}}</td> -->
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, attributes.data.TotalBalance.TotalFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    	</tr>
+	    	<tr ng-show="attributes.data.TotalBalance.Details !== null && attributes.data.TotalBalance.Details.length > 0"  ng-repeat="record in attributes.data.TotalBalance.Details track by $index"> 
+	           	<td  class="{{$index == 0 ? 'head-left' : 'head-right'}}">{{$index + 1}}</td>
+	    		<td >{{record.Name || ""}}</td>
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.CashFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+				</td>
+				<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.DepositFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	    		<!-- <td >{{record.DepositFunds.SumAmount || 0 | currency}}</td> -->
+	    		<td ng-repeat="curr in attributes.currency" >
+	    			{{action.getAmountByCurrency(curr, record.TotalFunds)}}
+					{{ obj.SumAmount| currency:"":self.indexCurrencies[obj.MoneyName].Currencies.MinorUnit}}
+	    		</td>
+	       </tr>
+	    </tbody>
+	  </table>
+   </div>
+</div>

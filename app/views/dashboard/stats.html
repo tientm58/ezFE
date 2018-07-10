@@ -1,0 +1,429 @@
+<style>
+  .md-list-item.md-2-line .md-list-item-text,
+  md-list-item.md-2-line>._md-no-style .md-list-item-text,
+  md-list-item.md-3-line .md-list-item-text,
+  md-list-item.md-3-line>._md-no-style .md-list-item-text {
+    margin: auto;
+  }
+
+  .md-list-item ._md-list-item-inner ._md-secondary-container,
+  md-list-item ._md-secondary-container {
+    height: auto;
+  }
+
+  #height100 {
+    min-height: 100px !important;
+    max-height: 2500px !important;
+    overflow-y: auto;
+
+  }
+
+  .k-picker-wrap .k-icon {
+    margin: 10px 2px;
+    margin-top: 5px !important;
+  }
+
+  .whitebg {
+    background-color: white;
+    margin-bottom: 6px;
+    margin-right: 6px;
+  }
+
+  md-divider {
+    margin-top: 2px;
+    margin-bottom: 0px;
+  }
+
+  md-list-item .md-no-style,
+  md-list-item.md-no-proxy {
+    position: relative;
+    padding: 0 0px;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px !important;
+    line-height: 13px;
+    color: #2a2a2a;
+  }
+
+  md-list-item>p,
+  md-list-item>.md-list-item-inner>p,
+  md-list-item .md-list-item-inner>p,
+  md-list-item .md-list-item-inner>.md-list-item-inner>p {
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Likely future */
+  }
+
+  .header-toolbar {
+    color: #fff;
+  }
+
+  .md-secondary,
+  md-list-item .md-secondary-container {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    margin: 0 0 0 16px;
+    -webkit-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+    font-weight: bold;
+  }
+
+  .md-toolbar-tools {
+    font-size: 16px;
+    letter-spacing: .005em;
+    box-sizing: border-box;
+    font-weight: 400;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    width: 100%;
+    height: 64px;
+    max-height: 64px;
+    padding: 0 16px;
+    margin: 0;
+  }
+
+  .k-grid table {
+    width: 100%;
+    margin: 0;
+    max-width: none;
+    border-collapse: separate;
+    border-spacing: 0;
+    empty-cells: show;
+    border-width: 0;
+    outline: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 14px;
+    color: #2a2a2a;
+  }
+
+  th {
+    font-size: 12px !important;
+  }
+</style>
+<md-tabs flex="100" md-border-bottom style="">
+  <md-tab label="{{'REVENUE_CHARTS' | translate}}">
+    <md-content class="md-padding">
+
+      <div layout="row" layout-wrap layout-padding layout-align="space-around">
+
+
+        <div class="md-whiteframe-1dp whitebg" flex-gt-md="100" flex-md="100" flex="100">
+          <input style="width: 160px;" kendo-date-picker ng-model="strRevenueDate" k-ng-model="selectedRevenueDate" k-options="DatePickerRevenueOptions"
+          />
+          <md-icon md-svg-src="img/icons/ic_import_export_24px.svg" style="width:33px;height:30px;" class='export-pdf k-button' ng-click="savePDF()">
+            <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+              {{'SAVE_AS_PDF' | translate}}
+            </md-tooltip>
+
+          </md-icon>
+
+
+          <div id="revenueMonthChart"></div>
+
+        </div>
+
+      </div>
+    </md-content>
+  </md-tab>
+  <md-tab label="{{'STATISTICS' | translate}}">
+    <md-content class="md-padding " layout layout-align="start start">
+      <div layout="row" layout-wrap layout-align="space-around">
+        <div class="md-whiteframe-1dp whitebg" flex-gt-md="25" flex-gt-sm="45" flex="100">
+          <md-toolbar class="md-accent" style="margin-right:0">
+            <div class="md-toolbar-tools">
+              <md-button class="md-icon-button" aria-label="Settings">
+                <md-icon md-svg-src="img/icons/ic_insert_chart_24px.svg"></md-icon>
+              </md-button>
+              <span flex>{{'TODAY_STATISTICS' | translate}}</span>
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+            <md-list>
+
+              <md-list-item>
+
+                <p>{{'STATIS_CURRENT_ROOM_OCCUPIED' | translate}}</p>
+                <p class="md-secondary">{{todayStats.roomOccupied}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_ROOM_DUE_OUT' | translate}}</p>
+                <p class="md-secondary">{{todayStats.roomDueOut}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_TODAY_STAY_OVER' | translate}}</p>
+                <p class="md-secondary">{{todayStats.roomTodayStayOver}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_ARRIVAL' | translate}}</p>
+                <p class="md-secondary">{{todayStats.roomArrival}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_TOTAL_ROOMS_TO_SELL' | translate}}</p>
+                <p class="md-secondary">{{todayStats.roomTotalRoomsToSell}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_PROJECTED_ROOMS_OCCUPIEDL' | translate}}</p>
+                <p class="md-secondary">{{todayStats.ProjectedRoomsOccupied}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_PROJECTED_OCCUPANCY' | translate}}</p>
+                <p class="md-secondary">{{todayStats.ProjectedOccupancy}}
+
+                </p>
+              </md-list-item>
+
+              <!-- <md-list-item>
+                                
+                                <p>{{'STATIS_PROJECTED_ADR' | translate}}</p>
+                                <md-button>??</md-button>
+                            </md-list-item>
+                          
+                           <md-list-item>
+                                
+                                <p>{{'STATIS_PROJECTED_REVPAR' | translate}}</p>
+                                <md-button>??</md-button>
+                            </md-list-item>-->
+
+            </md-list>
+          </md-content>
+        </div>
+        <div class="md-whiteframe-1dp whitebg" flex-gt-sm="45" flex="100">
+          <md-toolbar class="md-accent" style="margin-right:0">
+            <div class="md-toolbar-tools">
+              <md-button class="md-icon-button" aria-label="Settings">
+                <md-icon md-svg-src="img/icons/ic_supervisor_account_24px.svg"></md-icon>
+              </md-button>
+              <span flex>{{'TOTAL_GUESTS' | translate}}
+                <span class="header-toolbar">
+                  (
+                  <md-icon md-svg-src="img/icons/ic_accessibility_24px.svg">
+                    <md-tooltip md-direction="bottom" flex-gt-md="100" hide-xs hide-sm hide-md>
+                      {{'CHILDREN' | translate}}
+                    </md-tooltip>
+                  </md-icon>/
+                  <md-icon md-svg-src="img/icons/ic_person_24px.svg">
+                    <md-tooltip md-direction="bottom" flex-gt-md="100" hide-xs hide-sm hide-md>
+                      {{'ADULT' | translate}}
+                    </md-tooltip>
+                  </md-icon>/
+                  <md-icon md-svg-src="img/icons/ic_group_24px.svg">
+                    <md-tooltip md-direction="bottom" flex-gt-md="100" hide-xs hide-sm hide-md>
+                      {{'TOTAL' | translate}}
+                    </md-tooltip>
+                  </md-icon>)
+                </span>
+
+              </span>
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+            <md-list>
+
+              <md-list-item>
+
+                <p>{{'STATIS_CURRENT_IN_HOUSE' | translate}}
+                </p>
+                <p class="md-secondary">{{hotelGuests.Current_In_Children}} / {{hotelGuests.Current_In_Adult}} / {{hotelGuests.Current_In_House}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_DUE_TO_CHECKOUT' | translate}}</p>
+                <p class="md-secondary">{{hotelGuests.Due_To_Checkout_Children}} / {{hotelGuests.Due_To_Checkout_Adult}} / {{hotelGuests.Due_To_Checkout}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_STAYING_OVER' | translate}}</p>
+                <p class="md-secondary">{{hotelGuests.Staying_Over_Children}} / {{hotelGuests.Staying_Over_Adult}} / {{hotelGuests.Staying_Over}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_DUE_TO_ARRIVE' | translate}}</p>
+                <p class="md-secondary">{{hotelGuests.Due_To_Arrive_Children}} / {{hotelGuests.Due_To_Arrive_Adult}} / {{hotelGuests.Due_To_Arrive}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_EXPECTED_IN_HOUSE' | translate}}</p>
+                <p class="md-secondary">{{hotelGuests.Expected_In_House_Children}} / {{hotelGuests.Expected_In_House_Adult}} / {{hotelGuests.Expected_In_House}}</p>
+              </md-list-item>
+
+            </md-list>
+          </md-content>
+        </div>
+        <div class="md-whiteframe-1dp whitebg" flex-gt-md="25" flex-gt-sm="45" flex="100">
+          <md-toolbar class="md-accent" style="margin-right:0">
+            <div class="md-toolbar-tools">
+              <md-button class="md-icon-button" aria-label="Settings">
+                <md-icon md-svg-src="img/icons/ic_assignment_24px.svg"></md-icon>
+              </md-button>
+              <span flex>{{'TODAY_ACTIVITY_COUNT' | translate}}</span>
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+            <md-list>
+
+              <md-list-item>
+
+                <p>{{'STATIS_ARRIVED' | translate}}</p>
+                <p class="md-secondary">{{todayActivity.Arrived}}</p>
+              </md-list-item>
+
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_DUE_TO_ARRIVE' | translate}}</p>
+                <p class="md-secondary">{{todayActivity.Due_To_Arrive}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_CHECKED_OUT' | translate}}</p>
+                <p class="md-secondary">{{todayActivity.Checked_Out}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_DUE_OUT' | translate}}</p>
+                <p class="md-secondary">{{todayActivity.Due_Out}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_DAY_USE' | translate}}</p>
+                <p class="md-secondary">{{todayActivity.Day_Use}}</p>
+              </md-list-item>
+            </md-list>
+          </md-content>
+        </div>
+        <div class="md-whiteframe-1dp whitebg" flex-gt-md="25" flex-gt-sm="45" flex="100">
+          <md-toolbar class="md-accent" style="margin-right:0">
+            <div class="md-toolbar-tools">
+              <md-button class="md-icon-button" aria-label="Settings">
+                <md-icon md-svg-src="img/icons/ic_store_24px.svg"></md-icon>
+              </md-button>
+              <span flex>{{'HOTEL_INVENTORY' | translate}}</span>
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+            <md-list>
+
+              <md-list-item>
+
+                <p>{{'STATIS_ROOMS_IN_PROPERTY' | translate}}</p>
+                <p class="md-secondary">{{roomInventory.Rooms_In_Property}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_OUT_OF_ORDER' | translate}}</p>
+                <p class="md-secondary">{{roomInventory.Out_Of_Order}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+
+                <p>{{'STATIS_TOTAL_ROOM_AVAILABLE' | translate}}</p>
+                <p class="md-secondary">{{roomInventory.Total_Room_Available}}</p>
+              </md-list-item>
+
+
+            </md-list>
+          </md-content>
+        </div>
+
+        <div class="md-whiteframe-1dp whitebg" flex-gt-sm="45" flex="100">
+          <md-toolbar class="md-accent" style="margin-right:0">
+            <div class="md-toolbar-tools">
+              <md-button class="md-icon-button" aria-label="Settings">
+                <md-icon md-svg-src="img/icons/ic_trending_up_24px.svg"></md-icon>
+              </md-button>
+              <span flex>{{'FUTURE_INVENTORY' | translate}}</span>
+              <input style="width: 160px;" kendo-date-picker ng-model="strDate" k-ng-model="selectedDate" k-options="DatePickerOptions"
+                ng-change="alert('change')" />
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+            <div kendo-grid="grid" options="futureInventoryOptions" k-rebind="appliedDate" style=""></div>
+          </md-content>
+        </div>
+
+        <div class="md-whiteframe-1dp whitebg" flex-gt-md="25" flex-gt-sm="45" flex="100">
+          <md-toolbar class="md-accent" style="margin-right:0">
+            <div class="md-toolbar-tools">
+              <md-button class="md-icon-button" aria-label="Settings">
+                <md-icon md-svg-src="img/icons/ic_domain_24px.svg"></md-icon>
+              </md-button>
+              <span flex>{{'HOUSEKEEPING_STATUS' | translate}}</span>
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+            <md-list>
+              <md-list-item>
+                <p>{{'STATIS_DIRTY_OCCUPIED' | translate}}</p>
+                <p class="md-secondary">{{houseKeeping.Dirty_Occupied}}</p>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+                <p>{{'STATIS_DIRTY_VARIANT' | translate}}</p>
+                <p class="md-secondary">{{houseKeeping.Dirty_Variant}}</p>
+              </md-list-item>
+            </md-list>
+          </md-content>
+        </div>
+      </div>
+    </md-content>
+  </md-tab>
+  <md-tab label="{{'STATIS_CHARTS' | translate}}">
+    <md-content class="md-padding" style="">
+
+      <div layout="row" layout-wrap layout-padding layout-align="space-around">
+
+        <div class="md-whiteframe-1dp whitebg" flex-gt-md="40" flex-md="100" flex="100">
+          <div id="todaychart"></div>
+
+        </div>
+        <div class="md-whiteframe-1dp whitebg" flex-gt-md="40" flex-md="100" flex="100">
+          <div id="roomInventory"></div>
+
+        </div>
+        <div class="md-whiteframe-1dp whitebg" flex-gt-md="40" flex-md="100" flex="100">
+          <div id="hotelGuests"></div>
+
+        </div>
+        <div class="md-whiteframe-1dp whitebg" flex-gt-md="40" flex-md="100" flex="100">
+          <div id="houseKeeping"></div>
+        </div>
+      </div>
+    </md-content>
+  </md-tab>
+</md-tabs>

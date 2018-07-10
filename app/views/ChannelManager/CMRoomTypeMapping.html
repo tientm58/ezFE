@@ -1,0 +1,189 @@
+<style>
+    h3 {
+        margin: 20px 20px;
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 40px;
+        letter-spacing: -1px;
+        display: block;
+        color: #666;
+        font-family: 'Open Sans', sans-serif;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+    }
+
+    .ipsum {
+        color color: gray;
+        font-size: 0.9em;
+        font-style: italic;
+        display: block;
+        padding-top: 6px;
+    }
+
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+
+    md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+        height: auto;
+    }
+
+    md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+    }
+
+    #height {
+        min-height: 400px !important;
+        max-height: 50000px !important;
+        overflow: auto;
+    }
+
+    .ipsum {
+        color: gray;
+        line-height: 19px;
+        font-style: normal !important;
+    }
+
+    .text-number-service {
+        border: 1px solid #ccc0;
+        background: #59ccff;
+        font-size: 13px;
+        box-sizing: border-box;
+        width: 35px;
+        height: 25px;
+        text-align: center;
+    }
+
+    .lbl-rooms {
+        padding-top: 20px;
+        float: left;
+    }
+
+    .lbl-price {
+        padding-top: 20px;
+        float: left;
+        padding-left: 10px
+    }
+
+    .rooms {
+        float: left;
+        margin-top: 15px;
+        margin-left: 5px
+    }
+
+    .price {
+        float: left;
+        margin-top: 15px;
+        margin-left: 5px;
+        width: 100px !important
+    }
+
+    input.inp_number::-webkit-inner-spin-button,
+    input.inp_number::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+<div layout="row" layout-margin="" id="height" layout-padding="" ng-cloak="" style="">
+    <md-card id="height" style="" flex="100" layout="row" layout-padding="" layout-wrap="">
+        <h4 style="color:black;">
+            {{'CHANNEL_MANAGER_ROOM_MAPPING' | translate}}
+        </h4>
+        <section flex="100" layout layout-align="start start">
+            <section flex-xs="100" class="ipsum" flex-gt-xs="100">
+                <md-icon md-menu-origin="" md-svg-src="img/icons/ic_warning_48px.svg">
+                </md-icon>{{'CMROOMTYPE_RATE_MAPPING_NOTE' | translate}}
+            </section>
+        </section>
+        <div ng-if="isShowKeepRanking == true">
+            <span>Kích hoạt chức năng Keep Ranking
+                <span>
+                    <a style="text-decoration-color:red" href="http://help.ezcloudhotel.com/lam-the-nao-de-cap-nhat-gia-len-cac-kenh-ban-phong/"><i style="color: red">({{'SUGGEST_KEEP_RANKING' | translate}})</i></a>
+                </span> :
+            </span>
+            <md-checkbox flex ng-model="isKeepRanking" style="margin: 0 auto; padding-top: 10px" ng-change="isCheckKeepRanking()">
+            </md-checkbox>
+            <md-button class="btn-c md-warn md-raised md-button ng-scope md-ink-ripple" aria-hidden="true" ng-if="isEditRanking == true"
+                ng-click="saveKeepRanking()">
+                <span style="font-size:10px !important">{{ 'SAVE' | translate }}</span>
+                <md-tooltip>{{'SAVE_EDIT_RANKING' | translate}}</md-tooltip>
+            </md-button>
+            <!-- <md-icon style="fill:red !important" md-menu-origin="" md-svg-src="img/icons/ic_warning_48px.svg"></md-icon> -->
+
+        </div>
+        <md-list flex="100">
+            <md-list-item style="">
+                <p style="font-weight: bold;">
+                    {{'HOTEL' | translate}}
+                </p>
+                <p class="md-secondary" style="font-weight: bold;">
+                    {{'CHANNEL_MANAGER' | translate}}
+                </p>
+            </md-list-item>
+        </md-list>
+        <md-list ng-repeat="roomType in mappedRoomTypes" flex="100" ng-if="roomType.RoomType != null">
+            <md-list-item style="background-color: #d6d6d6;">
+                <p>
+                    {{roomType.RoomType.RoomTypeName | translate}}
+                </p>
+                <p class="md-secondary" ng-if="roomType.RoomType.IsHidden == false">
+                    <span ng-repeat="map in roomType.MappedTo">
+                        <span style="font-style: italic;">
+                            {{map.CMRoomTypeName}}
+                        </span>
+                    </span>
+                    <md-icon aria-label="Add More Room Type" md-svg-src="img/icons/ic_add_48px.svg" ng-click="mapMoreCMRoomType(roomType)" style="margin-left: 6px;">
+                    </md-icon>
+                    <md-icon aria-label="Remove More Room Type" ng-if="roomType.MappedTo.length>0" md-svg-src="img/icons/ic_close_48px.svg" ng-click="removeCMRoomType(roomType)"
+                        style="margin-left: 6px;">
+                    </md-icon>
+                </p>
+                <p class="md-secondary" ng-if="roomType.RoomType.IsHidden == true" style="color: #f44336;">
+                    {{'CURRENTLY_INACTIVE' | translate}}
+                </p>
+            </md-list-item>
+            <div style="padding: 0 16px; min-height: 48px" ng-if="isShowKeepRanking == true">
+                <span class="lbl-rooms">Số lượng phòng: </span>
+                <input required type="text" ng-keypress="checkValidNumber($event,roomType.MappedTo[0].RoomsRanking)" ng-disabled="roomType.isRanking == false"
+                    ng-style="roomType.isRanking == false && {'background':'#ddd'}" class="text-number-service inp_number rooms" ng-min="0"
+                    ng-model="roomType.MappedTo[0].RoomsRanking" ng-change="changeKeepRanking()">
+                <span class="lbl-price">Giá: </span>
+                <input required type="text" ng-keypress="checkValidNumber($event,roomType.MappedTo[0].PriceRanking)" ng-disabled="roomType.isRanking == false"
+                    ng-style="roomType.isRanking == false && {'background':'#ddd'}" class="text-number-service inp_number price" ng-min="0"
+                    ng-model="roomType.MappedTo[0].PriceRanking" ng-change="changeKeepRanking()">
+            </div>
+            <md-list-item ng-repeat="roomPrice in roomType.RoomPrice_Rate_MappedList">
+                <p>
+                    {{roomPrice.RoomPrice.RoomPriceName | translate}}
+                </p>
+                <p class="md-secondary">
+                    <span ng-if="roomPrice.MappedToRate">{{roomPrice.MappedToRate.rate_id}} -</span> {{roomPrice.MappedToRate.rate_name | translate}}
+                    <md-icon aria-label="Add More Room Type" md-svg-src="img/icons/ic_add_48px.svg" ng-click="mapMoreCMRoomRate(roomPrice)" style="margin-left: 6px;">
+                    </md-icon>
+                    <md-icon aria-label="Remove More Room Rate" ng-if="roomPrice.MappedToRate" md-svg-src="img/icons/ic_close_48px.svg" ng-click="removeCMRoomRate(roomPrice)"
+                        style="margin-left: 6px;">
+                    </md-icon>
+                </p>
+            </md-list-item>
+            <md-divider></md-divider>
+        </md-list>
+    </md-card>
+</div>
+<div flex="" layout="row" layout-align="space-between center" ng-repeat="roomPrice in roomType.RoomPrice_Rate_MappedList">
+    <p>
+        {{roomPrice.RoomPrice.RoomPriceName}}
+    </p>
+    <p>
+        <span style="font-style: italic;">
+            {{roomPrice.MappedToRate.rate_name}}
+        </span>
+        <md-icon aria-label="Add More Room Type" md-svg-src="img/icons/ic_add_48px.svg" ng-click="mapMoreCMRoomType(roomType)" style="margin-left: 6px;">
+        </md-icon>
+    </p>
+</div>

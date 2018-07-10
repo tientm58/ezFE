@@ -1,0 +1,104 @@
+<style>
+    .amountInvalid:{
+        color: #f44336;
+        font-weight: bold;
+    }
+</style>
+<md-dialog aria-label="Group Pax Operation" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'GROUP_PAYMENT_OPERATION' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <md-card flex="100">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">{{'DISTRIBUTION_TYPE' | translate}}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content layout="row" layout-wrap>
+                        <div layout="row" layout-wrap flex="100">
+                            <div layout="row" layout-wrap layout-align="space-between center" flex="60">
+                                <md-radio-group ng-model="distributionType" layout-gt-xs="row" layout="column" layout-align="start start">
+                                    <md-radio-button style="padding: 4px;" ng-value="'BY_BALANCE'" class="md-warn">{{'BY_BALANCE' | translate}}</md-radio-button>
+                                    <md-radio-button style="padding: 4px;" ng-value="'PROPORTIONAL'" class="md-warn"> {{'PROPORTIONAL' | translate}} </md-radio-button>
+                                    <md-radio-button style="padding: 4px;" ng-value="'MANUAL'" class="md-warn">{{'MANUAL' | translate}}</md-radio-button>
+                                </md-radio-group>
+                            </div>
+                            <div flex layout-gt-xs="row" layout="column" layout-align="space-between start">
+                                <!-- <span style="font-weight: bold;" class="amountInvalid">
+                                    {{'AMOUNT' | translate}}: {{paymentAmount | currency:""}}
+                                </span> -->
+                                <md-input-container style="margin-bottom: 0px;">
+                                    <label>{{'AMOUNT' | translate}}</label>
+                                    <input type="text" ng-disabled="true" ng-model="paymentAmount" ui-number-mask="newDecimal" ui-negative-number/>
+                                </md-input-container>
+                                <!-- <span ng-class="{'amountInvalid': warningAmountNotBalanced}">{{'BALANCE' | translate}}: {{balance | currency:""}}</span> -->
+                                <md-input-container style="margin-bottom: 0px;">
+                                    <label>{{'BALANCE' | translate}}</label>
+                                    <input type="text" ng-disabled="true" ng-model="balance" ui-number-mask="newDecimal" ui-negative-number/>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <section flex="100" layout="row" layout-align="end end">
+                            <fieldset flex="55" ng-if="warningAmountNotBalanced" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" >
+                                <span style="color: #f44336;">
+                                    {{'AMOUNT_IS_NOT_BALANCED_PROPERLY._PLEASE_CHECK_AND_DO_NEEDFUL_OPERATION.' | translate}}
+                                </span>
+                            </fieldset>
+                        </section>
+
+                    </md-card-content>
+                </md-card>
+                <md-card style="border-top: 1px solid #eee;" flex="100">
+                    <md-table-container>
+                        <table md-table md-row-select="false" multiple="false" md-progress="promise">
+                            <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                                <tr md-row>
+                                    <th md-column md-numeric md-order-by="Rooms.RoomName" style="padding-left: 0px;"><span>{{'ROOM' | translate}}</span></th>
+                                    <th md-column md-numeric md-order-by="Travellers.Fullname" md-desc><span>{{'GUEST_NAME' | translate}}</span></th>
+                                    <th md-column md-numeric md-order-by="Total"><span>{{'TOTAL' | translate}}</span></th>
+                                    <th md-column md-numeric md-order-by="Paid"><span>{{'PAID' | translate}}</span></th>
+                                    <th md-column md-numeric md-order-by="Balance"><span>{{'BALANCE' | translate}} </span></th>
+                                    <th md-column md-numeric><span>{{'AMOUNT' | translate}}</span></th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row md-select="room" md-on-select="logItem" md-auto-select="true" ng-repeat="room in groupData.RoomInformation | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                    <td md-cell>{{room.Rooms.RoomName}} - {{room.RoomTypes.RoomTypeCode}}{{room.ReservationRoomId}}</td>
+                                    <td md-cell>{{room.Travellers.Fullname}}</td>
+                                    <td md-cell>{{room.Total | currency:""}}</td>
+                                    <td md-cell>{{room.Paid | currency:""}}</td>
+                                    <td md-cell>{{room.Balance | currency:""}}</td>
+                                    <td md-cell>
+                                        <!-- <span ng-if="distributionType == 'BY_BALANCE' || distributionType == 'PROPORTIONAL'">{{room.Amount | currency:""}}</span>
+                                        <input ng-if="distributionType == 'MANUAL'" style="width: 90px;" type="text" ng-model="room.Amount" ui-number-mask="decimal" ng-change="changeManualAmount()" /> -->
+                                        <md-input-container style="margin-bottom: 0px;">
+                                            <label></label>
+                                            <input type="text" ng-disabled="distributionType == 'BY_BALANCE' || distributionType == 'PROPORTIONAL'" ng-model="room.Amount" ng-change="changeManualAmount()" ui-number-mask="newDecimal" ui-negative-number/>
+                                        </md-input-container>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                </md-card>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button ng-click="saveGroupPaymentOperation()" class="md-primary">
+                {{'SAVE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

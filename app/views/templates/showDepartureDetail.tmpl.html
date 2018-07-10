@@ -1,0 +1,63 @@
+<md-dialog aria-label="Room Edit">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'DEPARTURE_DETAIL' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <md-input-container class="md-block" flex-gt-xs>
+                    <p style="font-weight: bold;">{{'RES_NO' | translate}} : {{departureDetail.Reservations.ReservationNumber}}
+                        <span show-xs hide-gt-xs>- {{ departureDetail.Reservations.CreatedDate | date:'dd/MM(HH:mm)' }}</span>
+                    </p>
+                    <p><span style="font-weight: bold;">{{'CREATED' | translate}}</span> {{departureDetail.CreatedDate | date:'dd/MM/yyyy (HH:mm)'}} | {{departureDetail.CreatedUserName}}</p>
+                     <p show-xs hide-gt-xs>
+                        <span style="font-weight: bold;">{{'CUSTOMER' | translate}}:</span>
+                        {{departureDetail.Travellers.Fullname}} 
+                    </p>
+                    <p show-xs hide-gt-xs>
+                        <span style="font-weight: bold;">{{'RATE' | translate}}:</span>
+                        {{departureDetail.RoomPrices.RoomPriceName | translate}} 
+                    </p>
+                    <p show-xs hide-gt-xs>
+                        <span style="font-weight: bold;">{{'ARRIVAL' | translate}}/{{'DEPARTURE' | translate}}:</span>
+                          {{ departureDetail.ArrivalDate | date:'dd/MM/yyyy HH:mm' }} - {{ departureDetail.DepartureDate | date:'dd/MM/yyyy HH:mm' }}
+                    </p>
+                    <p show-xs hide-gt-xs>
+                        <span style="font-weight: bold;">{{'NOTE' | translate}}:</span>
+                        {{departureDetail.Note}} 
+                    </p>
+
+                    <div ng-if="departureDetail.CreatedDate.toString() !== departureDetail.CheckInDate.toString()" layout="row" layout-align="left center">
+                        <p>
+                            <span style="text-align: middle;font-style: italic;font-weight: bold;">{{'BOOKED' | translate}}</span>
+                        <span>
+                        {{departureDetail.CreatedDate | date:'dd/MM/yyyy (HH:mm)'}} | {{departureDetail.CreatedUserName}}
+                        </span>
+                        </p>
+                    </div>
+                    <div ng-if="departureDetail.CheckInDate" layout="row" layout-align="left center">
+                        <p>
+                            <span style="text-align: middle;font-weight: bold;">{{'CHECKIN' | translate}}</span>
+                        <span>
+                        {{departureDetail.CheckInDate | date:'dd/MM/yyyy (HH:mm)'}} | {{departureDetail.CheckInUserName}}
+                        </span>
+                        </p>
+                    </div>                   
+                </md-input-container>                
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

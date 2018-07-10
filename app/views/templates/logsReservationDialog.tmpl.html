@@ -1,0 +1,116 @@
+<style>
+    .disabled {
+        background: #dddddd;
+    }
+    .textDiabled {
+        text-decoration: line-through
+    }
+    md-list-item ._md-no-style, md-list-item._md-no-proxy{
+        padding: 0px;
+    }
+    .md-list-item.md-2-line .md-list-item-text, md-list-item.md-2-line>._md-no-style .md-list-item-text, md-list-item.md-3-line .md-list-item-text, md-list-item.md-3-line>._md-no-style .md-list-item-text{
+        margin:auto;
+    }
+    .md-list-item ._md-list-item-inner ._md-secondary-container, md-list-item ._md-secondary-container{
+        height: auto;
+    }
+    
+    @media (min-width: 960px){
+        .flex-sm-80, .layout-row>.flex-sm-80, .layout-sm-row>.flex-sm-80{
+            max-height:95% !important;
+        }
+        .flex-gt-sm-55, .layout-gt-sm-row>.flex-gt-sm-55, .layout-row>.flex-gt-sm-55{
+            /*max-width: 88% !important;*/
+        }
+    }
+    md-list-item ._md-list-item-inner .md-avatar, md-list-item .md-avatar {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    .text-noti{
+        text-align: center;
+        color: #827a7a;
+    }
+    .box-item{
+        padding: 0px 10px;
+    }
+        
+</style>
+<md-dialog aria-label="Live Check Out" flex-gt-sm="55" flex-sm="80" flex-xs="100" >
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'LOGS' | translate}}</h2>
+                <span flex></span> 
+                <md-button class="md-icon-button" ng-click="cancelDialog()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+                <div flex="100">
+                    <form ng-submit="processSearchAuditLog()">
+                        <button class="hide" id="btn_processSearchAuditLog"></button> 
+
+                        <div layout="row" layout-align="space-between center" layout-wrap flex="100" style="padding: 12px;">
+                            <div flex-xs="100" flex-sm="100" flex-gt-sm="40" layout="row" layout-align="space-between center" style="margin-bottom: 24px;">
+                                <md-input-container style="margin: 0px;" class="md-icon-float" flex="45">
+                                    <label>{{'FROM' | translate}} </label>
+                                    <input kendo-date-picker ng-model="str" k-ng-model="search.From" style="width: 100%;" k-options="DatePickerOption" />
+                                </md-input-container>
+                                <md-input-container style="margin: 0px;" class="md-icon-float" flex="45">
+                                    <label>{{'TO' | translate}} </label>
+                                    <input kendo-date-picker ng-model="str2" k-ng-model="search.To" style="width: 100%;" k-options="DatePickerOption" />
+                                </md-input-container>
+                            </div>
+                            <div flex-xs="100" flex-sm="100" flex-gt-sm="55" layout="row" layout-align="space-between center" style="margin-bottom: 24px;">
+                                <md-input-container style="margin: 0px;" flex="30">
+                                    <label>{{'USER' | translate}} </label>
+                                    <md-select ng-model="search.UserId">
+                                        <md-option value="" ng-selected="true">{{'ALL' | translate}}</md-option>
+                                        <md-option ng-repeat="user in allUser" ng-value="user.Id">{{ user.UserName }}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container style="margin: 0px;" flex="40">
+                                    <label>{{'OPERATION' | translate}}</label>
+                                    <md-select ng-model="search.Operation">
+                                        <!-- <md-option value="ALL" ng-selected="true">{{'ALL' | translate}}</md-option> -->
+                                        <md-option ng-value="ALL">{{'ALL_REPORT' | translate}}</md-option>
+                                        <md-option ng-repeat="operation in allOperation | orderBy: 'name2'" ng-value="operation.name">{{operation.name | translate}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <div flex>
+                                    <md-button flex="100" flex-xs="100" class="md-raised md-warn" onclick="jQuery('#btn_processSearchAuditLog').click()">
+                                        {{'SEARCH' | translate}}
+                                    </md-button>
+                                </div>
+                            </div> 
+
+                        </div> 
+                    </form>
+                </div>
+                <div flex class="one">
+                    <md-content layout-align="center start" style="height:calc(100% - 43%)">
+                    <div layout="column" layout-align="center start" ng-clock ng-repeat="(k, val) in logResults" class="height-all-es" ng-if="logResults != null" >
+                        <md-subheader style="width:100%" class="md-primary" >{{k}}</md-subheader>
+                        <md-list flex="90" class="height-all-es box-item">
+                            <md-list-item class="md-3-line" ng-repeat="(key, value) in val"  >
+                            
+                            <img ng-src="/img/icons/app/{{findIcon(value.data.HotelAppCodeName)}}.png" class="md-avatar" alt="{{value.date | date:'HH:mm'}}" /> 
+                            
+                            <div class="md-list-item-text" layout="column">
+                                <!--<h3>{{value.date | date:'HH:mm'}}</h3>-->
+                                <h4>{{value.date | date:'HH:mm'}} {{value.data.HotelAppCodeName | translate}}</h4>
+                                <p>{{value.data.message}}</p>
+                            </div>
+                            </md-list-item>
+                        </md-list> 
+                    </div>
+                    <div layout="column" layout-align="center start"  class="height-all-es" ng-if="logResults == null" >
+                        <h4 class="text-noti">{{'LOG_NOT_FOUND' | translate}}</h4>
+                    </div>
+                    </md-content>
+                </div>
+        </md-dialog-content> 
+        <div class="md-actions" layout="row" >  
+        </div>
+</md-dialog>

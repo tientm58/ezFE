@@ -1,0 +1,79 @@
+<md-dialog aria-label="Room Repair" ng-cloak flex-xs="100" flex-sm="100" flex-gt-sm="60">
+	<form>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'ADD_MAINTENANCE_BLOCK' | translate}} - {{'ROOM' | translate}} {{currentRoom.RoomName}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+				<div layout="row" layout-align="start center" flex="100" style="padding-bottom: 24px;">
+					<span flex="25" style="">{{'START_DATE' | translate}}</span>
+					<div flex>
+						<input kendo-date-time-picker ng-model="str" ng-disabled="disabled" k-ng-model="newRoomRepair.RepairStartDate" style="font-size:16px;width: 100%;" k-options="DateTimePickerOption" />
+					</div>
+				</div>
+				<div layout="row" layout-align="start center" flex="100" style="padding-bottom: 24px;">
+					<span flex="25" style="">{{'END_DATE' | translate}}</span>
+					<div flex>
+						<input kendo-date-time-picker ng-model="str2" k-ng-model="newRoomRepair.RepairEndDate" style="width: 100%;font-size:16px" k-options="DateTimePickerOption" />
+					</div>
+				</div>
+				<div layout="row" layout-align="start center" flex="100" style="padding-bottom: 24px;">
+					<span flex="25" style="">{{'REASON' | translate}}</span>
+					<md-input-container flex style="margin: 0px;">
+						<label></label>
+						<input type="text" ng-model="newRoomRepair.RepairReason"/>
+					</md-input-container>
+				</div>
+
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warningDateCurrentTime === true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+							{{'BLOCK_START_DATE_AND_BLOCK_END_DATE_CAN_NOT_LESS_THAN_CURRENT_DATE' | translate}}.
+						</span>
+				</fieldset>
+
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warningDateNull === true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+							{{'BLOCK_START_DATE_AND_BLOCK_END_DATE_CAN_NOT_BE_NULL' | translate}}.
+						</span>
+				</fieldset>
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warningReason === true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+							{{'BLOCK_REASON_CAN_NOT_BE_NULL' | translate}}.
+						</span>
+				</fieldset>
+
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warningDateInvalid === true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+							{{'BLOCK_END_DATE_CAN_NOT_LESS_THAN_BLOCK_START_DATE' | translate}}.
+						</span>
+				</fieldset>
+
+				<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="warningConflict === true">
+					<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+					<span style="color: #f44336;">
+							{{'CONFLICT_WITH_OTHER_BLOCK' | translate}}.
+						</span>
+				</fieldset>
+			</div>
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-click="addRoomRepair()" class="md-primary">
+				{{'ADD' | translate}}
+			</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>

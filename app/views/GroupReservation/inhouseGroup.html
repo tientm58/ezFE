@@ -1,0 +1,469 @@
+<style>
+    .text {
+        display: inline;
+        padding: 0em 0em 0em;
+        font-weight: 600;
+        text-transform: none;
+        word-break: break-all;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+
+    .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+
+    .md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+    }
+
+    #hight100 {
+        min-height: 100px !important;
+        max-height: 3000px !important;
+        overflow-y: hidden !important;
+    }
+
+    md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+        height: auto;
+    }
+
+    md-list-item .md-list-item-inner .md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto !important;
+    }
+
+    md-input-container {
+        margin: 0px;
+    }
+
+    .row-height {
+        max-height: 30px !important;
+    }
+
+    .border-bottom {
+        border-bottom: rgba(128, 128, 128, 0.41) 1px solid;
+    }
+
+    md-icon {
+        cursor: pointer;
+    }
+
+    .min-width37 {
+        min-width: 37px;
+    }
+
+    .icon-excel {
+        width: 20px;
+        height: 20px !important;
+        cursor: pointer;
+    }
+
+    .bt-search {
+        margin-top: -29px !important;
+    }
+
+    @media only screen and (max-device-width: 600px) {
+        .custom-md-list md-list-item section {
+            max-height: 88px !important;
+        }
+        .pading-right10mb {
+            padding-right: 10px;
+        }
+        .bt-search {
+            margin-top: -0px !important;
+        }
+    }
+
+    .custom-md-list md-list-item.md-3-line,
+    md-list-item.md-3-line>._md-no-style {
+        border-bottom: 1px solid #ebebeb;
+    }
+</style>
+<div flex="100" class="custom-header" layout="row" layout-align="start center">
+    <div flex="50" class="custom-stepper-back">
+        <div flex="100" layout-align="center start" layout="column">
+            <h2 class="header-title-top">{{ 'INHOUSE_GROUP_LIST' | translate }} </h2>
+        </div>
+    </div>
+    <div flex="50" class="custom-stepper-next" layout-align="end center" layout="row">
+        <md-button class="btn-c md-warn md-raised" ng-click="processSearch()">
+            {{'SEARCH' | translate}}
+        </md-button>
+        <md-button class="btn-c md-raised text-blue" ng-click="MergeGroup()">
+            {{'MERGE_GROUP' | translate}}
+        </md-button>
+    </div>
+</div>
+<md-content class="md-padding display-block font-size14 padding9 bg-greay" layout="row" layout-align="center center" layout-wrap
+    style="height: 100%;">
+    <md-card flex="100" class="custom-card height-md-card">
+        <section style="" class="hide">
+            <div layout="row" layout-align="space-between center" style="">
+                <span flex class="md-toolbar-tools">
+                    <h2>
+                        {{ 'INHOUSE_GROUP_LIST' | translate }}
+                    </h2>
+                </span>
+                <!-- <section layout="row" layout-align="end start">
+                    <md-button id="search" class="md-warn md-raised" ng-click="processSearch()">
+                        {{'SEARCH' | translate}}
+                    </md-button>
+                </section> -->
+                <div>
+                    <md-button id="mergeGroup" class="md-warn md-raised" ng-click="MergeGroup()">
+                        {{'MERGE_GROUP' | translate}}
+                    </md-button>
+                </div>
+                <div>
+                    <md-button id="export" ng-show="searchResult.length > 0" class="md-raised" ng-click="ExportExcel('#tableExport')">
+                        {{'EXPORT' | translate}}
+                    </md-button>
+                </div>
+            </div>
+        </section>
+        <md-card-content style="padding: 12px;">
+            <section layout="row" layout-align="space-between center" layout-wrap flex="100">
+                <section flex-xs="100" flex-sm="100" flex-gt-sm="45" flex-md="100" layout="row" layout-align="space-between start" layout-wrap>
+                    <md-input-container style="" flex="50">
+                        <label>{{'RES_NO' | translate}} </label>
+                        <input type="text" ng-model="search.ReservationNumber">
+                    </md-input-container>
+                    <md-input-container style="" flex="45">
+                        <label>{{'GUEST_NAME' | translate}}</label>
+                        <input type="text" ng-model="search.GuestName">
+                    </md-input-container>
+                </section>
+                <section flex-xs="100" flex-sm="100" flex-gt-sm="50" layout="row" layout-align="space-between start" layout-wrap>
+                    <md-select flex-gt-sm="33" flex-sm="100" flex-xs="100" ng-model="search.SourceId" placeholder="{{'SELECT_SOURCE' | translate}}"
+                        style="margin-top: 0px;width:100%">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <md-option value="0">{{'SOURCE' | translate}}</md-option>
+                        <md-option ng-repeat="s in source" ng-value="s.SourceId">{{ s.SourceName }}</md-option>
+                    </md-select>
+                    <md-select flex-gt-sm="33" flex-sm="50" flex-xs="50" ng-model="search.RoomTypeId" ng-change="updateRoom()" placeholder="{{'SELECT_ROOM_TYPE' | translate}}"
+                        style="margin-top: 0px;">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <md-option value="0">{{'SELECT_TYPE' | translate}}</md-option>
+                        <md-option ng-repeat="rt in roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName | translate }}</md-option>
+                    </md-select>
+                    <md-select flex-gt-sm="33" flex-xs="45" flex-sm="45" ng-if="search.RoomTypeId === 0" ng-model="search.RoomId" ng-change="updateRoomType()"
+                        placeholder="{{'SELECT_ROOM' | translate}}" style="margin-top: 0px;">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <md-option value="0">{{'SELECT_ROOM' | translate}}</md-option>
+                        <md-option ng-repeat="r in rooms" ng-value="r.RoomId">{{ r.RoomName }}</md-option>
+                    </md-select>
+                    <md-select flex-gt-sm="33" flex-xs="45" flex-sm="45" ng-if="search.RoomTypeId !== 0" ng-model="search.RoomId" ng-change="updateRoomType()"
+                        placeholder="{{'SELECT_ROOM' | translate}}" style="margin-top: 0px;">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <md-option value="0">{{'SELECT_ROOM' | translate}}</md-option>
+                        <md-option ng-repeat="r in rooms | filter: {RoomTypeId: search.RoomTypeId}" ng-value="r.RoomId">{{ r.RoomName }}</md-option>
+                    </md-select>
+                </section>
+            </section>
+        </md-card-content>
+    </md-card>
+    <md-card flex class="custom-card margin-bottom25">
+        <md-card-title class="padding-bottom0-important">
+            <md-card-title-text>
+                <div layout="row" layout-xs="column" layout-align-xs="end center" layout-wrap>
+                    <div flex="40" flex-xs="100" class="row-height">
+                        <span class="md-headline">{{'GROUP_INFORMATION' | translate}}</span>
+                    </div>
+                    <div flex="60" flex-xs="100" layout="row" layout-align="end center" class="row-height icon-center font-size14">
+
+                        <!--<md-button id="export" ng-show="searchResult.length > 0" class="md-raised bg-green white-text" ng-click="ExportExcel('#tableExport')">-->
+                        <!--<md-icon md-icon="img/excel.svg"></md-icon>-->
+                        <img src="img/excel.png" ng-show="searchResult.length > 0" ng-click="ExportExcel('#tableExport')" class="icon-excel" alt="">
+                        <!--</md-button>-->
+                        <!-- <span class="padding-left-right10">{{'SHOW' | translate}}</span>
+                        <span class="padding-right7">
+                            <select flex-xs="100" class="padding-left-right10" ng-model="pagination.perPage" convert-to-number>
+                                <option ng-value="10">10</option>
+                                <option ng-value="20">20</option>
+                                <option ng-value="30">30</option>
+                            </select>
+                            {{'ENTRIES' | translate}}
+                        </span> -->
+                    </div>
+                </div>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <div ng-if="searchResult.length === 0" layout="row" layout-align="center center">
+                <span style="text-align: middle;font-style: italic;font-weight: bold; color: #f44336;">
+                    {{'NO_GROUP_FOUND' | translate}}
+                </span>
+            </div>
+            <md-list flex ng-if="searchResult.length > 0" class="custom-md-list margin-top0-important margin0">
+                <md-list-item class="md-3-line hide" flex="100" ng-repeat="result in searchResult" layout="row" layout-align="start center"
+                    style="padding: 0px; border-bottom: 1px solid #eee;">
+                    <div flex-gt-md="100" flex-md="80" flex-xs="85" flex-sm="80" flex class="md-list-item-text" layout="row" style="" layout-wrap>
+                        <!-- <h3 flex="100" style="color:black">
+                            <md-icon md-svg-src="img/icons/ic_group_24px.svg" ></md-icon>
+                            <span hide-xs>{{'ROOMS' | translate}}: {{ result.TotalReservation }}</span>
+                            <span hide-xs>- {{'PAX' | translate}}: {{ result.TotalAdults }}/{{ result.TotalChildren }}</span>
+                        </h3>
+                        <h4 flex="100">
+                                <md-icon md-svg-src="img/icons/ic_perm_identity_48px.svg" ></md-icon>
+                            <span>
+                                    <span ng-if="result.GroupName">{{ result.GroupName }}</span>
+                                    <span ng-if="result.GroupName==null">{{ result.CustomerLeader.Travellers.Fullname }}</span>
+                            </span>
+                            <span hide-xs>| {{ result.CustomerLeader.ArrivalDate | date:'dd/MM/yyyy HH:mm' }} - {{ result.CustomerLeader.DepartureDate | date:'dd/MM/yyyy HH:mm' }}</span>
+                            <span ng-if="result.Source" hide-xs>| {{result.Source.SourceName}}</span>
+                        </h4>
+                        <h4 flex="100" style="color:black">
+                            <md-icon md-svg-src="img/icons/ic_attach_money_24px.svg" ></md-icon>
+                            {{'RES_NO' | translate}}.{{result.CustomerLeader.ReservationNumber}}
+                            <span >| {{'RATE' | translate}}: </span>
+                            <span >- {{'BALANCE' | translate}}: </span>
+                        </h4> -->
+
+                        <h3 flex="100" style="font-weight: bold;">{{'RES_NO' | translate}}.{{result.CustomerLeader.ReservationNumber}}
+                            <span hide-xs>- {{ result.CustomerLeader.CreatedDate | date:'dd/MM(HH:mm)' }} | </span>
+                            <span hide-xs> {{'NUM_OF_ROOMS' | translate}}: {{ result.TotalReservation }} | </span>
+                            <span hide-xs> {{'PAX' | translate}}: {{ result.TotalAdults }}/{{ result.TotalChildren }} | </span>
+                            <span ng-if="result.Source">{{result.Source.SourceName}} </span>
+                        </h3>
+
+                        <h4 flex="100">
+                            <md-icon md-svg-src="img/icons/ic_flag_24px.svg " style="fill: {{result.CustomerLeader.Reservations.Color}};height: 21px; width: 21px; color: #666; "></md-icon>
+                            <span ng-if="result.Company">{{result.Company.CompanyName}} | </span>{{ result.CustomerLeader.Travellers.Fullname }}
+                            <span hide-xs>| {{'MIN_ARRIVALDATE'| translate}}:{{ result.CustomerLeader.minArrivalDate | date:'dd/MM/yyyy
+                                HH:mm' }} - {{'MAX_DEPARTUREDATE' | translate}}:{{ result.CustomerLeader.maxDepartureDate
+                                | date:'dd/MM/yyyy HH:mm' }}</span>
+                        </h4>
+                        <p flex="100" hide-xs>
+                            <span>
+                                <span style="font-weight: bold;">{{'NOTE' | translate}}:</span>
+                                <span style="font-style:italic;">{{result.CustomerLeader.Reservations.Note | limitTo: 130}}{{result.CustomerLeader.Reservations.Note.length > 130 ? "..." : ""}}</span>
+                            </span>
+                        </p>
+                    </div>
+                    <div flex-gt-md="45" flex-md="15" flex-xs="10" flex-sm="15" flex layout="row" layout-align="end center" style="margin: auto 0px;">
+                        <md-menu md-position-mode="target-right target" md-offset="0 -5">
+                            <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" style="margin: 0px;">
+                                <md-icon md-menu-origin md-svg-icon="img/icons/ic_forward_24px.svg"></md-icon>
+                            </md-button>
+                            <md-menu-content width="4" style="min-height:50px;max-height:350px">
+                                <md-menu-item ng-repeat="item in result.MenuItems" ng-if="item.name !='SET_COLOR'">
+                                    <md-button ng-click="menuItemClick(item, result)">
+                                        <div layout="row" flex>
+                                            <p flex>{{item.name | translate}}</p>
+                                            <md-icon md-menu-align-target md-svg-icon="img/icons/{{item.icon}}" style="margin: auto 3px auto 0;margin-right:15px"></md-icon>
+                                            <!-- <input  type="color" ng-model="statusColor.ColorCode" value="{{statusColor.ColorCode}}" /> -->
+                                            <!-- <input ng-if="item.name=='COLOR'" ng-disabled="true" type="color"  value="#43A047" style="margin: auto 3px auto 0;"/> -->
+                                        </div>
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+
+                    </div>
+                </md-list-item>
+                <md-list-item class="md-3-line font-size14 row-data pading-right10mb" flex="100" ng-repeat="result in searchResult | startFrom:(pagination.page - 1) * pagination.perPage | limitTo: pagination.perPage"
+                    layout="column" layout-align="start center">
+                    <section flex="100" flex-sm="100" layout layout-xs="column" layout-sm="column" class="max-height-name">
+                        <div flex-xs="100" flex-sm="50" flex="25" layout layout-align="start center" layout-wrap>
+                            <div flex="50" layout-align="start center">
+                                <img src="/img/25350.png" width="13">
+                                <span class="padding-left5 font-bold">{{result.CustomerLeader.ReservationNumber}}</span>
+                            </div>
+                            <div flex="50" layout layout-align="start center">
+                                <md-icon md-svg-src="img/icons/ic_event_available_24px.svg" class="icon-gray margin0"></md-icon>
+                                <span class="font-bold">{{ result.CustomerLeader.CreatedDate | date:'dd/MM(HH:mm)' }}</span>
+                            </div>
+                        </div>
+                        <div flex-xs="100" flex-sm="50" flex="15" layout layout-align="space-between center">
+                            <div flex="50" layout-align="start center">
+                                <md-icon md-svg-src="img/icons/ic_local_hotel_24px.svg" class="icon-gray margin0"></md-icon>
+                                <span class="font-bold">{{ result.TotalReservation }}</span>
+                            </div>
+                            <div flex="50" layout layout-align="start center">
+                                <md-icon md-svg-src="img/icons/ic_group_24px.svg " class="icon-gray margin0"></md-icon>
+                                <span class="font-bold">&nbsp;{{ result.TotalAdults }}/{{ result.TotalChildren }}</span>
+                            </div>
+                        </div>
+                        <div flex-xs="100" flex-sm="100">
+                            <md-icon md-svg-src="img/icons/ic_person_24px.svg " class="icon-gray margin0"></md-icon>
+                            <span class="font-bold">{{ result.CustomerLeader.Travellers.Fullname }}</span>
+                        </div>
+                    </section>
+                    <section flex="100" flex-sm="100" layout layout-xs="column" layout-sm="column" class="color-gray-text">
+                        <div flex-xs="100" flex-sm="100" flex="40" layout layout-align="start center">
+                            <md-icon md-svg-src="img/icons/ic_flag_24px.svg" class="margin0" style="fill: {{result.CustomerLeader.Reservations.Color}}"></md-icon>
+                            <div class="padding-left5  padding-top3" ng-if="result.ReservationCode">
+                                <span>{{result.ReservationCode | truncate:32}}</span>
+                                <span ng-if="result.ReservationCode.length >= 32">...</span>
+                            </div>
+                            <span class="padding-left5" ng-if="!result.ReservationCode">N/A</span>
+                        </div>
+                        <!--<div flex="25" layout layout-align="start center">
+                            <md-icon md-svg-src="img/icons/ic_person_24px.svg " class="icon-gray margin0"></md-icon>
+                            <span class="padding-left5 padding-top3 font-bold" >{{ result.CustomerLeader.Travellers.Fullname }}</span>
+                        </div> -->
+                        <div flex-xs="100" flex-sm="100" flex="20">
+                            <md-icon md-svg-src="img/icons/ic_flight_land_24px.svg " class="icon-gray margin0"></md-icon>
+                            <span>{{ result.CustomerLeader.minArrivalDate | date:'dd/MM/yyyy (HH:mm)' }}</span>
+                        </div>
+                        <div flex-xs="100" flex-sm="100" flex="20" layout layout-align="center center" layout-align-sm="start center" layout-align-xs="start center">
+                            <md-icon md-svg-src="img/icons/ic_flight_takeoff_24px.svg " class="icon-gray margin0"></md-icon>
+                            <span>{{ result.CustomerLeader.minArrivalDate | date:'dd/MM/yyyy (HH:mm)' }}</span>
+                        </div>
+                        <div flex-xs="100" flex-sm="100" flex layout layout-align="end center" class="hide-xs">
+                            <md-menu md-position-mode="target-right target" md-offset="0 -5">
+                                <md-button aria-label="Open demo menu" class="md-icon-button margin0" ng-click="openMenu($mdOpenMenu, $event)">
+                                    <md-icon md-menu-origin md-svg-icon="img/icons/ic_more_vert_24px.svg"></md-icon>
+                                </md-button>
+                                <md-menu-content width="4" class="height-md-menu">
+                                    <md-menu-item ng-repeat="item in result.MenuItems" ng-if="item.name !='SET_COLOR'">
+                                        <md-button ng-click="menuItemClick(item, result)">
+                                            <div layout="row" flex>
+                                                <p flex>{{item.name | translate}}</p>
+                                                <md-icon class="md-menu-icon" md-menu-align-target md-svg-icon="img/icons/{{item.icon}}"></md-icon>
+                                            </div>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </div>
+                    </section>
+                    <section flex="100" class="color-gray-text">
+                        <!-- <md-icon md-svg-src="img/icons/ic_assignment_24px.svg" class="icon-gray margin0"></md-icon> -->
+                        <span class="font-style-note" ng-if="result.CustomerLeader.Reservations.Note">{{result.CustomerLeader.Reservations.Note | limitTo: 130}}{{result.CustomerLeader.Reservations.Note.length > 130 ? "..." : ""}}</span>
+                        <span class="font-style-note" ng-if="!result.CustomerLeader.Reservations.Note">{{'NOTE_EMPTY' | translate}}</span>
+                    </section>
+                    <section class="hide-gt-xs full-width bg-yellow">
+                        <md-menu flex="100" md-position-mode="target-right target" class="full-width">
+                            <md-button aria-label="Open demo menu" class="md-icon-button  full-width margin0" ng-click="openMenu($mdOpenMenu, $event)">
+                                <md-icon md-menu-origin md-svg-icon="img/icons/ic_more_vert_24px.svg"></md-icon>
+                                {{'more' | translate}}
+                            </md-button>
+                            <md-menu-content width="4" class="height-md-menu">
+                                <md-menu-item ng-repeat="item in result.MenuItems" ng-if="item.name !='SET_COLOR'">
+                                    <md-button ng-click="menuItemClick(item, result)">
+                                        <div layout="row" flex>
+                                            <p flex>{{item.name | translate}}</p>
+                                            <md-icon class="md-menu-icon" md-menu-align-target md-svg-icon="img/icons/{{item.icon}}"></md-icon>
+                                        </div>
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </section>
+                </md-list-item>
+            </md-list>
+        </md-card-content>
+        <!-- <div layout="row" layout-xs="column" layout-align="end center" layout-wrap class="font-size14">
+            <span class="row-height  padding-left-right10" flex="100" flex-xs="100" flex-sm="100">{{pagination.getNumberRecordString()}}</span>
+            <div ng-show="pagination && pagination.totalItems > 0" flex="20" flex-sm="50" flex-xs="100" layout="row" layout-align="start end"
+                class="row-height icon-center font-size14">
+                <paging pagination-model="pagination"></paging>
+            </div>
+        </div> -->
+        <div ng-if="searchResult.length > 0" layout="row" layout-align="end center" layout-wrap>
+            <div>
+                <span class="fontSize12">{{'ROW_PER_PAGE' | translate}}&nbsp;{{page.pageSize}}</span>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div>
+                <span class="fontSize12">{{page.currentPage*page.pageSize+1}}&nbsp;-&nbsp;{{page.currentPage+1
+                    < numberOfPages()?(page.currentPage*page.pageSize+page.pageSize):(page.totalRecord)}}&nbsp;{{ 'IN' | translate}}&nbsp;{{page.totalRecord}}</span>
+            </div>
+            <div>
+                <md-button class="md-icon-button md-mini md-primary" ng-disabled="page.currentPage == 0" ng-click="page.currentPage=page.currentPage-1">
+                    <md-icon md-svg-icon="img/icons/ic_keyboard_arrow_left_24px.svg"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button md-mini md-primary" ng-disabled="page.currentPage >= page.totalRecord/page.pageSize - 1"
+                    ng-click="page.currentPage=page.currentPage+1">
+                    <md-icon md-svg-icon="img/icons/ic_keyboard_arrow_right_24px.svg"></md-icon>
+                </md-button>
+            </div>
+        </div>
+        <br>
+    </md-card>
+
+    <table flex="100" ng-hide="true" id="tableExport" ng-if="searchResult.length > 0">
+        <thead>
+            <tr style="text-align:center !important">
+                <td rowspan="5" colspan="2" style="text-align:center !important">
+                    <img align="middle" ng-cloak height="96" width="214" ng-if="HotelSettings.HotelLogoUrl" ng-src="{{HostName+HotelSettings.FullHotelLogoUrl}}"
+                        alt="">
+                </td>
+                <th colspan="6" class="textalign">{{HotelSettings.HotelName}}</th>
+            </tr>
+            <tr>
+                <th colspan="6" class="textalign" style="font-weight:normal">{{'ADDRESS' | translate}}:{{HotelSettings.HotelAddress}}</th>
+            </tr>
+            <tr>
+                <th colspan="6" class="textalign" style="font-weight:normal">
+                    {{'EMAIL'| translate}}:{{HotelSettings.HotelEmail}}
+                    <span ng-if="HotelSettings.HotelPhone.length>0">
+                        - {{'PHONE'| translate}}:{{HotelSettings.HotelPhone}}
+                    </span>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="6" class="textalign" style="font-weight:normal">{{'WEBSITE' | translate}}:{{HotelSettings.HotelWebsite}}</th>
+            </tr>
+            <tr>
+                <th colspan="6" class="textalign">{{'INHOUSE_GROUP_LIST'|translate}}</th>
+            </tr>
+            <tr>
+                <th style="width:35px;text-align:center;vertical-align:middle;border:black thin solid">{{'INDEX'|translate}}</td>
+                    <th style="width:60px;text-align:center;vertical-align:middle;border:black thin solid">{{'RES_NO'|translate}}</td>
+                        <th style="width:180px;vertical-align:middle;border:black thin solid">{{'NAME' | translate}}</td>
+                            <th style="width:60px;vertical-align:middle;border:black thin solid">{{'NUM_OF_ROOMS' | translate}}</td>
+                                <th style="width:100px;vertical-align:middle;border:black thin solid">{{'MIN_ARRIVALDATE' | translate}}</td>
+                                    <th style="width:100px;vertical-align:middle;border:black thin solid">{{'MAX_DEPARTUREDATE' | translate}}</td>
+                                        <th style="width:60px;vertical-align:middle;border:black thin solid">{{'PAX' | translate}}</td>
+                                            <th style="width:120px;vertical-align:middle;border:black thin solid">{{'SOURCE'|translate}}</td>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="result in searchResult">
+                <td style="width:35px;text-align:center;vertical-align:middle;border:black thin solid">{{$index+1}}</td>
+                <td style="width:60px;text-align:left;vertical-align:middle;border:black thin solid">{{result.CustomerLeader.Reservations.ReservationNumber}}</td>
+                <td style="width:180px;vertical-align:middle;border:black thin solid">
+
+                    <span>{{result.CustomerLeader.Travellers.Fullname}}</span>
+                </td>
+
+                <!-- <td style="width:160px;vertical-align:middle;text-align:center;border:black thin solid">{{result.GroupName}}</span></td> -->
+                <td style="width:60px;vertical-align:middle;text-align:center;border:black thin solid">{{result.TotalReservation}}</td>
+
+                <td style="width:130px;vertical-align:middle;text-align:center;border:black thin solid">{{ result.CustomerLeader.minArrivalDate | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td style="width:130px;vertical-align:middle;text-align:center;border:black thin solid">{{ result.CustomerLeader.maxDepartureDate | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td style="width:60px;vertical-align:middle;text-align:center;border:black thin solid">'{{ result.TotalAdults }}/{{ result.TotalChildren }}</td>
+                <td style="width:120px;vertical-align:middle;text-align:center;border:black thin solid">
+                    <span ng-if="result.Source">{{result.Source.SourceName}}</span>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</md-content>

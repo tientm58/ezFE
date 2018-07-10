@@ -1,0 +1,105 @@
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    md-list-item,
+    md-list-item .md-list-item-inner {
+        min-height: 48px;
+        height: 50px;
+    }
+ md-dialog .md-dialog-content{
+     min-height: fit-content !important;
+ }
+</style>
+<md-dialog aria-label="Add Extra Service" flex-gt-xs="50" flex-xs="98">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{'ADD_NEW' | translate}} {{item.name | translate}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content" layout="row" layout-wrap flex="100" ng-if="item.name !== 'EXTRA_SERVICES'">
+            <div flex="100">
+                <md-input-container style="margin-right: 10px;width: 100%;" flex="100">
+                    <label>{{'SELECT_CATEGORY' | translate}}</label>
+                    <md-select ng-model="selectedExtraServiceCategory" ng-init="selectedExtraServiceCategory=0">
+                        <md-option value="0">{{'ALL_CATEGORY' | translate}}</md-option>
+                        <md-option md-no-ink ng-repeat="extraServiceCategory in extraServices.ExtraServiceCategories" value="{{extraServiceCategory.ExtraServiceCategoryId}}">{{extraServiceCategory.ExtraServiceCategoryName}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div flex="100">
+                <md-list ng-cloak>
+                    <md-list-item flex="100" ng-repeat="item in extraServices.ExtraServiceItems | filter: selectedExtraServiceCategory | orderBy:'Priority'"
+                        layout="row" layout-align="space-between center">
+                        <p flex="40">
+                            {{item.ExtraServiceItemName}}
+                        </p>
+                        <md-slider flex="40" ng-model="item.quantity" min="0" max="10" step="1">
+                        </md-slider>
+                        <div flex="20" layout layout-align="end center">
+                            <input flex type="number" min="0" ng-model="item.quantity" aria-controls="red-slider">
+                        </div>
+                    </md-list-item>
+
+                </md-list>
+            </div>
+        </div>
+        <form name="addExtraServiceForm" ng-submit="addExtraServiceNoItem()">
+            <div class="md-dialog-content" layout="row" layout-align="center center" layout-wrap flex="100" ng-if="item.name === 'EXTRA_SERVICES'">
+
+                <button class="hide" id="btn_add_extraservice"></button>
+                <!--<md-input-container flex="100">
+                        <label>{{'EXTRA_SERVICE_NAME' | translate}} ({{'REQUIRED' | translate}})</label>
+                        <input  required type="text" ng-model="extraServiceNoItem.RoomExtraServiceDescription">
+                    </md-input-container>
+                    <md-input-container flex="100">
+                        <label>{{'PRICE' | translate}}</label>
+                        <input type="text" ng-model="extraServiceNoItem.Amount" ui-number-mask="$parent.decimal" ui-negative-number>
+                    </md-input-container>-->
+                <!---->
+                <md-input-container flex="90" flex-xs="100">
+                    <label>{{'EXTRA_SERVICE_NAME' | translate}} ({{'REQUIRED' | translate}})</label>
+                    <input ng-model="extraServiceNoItem.RoomExtraServiceDescription" required type="text" md-autofocus>
+                </md-input-container>
+                <div flex="90" flex-xs="100" layout layout-align="start start">
+                    <p flex="20">
+                        {{'QUANTITY' | translate}}
+                    </p>
+                    <md-slider flex="60" ng-model="extraServiceNoItem.Quantity" min="1" max="10" step="1">
+                    </md-slider>
+                    <input style="margin-top:10px" flex type="number" min="1" ng-model="extraServiceNoItem.Quantity" aria-controls="red-slider">
+                </div>
+                <!--<md-input-container flex="25" flex-xs="100">
+                        <label>{{'QUANTITY' | translate}} ({{'REQUIRED' | translate}}) </label>
+                        <input ng-model="extraServiceNoItem.Quantity" required min="0" max="99"  type="number"  >
+                    </md-input-container>-->
+                <!--<span flex="5" style="margin-top:-17px;padding-left:5px"> X </span>           -->
+                <md-input-container flex="90" flex-xs="100">
+                    <label>{{'PRICE' | translate}} ({{'REQUIRED' | translate}}) </label>
+                    <input ng-model="extraServiceNoItem.Amount" type="text" required ui-number-mask="decimal" ui-negative-number>
+                </md-input-container>
+            </div>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button ng-click="cancel()" class="md-primary">
+            {{'CANCEL' | translate}}
+        </md-button>
+        <md-button onclick="jQuery('#btn_add_extraservice').click()" class="md-primary" ng-if="item.name === 'EXTRA_SERVICES'">
+            {{'ADD' | translate}}
+        </md-button>
+        <md-button ng-click="addExtraService()" class="md-primary" ng-if="item.name !== 'EXTRA_SERVICES'">
+            {{'ADD' | translate}}
+        </md-button>
+    </md-dialog-actions>
+
+
+</md-dialog>

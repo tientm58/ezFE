@@ -1,0 +1,303 @@
+<style>
+	.fit-width-content {
+		min-width: fit-content;
+	}
+
+	table thead {
+		background: antiquewhite;
+	}
+
+	md-table-container {
+		width: 100%;
+		/* box-shadow: 0px 0px 1px 0px #656565; */
+	}
+
+	.head-center {
+		text-align: center !important;
+	}
+
+	.head-left {
+		text-align: left !important;
+	}
+
+	.head-right {
+		text-align: right !important;
+	}
+
+	.tr-bold {
+		font-weight: bold !important;
+	}
+
+	table.md-table thead.md-head>tr.md-row {
+		height: fit-content;
+	}
+
+	.last_row_ th {
+		border-bottom: 2px solid #ddd;
+	}
+
+	.table>thead>tr>th {
+		vertical-align: bottom;
+		padding: 10px;
+		vertical-align: middle;
+		font-size: 13px;
+		font-weight: 600;
+	}
+
+	table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2),
+	table.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2),
+	table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
+	table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+		padding: 10px;
+	}
+
+	.table>thead>tr>th,
+	.table>tbody>tr>th,
+	.table>tfoot>tr>th,
+	.table>thead>tr>td,
+	.table>tbody>tr>td,
+	.table>tfoot>tr>td {
+		padding: 8px;
+		line-height: 1.42857143;
+		vertical-align: top;
+	}
+
+	.topHear {
+		background-color: rgb(214, 214, 214);
+	}
+
+	.topHear th,
+	.topHear th md-icon {
+		color: #5c5c5d !important;
+	}
+
+	.hightli {
+		border-right: 1px solid #9e9e9e57 !important;
+		background-color: #f2f2f2;
+	}
+
+	.invoiceDeleted {
+		text-decoration-line: line-through !important;
+	}
+
+	.icon-btn {
+		cursor: pointer;
+	}
+
+	.row_btn button {
+		min-width: 45px;
+	}
+
+	.btn_hear md-icon {
+		fill: #fff;
+	}
+
+	.box_info_dc {
+		font-size: 14px;
+	}
+
+	.bg_thu {
+		background: #4caf5063;
+	}
+
+	.bg_chi {
+		background: #ff572278;
+	}
+
+	.hightli {
+		border-right: 1px solid #9e9e9e57 !important;
+		background-color: #f2f2f27d;
+	}
+
+	.hightlicol {
+		border-right: 1px solid #9e9e9e57 !important;
+	}
+
+	.hightli {
+		border-right: 1px solid #9e9e9e57 !important;
+		background-color: #f2f2f27d;
+	}
+
+	.NonScrollX {
+		overflow-x: hidden;
+	}
+
+	.height30 {
+		height: 30px;
+	}
+
+	.height70 {
+		height: 70px;
+	}
+
+	.margin-top00 {
+		margin-top: 0 !important;
+	}
+
+	.margin-bottom00 {
+		margin-bottom: 0 !important;
+	}
+
+	.padding-top00 {
+		padding-top: 0 !important;
+	}
+
+	.padding-bottom00 {
+		padding-bottom: 0 !important;
+	}
+
+	.COLOR_DAUCA {
+		background: #AED581;
+	}
+
+	.COLOR_TRONGCA {
+		background: #FFF176;
+	}
+
+	.COLOR_CUOICA {
+		background: #90CAF9;
+	}
+	.COLOR_HL {
+		background: #f2f2f2;
+	}
+
+	
+</style>
+<div ng-cloak data-ng-init="action.init()">
+	<md-content layout-margin id="listInvoices" class="NonScrollX">
+		<section layout="row" layout-align="end center" class="margin00 padding0 height30">
+			<!-- <md-button class="btn-c md-raised md-primary" ng-click="action.showHandover($event)">
+				<md-icon md-svg-src="img/icons/ic_print_24px.svg"></md-icon>
+				&nbsp;{{'PRINT' | translate}}
+			</md-button> -->
+			<md-button class="btn-c md-raised md-primary" ng-click="action.createHandover()">
+				<md-icon md-svg-src="img/icons/ic_add_48px.svg"></md-icon>
+				&nbsp;{{'EXPENDITURE_CREATE_HANDOVER' | translate}}
+			</md-button>
+		</section>
+		<section layout="row" layout-sm="column" layout-align="center center" layout-wrap class="margin00 padding0 height30">
+			<h2>
+				<b>{{'HANDOVER' | translate}}</b>
+			</h2>
+		</section>
+		<section layout="row" layout-align="space-between center" layout-wrap class="margin-top00 margin-bottom00 padding-bottom00 padding-top00 height70">
+			<md-select placeholder="{{'DAILYCLEAN_DETAILS_CHANGEDATE' | translate}}" ng-model="attributes.filters.selectedTime" ng-change="action.setDatePicker()"
+			    style="min-width: 200px;">
+				<md-option ng-value="time.value" ng-repeat="time in attributes.times" ng-selected="$index == 0 ? true : false">{{time.description}}</md-option>
+			</md-select>
+			<div layout="row" layout-align="space-between center">
+				<label>{{'START_DATE' | translate}}</label>
+				<md-datepicker md-max-date="attributes.maxDate" ng-model="attributes.filters.startDate" md-placeholder="Start date"></md-datepicker>
+			</div>
+			<div layout="row" layout-align="space-between center">
+				<label>{{'END_DATE' | translate}}</label>
+				<md-datepicker md-max-date="attributes.maxDate" ng-model="attributes.filters.endDate" md-placeholder="Enter date"></md-datepicker>
+			</div>
+			<div layout="row" layout-align="center center">
+				<md-button class="btn-c md-raised md-info" ng-click="action.searchInvoice()">
+					<md-icon md-svg-src="img/icons/ic_search_48px.svg"></md-icon>&nbsp;{{'SEARCH' | translate}}</md-button>
+			</div>
+
+		</section>
+		<section layout="row" layout-align="space-between center" layout-wrap class="">
+			<md-table-container layout="row" class="wrap_table" layout-align="start center">
+				<table md-table class="fit-width-content" ng-model="selected" md-progress="promise">
+					<thead class="md-table-progress">
+						<tr>
+							<th colspan="{{2 + attributes.currency.length*2 || 3}}">
+								<md-progress-linear ng-show="deferred()" md-mode="indeterminate" aria-valuemin="0" aria-valuemax="100" role="progressbar"
+								    aria-hidden="true" class="ng-hide" style="">
+									<div class="md-container md-mode-indeterminate">
+										<div class="md-dashed"></div>
+										<div class="md-bar md-bar1"></div>
+										<div class="md-bar md-bar2"></div>
+									</div>
+								</md-progress-linear>
+							</th>
+						</tr>
+					</thead>
+					<thead md-head md-order="pager.query.order" md-on-reorder="">
+						<tr md-row class="topHear">
+							<th md-column class="padding0 text-center">
+							</th>
+							<th md-column>
+								<span>{{'DATE_OPEN' | translate}}</span>
+							</th>
+							<th md-column>
+								<span>{{'DATE_CLOSE' | translate}}</span>
+							</th>
+
+							<th md-column class="" colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'CASH_BEGIN' | translate}}</th>
+							<th md-column class="" colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'CASH_IN' | translate}}</th>
+							<th md-column class="" colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'CASH_END' | translate}}</th>
+							<th md-column colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'SAFE_DEPOSIT_BOX' | translate}}</th>
+							<th md-column colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'CASH_HANDOVER' | translate}}</th>
+							<th md-column colspan="{{attributes.currency.length}}" ng-class="{'head-center': attributes.currency.length > 1}">{{'CASH_DIFF' | translate}}</th>
+							<th md-column>
+								<span>{{'CASHIER' | translate}}</span>
+							</th>
+							<th md-column>
+								<span>{{'CASH_DELIVERY' | translate}}</span>
+							</th>
+							<th md-column class="text-center" style="min-width: 250px;width: 250px;">
+								<span>{{'NOTE' | translate}}</span>
+							</th>
+						</tr>
+						<tr md-row class="gray-box-h1">
+							<th md-column>
+							</th>
+							<th md-column>
+							</th>
+							<th md-column>
+							</th>
+							<th md-column ng-repeat="curr in attributes.currency" class="hightli text-right">
+								{{curr || "VND"}}
+							</th>
+							<th md-column ng-repeat="curr in attributes.currency" class="hightli text-right">
+								{{curr || "VND"}}
+							</th>
+							<th md-column ng-repeat="curr in attributes.currency" class="hightli text-right">
+								{{curr || "VND"}}
+							</th>
+							<th md-column ng-repeat="curr in attributes.currency" class="hightli text-right">
+								{{curr || "VND"}}
+							</th>
+							<th md-column ng-repeat="curr in attributes.currency" class="hightli text-right">
+								{{curr || "VND"}}
+							</th>
+							<th md-column ng-repeat="curr in attributes.currency" class="hightli text-right">
+								{{curr || "VND"}}
+							</th>
+							<th md-column>
+							</th>
+							<th md-column>
+							</th>
+							<th md-column>
+							</th> 
+						</tr>
+					</thead>
+					<tbody md-body>
+						<tr ng-show="attributes.data !== null && attributes.data.length > 0" md-row ng-repeat="record in attributes.data track by $index">
+							<td md-cell class="padding0">
+								<md-button class="md-icon-button " ng-click="action.showHandover($event,record)">
+									<md-icon md-svg-icon="img/icons/ic_print_24px.svg"></md-icon>
+								</md-button>
+							</td>
+							<td md-cell>{{action.convertTime(record.StartTime) | date:"MM/dd HH:mm"}}</td>
+							<td md-cell>{{action.convertTime(record.EndTime) | date:"MM/dd HH:mm"}}</td>
+							<td ng-repeat="curr in attributes.currency" class="COLOR_HL text-right" md-cell>{{action.getAmountByCurrency(curr, record.CashBegin) || 0 }}</td>
+							<td ng-repeat="curr in attributes.currency" class="text-right" md-cell>{{action.getAmountByCurrency(curr, record.CashIn) || 0 }}</td>
+							<td ng-repeat="curr in attributes.currency" class="COLOR_HL text-right" md-cell>{{action.getAmountByCurrency(curr, record.CashEnd) || 0 }}</td>
+							<td ng-repeat="curr in attributes.currency" class="text-right" md-cell>{{action.getAmountByCurrency(curr, record.CashInfund) || 0 }}</td>
+							<td ng-repeat="curr in attributes.currency" class="COLOR_HL text-right" md-cell>{{action.getAmountByCurrency(curr, record.CashHandover) || 0 }}</td>
+							<td ng-repeat="curr in attributes.currency" class="text-right" md-cell>{{action.getAmountByCurrency(curr, record.CashDiff) || 0 }}</td>
+							<td md-cell>{{record.Cashier || ""}}</td>
+							<td md-cell>{{record.ReceiverHandover || ""}}</td>
+							<td md-cell>{{record.HandoverNote || ""}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</md-table-container>
+		</section>
+	</md-content>
+</div>

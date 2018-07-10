@@ -1,0 +1,74 @@
+<style>
+	md-list-item,
+	md-list-item .md-list-item-inner {
+		min-height: 48px;
+		height: 50px;
+	}
+</style>
+<md-dialog aria-label="CREATE_CARD" ng-cloak flex flex-xs="98" flex-sm="98" flex-gt-md="60" flex-md="90">
+	<form>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'CREATE_CARD' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+				<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+					<span flex="100" ng-if="cardInfo.length > 0" style="color: #f44336; font-style: italic;">*{{'THIS_RESERVATION_HAS_ALREADY_HAD_A_CARD_ASSIGNED_TO_IT_IN' | translate}} {{cardInfo[cardInfo.length - 1].CreatedDate | date:'dd/MM/yyyy, HH:mm'}}. {{'PLEASE_PROVIDE_DETAIL_REASON_TO_RE-ASSIGN_CARD_TO_THIS_ROOM' | translate}}</span>
+					<md-input-container flex="100" ng-if="cardInfo.length > 0">
+						<label>{{'REASON' | translate}}</label>
+						<input type="text" ng-model="$parent.reason"/>
+					</md-input-container>
+					<!--<md-input-container flex="100">
+						<label>{{'ROOM_NAME' | translate}}</label>
+						<input type="text" ng-model="writeCardModel.RoomName" ng-disabled="true"/>
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'TRAVELLER_NAME' | translate}}</label>
+						<input type="text" ng-model="writeCardModel.TravellerName" ng-disabled="true"/>
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'ARRIVAL' | translate}}</label>
+						<input ng-disabled="true" kendo-date-time-picker ng-model="str" k-ng-model="writeCardModel.ArrivalDate" style="width: 100%;" k-options="DateTimePickerOption" />
+					</md-input-container>
+					<md-input-container flex="100">
+						<label>{{'DEPARTURE' | translate}}</label>
+						<input ng-disabled="true" kendo-date-time-picker ng-model="str2" k-ng-model="writeCardModel.DepartureDate" style="width: 100%;" k-options="DateTimePickerOption" />
+					</md-input-container>-->
+					<md-list flex="100">
+						<md-list-item>
+							<p>{{'ROOM_NAME' | translate}}</p>
+							<p class="md-secondary">{{writeCardModel.RoomName}}</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'TRAVELLER_NAME' | translate}}</p>
+							<p class="md-secondary">{{writeCardModel.TravellerName}}</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'ARRIVAL' | translate}}</p>
+							<p class="md-secondary">{{writeCardModel.ArrivalDate | date:'dd/MM/yyyy, HH:mm'}}</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'DEPARTURE' | translate}}</p>
+							<p class="md-secondary">{{writeCardModel.DepartureDate | date:'dd/MM/yyyy, HH:mm'}}</p>
+						</md-list-item>
+					</md-list>
+
+				</div>
+		</md-dialog-content>
+		 <md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			 <md-button ng-disabled="isDisable" ng-click="writeCard()" class="md-primary" ng-disabled="cardInfo.length > 0 && (!reason || reason.trim() =='')">
+				{{'SAVE' | translate}}
+			</md-button>
+		</md-dialog-actions>
+
+	</form>
+
+</md-dialog>

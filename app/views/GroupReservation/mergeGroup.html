@@ -1,0 +1,302 @@
+<style>
+    .text {
+        display: inline;
+        padding: 0em 0em 0em;
+        font-weight: 600;
+        text-transform: none;
+        word-break: break-all;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+
+    .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+
+    .md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+    }
+    #hight100 {
+        min-height: 100px !important;
+        max-height: 3000px !important;
+        /*overflow-y: hidden !important;*/
+    }
+    .mdMenu{
+        padding-top: 0px;
+        padding-left: 2px;
+    }
+    md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+      height: auto;
+    }
+    md-list-item .md-list-item-inner .md-secondary-container,md-list-item ._md-secondary-container {
+      height: auto !important;
+    }
+    .md-headline{
+        line-height: 48px;
+    }
+    .bt-search{
+        margin-top: -29px !important;
+    }
+</style>
+<div flex="100" class="custom-header" layout="row" layout-align="start center">
+    <div flex="50"  class="custom-stepper-back">
+        <div flex="100" layout-align="center start" layout="column">
+            <h2 class="header-title-top">{{ 'MERGE_GROUP' | translate }} </h2>
+        </div>
+    </div> 
+    <!-- <div  flex="50" class="custom-stepper-next" layout-align="end center" layout="row" >
+        <md-button class="md-warn md-raised bg-orange1" ng-click="processSearch()">
+            {{'SEARCH' | translate}}
+        </md-button> 
+    </div> -->
+</div>
+<md-content class="md-padding display-block font-size14 padding9 bg-greay" layout="row" layout-align="center center" layout-wrap style="height: 100%;">
+    <md-card flex="100" class="custom-card height-md-card">
+        <md-card-content style="padding: 12px;">
+            <section layout="row" layout-align="space-between center" layout-wrap flex="100">
+                <section flex-xs="100" flex-sm="100" flex-md="100" flex-gt-md="45"  layout="row" layout-align="space-between center" layout-wrap>
+                    <md-input-container style="margin-bottom: 16px;" flex="50">
+                        <label>{{'RES_NO' | translate}} </label>
+                        <input type="text" ng-model="search.ReservationNumber">
+                        </md-input-container>
+                    <md-menu class="mdMenu" flex md-offset="35 -12" md-prevent-menu-close="md-prevent-menu-close">
+                        <span>
+                            <md-icon md-menu-origin="" md-svg-src="img/icons/ic_info_outline_48px.svg" ng-click="openMenu($mdOpenMenu, $event)" style="padding: 0px;margin-top:-2px;cursor: pointer;">
+                            </md-icon>
+                        </span>
+                        <md-menu-content  layout layout-padding class="hintMenu">
+                            <span> {{'SEARCH_GROUP_NOTE' | translate}}
+                            </span>
+                        </md-menu-content>
+                    </md-menu>
+                </section>
+                <!-- <section flex-xs="100" flex-sm="45" flex-md="45" flex-gt-md="45"  layout="row" layout-align="space-between center" layout-wrap>
+                    <md-select flex="50" flex-xs="45" ng-model="search.RoomTypeId" ng-change="updateRoom()" placeholder="{{'SELECT_ROOM_TYPE' | translate}}" class="margin-top0">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <md-option value="0">{{'SELECT_TYPE' | translate}}</md-option>
+                        <md-option ng-repeat="rt in roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName | translate }}</md-option>
+                    </md-select>
+                    <md-select flex="45" flex-xs="50"  ng-model="search.SourceId"  placeholder="{{'SELECT_SOURCE' | translate}}" class="margin-top0">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <md-option value="0">{{'SOURCE' | translate}}</md-option>
+                        <md-option ng-repeat="s in source" ng-value="s.SourceId">{{ s.SourceName }}</md-option>
+                    </md-select>
+                </section>
+                <section flex-xs="100" flex-sm="100" flex-md="50" flex-gt-md="45" layout="row" layout-align="space-between center" layout-align-xs="end center" layout-wrap>
+                    <div flex-xs="100" flex-sm="55" flex-md="50" flex-gt-md="55" layout="row" layout-align="start center" layout-wrap class="margin0">
+                        <div layout layout-align="center end" flex="100">
+                            <div layout class="margin-bottom5" flex-sm="35" flex-xs="50" flex="45">
+                                <md-checkbox class="margin0" flex ng-model="search.ArrivalIncluded">
+                                </md-checkbox>
+                                <span flex-sm="65" flex="75" class="margin0">{{'ARRIVAL' | translate}}</span>
+                            </div>
+                            <div flex class="custom-input-datetime" layout="column" layout-align="center center" >
+                                <section > {{'FROM_DATE' | translate}}</section>
+                                <div>
+                                    <input kendo-date-picker ng-disabled="!search.ArrivalIncluded" ng-model="arrivalFromString" k-ng-model="search.ArrivalFrom" class="width-input-date" k-options="DatePickerOption" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex-xs="50" flex-sm flex-md="45" flex-gt-md="40" layout="row" layout-align="start center" layout-wrap class="margin0">
+                        <div flex="100" class="custom-input-datetime" layout="column" layout-align="center center" >
+                            <section > {{'TO_DATE' | translate}}</section>
+                            <div>
+                                <input kendo-date-picker ng-disabled="!search.ArrivalIncluded" ng-model="arrivalToString" k-ng-model="search.ArrivalTo" class="width-input-date" k-options="DatePickerOption" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section ng-class="{'margin-top6':$mdMedia('sm')}" flex-xs="100" flex-sm="100" flex-md="45" flex-gt-md="45" layout="row" layout-align="space-between center" layout-align-xs="end center"  layout-wrap>
+                    <div flex-xs="100" flex-sm="55" flex-md="50" flex-gt-md="50" layout="row" layout-align="start center" layout-wrap class="margin0">
+                        <div layout="row" layout-align="center end" flex="100" layout-wrap>
+                            <div layout class="margin-bottom5" flex-sm="35" flex-xs="50" flex="45" >
+                                <span >{{'RES._DATE' | translate}}</span>
+                            </div>
+                            <div flex class="custom-input-datetime" layout="column" layout-align="center center" >
+                                <section>{{'FROM_DATE' | translate}}</section>
+                                <div >
+                                    <input kendo-date-picker ng-model="resFromString" k-ng-model="search.ReservationFrom" class="width-input-date" k-options="DatePickerOption" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex-xs="50" flex-sm flex-md="45" flex-gt-md="45" layout="row" layout-align="start center" layout-wrap class="margin0">
+                        <div flex="100" class="custom-input-datetime" layout="column" layout-align="center center" >
+                            <section > {{'TO_DATE' | translate}}</section>
+                            <div>
+                                <input kendo-date-picker ng-model="resToString" k-ng-model="search.ReservationTo" class="width-input-date" k-options="DatePickerOption" />
+                            </div>
+                        </div>
+                    </div>
+                </section> -->
+                <section flex-xs="100" flex-sm="100" flex-gt-sm="50" flex-md="100" layout="row" layout-align="space-between center" layout-wrap> 
+                    <md-select flex="35" flex-sm="50" flex-xs="50" ng-model="search.RoomTypeId" ng-change="updateRoom()" placeholder="{{'SELECT_ROOM_TYPE' | translate}}"
+                        style="margin-top: 0px;">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <md-option value="0">{{'SELECT_TYPE' | translate}}</md-option>
+                        <md-option ng-repeat="rt in roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName | translate }}</md-option>
+                    </md-select>
+                    <md-select flex="35"  flex-sm="45" flex-xs="45" ng-model="search.SourceId" placeholder="{{'SELECT_SOURCE' | translate}}" style="margin-top: 0px;">
+                        <md-select-label style="width:100%"></md-select-label>
+                        <md-option value="0">{{'SOURCE' | translate}}</md-option>
+                        <md-option ng-repeat="s in source" ng-value="s.SourceId">{{ s.SourceName }}</md-option>
+                    </md-select> 
+                    <md-button id="search"  flex-sm="0" flex="20" class="hide-sm md-warn md-raised bt-search" ng-click="processSearch()" style="opacity: 0;">
+                        {{'SEARCH' | translate}}
+                        <!-- <md-icon class="left" md-svg-src="img/icons/ic_search_48px.svg"></md-icon> -->
+                    </md-button>
+                </section> 
+                <section flex-xs="100" flex-sm="100" flex-gt-sm="45" flex-md="100" layout="row" layout-align="space-between center" layout-wrap>
+                    <div flex-xs="100" flex-sm="50" flex-md="50" flex-gt-sm="50" layout="row" layout-align="start center" layout-wrap style="margin: 0px 0px 26px 0px;">
+                        <div layout="row" layout-align="start center" flex="100">
+                            <div layout="row" layout-align="start center" flex="45">
+                                <span flex="75" style="margin: auto;">{{'ARRIVAL' | translate}}</span>
+                                <md-checkbox style="margin: 0px;" flex ng-model="search.ArrivalIncluded">
+                                </md-checkbox>
+                            </div>
+                            <div flex>
+                                <input kendo-date-picker ng-disabled="!search.ArrivalIncluded" ng-model="arrivalFromString" k-ng-model="search.ArrivalFrom"
+                                    style="width: 100%;" k-options="DatePickerOption" />
+                            </div>
+                        </div>
+                    </div>
+                    <div flex-xs="100" flex-md="45" flex-sm="45" flex-gt-sm="45" layout="row" layout-align="start center" layout-wrap style="margin: 0px 0px 26px 0px;">
+                        <div layout="row" layout-align="start center" flex="100">
+                            <span flex="25" style="margin: auto;">{{'TO' | translate}}</span>
+                            <div flex>
+                                <input kendo-date-picker ng-disabled="!search.ArrivalIncluded" ng-model="arrivalToString" k-ng-model="search.ArrivalTo" style="width: 100%;"
+                                    k-options="DatePickerOption" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section flex-xs="100" flex-sm="100" flex-gt-sm="50" flex-md="100" layout="row" layout-align="space-between center" layout-wrap>
+                    <div flex-xs="100" flex-sm="50" flex-md="50" flex-gt-sm="35" layout="row" layout-align="start center" layout-wrap style="margin: 0px 0px 26px 0px;">
+                        <div layout="row" layout-align="start center" flex="100">
+                            <span flex="45" style="margin: auto;">{{'RES._DATE' | translate}}</span>
+                            <div flex>
+                                <input kendo-date-picker ng-model="resFromString" k-ng-model="search.ReservationFrom" style="width: 100%;" k-options="DatePickerOption"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div flex-xs="100" flex-md="45" flex-sm="45" flex-gt-sm="35" layout="row" layout-align="start center" layout-wrap style="margin: 0px 0px 26px 0px;">
+                        <div layout="row" layout-align="start center" flex="100">
+                            <span flex="25" style="margin: auto;">{{'TO' | translate}}</span>
+                            <div flex>
+                                <input kendo-date-picker ng-model="resToString" k-ng-model="search.ReservationTo" style="width: 100%;" k-options="DatePickerOption"
+                                />
+                            </div>
+                        </div>
+                    </div>   
+                    <div flex-xs="100" flex-md="100" flex="20" layout-align-xs="center center" layout class="hide-sm">
+                        <md-button flex="100" class="md-warn md-raised bt-search margin0" ng-click="processSearch()">
+                            {{'SEARCH' | translate}}
+                        </md-button>
+                    </div>
+                </section>
+                <section flex-sm="100" layout="row" layout-align="space-between center" class="hide-gt-sm hide-xs" layout-wrap>
+                    <md-button id="search" flex="100" class="md-warn md-raised margin0" ng-click="processSearch()">
+                        {{'SEARCH' | translate}}
+                    </md-button>
+                </section>
+            </section>
+        </md-card-content>
+    </md-card>
+    <md-card class="custom-card" flex >
+        <md-card-title class="padding-bottom0-important">
+            <md-card-title-text flex="100">
+                <span class="md-headline">{{'GROUP_INFORMATION' | translate}}
+                    <md-button ng-show="searchResult.length > 0" class="md-raised md-primary bg-green"  ng-click="processMergeGroup()">
+                        {{'MERGE_GROUP' | translate}}
+                    </md-button>
+                </span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout-padding>
+            <div ng-if="searchResult.length === 0" class="text-center">
+                <span class="warning-text">
+                    {{'NO_GROUP_FOUND' | translate}}
+                </span>
+            </div>
+            <md-table-container ng-if="searchResult.length > 0">
+                <table md-table md-row-select multiple ng-model="selectedRoom" >
+                    <thead md-head md-order="query.order" >
+                        <tr md-row>
+                        <th md-column md-numeric md-order-by="ReservationNumber" class="custom-th" >
+                            <section flex layout="column" layout-align="center center">
+                                <md-icon  style="" md-svg-src="img/icons/ic_forward_24px.svg" ></md-icon>
+                                <span >{{'RES_NO' | translate }}</span>
+                            </section>
+                            </th>
+                        <th md-column md-numeric md-order-by="CustomerLeader.Travellers.Fullname" class="custom-th">
+                                <section flex layout="column" layout-align="center center">
+                                <md-icon  style="" md-svg-src="img/icons/ic_person_24px.svg" ></md-icon>
+                                <span >{{'GROUP_LEADER' | translate }}</span>
+                            </section>
+                        </th>
+                        <th md-column md-numeric md-order-by="TotalReservation" hide-xs class="custom-th">
+                            <section flex layout="column" layout-align="center center">
+                                <md-icon   md-svg-src="img/icons/ic_hotel_24px.svg" ></md-icon>
+                                <span>{{'ROOMS' | translate}}</span>
+                            </section>
+                            </th>
+                        <th md-column md-numeric md-order-by="CustomerLeader.ArrivalDate" class="custom-th" >
+                            <section flex layout="column" layout-align="center center">
+                                <md-icon   md-svg-src="img/icons/ic_flight_land_24px.svg" ></md-icon>
+                                <span >{{'ARRIVAL_DATE' | translate }}</span>
+                            </section>
+                            </th>
+                        <th md-column md-numeric md-order-by="CustomerLeader.DepartureDate" class="custom-th">
+                            <section flex layout="column" layout-align="center center">
+                                <md-icon   md-svg-src="img/icons/ic_flight_takeoff_24px.svg" ></md-icon>
+                                <span>{{'DEPARTURE_DATE' | translate }}</span>
+                            </section>
+                        </th>
+                        <th md-column md-numeric hide-xs class="custom-th">
+                            <section flex layout="column" layout-align="center center">
+                                <md-icon   md-svg-src="img/icons/ic_people_24px.svg" ></md-icon>
+                                <span>{{'PAX' | translate}}</span>
+                            </section>
+                        </th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-select="result" md-on-select="logItem" md-auto-select ng-repeat="result in searchResult | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                        <td class="text-center-important" md-cell>{{result.ReservationNumber}}</td>
+                        <td class="text-center-important" md-cell>{{result.CustomerLeader.Travellers.Fullname}}</td>
+                        <td class="text-center-important" md-cell hide-xs>{{result.TotalReservation }}</td>
+                        <td class="text-center-important" md-cell>{{result.CustomerLeader.ArrivalDate | date:'dd/MM/yyyy HH:mm'}}</td>
+                        <td class="text-center-important" md-cell>{{result.CustomerLeader.DepartureDate | date:'dd/MM/yyyy HH:mm'}}</td>
+                        <td class="text-center-important" md-cell hide-xs>{{result.TotalAdults }}/{{ result.TotalChildren }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-card-content>
+    </md-card>
+</md-content>

@@ -1,0 +1,133 @@
+<md-dialog aria-label="Save Plan Detail" layout="column" flex="60" flex-sm="100" style="width: 100%;" style="overflow: hidden;margin: 0px; padding: 0px;">
+	<md-content style="overflow-x: hidden;">
+		<md-dialog-content style="overflow: auto;">
+			<!--<section class="md-padding">
+				<span class="md-toolbar-tools">
+					<h3>
+						   {{'CURRENT_PLAN' | translate}}
+					</h3>
+				</span>
+				<md-content class="md-whiteframe-z3" layout layout-align="start center" flex="80" style="background-color: #2196F3; color: white;">
+					<ul>
+						<li>
+							<span>
+								{{::'PLAN_NAME' | translate}}: {{::currentPlan.RoomPriceName}}
+
+							</span>
+						</li>
+						<li>
+							<span>
+								{{::'ACTIVE' | translate}}: {{::currentPlan.IsActive}}
+							</span>
+						</li>
+						<li style="width: 100%;">
+							<span>
+								{{::'PLAN_SCHEDULE' | translate}}
+							</span>
+							<div style="margin-left: 10px;">
+								{{::'START_DATE' | translate }}: {{ ::(planSchedule.startDate.toLocaleDateString()+' - '+planSchedule.startDate.toLocaleTimeString()) }}
+								</br>
+								{{ ::'END_DATE' | translate }}: {{ ::(planSchedule.endDate.toLocaleDateString()+' - '+planSchedule.endDate.toLocaleTimeString()) }}
+								</br>
+								<span style="width: 100%;word-break: break-all;">
+									{{ ::'APPLY_IN' | translate }}: {{ ::applyOn.toString() | translate}}
+								</span>
+							</div>
+						</li>
+					</ul>
+				</md-content>
+
+			</section>-->
+
+			<section>
+				<span class="md-toolbar-tools" style="margin-left: 5px;">
+					<h3>
+						   {{ 'ACTIVED_RATE_POLICIES' | translate}}
+					</h3>
+				</span>
+				<md-content layout="row" layout-wrap>
+					<md-content flex="50" flex-sm="100" ng-repeat="planDetail in activedPlanDetail" class="md-padding">
+						<md-content class="md-whiteframe-z3">
+							<md-toolbar style="background-color: {{ dashboardColor[planDetail.property] }}">
+								<div class="md-toolbar-tools">
+									<h2>{{ planDetail.name | translate}}</h2>
+									<span flex></span>
+								</div>
+							</md-toolbar>
+							<md-content ng-if="planDetail.property !== 'UseExtraAdultPrice' && planDetail.property !== 'UseExtraChildPrice'">
+								<p ng-if="planDetail.price" style="text-align: center;">
+									{{ 'DEFAULT_PRICE' | translate}} : <span style="color: #f44336">{{planDetail.price | currency}}</span>
+									
+								</p>
+								<md-divider></md-divider>
+								<md-list style="margin-top: 10px;">
+									
+									<md-list-item ng-repeat="adjustment in planDetail.adjustment">
+										<p>
+											<span ng-if="planDetail.property !== 'UseHourlyPrice'">
+											{{ 'OVER' | translate }}
+											</span>
+											<span style="color: #f44336">{{adjustment.NumberOfHour}} </span>{{'HOUR(S)' | translate}}
+										</p>
+										<p>
+											{{ 'PRICE' | translate }}: {{adjustment.Price | currency}}
+										</p>
+									</md-list-item>
+									<md-divider></md-divider>
+									<md-list-item ng-if="planDetail.earlyCheckIn" ng-repeat="earlyCheckIn in planDetail.earlyCheckIn.adjustment">
+										<p>
+											<span>
+											{{ 'EARLY' | translate }}
+											</span>
+											<span style="color: #f44336">{{earlyCheckIn.NumberOfHour}} </span>{{'HOUR(S)' | translate}}
+										</p>
+										<p>
+											{{ 'PRICE' | translate }}: {{earlyCheckIn.Price | currency}}
+										</p>
+									</md-list-item>
+								</md-list>
+								<!--<div layout layout-align="center center">
+									<span style="font-style: italic; font-weight: bold;" ng-if="planDetail.adjustment.length === 0">{{ 'NO_ADJUSTMENT_CREATED' | translate }}</span>
+								</div>-->
+							</md-content>
+
+							<md-content ng-if="planDetail.property === 'UseExtraAdultPrice'">
+								<!--<p style="text-align: center;">
+									{{ ::'DEFAULT_ADULT' | translate}} : {{ planDetail.defaultAdults }}
+								</p>-->
+								<p style="text-align: center;">
+									{{ 'EXTRA_ADULT_PRICE' | translate}} ({{'FOR_EACH_ONE' | translate}}): <span style="color: #f44336;">{{ planDetail.extraAdultPrice | currency }}</span>
+								</p>
+							</md-content>
+
+							<md-content ng-if="planDetail.property === 'UseExtraChildPrice'">
+								<!--<p style="text-align: center;">
+									{{'DEFAULT_CHILD' | translate}} : {{planDetail.defaultChildren}}
+								</p>-->
+								<p style="text-align: center;">
+									{{'EXTRA_CHILD_PRICE' | translate}} ({{'FOR_EACH_ONE' | translate}}): <span style="color: #f44336;">{{ planDetail.extraChildPrice | currency }}</span>
+								</p>
+							</md-content>
+						</md-content>
+					</md-content>
+
+				</md-content>
+			</section>
+
+
+
+
+		</md-dialog-content>
+	</md-content>
+
+	<div class="md-actions" layout="row">
+
+		<md-button ng-click="cancel()">
+			{{'CANCEL' | translate}}
+		</md-button>
+		<md-button ng-click="answer('useful')" style="margin-right:20px;">
+			{{'SAVE' | translate}}
+		</md-button>
+	</div>
+
+</md-dialog>

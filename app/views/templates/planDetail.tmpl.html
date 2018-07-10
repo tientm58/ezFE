@@ -1,0 +1,179 @@
+<md-toolbar class="md-primary md-default-theme" layout="row">
+    <span flex class="md-toolbar-tools">
+		<md-icon md-svg-src="img/icons/ic_arrow_back_48px.svg" style="margin: auto 8px auto 0px;" ng-click="closePlanDetail()">
+        <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_GOBACK' | translate}}
+                    </md-tooltip>  
+        </md-icon>
+		<h2>
+			{{currentPlan.Plan.RoomPriceName | translate}}
+		</h2>
+	</span>
+    <div style="margin-right: 8px;" layout="row" layout-align="center center">
+        <md-button style="min-width: 0px;margin: auto 0px;" ng-click="openPlanDetailDashBoard($event)" ng-if="currentPlan.planDetailChanged">
+            <md-icon md-svg-src="img/icons/ic_save_48px.svg" style="">
+            <!-- md-tooltip md-direction="top"> -->
+                <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                    {{'TOOLTIP_SAVE' | translate}}
+                </md-tooltip>
+
+            </md-icon>
+        </md-button>
+        <md-button style="min-width: 0px;margin: auto 0px;" ng-click="openTestFunction($event)">
+            <md-icon md-svg-src="img/icons/ic_live_tv_48px.svg" style="">
+                <md-tooltip md-direction="top" flex-gt-md="100" hide-xs hide-sm hide-md>
+                    {{'TOOLTIP_PLANTEST' | translate}}
+                </md-tooltip>
+            </md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content style="margin-top: 20px;padding-bottom: 20px;">
+    <md-list>
+        <!--<md-list-item ng-class="{'isSelected': currentAdjustment.Property === 'PlanSchedule'}" ng-click="showPlanDetailAdjustment('PLAN_SCHEDULE', 'PlanSchedule');$event.stopPropagation();">
+			<md-icon md-svg-src="img/icons/ic_poll_48px.svg" style="fill: dodgerblue;margin: 0px;margin-right: 3px;padding:0px;">
+			</md-icon>
+			<p>
+				<span>{{'PLAN_SCHEDULE' | translate}}</span>
+			</p>
+			<md-button aria-label="Show Plan Detail" class="md-icon-button launch" style="padding:0px; margin: 0px;">
+				<md-icon md-svg-src="img/icons/ic_arrow_forward_48px.svg" style="fill: dodgerblue;">
+				</md-icon>
+			</md-button>
+
+		</md-list-item>-->
+        <md-list-item ng-class="{'isSelected': currentAdjustment.Property === 'UseHourlyPrice'}" ng-click="(currentPlan.PlanDetail.UseHourlyPrice.isUsed === true)? showPlanDetailAdjustment('USE_HOURLY_PRICE','UseHourlyPrice') : doNothing();$event.stopPropagation();">
+            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'TOOLTIP_ACTIVE' | translate}} / {{'TOOLTIP_DEACTIVE' | translate}}
+            </md-tooltip>
+            <md-checkbox class="md-warn" style="margin: 0px; padding: 0px;margin-right: 3px;" ng-model="currentPlan.PlanDetail.UseHourlyPrice.isUsed" ng-change="(currentPlan.PlanDetail.UseHourlyPrice.isUsed !== true)? closePlanDetailAdjustment():showPlanDetailAdjustment('USE_HOURLY_PRICE','UseHourlyPrice');">
+            </md-checkbox>
+
+            <p>
+                {{currentPlan.PlanDetail.UseHourlyPrice.name | translate}}
+            </p>
+
+            <md-button  aria-label="Show Hourly Price Adjustment" ng-if="currentPlan.PlanDetail.UseHourlyPrice.isUsed === true" class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="(currentPlan.PlanDetail.UseHourlyPrice.isUsed === true)? showPlanDetailAdjustment('USE_HOURLY_PRICE','UseHourlyPrice') : doNothing();$event.stopPropagation();">
+                <md-icon md-svg-src="img/icons/ic_arrow_forward_48px.svg" style="">
+                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_DETAIL' | translate}}
+                    </md-tooltip>
+                </md-icon>
+            </md-button>
+        </md-list-item>
+
+        <md-list-item ng-class="{'isSelected': currentAdjustment.Property === 'UseFullDayPrice'}" ng-click="(currentPlan.PlanDetail.UseFullDayPrice.isUsed === true)? showPlanDetailAdjustment('USE_FULLDAY_PRICE','UseFullDayPrice') : doNothing();$event.stopPropagation();">
+            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'TOOLTIP_ACTIVE' | translate}} / {{'TOOLTIP_DEACTIVE' | translate}}
+            </md-tooltip>
+            <md-checkbox class="md-warn" ng-disabled="true" style="margin: 0px; padding: 0px;margin-right: 3px;" ng-model="currentPlan.PlanDetail.UseFullDayPrice.isUsed">
+            </md-checkbox>
+            <p>
+                {{currentPlan.PlanDetail.UseFullDayPrice.name | translate}}
+            </p>
+
+            <md-button aria-label="Show Full Day Price Adjustment" class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-if="currentPlan.PlanDetail.UseFullDayPrice.isUsed === true" ng-click="(currentPlan.PlanDetail.UseFullDayPrice.isUsed === true)? showPlanDetailAdjustment('USE_FULLDAY_PRICE','UseFullDayPrice') : doNothing();$event.stopPropagation();">
+                <md-icon md-svg-src="img/icons/ic_arrow_forward_48px.svg" style="">
+                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_DETAIL' | translate}}
+                    </md-tooltip>
+                </md-icon>
+            </md-button>
+        </md-list-item>
+
+        <md-list-item ng-class="{'isSelected': currentAdjustment.Property === 'UseDayNightPrice'}" ng-click="(currentPlan.PlanDetail.UseDayNightPrice.isUsed === true)? showPlanDetailAdjustment('USE_DAY_NIGHT_PRICE','UseDayNightPrice') : doNothing();$event.stopPropagation();">
+            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'TOOLTIP_ACTIVE' | translate}} / {{'TOOLTIP_DEACTIVE' | translate}}
+            </md-tooltip>
+            <md-checkbox class="md-warn" style="margin: 0px; padding: 0px;margin-right: 3px;" ng-model="currentPlan.PlanDetail.UseDayNightPrice.isUsed" ng-change="(currentPlan.PlanDetail.UseDayNightPrice.isUsed !== true)? closePlanDetailAdjustment():showPlanDetailAdjustment('USE_DAY_NIGHT_PRICE','UseDayNightPrice');">
+            </md-checkbox>
+            <p>
+                {{currentPlan.PlanDetail.UseDayNightPrice.name | translate}}
+            </p>
+
+            <md-button aria-label="Show Day Night Price Adjustment" class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-if="currentPlan.PlanDetail.UseDayNightPrice.isUsed === true" ng-click="(currentPlan.PlanDetail.UseDayNightPrice.isUsed === true)? showPlanDetailAdjustment('USE_DAY_NIGHT_PRICE','UseDayNightPrice') : doNothing();$event.stopPropagation();">
+                <md-icon md-svg-src="img/icons/ic_arrow_forward_48px.svg" style="">
+                   <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_DETAIL' | translate}}
+                    </md-tooltip>
+                </md-icon>
+            </md-button>
+        </md-list-item>
+
+        <md-list-item ng-class="{'isSelected': currentAdjustment.Property === 'UseWeeklyPrice'}" ng-click="(currentPlan.PlanDetail.UseWeeklyPrice.isUsed === true)? showPlanDetailAdjustment('USE_WEEKLY_PRICE','UseWeeklyPrice') : doNothing();$event.stopPropagation();">
+            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'TOOLTIP_ACTIVE' | translate}} / {{'TOOLTIP_DEACTIVE' | translate}}
+            </md-tooltip>
+            <md-checkbox class="md-warn" style="margin: 0px; padding: 0px;margin-right: 3px;" ng-model="currentPlan.PlanDetail.UseWeeklyPrice.isUsed" ng-change="(currentPlan.PlanDetail.UseWeeklyPrice.isUsed !== true)? closePlanDetailAdjustment():showPlanDetailAdjustment('USE_WEEKLY_PRICE','UseWeeklyPrice');">
+            </md-checkbox>
+            <p>
+                {{currentPlan.PlanDetail.UseWeeklyPrice.name | translate}}
+            </p>
+
+            <md-button aria-label="Show Weekly Price Adjustment" class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-if="currentPlan.PlanDetail.UseWeeklyPrice.isUsed === true" ng-click="(currentPlan.PlanDetail.UseWeeklyPrice.isUsed === true)? showPlanDetailAdjustment('USE_WEEKLY_PRICE','UseWeeklyPrice') : doNothing();$event.stopPropagation();">
+                <md-icon md-svg-src="img/icons/ic_arrow_forward_48px.svg" style="">
+                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_DETAIL' | translate}}
+                    </md-tooltip>
+                </md-icon>
+            </md-button>
+        </md-list-item>
+
+        <md-list-item ng-class="{'isSelected': currentAdjustment.Property === 'UseMonthlyPrice'}" ng-click="(currentPlan.PlanDetail.UseMonthlyPrice.isUsed === true)? showPlanDetailAdjustment('USE_MONTHLY_PRICE','UseMonthlyPrice') : doNothing();$event.stopPropagation();">
+            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'TOOLTIP_ACTIVE' | translate}} / {{'TOOLTIP_DEACTIVE' | translate}}
+            </md-tooltip>
+            <md-checkbox class="md-warn" style="margin: 0px; padding: 0px;margin-right: 3px;" ng-model="currentPlan.PlanDetail.UseMonthlyPrice.isUsed" ng-change="(currentPlan.PlanDetail.UseMonthlyPrice.isUsed !== true)? closePlanDetailAdjustment():showPlanDetailAdjustment('USE_MONTHLY_PRICE','UseMonthlyPrice');">
+            </md-checkbox>
+            <p>
+                {{currentPlan.PlanDetail.UseMonthlyPrice.name | translate}}
+            </p>
+
+            <md-button aria-label="Show Monthly Price Adjustment" class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-if="currentPlan.PlanDetail.UseMonthlyPrice.isUsed === true" ng-click="(currentPlan.PlanDetail.UseMonthlyPrice.isUsed === true)? showPlanDetailAdjustment('USE_MONTHLY_PRICE','UseMonthlyPrice') : doNothing();$event.stopPropagation();">
+                <md-icon md-svg-src="img/icons/ic_arrow_forward_48px.svg" style="">
+                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_DETAIL' | translate}}
+                    </md-tooltip>
+                </md-icon>
+            </md-button>
+        </md-list-item>
+        <md-list-item ng-class="{'isSelected': currentAdjustment.Property === 'UseExtraAdultPrice'}" ng-click="(currentPlan.PlanDetail.UseExtraAdultPrice.isUsed === true)? showPlanDetailAdjustment('USE_EXTRA_ADULT_PRICE', 'UseExtraAdultPrice') : doNothing();$event.stopPropagation();">
+            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'TOOLTIP_ACTIVE' | translate}} / {{'TOOLTIP_DEACTIVE' | translate}}
+            </md-tooltip>
+            <md-checkbox class="md-warn" style="margin: 0px; padding: 0px;margin-right: 3px;" ng-model="currentPlan.PlanDetail.UseExtraAdultPrice.isUsed" ng-change="(currentPlan.PlanDetail.UseExtraAdultPrice.isUsed !== true)? closePlanDetailAdjustment():showPlanDetailAdjustment('USE_EXTRA_ADULT_PRICE','UseExtraAdultPrice');">
+            </md-checkbox>
+            <p>
+                {{'USE_EXTRA_ADULT_PRICE' | translate}}
+            </p>
+
+            <md-button aria-label="Show Extra Adult Price Adjustment" class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-if="currentPlan.PlanDetail.UseExtraAdultPrice.isUsed === true" ng-click="(currentPlan.PlanDetail.UseExtraAdultPrice.isUsed === true)? showPlanDetailAdjustment('USE_EXTRA_ADULT_PRICE', 'UseExtraAdultPrice') : doNothing();$event.stopPropagation();">
+                <md-icon md-svg-src="img/icons/ic_arrow_forward_48px.svg" style="">
+                   <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_DETAIL' | translate}}
+                    </md-tooltip>
+                </md-icon>
+            </md-button>
+        </md-list-item>
+
+
+        <md-list-item ng-class="{'isSelected': currentAdjustment.Property === 'UseExtraChildPrice'}" ng-click="(currentPlan.PlanDetail.UseExtraChildPrice.isUsed === true)? showPlanDetailAdjustment('USE_EXTRA_CHILD_PRICE', 'UseExtraChildPrice') : doNothing();$event.stopPropagation();">
+            <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                {{'TOOLTIP_ACTIVE' | translate}} / {{'TOOLTIP_DEACTIVE' | translate}}
+            </md-tooltip>
+            <md-checkbox class="md-warn" style="margin: 0px; padding: 0px;margin-right: 3px;" ng-model="currentPlan.PlanDetail.UseExtraChildPrice.isUsed" ng-change="(currentPlan.PlanDetail.UseExtraChildPrice.isUsed !== true)? closePlanDetailAdjustment():showPlanDetailAdjustment('USE_EXTRA_CHILD_PRICE','UseExtraChildPrice') ;">
+            </md-checkbox>
+            <p>
+                {{'USE_EXTRA_CHILD_PRICE' | translate}}
+            </p>
+            <md-button aria-label="Show Extra Child Price Adjustment" class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-if="currentPlan.PlanDetail.UseExtraChildPrice.isUsed === true"  ng-click="(currentPlan.PlanDetail.UseExtraChildPrice.isUsed === true)? showPlanDetailAdjustment('USE_EXTRA_CHILD_PRICE', 'UseExtraChildPrice') : doNothing();$event.stopPropagation();">
+                <md-icon md-svg-src="img/icons/ic_arrow_forward_48px.svg" style="">
+                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_DETAIL' | translate}}
+                    </md-tooltip>
+                </md-icon>
+            </md-button>
+        </md-list-item>
+    </md-list>
+
+</md-content>

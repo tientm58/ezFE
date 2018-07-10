@@ -1,0 +1,446 @@
+<!--<section layout="row" layout-align="space-between start" layout-wrap style="" flex="100">-->
+<style>
+    .disabled {
+        background: #dddddd;
+    }
+    
+    .textDiabled {
+        text-decoration: line-through
+    }
+    
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+    
+    md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+    }
+    
+    .heightPayment {
+        /*min-height: 281px !important;*/
+        max-height: 3500px !important;
+        overflow-y: hidden !important;
+    }
+    
+    .bt-add-payment {
+        height: 36px;
+        width: 36px;
+        margin-right: 5px !important;
+        margin-top: 0px !important;
+    }
+    
+    .custom-card-header {
+        font-size: 13px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #7f7f7f;
+        border-bottom: rgba(128, 128, 128, 0.41) 1px solid;
+        padding-bottom: 5px
+    }
+    
+    .warning-text {
+        font-size: 90%;
+        display: block;
+        margin-top: 10px;
+    }
+    
+    .layout-gt-lg-row>md-divider,
+    .layout-gt-md-row>md-divider,
+    .layout-gt-sm-row>md-divider,
+    .layout-gt-xs-row>md-divider,
+    .layout-lg-row>md-divider,
+    .layout-md-row>md-divider,
+    .layout-row>md-divider,
+    .layout-sm-row>md-divider,
+    .layout-xl-row>md-divider,
+    .layout-xs-row>md-divider {
+        border-top-width: 1px !important;
+    }
+    
+    .max-height60 {
+        max-height: 60px !important;
+    }
+    
+    .margin-inherit {
+        margin: inherit !important;
+    }
+    
+    h4 {
+        font-weight: normal !important;
+    }
+    
+    h3 {
+        font-weight: normal !important;
+    }
+    .NEWPAYMENT{
+        font-weight: bold;color:#009688 ;
+    }
+    .DEPOSIT{
+        font-weight: bold;color: #15abe4;
+    }
+    .REFUND{
+        font-weight: bold;color: #9C27B0;
+    }
+    .DELETE{
+        font-weight: bold;color: #f44336;
+    }
+    .Description{
+        font-style: italic;
+	    font-size: 13.5px;
+    }
+    .height24{
+        height: 24px;
+    }
+    .padding-top-botttom8{
+        padding-top:8px;
+        padding-bottom: 8px;
+    }
+    #padding-left10{
+        padding-left: 10px !important;
+    }
+</style>
+<md-card flex="100" class="custom-card heightPayment" ng-if="paymentCtrl.hasRRIDParam && (paymentCtrl.room.BookingStatus ==='CHECKIN' || paymentCtrl.room.BookingStatus ==='OVERDUE' || paymentCtrl.room.BookingStatus ==='BOOKED' || paymentCtrl.room.BookingStatus === 'NOSHOW')">
+    <md-card-title>
+        <md-card-title-text flex="100">
+            <span class="md-headline">{{'PAYMENT' | translate}}
+                <md-icon class="bt-add-payment" md-svg-src="img/ic-postpayment_24px.svg" style="" ng-click="paymentCtrl.addPayment($event)">
+                <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                    {{'TOOLTIP_ADD_PAYMENT' | translate}}
+                </md-tooltip>
+                </md-icon>
+            </span>
+        </md-card-title-text>
+    </md-card-title>
+    <!--<section style="">
+        <div layout="row" layout-align="space-between center" style="padding: 16px;">
+            <span style="font-size: 20px; font-weight: 400; line-height: 16px;">{{'PAYMENT' | translate}}</span>
+            <div>
+                <md-button class="md-primary md-fab md-mini" ng-click="paymentCtrl.addPayment($event)">
+                    <md-icon md-svg-src="img/icons/ic_add_24px.svg" style="fill:white"></md-icon>
+                </md-button>
+            </div>
+        </div>
+    </section>-->
+    <md-card-content class="height-content-payment">
+        <section>
+            <div layout="row" layout-wrap flex="100" layout-align="space-between center">
+                <div layout="row" layout-wrap flex="100" ng-if="paymentCtrl.room.BookingStatus === 'CHECKIN' || paymentCtrl.room.BookingStatus ==='OVERDUE'">
+                    <md-checkbox ng-model="paymentCtrl.showDiscount" aria-label="Show Discount" flex="100" class="md-warn">
+                        {{ 'DISCOUNT_INFORMATION' | translate }}
+                    </md-checkbox>
+                    <fieldset class="standard" flex ng-if="paymentCtrl.showDiscount">
+                        <div layout="row" layout-align="space-between center" layout-wrap flex="100">
+                            <div flex="30">
+                                <md-checkbox ng-model="paymentCtrl.room.Foc" aria-label="FOC" class="md-primary" style="font-size: 12px;margin-bottom: 0px;">
+                                    <span style="margin: auto 0px;">{{'FREE_OF_CHARGE' | translate}}</span>
+                                </md-checkbox>
+                            </div>
+                            <md-input-container flex="20" style="margin-bottom: 0px;">
+                                <label>{{'DISCOUNT' | translate}}(%)</label>
+                                <input type="number" style="width: 100%;" ng-model="paymentCtrl.room.DiscountPercentage" min="0" ng-disabled="paymentCtrl.room.Foc">
+                            </md-input-container>
+                            <md-input-container flex="25" style="margin-bottom: 0px;">
+                                <label>{{'DISCOUNT' | translate}}($)</label>
+                                <input type="text" style="width: 100%;" ng-model="paymentCtrl.room.DiscountFlat" ui-number-mask="paymentCtrl.decimal" ng-disabled="paymentCtrl.room.Foc">
+                            </md-input-container>
+                            <md-button flex="15" class="md-warn" style="margin: 0px;margin-bottom: 10px;font-size:16px;text-transform: uppercase;font-weight: bold" ng-click="paymentCtrl.applyDiscount()">
+                                {{ 'APPLY' | translate }}
+                            </md-button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div layout layout-wrap flex="100">
+                    <md-input-container flex="33">
+                        <label>{{'TYPE' | translate}}:</label>
+                        <md-select ng-model="paymentCtrl.payment.PaymentTypeName">
+                            <md-option value="NEW_PAYMENT" ng-if="paymentCtrl.room.BookingStatus !== 'BOOKED' && paymentCtrl.room.BookingStatus !=='NOSHOW'">{{ 'NEW_PAYMENT'|translate }}</md-option>
+                            <md-option value="REFUND" ng-if="paymentCtrl.room.BookingStatus !== 'BOOKED' && paymentCtrl.room.BookingStatus !=='NOSHOW'">{{ 'REFUND'|translate }}</md-option>
+                            <md-option value="DEPOSIT">{{ 'DEPOSIT'|translate }}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex="33">
+                        <label>{{'METHOD' | translate}}</label>
+                        <md-select ng-model="paymentCtrl.payment.PaymentMethodId">
+                            <md-option ng-repeat="method in paymentCtrl.paymentMethods | filter:paymentCtrl.fillterPaymentMethodId" ng-value="method.PaymentMethodId">{{ method.PaymentMethodName | translate}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex="33">
+                        <label>{{'CURRENCY' | translate}}</label>
+                        <md-select ng-model="paymentCtrl.payment.MoneyId">
+                            <md-option ng-repeat="cur in paymentCtrl.currencies" ng-value="cur.MoneyId">{{ cur.MoneyName}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div ng-if="paymentCtrl.payment.PaymentMethodId == 4" layout layout-wrap flex="100">
+                    <md-input-container style="width: 100%;">
+                        <label>{{'COMPANY' | translate}}</label>
+                        <md-autocomplete md-selected-item="paymentCtrl.selectedCompanyCityLedger" md-search-text-change="paymentCtrl.searchCompanyTextChangeCityLedger(paymentCtrl.searchCompanyTextCityLedger)"
+                            md-search-text="paymentCtrl.searchCompanyTextCityLedger" md-selected-item-change="paymentCtrl.selectedCompanyChangeCityLedger(item)" md-items="item in paymentCtrl.queryCompanySearchCityLedger(paymentCtrl.searchCompanyTextCityLedger)"
+                            md-item-text="item.CompanyName" md-min-length="0" md-menu-class="autocomplete-custom-template">
+                            <md-item-template>
+                                <span class="item-title">
+                                        <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                        <span style="margin: auto;"> {{item.CompanyName}} </span>
+                                </span>
+                            </md-item-template>
+                        </md-autocomplete>
+                    </md-input-container>
+                </div>
+                <div layout layout-wrap flex="100">
+                    <md-input-container flex="33">
+                        <label>{{'AMOUNT' | translate}}</label>
+                        <input type="text" ng-model="paymentCtrl.payment.Amount" ui-number-mask="paymentCtrl.decimal">
+                    </md-input-container>
+                    <md-input-container flex id="description" style="">
+                        <label>{{'DESCRIPTION' | translate}}</label>
+                        <input type="textarea" ng-model="paymentCtrl.payment.PaymentDescription" />
+                    </md-input-container>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div flex="100" class="custom-card-header">
+                {{'PAYMENT_LIST' | translate}}
+            </div>
+            <div ng-if="paymentCtrl.Payments.length == 0" class="text-center">
+                <span class="warning-text">
+                    {{'NO_PAYMENT_ADDED' | translate}}
+                </span>
+            </div>
+            <md-list ng-if="paymentCtrl.Payments.length >0">
+                <!--<md-subheader class="md-no-sticky">{{'PAYMENT_LIST' | translate}}</md-subheader>-->
+                <md-list-item class="md-3-line custom-list-payment" ng-repeat="payment in paymentCtrl.Payments" >
+                    <div flex="70" class="md-list-item-text" layout="column" ng-if="payment.isDeleted">
+                        <h3 class="padding-top-botttom8">
+                            <code ng-if="payment.PaymentTypeName === 'DEPOSIT' " class="DEPOSIT">[{{'DEPOSIT' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT' " class="NEWPAYMENT">[{{'ADDED' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'REFUND' " class="REFUND">[{{'REFUND' | translate}}]  </code>
+                            <span class="Description">{{payment.PaymentDescription | truncate:35}}</span>
+                            </br>
+                            <!--{{payment.UserName}}</br>
+                            <span class="custom-list-payment-datetime">{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</span>-->
+                        </h3>
+                        <h4> {{payment.UserName}}</h4>
+                        <p class="custom-list-payment-datetime">{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</p>
+                        <!---->
+                        <h3 class="padding-top-botttom8">
+                            <code class="DELETE">[{{'DELETED' | translate}}] </code>
+                            <span class="Description">{{payment.DeletedDescription | truncate:35}}</span>
+                            </br>
+                            <!--{{payment.DeletedUserName}}</br>-->
+                            <!--<span class="custom-list-payment-datetime">{{ payment.DeletedDate | date:'dd/MM, HH:mm' }}</span>-->
+                        </h3>
+                        <h4>{{payment.DeletedUserName}}</h4>
+                        <p class="custom-list-payment-datetime">{{ payment.DeletedDate | date:'dd/MM, HH:mm' }}</p>
+                    </div>
+                    <div flex="70" class="md-list-item-text" layout="column" style="" ng-if="!payment.isDeleted">
+                        <h3>
+                            <code ng-if="payment.PaymentTypeName === 'DEPOSIT'" class="DEPOSIT">[{{'DEPOSIT' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT'" class="NEWPAYMENT">[{{'ADDED' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'REFUND'" class="REFUND">[{{'REFUND' | translate}}]  </code>
+                            <md-button ng-if="paymentCtrl.hasRRIDParam" md-no-ink class="md-icon-button" class="padding0 margin0 height24"  ng-click="paymentCtrl.showPayment($event,payment)">
+                                <md-icon md-svg-src="img/icons/ic_print_24px.svg" class="icon-gray"></md-icon>
+                            </md-button>
+                            <span class="Description">{{payment.PaymentDescription | truncate:35}}</span>
+                            </br>
+                        </h3>
+                        <h4>{{payment.UserName}}</h4>
+                        <p class="custom-list-payment-datetime">{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</p>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDiabled' : payment.isDeleted }">
+                        {{payment.Amount | currency}}
+                        <span ng-if="payment.AmountInSpecificMoney !== null" >({{payment.AmountInSpecificMoney | number:payment.MinorUnitInSpecificMoney}}{{payment.MoneyName}})</span>
+                        <md-icon md-svg-src="img/ic_trash_36px.svg" ng-if="!payment.isDeleted" ng-click="paymentCtrl.deletePayment($event, payment)" ></md-icon>
+                    </p>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </section>
+    </md-card-content>
+</md-card>
+<md-card flex="100" class="custom-card heightPayment" ng-if="!paymentCtrl.hasRRIDParam">
+    <md-card-title>
+        <md-card-title-text flex="100">
+            <span class="md-headline">{{'PAYMENT' | translate}}
+                <md-icon class="bt-add-payment" md-svg-src="img/ic-postpayment_24px.svg" style="" ng-click="paymentCtrl.addDeposit($event)">
+                <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                    {{'TOOLTIP_ADD_DEPOSIT' | translate}}
+                </md-tooltip>
+                </md-icon>
+            </span>
+        </md-card-title-text>
+    </md-card-title>
+    <!--<section style="">
+        <div layout="row" layout-align="space-between center" style="padding: 16px;">
+            <span style="font-size: 20px; font-weight: 400; line-height: 16px;">{{'PAYMENT' | translate}}</span>
+            <div>
+                <md-button class="md-primary md-fab md-mini" ng-click="paymentCtrl.addDeposit($event)">
+                    <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                        {{'TOOLTIP_ADD_DEPOSIT' | translate}}
+                    </md-tooltip>
+                    <md-icon md-svg-src="img/icons/ic_add_24px.svg" style="fill:white"></md-icon>
+                </md-button>
+            </div>
+        </div>
+    </section>-->
+    <md-card-content class="height-content-payment">
+        <section flex="100" layout-margin>
+            <div class="margin0" layout layout-wrap flex="100" layout-align="start center">
+                <div ng-class="{'margin0':$mdMedia('xs')}" layout layout-margin layout-align="space-between center" layout-wrap flex="100">
+                    <md-input-container flex="30" flex-xs="100">
+                        <label>{{'TYPE' | translate}}</label>
+                        <md-select ng-model="paymentCtrl.deposit.PaymentTypeName">
+                            <md-option value="DEPOSIT">{{ 'DEPOSIT'|translate }}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container ng-class="{'margin0':$mdMedia('md')}" flex="30" flex-xs="100">
+                        <label>{{'METHOD' | translate}}</label>
+                        <md-select ng-model="paymentCtrl.deposit.PaymentMethodId">
+                            <md-option ng-repeat="method in paymentCtrl.paymentMethods  | filter: {PaymentMethodId:'!4'}" ng-value="method.PaymentMethodId">{{ method.PaymentMethodName | translate}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex="30" flex-xs="40" ng-class="{'height45px margin-bottom0':$mdMedia('xs')}">
+                        <label>{{'CURRENCY' | translate}}</label>
+                        <md-select ng-model="paymentCtrl.deposit.MoneyId">
+                            <md-option ng-repeat="cur in paymentCtrl.currencies" ng-value="cur.MoneyId">{{ cur.MoneyName}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex="45" ng-show="$mdMedia('xs')" class="height45px margin-bottom0">
+                        <label>{{'AMOUNT' | translate}}</label>
+                        <input type="text" ng-model="paymentCtrl.deposit.Amount" ui-number-mask="paymentCtrl.decimal" />
+                    </md-input-container>
+                </div>
+                <div ng-class="{'margin0':$mdMedia('xs') }" class="max-height60" layout layout-margin layout-align="space-between center" layout-wrap flex="100">
+                    <md-input-container flex="30" ng-show="$mdMedia('gt-xs')">
+                        <label>{{'AMOUNT' | translate}}</label>
+                        <input type="text" ng-model="paymentCtrl.deposit.Amount" ui-number-mask="paymentCtrl.decimal" />
+                    </md-input-container>
+                    <md-input-container flex flex-xs="100" ng-class="{'margin-top0':$mdMedia('xs')}">
+                        <label>{{'DESCRIPTION' | translate}}</label>
+                        <input type="textarea" ng-model="paymentCtrl.deposit.PaymentDescription" />
+                    </md-input-container>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div flex="100" class="custom-card-header">
+                {{'PAYMENT_LIST' | translate}}
+            </div>
+            <div ng-if="paymentCtrl.paymentList.length === 0" class="text-center">
+                <span class="warning-text">
+                    {{'NO_PAYMENT_ADDED' | translate}}
+                </span>
+            </div>
+            <md-list ng-if="paymentCtrl.paymentList.length >0">
+                <!--<md-subheader class="md-no-sticky">{{'PAYMENT_LIST' | translate}}</md-subheader>-->
+                <!--<md-list-item ng-repeat="payment in paymentCtrl.paymentList" layout="row" flex="100">
+                    <p flex="50">
+                        <span ng-repeat="info in paymentCtrl.PaymentInfo | filter:{PaymentId: payment.PaymentId}"></span>
+                        <span style="margin: auto;">{{ payment.CreatedDate | date:'dd/MM/yyyy, HH:mm' }}</span>
+                        <span>
+                            </br>
+
+                            <code ng-if="payment.PaymentTypeName === 'DEPOSIT' " style="font-weight: bold;color: dodgerblue;">[ {{'DEPOSIT' | translate}} ]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'DELETED' " style="font-weight: bold;color: #f44336;">[ {{'DELETED' | translate}} ]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT' " style="font-weight: bold;color: #009688;">[ {{'ADDED' | translate}} ]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'REFUND' " style="font-weight: bold;color: #9C27B0;">[ {{'REFUND' | translate}} ]  </code>
+
+                        </span>
+                        <span style="font-style: italic">{{payment.PaymentDescription}}</span>
+                    </p>
+                    <p class="md-secondary" ng-class="{ 'textDiabled' : payment.RefPaymentId }">
+                        {{payment.Amount | currency}}
+                        <span ng-if="payment.AmountInSpecificMoney" style="font-weight: bold;">({{payment.AmountInSpecificMoney | number:payment.MinorUnitInSpecificMoney}} {{payment.MoneyName}})</span>
+                        <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg" ng-click="paymentCtrl.deleteDeposit($event, payment)" style="cursor: pointer;"></md-icon>
+                    </p>
+                    <md-divider></md-divider>
+                </md-list-item>-->
+                <md-list-item class="custom-list-payment" layout="row" flex="100" ng-repeat="payment in paymentCtrl.paymentList">
+                    <div flex="70" class="md-list-item-text" layout="column">
+                        <h3>
+                            <code class="DEPOSIT">[{{'DEPOSIT' | translate}}]  </code>
+                            <span class="Description">
+                                {{payment.PaymentDescription | truncate:35}}
+                                <span ng-if="payment.PaymentDescription.length >= 35">...</span>
+                            </span>
+                            </br>
+                        </h3>
+                        <h4>{{user.userName}}</h4>
+                        <p class="custom-list-payment-datetime">{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</p>
+                    </div>
+                    <p class="md-secondary">
+                        {{payment.Amount | currency}}
+                        <md-icon md-svg-src="img/ic_trash_36px.svg" ng-click="paymentCtrl.deleteDeposit($event, payment)"></md-icon>
+                    </p>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </section>
+    </md-card-content>
+</md-card>
+<md-card class="custom-card heightPayment" flex="100" ng-if="paymentCtrl.hasRRIDParam && paymentCtrl.room.BookingStatus !=='CHECKIN' && paymentCtrl.room.BookingStatus !=='OVERDUE' && paymentCtrl.room.BookingStatus !=='BOOKED' && paymentCtrl.room.BookingStatus !=='NOSHOW'">
+    <!--<section style="">
+        <div layout="row" layout-align="space-between center" style="padding: 16px;">
+            <span style="font-size: 20px; font-weight: 400; line-height: 16px;">{{'PAYMENT' | translate}}</span>
+        </div>
+    </section>-->
+    <md-card-title class="padding-bottom0-important">
+        <md-card-title-text flex="100">
+            <span class="md-headline">
+                {{'PAYMENT_LIST' | translate}}
+            </span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content class="height-content-payment" id="padding-left10">
+        <section>
+            <!--<div flex="100" class="custom-card-header">
+                {{'PAYMENT_LIST' | translate}}
+            </div>-->
+            <div ng-if="Payments.length === 0" class="text-center">
+                <span class="warning-text">
+                    {{'NO_PAYMENT_ADDED' | translate}}
+                </span>
+            </div>
+            <md-list ng-if="paymentCtrl.Payments.length >0" >
+                <!--<md-subheader class="md-no-sticky">{{'PAYMENT_LIST' | translate}}</md-subheader>-->
+                <md-list-item class="md-3-line custom-list-payment" ng-repeat="payment in paymentCtrl.Payments" >
+                    <div flex="70" class="md-list-item-text" layout="column" ng-if="payment.isDeleted">
+                        <h3 class="padding-top-botttom8">
+                            <code ng-if="payment.PaymentTypeName === 'DEPOSIT' " class="DEPOSIT">[{{'DEPOSIT' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT' " class="NEWPAYMENT">[{{'ADDED' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'REFUND' " class="REFUND">[{{'REFUND' | translate}}]  </code>
+                            <span class="Description">{{payment.PaymentDescription}}</span></br>
+                        </h3>
+                        <h4>{{payment.UserName}}</h4>
+                        <p class="custom-list-payment-datetime">{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</p>
+                        <h3>
+                            <code class="DELETE">[{{'DELETED' | translate}}]</code>
+                            <span class="Description">{{payment.DeletedDescription}}</span></br>
+                        </h3>
+                        <h4>{{payment.DeletedUserName}}</h4>
+                        <p class="custom-list-payment-datetime">{{ payment.DeletedDate | date:'dd/MM, HH:mm' }}</p>
+                    </div>
+                    <div flex="70" class="md-list-item-text" layout="column" ng-if="!payment.isDeleted">
+                        <h3 class="padding-top-botttom8">
+                            <code ng-if="payment.PaymentTypeName === 'DEPOSIT' " class="DEPOSIT">[{{'DEPOSIT' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'NEW_PAYMENT' " class="NEWPAYMENT">[{{'ADDED' | translate}}]  </code>
+                            <code ng-if="payment.PaymentTypeName === 'REFUND' " class="REFUND">[{{'REFUND' | translate}}]  </code>
+                            <span class="Description">{{payment.PaymentDescription}}</span></br>
+                        </h3>
+                        <h4>{{payment.UserName}}</h4>
+                        <p class="custom-list-payment-datetime">{{ payment.CreatedDate | date:'dd/MM, HH:mm' }}</p>
+                    </div>
+                    <p class="md-secondary" ng-class="{ 'textDiabled' : payment.isDeleted }">
+                        {{payment.Amount | currency}}
+                        <span ng-if="payment.AmountInSpecificMoney !== null" style="font-weight: bold;">({{payment.AmountInSpecificMoney | number:payment.MinorUnitInSpecificMoney}} {{payment.MoneyName}})</span>
+                    </p>
+                    <!--<md-divider></md-divider>-->
+                </md-list-item>
+            </md-list>
+        </section>
+    </md-card-content>
+</md-card>

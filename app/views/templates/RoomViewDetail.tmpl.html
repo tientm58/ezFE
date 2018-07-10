@@ -1,0 +1,179 @@
+<md-card-content layout="row" class="ezwp_box_roomvD" flex="100">
+	<div layout="column" flex="nogrow" layout-align="start center" ng-style="{'background-color': getColor(item)}" class="box_roomvD_left">
+		<div style="" class="RoomLevel">
+			<span class="text">{{item.roomType.RoomTypeCode}}</span>
+		</div>
+		<div class="b_RN">
+			<span class="text">
+				<a ng-if="item.BookingStatus != 'AVAILABLE'" href="#/reservation/{{item.reservationRoom.ReservationRoomId}}" class="roomName">
+					{{item.RoomName}}
+					<md-tooltip hide-xs hide-sm hide-md>{{'VIEW_DETAIL' | translate}}</md-tooltip>
+				</a>
+				<a ng-if="item.BookingStatus == 'AVAILABLE'" href="#/walkin/{{item.RoomId}}" class="roomName">
+					{{item.RoomName}}
+					<md-tooltip hide-xs hide-sm hide-md>{{'WALKIN' | translate}}</md-tooltip>
+				</a>
+			</span>
+		</div>
+		<div class="f_left" ng-style="item.reservationRoom.Reservations.IsGroup && {'text-align':'left'}">
+			<md-button ng-if="item.reservationRoom.Reservations.IsGroup == true" class="md-icon-button" aria-label="{{item.BookingStatus | translate}} ">
+				<md-icon md-svg-src="img/icons/ic_group_24px.svg " style="fill: {{item.reservationRoom.Reservations.Color}};"></md-icon>
+			</md-button>
+			<md-button class="md-icon-button" ng-click="buttonClick($event,item) " aria-label="{{item.BookingStatus | translate}}">
+				<md-icon md-svg-src="img/icons/{{bookingStatusMapping[item.BookingStatus]}} "></md-icon>
+				<md-tooltip hide-xs hide-sm hide-md ng-if="(item.BookingStatus=='CHECKIN' || item.BookingStatus=='OVERDUE')">{{'QUICK_CHECK_OUT' | translate}}</md-tooltip>
+				<md-tooltip hide-xs hide-sm hide-md ng-if="(item.BookingStatus=='AVAILABLE')">{{'QUICK_CHECK_IN' | translate}}</md-tooltip>
+				<md-tooltip hide-xs hide-sm hide-md ng-if="(item.BookingStatus=='BOOKED' || item.BookingStatus=='NOSHOW')">{{'CHECKIN' | translate}}</md-tooltip>
+			</md-button>
+			<md-button ng-if="item.reservationRoom.Reservations.IsGroup == true && item.reservationRoom.IsGroupMaster == true" class="md-icon-button"
+			    aria-label="{{item.BookingStatus | translate}} ">
+				<md-icon md-svg-src="img/icons/ic_flag_24px.svg"></md-icon>
+			</md-button>
+		</div>
+	</div>
+	<div flex="grow" style="" layout layout-wrap ng-click="showItemMenu($event,item) " class="contentHover box_roomvD_content">
+		<div layout="column" layout-align="space-between center" ng-if="(item.BookingStatus == 'CHECKIN' || item.BookingStatus == 'OVERDUE') && item.HouseStatus !== 'REPAIR' "
+		    class="{{item.BookingStatus}} " style="width: 100%;height: 100%; position:relative">
+			<div ng-show="showFibaro(item.RoomName)" style="float:right;width:100%;padding:4;z-index:9999;position:absolute;top:0;right:0"
+			    ng-style="" layout="row" layout-align="end center">
+				<md-icon ng-click="toggleLight($event,item.RoomName)" md-svg-src="img/icons/bulb.svg" style="height: 21px; width: 21px;"
+				    ng-class="{isOn: isOn(item.RoomName),isOff: !isOn(item.RoomName)}"></md-icon>
+			</div>
+			<div ng-if="item.DisplayList!=null" ng-repeat="l in item.DisplayList" flex="100 " layout="row" layout-align="start center"
+			    class="box_roomvD_chillrend" style="" ng-style="item.DisplayList.length > 1 && {'max-height':'30px'}">
+				<div ng-if="l.List[0]" class="text set-style-by-length-{{l.List.length}}" style="padding-left:3px;" ng-style="($index == 0 ) && {'min-width':'50%'}">
+					<div ng-class="{'text-align-xs-sm-length-1':(($mdMedia('md') || $mdMedia('sm') || $mdMedia('xs'))&& l.List.length==1 ),'text-align-xs-sm-length-2':(($mdMedia('md') || $mdMedia('sm') || $mdMedia('xs'))&& l.List.length==2 ),'font-size-xs':$mdMedia('xs')}">
+						<div ng-if="l.List[0].PropertyColumName!='TimeCounter'">
+							<span ng-if="$mdMedia('gt-xs')">{{l.List[0].PropertyColumName | truncate:20 }}</span>
+							<span ng-if="$mdMedia('xs')">{{l.List[0].PropertyColumName | truncate:12 }}</span>
+						</div>
+						<div ng-if="l.List[0].PropertyColumName=='TimeCounter'">
+							<timer autostart="false" start-time="item.reservationRoom.ArrivalDate ">
+								<span class="time " style="font-size: 1em; ">{{ddays}} : </span>
+								<span class="time hour " style="font-size: 1em; ">&nbsp;{{hhours}} : </span>
+								<span class="time minute " style="font-size: 1em; ">&nbsp;{{mminutes}}</span>
+							</timer>
+						</div>
+					</div>
+					<md-tooltip md-direction="bottom" hide-xs hide-sm hide-md ng-if="l.List[0].Tooltip!=null">{{l.List[0].Tooltip}}</md-tooltip>
+				</div>
+				<div ng-if="l.List[1]" ng-class="{'font-size-xs':$mdMedia('xs'),'padding-gt-md':$mdMedia('gt-md') && $index == 0 }" class="text set-style-by-length-{{l.List.length}}"
+				    style="padding-right:4px">
+					<div ng-if="l.List[1].PropertyColumName!='TimeCounter'">
+						<span ng-if="l.List[1].PropertyColumName!=' '"></span>
+						<span ng-if="$mdMedia('gt-xs')">{{l.List[1].PropertyColumName | truncate:20 }}</span>
+						<span ng-if="$mdMedia('xs')">{{l.List[1].PropertyColumName | truncate:12 }}</span>
+					</div>
+					<div ng-if="l.List[1].PropertyColumName=='TimeCounter'">
+						<timer autostart="false" start-time="item.reservationRoom.ArrivalDate ">
+							<span class="time " style="font-size: 1em; ">{{ddays}} : </span>
+							<span class="time hour " style="font-size: 1em; ">&nbsp;{{hhours}} : </span>
+							<span class="time minute " style="font-size: 1em; ">&nbsp;{{mminutes}}</span>
+						</timer>
+					</div>
+					<md-tooltip md-direction="bottom" hide-xs hide-sm hide-md ng-if="l.List[1].Tooltip!=null">{{l.List[1].Tooltip}}</md-tooltip>
+				</div>
+			</div>
+		</div>
+		<div layout="column" layout-align="center center" ng-if="item.BookingStatus==='AVAILABLE' && item.HouseStatus !=='REPAIR' "
+		    class="{{item.BookingStatus}} " style="width: 100%; position:relative">
+			<div ng-show="showFibaro(item.RoomName)" style="float:right;width:100%;padding:4;z-index:9999;position:absolute;top:0;right:0"
+			    ng-style="" layout="row" layout-align="end center">
+				<md-icon ng-click="toggleLight($event,item.RoomName)" md-svg-src="img/icons/bulb.svg" style="height: 21px; width: 21px;"
+				    ng-class="{isOn: isOn(item.RoomName),isOff: !isOn(item.RoomName)}"></md-icon>
+			</div>
+			<div layout="row " layout-align="center center " style="margin: 33px auto; " class="box_roomvD_chillrend">
+				<span class="text " style="font-size: 100%; ">{{'AVAILABLE' | translate}}</span>
+			</div>
+		</div>
+		<div layout="column" layout-align="center center" ng-if="item.HouseStatus==='REPAIR' " class="{{item.HouseStatus}} " style="width: 100%; position:relative">
+			<div ng-show="showFibaro(item.RoomName)" style="float:right;width:100%;padding:4;z-index:9999;position:absolute;top:0;right:0"
+			    ng-style="" layout="row" layout-align="end center">
+				<md-icon ng-click="toggleLight($event,item.RoomName)" md-svg-src="img/icons/bulb.svg" style="height: 21px; width: 21px;"
+				    ng-class="{isOn: isOn(item.RoomName),isOff: !isOn(item.RoomName)}"></md-icon>
+			</div>
+			<div class="box_roomvD_chillrend">
+				<span class="text text-center" style="font-size: 14px; ">
+					<div ng-if="item.RepairStartDate ">{{'START' | translate}}: {{item.RepairStartDate | date:'dd/MM/yyyy, HH:mm'}}</div>
+					<div ng-if="!item.RepairStartDate ">{{'START' | translate}}: {{'UNKNOWN_DATE' | translate}}</div>
+					<div ng-if="item.RepairEndDate ">{{'END' | translate}}: {{item.RepairEndDate | date:'dd/MM/yyyy, HH:mm'}}</div>
+					<div ng-if="!item.RepairEndDate ">{{'END' | translate}}: {{'UNKNOWN_DATE' | translate}} </div>
+				</span>
+			</div>
+			<div layout="row " layout-align="center center " style="margin: 16px auto; ">
+				<span class="text " style="font-size: 100%; ">{{'REPAIR' | translate}}</span>
+			</div>
+		</div>
+		<div layout="column" ng-if="item.BookingStatus==='NOSHOW' && item.HouseStatus !=='REPAIR' " class="{{item.BookingStatus}} "
+		    style="width: 100%;height: 100%; position:relative">
+			<div ng-show="showFibaro(item.RoomName)" style="float:right;width:100%;padding:4;z-index:9999;position:absolute;top:0;right:0"
+			    ng-style="" layout="row" layout-align="end center">
+				<md-icon ng-click="toggleLight($event,item.RoomName)" md-svg-src="img/icons/bulb.svg" style="height: 21px; width: 21px;"
+				    ng-class="{isOn: isOn(item.RoomName),isOff: !isOn(item.RoomName)}"></md-icon>
+			</div>
+			<div ng-if="item.DisplayList!=null" ng-repeat="l in item.DisplayList" flex="100 " layout="row " layout-align="start center"
+			    class="box_roomvD_chillrend" ng-style="item.DisplayList.length > 1 && {'max-height':'30px'}">
+				<div ng-if="l.List[0]" class="text set-style-by-length-{{l.List.length}}" style="padding-left:3px;" ng-style="($index == 0 ) && {'min-width':'50%'}">
+					<div ng-class="{'text-align-xs-sm-length-1':(($mdMedia('md') || $mdMedia('sm') || $mdMedia('xs'))&& l.List.length==1 ),'text-align-xs-sm-length-2':(($mdMedia('md') || $mdMedia('sm') || $mdMedia('xs'))&& l.List.length==2 ),'font-size-xs':$mdMedia('xs')}">
+						<div>
+							<span ng-if="$mdMedia('gt-xs')">{{l.List[0].PropertyColumName | truncate:20 }}</span>
+							<span ng-if="$mdMedia('xs')">{{l.List[0].PropertyColumName | truncate:12 }}</span>
+						</div>
+					</div>
+					<md-tooltip md-direction="bottom" hide-xs hide-sm hide-md ng-if="l.List[0].Tooltip!=null">{{l.List[0].Tooltip}}</md-tooltip>
+				</div>
+				<div ng-if="l.List[1]" ng-class="{'font-size-xs':$mdMedia('xs')}" class="text set-style-by-length-{{l.List.length}}" style="padding-right:4px"
+				    layout-align="center start">
+					<span ng-if="l.List[1].PropertyColumName!=' '">- </span>
+					<span ng-if="$mdMedia('gt-xs')">{{l.List[1].PropertyColumName | truncate:20 }}</span>
+					<span ng-if="$mdMedia('xs')">{{l.List[1].PropertyColumName | truncate:12 }}</span>
+					<md-tooltip md-direction="bottom" hide-xs hide-sm hide-md ng-if="l.List[1].Tooltip!=null">{{l.List[1].Tooltip}}</md-tooltip>
+				</div>
+			</div>
+			<div ng-if="$mdMedia('xs')">
+				<div style="margin: 6px auto;text-align: center; ">
+					<span class="text " style="font-size: 14px;padding: .2em .6em .3em; ">
+						{{item.reservationRoom.ArrivalDate | date:'dd/MM/yyyy, HH:mm'}}
+					</span>
+				</div>
+				<div layout="row " layout-align="center center " style="margin: 10px auto; ">
+					<span class="text " style="font-size: 16px;padding: .2em .6em .3em; ">
+						{{'NO_SHOW' | translate}}
+					</span>
+				</div>
+				<div ng-if="l.List[1]" ng-class="{'font-size-xs':$mdMedia('xs'),'padding-gt-md':$mdMedia('gt-md') && $index == 0}" class="text set-style-by-length-{{l.List.length}}"
+				    style="padding-right:4px" layout-align="center start">
+					<span ng-if="l.List[1].PropertyColumName!=' '">- </span>
+					<span ng-if="$mdMedia('gt-xs')">{{l.List[1].PropertyColumName | truncate:20 }}</span>
+					<span ng-if="$mdMedia('xs')">{{l.List[1].PropertyColumName | truncate:12 }}</span>
+					<md-tooltip md-direction="bottom" hide-xs hide-sm hide-md ng-if="l.List[1].Tooltip!=null">{{l.List[1].Tooltip}}</md-tooltip>
+				</div>
+			</div>
+		</div>
+		<div layout="column" layout-align="start start" ng-if="item.BookingStatus==='BOOKED' && item.HouseStatus !=='REPAIR'" class="{{item.BookingStatus}} "
+		    style="width: 100%;height: 100%; position:relative">
+			<div ng-show="showFibaro(item.RoomName)" style="float:right;width:100%;padding:4;z-index:9999;position:absolute;top:0;right:0"
+			    ng-style="" layout="row" layout-align="end center">
+				<md-icon ng-click="toggleLight($event,item.RoomName)" md-svg-src="img/icons/bulb.svg" style="height: 21px; width: 21px;"
+				    ng-class="{isOn: isOn(item.RoomName),isOff: !isOn(item.RoomName)}"></md-icon>
+			</div>
+			<div ng-if="item.DisplayList!=null " ng-repeat="l in item.DisplayList" flex="100 " layout="row " layout-align="start center "
+			    class="box_roomvD_chillrend" ng-style="item.DisplayList.length > 1 && {'max-height':'30px'}">
+				<div ng-if="l.List[0]" class="text set-style-by-length-{{l.List.length}}" style="padding-left:3px;" ng-style="($index == 0 ) && {'min-width':'50%'}">
+					<div ng-class="{'text-align-xs-sm-length-1':(($mdMedia('md') || $mdMedia('sm') || $mdMedia('xs'))&& l.List.length==1 ),'text-align-xs-sm-length-2':(($mdMedia('md') || $mdMedia('sm') || $mdMedia('xs'))&& l.List.length==2 ),'font-size-xs':$mdMedia('xs')}">
+						<span ng-if="$mdMedia('gt-xs')">{{l.List[0].PropertyColumName | truncate:20 }}</span>
+						<span ng-if="$mdMedia('xs')">{{l.List[0].PropertyColumName | truncate:12 }}</span>
+					</div>
+					<md-tooltip md-direction="bottom" hide-xs hide-sm hide-md ng-if="l.List[0].Tooltip!=null">{{l.List[0].Tooltip}}</md-tooltip>
+				</div>
+				<div ng-if="l.List[1]" ng-class="{'font-size-xs':$mdMedia('xs'),'padding-gt-md':$mdMedia('gt-md') && $index == 0}" class="text set-style-by-length-{{l.List.length}}"
+				    style="padding-right:4px">
+					<span ng-if="l.List[1].PropertyColumName!=' '">- </span>
+					<span ng-if="$mdMedia('gt-xs')">{{l.List[1].PropertyColumName | truncate:20 }}</span>
+					<span ng-if="$mdMedia('xs')">{{l.List[1].PropertyColumName | truncate:12 }}</span>
+					<md-tooltip md-direction="bottom" hide-xs hide-sm hide-md ng-if="l.List[1].Tooltip!=null">{{l.List[1].Tooltip}}</md-tooltip>
+				</div>
+			</div>
+		</div>
+	</div>
+</md-card-content>

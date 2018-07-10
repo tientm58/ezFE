@@ -1,0 +1,14 @@
+<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+    <md-input-container flex="100" style="margin: 12px 0px;">
+        <label>{{'NOTE' | translate}}</label>
+        <textarea style="width: 100%;" columns="1" rows="5" ng-model="editNoteCtrl.newNote"/>
+    </md-input-container>
+</div>
+<md-dialog-actions layout="row">
+    <md-button ng-click="editNoteCtrl.cancel()" class="md-primary">
+        {{'CANCEL' | translate}}
+    </md-button>
+    <md-button ng-click="editNoteCtrl.processEditNote()" class="md-primary">
+        {{'SAVE' | translate}}
+    </md-button>
+</md-dialog-actions>

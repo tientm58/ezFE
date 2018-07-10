@@ -1,0 +1,102 @@
+<style>
+	md-table-container{width: 100%;box-shadow: 0px 0px 1px 0px;}
+	md-table-pagination{
+		background: #419dec;
+	    width: 100%;
+	    font-weight: bold;
+	    color: white !important;
+	}
+	
+  
+	.topHear {
+		background-color: rgb(214, 214, 214);
+	}
+
+	.topHear th,
+	.topHear th md-icon {
+		color: #5c5c5d !important;
+	}
+
+	.hightli {
+		border-right: 1px solid #9e9e9e57 !important;
+		background-color: #f2f2f2;
+	}
+
+	.invoiceDeleted {
+		text-decoration-line: line-through !important;
+	}
+
+	.icon-btn {
+		cursor: pointer;
+	}
+	.row_btn button{
+		min-width: 45px;
+	}
+	.btn_hear md-icon{
+		fill: #fff;
+	}
+	.box_info_dc{
+		font-size: 14px;
+	}
+	.bg_thu{
+		background: #4caf5063;
+	}
+	.bg_chi{
+		background: #ff572278;
+	}
+	
+  .md-button.md-primary.md-fab:hover
+  {
+      box-shadow: 0px 0px 2px #000000;
+      z-index: 2;
+      -webkit-transition: all 100ms ease-in;
+      -webkit-transform: scale(1.03);
+      -ms-transition: all 100ms ease-in;
+      -ms-transform: scale(1.03);   
+      -moz-transition: all 100ms ease-in;
+      -moz-transform: scale(1.03);
+      transition: all 100ms ease-in;
+      transform: scale(1.2);
+  }
+
+  .md-button.md-warn.md-fab:hover
+  {
+      box-shadow: 0px 0px 2px #000000;
+      z-index: 2;
+      -webkit-transition: all 100ms ease-in;
+      -webkit-transform: scale(1.03);
+      -ms-transition: all 100ms ease-in;
+      -ms-transform: scale(1.03);   
+      -moz-transition: all 100ms ease-in;
+      -moz-transform: scale(1.03);
+      transition: all 100ms ease-in;
+      transform: scale(1.2);
+  }
+   
+  table tbody tr td {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100px;
+  }   
+</style>
+
+<md-content class="md-padding" data-ng-init="payments.action.init()">
+	<div layout="row" layout-align="space-between center" layout-margin flex="100">
+      <md-select ng-model="payments.attributes.filterType" ng-change="payments.action.changeDataType()">
+        <md-option value="all" selected>{{'ALL' | translate}}</md-option>
+        <md-option value="{{payment.val}}" ng-repeat="payment in payments.attributes.filterSelect" >{{payment.des || ""}}
+        </md-option>
+      </md-select>
+      <md-button class="btn-c md-raised md-primary" ng-click="payments.action.addPopup()">
+        <md-icon md-svg-src="img/icons/ic_add_48px.svg"></md-icon>&nbsp;{{'ADD_CATEGORY' | translate}}
+      </md-button>
+    </div>
+	<section class="list-container" layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+		<tree-grid tree-data="payments.attributes.tree.data"  tree-control="payments.attributes.tree.control" 
+					col-defs="payments.attributes.tree.colDefs" expand-on="payments.attributes.tree.expandingProperty" 
+					on-select="my_tree_handler(branch)" expand-level="payments.attributes.tree.expandingLevel" parent="payments"
+					icon-leaf= "glyphicon glyphicon-globe">
+		</tree-grid>
+	</section>
+</md-content>

@@ -1,0 +1,92 @@
+<style>
+	.md-list-item.md-2-line .md-list-item-text,
+	md-list-item.md-2-line>._md-no-style .md-list-item-text,
+	md-list-item.md-3-line .md-list-item-text,
+	md-list-item.md-3-line>._md-no-style .md-list-item-text {
+		margin: auto;
+	}
+	
+	.md-list-item .md-list-item-inner .md-secondary-container,
+	md-list-item div._md-secondary-container {
+		height: auto;
+		margin: auto;
+		/*			margin: 0px;*/
+	}
+	
+	md-list-item ._md-list-item-inner ._md-secondary-container,
+	md-list-item ._md-secondary-container {
+		height: auto;
+		margin: 0px;
+	}
+	
+	md-list[dnd-list],
+	md-list[dnd-list] > md-list-item {
+		position: relative;
+	}
+	
+	md-list[dnd-list] {
+		min-height: 75px;
+		padding-left: 0px;
+	}
+	
+	md-list-item .selected {
+		background-color: #dff0d8;
+		color: #3c763d;
+	}
+	
+	.dndDraggingSource {
+		display: none;
+	}
+	
+	.dndPlaceholder {
+		display: block;
+		/*    background-color: #ddd;*/
+		min-height: 75px;
+	}
+	
+	md-list[dnd-list] md-list-item {
+		background-color: #fff;
+		border: 1px solid #ddd;
+		border-top-right-radius: 4px;
+		border-top-left-radius: 4px;
+		/*    display: block;*/
+		/*padding: 10px 15px;
+    margin-bottom: -1px;*/
+	}
+</style>
+<md-toolbar>
+	<div class="md-toolbar-tools">
+		<h2>{{'COMPANIES' | translate}}({{companyList.length}})</h2>
+		<span flex></span>
+		<md-button class="md-icon-button" ng-click="addNewCompany()">
+			<md-icon md-svg-src="img/icons/ic_add_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+		</md-button>
+		<md-button class="md-icon-button" ng-click="saveCompanyList()" ng-if="isSourceListChanged === true">
+			<md-icon md-svg-src="img/icons/ic_save_48px.svg" style="fill: white;" aria-label="Save Company"></md-icon>
+		</md-button>
+	</div>
+</md-toolbar>
+<md-input-container style="margin: 12px; height: 24px; ">
+	<label></label>
+	<input type="search" ng-model="company_filter" placeholder="{{ 'FILTER_COMPANY' | translate}} " />
+</md-input-container>
+<md-list style="padding: 8px" dnd-list="sourceList">
+	<md-list-item class="md-3-line" ng-repeat="company in companyList | filter: company_filter">
+		<div class="md-list-item-text" layout="column">
+			<h3>{{ company.CompanyName }}</h3>
+			<h4>{{'CODE' | translate}}: {{ company.CompanyCode }}</h4>
+			<p>{{'CONTACT' | translate}}:
+				<span ng-if="company.ContactName">{{company.ContactName}}</span>
+				<span ng-if="!company.ContactName">{{'NOT_SET' | translate}}</span>
+				<span ng-if="company.ContactMobile">({{company.ContactMobile}})</span>
+			</p>
+		</div>
+		<div class="md-secondary" layout="row">
+			<span ng-if="company.IsAvailable === true" style="background-color: #259b24; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;" ng-click="changeCompanyStatus(company, $event)">{{'ACTIVE' | translate}}</span>
+			<span ng-if="company.IsAvailable === false" style="background-color: #f44336; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;" ng-click="changeCompanyStatus(company, $event)">{{'INACTIVE' | translate}}</span>
+			<md-icon md-svg-src="img/icons/ic_edit_48px.svg" style="margin: 6px;cursor: pointer;" aria-label="Edit dialog" ng-click="editCompany(company)"></md-icon>
+			<md-icon md-svg-src="img/icons/ic_delete_48px.svg" style="margin: 6px;cursor: pointer;" aria-label="Delete dialog" ng-click="removeCompany(company)"></md-icon>
+		</div>
+		<!--		<md-divider></md-divider>-->
+	</md-list-item>
+</md-list>

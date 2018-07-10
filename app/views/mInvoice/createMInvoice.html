@@ -1,0 +1,112 @@
+<style>
+    .mdToolbar {
+        border-top: solid 1px white;
+    }
+
+    .width50p {
+        width: 50%;
+    }
+</style>
+<div layout="column" ng-cloak>
+    <md-toolbar class="md-primary mdToolbar">
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2 class="md-flex">{{'CREATE_INVOICE' | translate}}</h2>
+            <md-button class="md-raised md-primary">
+                <md-icon md-svg-src="img/icons/ic_input_24px.svg"></md-icon>
+                {{'EXPORT_INVOICE' | translate}}
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-content>
+        <div layout="row" layout-align="center start">
+            <!-- thông tin định danh -->
+            <md-card class="width50p">
+                <md-card-header>
+                    <md-card-header-text class="md-subheader">
+                        <h2>{{'THONG_TIN_DINH_DANH' | translate}}</h2>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-content>
+                    <div layout="row" layout-align="space-between start" class="width100pec">
+                        <div layout="column" layout-align="start start">
+                            <md-input-container>
+                                <label for="">{{'GUEST_NAME' | translate}}</label>
+                                <input type="text">
+                            </md-input-container>
+                            <md-input-container>
+                                <label for="">{{'COMPANY_NAME' | translate}}</label>
+                                <input type="text">
+                            </md-input-container>
+                            <md-input-container>
+                                <label for="">{{'COMPANY_ADDRESS' | translate}}</label>
+                                <input type="text">
+                            </md-input-container>
+                            <md-input-container>
+                                <label for="">{{'EMAIL' | translate}}</label>
+                                <input type="email">
+                            </md-input-container>
+                        </div>
+                        <div layout="column" layout-align="start end">
+                            <md-input-container>
+                                <label for="">{{'COMPANY_VATCODE' | translate}}</label>
+                                <input type="text">
+                            </md-input-container>
+
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+            <!-- thông tin giá trị hóa đơn -->
+            <md-card class="width50p">
+                <md-card-header>
+                    <md-card-header-text class="md-subheader">
+                        <h2>{{'THONG_TIN_CHI_TIET_HOA_DON' | translate}}</h2>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-content>
+                    <div layout="row" layout-align="space-between start" class="width100pec">
+                        <md-table-container style="width:100%;">
+                            <table md-table md-progress="promise">
+                                <thead md-head md-order="pager.query.order">
+                                    <tr md-row>
+                                        <th md-column md-order-by="">
+                                            {{'WORKORDER_SERVICE_NAME' | translate}}
+                                        </th>
+                                        <th md-column md-order-by="">
+                                            {{'QUANTITY' | translate}}
+                                        </th>
+                                        <th md-column md-order-by="">
+                                            {{'UNIT_PRICE' | translate}}
+                                        </th>
+                                        <th md-column>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row>
+                                        <td md-cell class="text-left">Bia Sài Gòn Xanh</td>
+                                        <td md-cell class="text-center">5</td>
+                                        <td md-cell class="text-right">
+                                            <span>20000</span>
+                                        </td>
+                                        <td md-cell class="text-right">
+                                            <md-button class="md-icon-button">
+                                                <md-icon md-svg-icon="img/icons/ic_input_24px.svg"></md-icon>
+                                            </md-button>
+                                        </td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell colspan="2" class="text-right">{{'TOTAL' | translate}}</td>
+                                        <td md-cell></td>
+                                        <td md-cell></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+</div>

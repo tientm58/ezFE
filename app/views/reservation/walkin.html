@@ -1,0 +1,543 @@
+<style>
+	.floating_icon {
+		fill: black;
+		position: absolute;
+		top: 16px;
+		left: 2px;
+		vertical-align: middle
+	}
+
+	@media only screen and (min-device-width: 320px) and (max-device-width: 780px) and (-webkit-min-device-pixel-ratio: 2) {
+		.md-subheader {
+			position: initial !important;
+		}
+		.hide_mobile {
+			display: none;
+		}
+	}
+
+	md-tabs.noTabPanel md-tabs-wrapper {
+		display: none !important;
+	}
+
+	.tabsdemoDynamicHeight md-content md-tabs {
+		/*		background: #f6f6f6;*/
+		border: 10px solid red;
+	}
+
+	.tabsdemoDynamicHeight md-content {
+		background-color: transparent !important;
+	}
+
+	.tabsdemoDynamicHeight md-content md-tabs {
+		/*		    background: #f6f6f6;*/
+		/*    border: 1px solid #e1e1e1;*/
+		border: none !important;
+	}
+
+	.tabsdemoDynamicHeight md-content md-tabs md-tabs-canvas {
+		background: red;
+	}
+
+	md-tabs md-tabs-content-wrapper md-tab-content {
+		background: #ffffff;
+	}
+
+	.avatar svg {
+		position: relative;
+		top: 0;
+		width: 48px;
+		height: 48px;
+		border: 2px solid #ddd;
+		border-radius: 50%;
+		display: inline-block;
+		overflow: hidden;
+		margin: 0px;
+		padding: 4px;
+		vertical-align: middle;
+		zoom: 0.70;
+		transform: translateZ(0);
+		-webkit-transform: scale(0.70);
+		-moz-transform: scale(0.70);
+	}
+
+	md-list-item.md-no-proxy,
+	md-list-item .md-no-style {
+		min-height: 35px;
+		border-bottom: 1px solid #F6F6F6;
+	}
+
+	#height100 {
+		min-height: 100px !important;
+		max-height: 5000px !important;
+		overflow-y: hidden !important;
+	}
+
+	.heightGeneral {
+		overflow-y: hidden;
+		min-height: 650px;
+		max-height: 6000px !important;
+	}
+
+	.heightRoom {
+		min-height: 100px !important;
+		max-height: 3500px !important;
+		overflow-y: hidden !important;
+		margin-bottom: 10px;
+	}
+
+	.heightCustomer {
+		min-height: 100px !important;
+		max-height: 3500px !important;
+		overflow-y: hidden !important;
+		margin-bottom: 50px;
+	}
+
+	.btnMobile {
+		display: inline;
+		padding: .2em .6em .3em;
+		font-size: 50%;
+		font-weight: bold;
+		text-transform: uppercase;
+		line-height: 1;
+		color: #fff;
+		text-align: left;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: .25em;
+	}
+
+	md-card {
+		margin: 1px !important;
+	}
+
+	.top-page {
+		/* background: url(img/bg-header.png); */
+		background-repeat: no-repeat;
+		min-height: 42px;
+		border-radius: 0 !important;
+		background-size: cover;
+	}
+
+	.black_t {
+		color: rgba(255, 255, 255, 0.71);
+		/*font-style: italic;*/
+	}
+
+	.yellow_t {
+		color: #FFEB3B;
+		padding-right: 15px;
+	}
+
+	.margin0 {
+		margin: 0px;
+	}
+
+	.hightline {
+		color: #FF9800;
+	}
+
+	.text-date {
+		color: rgba(2, 2, 2, 0.58) !important;
+		font-style: italic;
+		font-size: 12px !important;
+	}
+
+	.sub-title {
+		text-transform: uppercase;
+		font-weight: 600;
+		color: rgba(58, 56, 56, 0.71);
+		line-height: 50px;
+		/*margin-left: 17px !important;*/
+	}
+
+	.showfull {
+		height: initial !important;
+		background-color: rgba(242, 242, 242, 0.52);
+		margin-bottom: 5px;
+	}
+
+	.box-header {
+		padding-left: 17px;
+		padding-right: 17px;
+		/*background: rgba(242, 242, 242, 0.35) !important;*/
+	}
+
+	#main_view,
+	.bg-gray {
+		/*background: #f2f2f2 !important;*/
+	}
+
+	.md-subheader.md-default-theme,
+	.md-subheader {
+		background-color: rgb(245, 245, 245) !important;
+	}
+
+	.bg-waring {
+		background: #FF5722;
+	}
+
+	.icon_white svg {
+		fill: #fff;
+	}
+
+	.disabled {
+		background: #dddddd;
+	}
+
+	.textDisabled {
+		text-decoration: line-through
+	}
+
+	h4 {
+		margin: 0;
+	}
+
+	md-optgroup label {
+		display: block;
+		font-size: 14px;
+		text-transform: uppercase;
+		padding: 16px;
+		font-weight: bold;
+	}
+
+	.tabsdemoDynamicHeight md-content md-tabs md-tabs-canvas {
+		background: none;
+	}
+
+	.height-all-es {
+		max-height: 3500px !important;
+		display: block;
+	}
+
+	.md-subheader ._md-subheader-inner {
+		/*color: #FF9800;*/
+		/*text-transform: uppercase;*/
+		color: rgba(255, 87, 34, 0.67);
+		font-weight: 600;
+	}
+
+	.md-subheader.md-default-theme,
+	.md-subheader {
+		background-color: #EBEBEB;
+	}
+
+	.md-subheader ._md-subheader-inner {
+		padding: 5px 5px 5px 16px;
+	}
+
+	.max-height50,
+	.max-height50 div {
+		max-height: 50px !important;
+		min-height: 50px !important;
+	}
+
+	md-list-item.md-2-line,
+	md-list-item.md-2-line>._md-no-style {
+		height: auto;
+		min-height: 30px;
+		height: 45px;
+	}
+
+	.height50 {
+		height: 50px;
+	}
+
+	.box-services {
+		height: 63.5%;
+		overflow: auto;
+		min-height: 421px;
+	}
+
+	.icon_cancel_reservation {
+		fill: rgb(255, 87, 34) !important;
+		width: 16px;
+	}
+
+	.padding-right3 {
+		padding-right: 3px;
+	}
+
+	.item-menu-email {
+		border-bottom: 1px dashed #ddd;
+	}
+
+	.item-menu-email:hover {
+		cursor: pointer;
+		background: #f5f5f5;
+	}
+
+	.item-menu-email .time-text {
+		font-size: 12px;
+		margin-top: 4px;
+		color: #969696;
+	}
+
+	.item-menu-email .time-text2 {
+		font-size: 12px;
+		margin-top: 4px;
+	}
+
+	.content_mennu_email {
+		margin: 0;
+		padding: 0;
+		max-height: 500px;
+	}
+
+	.type_logs_email {
+		font-size: 12px;
+		/* margin-top: 4px; */
+		color: rgb(3, 155, 229);
+	}
+
+	.bg_warning {
+		background: rgba(215, 67, 21, 0.08);
+	}
+
+	.number_email_fail {
+		color: rgb(3, 155, 229);
+		font-weight: 100;
+		font-size: 12px;
+	}
+
+	.normal_btn {
+		min-width: 35px;
+	}
+
+	.roomCheckIn {
+		border-bottom: none;
+		font-size: 20px;
+		font-weight: 400;
+		vertical-align: inherit;
+		line-height: normal;
+		color: #FFEB3B;
+		height: 40px;
+	}
+
+	md-select-value._md-select-value {
+		height: 30px;
+		border: none;
+	}
+</style>
+
+<md-content class="tabsdemoDynamicHeight ez_special" style="">
+	<!--    padding-bottom:50px;-->
+	<md-toolbar md-scroll-shrink class="top-page md-primary md-default-theme md-whiteframe-z1" layout="row" style="border-radius: 3px 3px 0 0; box-shadow: 0 1px rgba(255, 255, 255, 0.1); background-color: #eee;">
+		<div layout="row" layout-align="space-between center" style="width: 100%;">
+			<div flex-gt-sm="75" flex-xs="75" flex-sm="75" class="md-toolbar-tools" style="height:40px;">
+				<h1 class="md-headline" style="padding-left: 8px;color: #444;">
+					<div ng-if="$mdMedia('xs') == false && $mdMedia('sm') == false">
+						<span class="black_t">{{'RES_NO_SHORT' | translate}}</span>
+						<!-- <span class="yellow_t">{{ reservationNumber }}</span> -->
+						<md-input-container ng-if="reservationNumber" style="width:60px;height:40px;">
+							<input type="number" aria-label="reservationNumber" name="reservationNumber" min="1" ng-model="reservationNumber" style="border:none;padding-left:0;color:#FFEB3B;"
+							    ng-keyup="$event.keyCode == 13 && redirectRoomWithReservationNumber(reservationNumber)" />
+						</md-input-container>
+						<span class="black_t">{{'ROOM_SHORT' | translate}}</span>
+						<span class="yellow_t">{{RoomName}}</span>
+						<!-- <md-input-container ng-if="reservationNumber && RoomCheckIn != null">
+							<md-select ng-model="RoomCheckIn" class="roomCheckIn" aria-label="RoomCheckIn" ng-change="redirectRoom(RoomCheckIn)">
+								<md-option ng-value="item" ng-repeat="item in ListRoomCheckInToday">{{item.RoomName}} - {{item.Travellers.Fullname | limitTo:20}}{{item.Travellers.Fullname.length > 20? "..." : ""}} </md-option>
+							</md-select>
+						</md-input-container> -->
+						<span class="black_t" ng-if="$mdMedia('xs') == false">{{'TOTAL' | translate}}</span>
+						<span class="yellow_t" ng-bind="Amount | currency"></span>
+					</div>
+				</h1>
+				<md-button ng-if="hasRRIDParam && room.RoomId>0" md-no-ink class="md-icon-button" id="btn_invoice" style="height: 24px;margin: 0px; padding: 0px;"
+				    ng-click="showInvoice($event)">
+					<md-tooltip md-direction="right" flex-gt-md="100" hide-xs hide-sm hide-md>
+						{{'INVOICE_VIEW' | translate}} Ctrl + P
+					</md-tooltip>
+					<md-icon md-svg-src="img/icons/ic_print_24px.svg" style="height: 24px; width: 24px;fill:#fff"></md-icon>
+				</md-button>
+				<md-button ng-if="hasRRIDParam && (user.Roles.indexOf('ROLE_HOTEL_STAFF') < 0)" md-no-ink class="md-icon-button" style="height: 24px;margin: 0px; padding: 0px;"
+				    ng-click="viewLogReservation(room)">
+					<md-tooltip md-direction="right" flex-gt-md="100" hide-xs hide-sm hide-md>
+						{{'LOGS' | translate}}
+					</md-tooltip>
+					<md-icon md-svg-src="img/icons/ic_history_black_24px.svg" style="height: 24px; width: 24px;" class="icon_white"></md-icon>
+				</md-button>
+				<md-menu class="margin-left0 animated wobble" ng-if="showEmail">
+					<md-button class="" ng-class="[{'md-warn md-raised md-hue-2':(LogsEmail.failEmail>0)},{'normal_btn':!(LogsEmail.failEmail>0)}]"
+					    ng-click="openMenuLogsEmail($mdOpenMenu, $event)">
+						<md-tooltip md-direction="right" flex-gt-md="100" hide-xs hide-sm hide-md>
+							Email Marketing
+						</md-tooltip>
+						<md-icon md-menu-origin md-svg-icon="img/icons/ic_email_24px.svg" class="icon_white"></md-icon>
+						<span ng-if="LogsEmail.failEmail>0">{{LogsEmail.failEmail}}</span>
+					</md-button>
+					<md-menu-content width="5" class="content_mennu_email">
+						<div class="item-menu-email" ng-click="copyTeamplate()">
+							<div flex layout='row' layout-padding layout-align="start center">
+								<md-icon md-menu-origin md-svg-icon="img/icons/ic_add_circle_48px.svg" class="margin5 padding0"></md-icon>
+								<div layout="column">
+									<div flex>
+										{{'SEND_EMAIL' | translate}}
+									</div>
+									<p class="margin0 time-text"></p>
+								</div>
+							</div>
+						</div>
+						<div ng-repeat='log in LogsEmail.result' class="item-menu-email" ng-click="openDetailLogEmail(log )" ng-class="[{'bg_warning':(log.Status==-1)}]">
+							<div flex layout='row' layout-padding layout-align="start center">
+								<md-icon md-menu-origin ng-if="log.Status==0" md-svg-icon="img/icons/ic_access_alarms_24px.svg" class="margin5 padding0"></md-icon>
+								<md-icon md-menu-origin ng-if="log.Status==1" md-svg-icon="img/icons/ic_done_48px.svg" class="margin5 fill-success padding0"></md-icon>
+								<md-icon md-menu-origin ng-if="log.Status==-1" md-svg-icon="img/icons/ic_replay_48px.svg" class="margin5 fill-warning padding0"></md-icon>
+								<div layout="column" flex>
+									<div flex>
+										{{log.HotelEmailTask.Subject}}
+										<span class="number_email_fail" ng-if="log.count>1">({{log.count}})</span>
+									</div>
+									<p class="margin0 time-text2">{{'SEND_TO' | translate}}: {{log.Travellers.Fullname}} - {{log.Email}}</p>
+									<p class="margin0 time-text">{{log.UserId}} {{'CREATE' | translate}} {{log.CreatedAt| date:'dd/MM, HH:mm'}}
+										<span ng-if="log.UpdatedAt != null">{{'SEND_FROM' |translate}} {{log.UpdatedAt| date:'dd/MM, HH:mm'}}</span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</md-menu-content>
+				</md-menu>
+			</div>
+			<div flex-gt-sm="25" layout="row" style="text-align:right" layout-align="end center" ng-if="$mdMedia('gt-xs') == false">
+				<div layout="column" layout-align="center center" style="margin: auto 0px;" ng-if="nextStatuses[room.BookingStatus].CANCELLED === 1">
+					<md-button class="btn-c md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="doCancel()">
+						<md-icon md-svg-src="img/icons/ic_close_24px.svg" style="fill: #fff;"></md-icon>
+					</md-button>
+					<span class="btnMobile">
+						{{'CANCEL_RESERVATION' | translate}}
+					</span>
+				</div>
+				<div layout="column" layout-align="center center" style="margin: auto 0px;" ng-if="nextStatuses[room.BookingStatus].BOOKED === 1 || !room.BookingStatus">
+					<md-button class="btn-c md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="Save('BOOKED')">
+						<md-icon md-svg-src="img/icons/ic_check_24px.svg" style="fill: #fff;"></md-icon>
+					</md-button>
+					<span class="btnMobile">
+						{{'RESERVE' | translate}}
+					</span>
+				</div>
+				<div layout="column" layout-align="center center" style="margin: auto 0px;" ng-if="nextStatuses[room.BookingStatus].CHECKIN === 1 || !room.BookingStatus">
+					<md-button class="btn-c md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="Save('CHECKIN')">
+						<md-icon md-svg-src="img/icons/ic_local_hotel_24px.svg" style="fill: #fff;"></md-icon>
+					</md-button>
+					<span class="btnMobile">
+						{{'CHECK-IN' | translate}}
+					</span>
+				</div>
+				<div layout="column" layout-align="center center" style="margin: auto 0px;" ng-if="room.BookingStatus === 'CHECKIN' && Amount === 0">
+					<md-button class="btn-c md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="Save('CHECKOUT')">
+						<md-icon md-svg-src="img/icons/ic_arrow_forward_24px.svg" style="fill: #fff;"></md-icon>
+					</md-button>
+					<span class="btnMobile">
+						{{'CHECK-OUT' | translate}}
+					</span>
+				</div>
+				<div layout="column" layout-align="center center" style="margin: auto 0px;" ng-if="room.BookingStatus === 'CHECKIN' && Amount !== 0 ">
+					<md-button class="btn-c md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="Save('PAYMENT_AND_CHECKOUT')">
+						<md-icon md-svg-src="img/icons/ic_payment_24px.svg"></md-icon>
+					</md-button>
+					<span class="btnMobile">
+						{{'PAYMENT' | translate}}
+					</span>
+				</div>
+				<div layout="column" layout-align="center center" style="margin: auto 0px;" ng-if="isCheckOut || room.BookingStatus ==='DIRTY'">
+					<md-button class="btn-c md-icon-button launch" style="padding: 0px; margin: 0px;">
+						<md-icon md-svg-src="img/icons/ic_phone_forwarded_24px.svg" style="fill: #fff;"></md-icon>
+					</md-button>
+					<span class="btnMobile">
+						{{'CHECKOUTED' | translate}}
+					</span>
+				</div>
+				<div layout="column" layout-align="center center" style="margin: auto 0px;" ng-if="room.BookingStatus ==='DIRTY'">
+					<md-button class="btn-c md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="goToHome(hotel)">
+						<md-icon md-svg-src="img/icons/ic_format_paint_24px.svg" style="fill: #fff;"></md-icon>
+					</md-button>
+					<span class="btnMobile">
+						{{'DIRTY' | translate}}
+					</span>
+				</div>
+			</div>
+			<div flex="25" layout="row" layout-align="end center" ng-if="!isCheckOut && $mdMedia('xs') == false">
+				<md-button class="btn-c md-raised" ng-if="nextStatuses[room.BookingStatus].CANCELLED === 1" id="btn_cancel" ng-click="doCancel()"
+				    style="rgb(255,87,34)">
+					<md-icon md-svg-src="img/icons/ic_close_18px.svg" class="icon_cancel_reservation"></md-icon> {{'CANCEL_RESERVATION'| translate}}
+				</md-button>
+				<md-button class="btn-c md-raised" ng-if="nextStatuses[room.BookingStatus].BOOKED === 1 || !room.BookingStatus" id="btn_reserve"
+				    ng-click="Save('BOOKED')" style="">
+					{{'RESERVE'| translate}}
+					<md-tooltip md-direction="left" flex-gt-md="100">
+						Ctrl + R
+					</md-tooltip>
+				</md-button>
+				<md-button class="btn-c md-raised md-warn" ng-if="nextStatuses[room.BookingStatus].CHECKIN === 1 || !room.BookingStatus"
+				    ng-click="Save('CHECKIN')" id="btn_checkin" style="">
+					{{'CHECK-IN' | translate}}
+					<md-tooltip md-direction="bottom" flex-gt-md="100">
+						Ctrl + I
+					</md-tooltip>
+				</md-button>
+				<md-button class="btn-c md-warn md-raised" ng-if="room.BookingStatus === 'CHECKIN' && Amount === 0" id="btn_checkout" ng-click="Save('CHECKOUT')"
+				    style="">
+					{{'CHECK-OUT' | translate}}
+					<md-tooltip md-direction="left" flex-gt-md="100">
+						Ctrl + O
+					</md-tooltip>
+				</md-button>
+				<md-button class="btn-c md-warn md-raised" ng-if="room.BookingStatus === 'CHECKIN' && Amount !== 0 " id="btn_payment" ng-click="Save('PAYMENT_AND_CHECKOUT')"
+				    style="">
+					{{'PAYMENT' | translate}}
+					<md-tooltip md-direction="left" flex-gt-md="100">
+						Ctrl + P
+					</md-tooltip>
+				</md-button>
+				<md-button class="btn-c md-primary" ng-if="room.BookingStatus ==='DIRTY'">
+					{{'DIRTY' | translate}}
+				</md-button>
+			</div>
+			<div class="padding-right3" flex layout="row" layout-align="end center" ng-if="isCheckOut && $mdMedia('xs') == false">
+				<span class="yellow_t">{{'CHECKOUTED' | translate}}</span>
+			</div>
+		</div>
+	</md-toolbar>
+	<md-tabs md-selected="data.selectedIndex" style="background-color: #EEEEEE;" ng-cloak md-dynamic-height md-border-bottom>
+		<md-tab md-on-select="changeSelectedIndex()" id="tab1" aria-controls="tab1-content" label="{{'GENERAL' | translate}}" style="background-color: #EEEEEE;"
+		    ng-cloak>
+			<md-content style="" id="height100" ng-cloak ng-if="dataLoad">
+				<md-content ng-if="!hasRRIDParam" layout="row" layout-wrap flex ng-cloak>
+					<div layout="row" layout-align="start start" layout-wrap flex="100" ng-include src="'views/reservation/subtemplates/general.html'"
+					    class="heightGeneral"></div>
+				</md-content>
+				<md-content ng-if="hasRRIDParam" layout="row" layout-wrap flex class="" style="overflow-y:hidden" ng-cloak>
+					<div class="heightRoom" flex flex-gt-sm="50" id="height100" flex-sm="100" flex-xs="100" ng-include src="'views/reservation/subtemplates/room.html'"
+					    ng-cloak></div>
+					<div class="heightCustomer" flex flex-gt-sm="50" flex-sm="100" flex-xs="100" id="height100" ng-include src="'views/reservation/subtemplates/customer.html'"
+					    ng-cloak></div>
+				</md-content>
+			</md-content>
+		</md-tab>
+		<md-tab md-on-select="changeSelectedIndex()" id="tab6" aria-controls="tab6-content" label="{{'OPTIONS' | translate}}" style="background-color: #EEEEEE;"
+		    ng-cloak>
+			<md-content class="" ng-include src="'views/reservation/subtemplates/options.html'" style="padding-bottom: 16px;" layout="row"
+			    layout-align="space-between start" layout-wrap flex="100" id="height100">
+			</md-content>
+		</md-tab>
+
+		<md-tab md-on-select="changeSelectedIndex()" id="tab2" ng-click="tabsAvice=3" aria-controls="tab2-content" ng-disabled="tabsLock"
+		    label="{{ 'EXTRA_SERVICES' | translate }}" ng-cloak>
+			<div style="margin-bottom: 26px;">
+				<div ng-include ng-if="tabsAvice==3" src="'views/reservation/subtemplates/extraservices.html'" style="padding-bottom: 16px;"
+				    id="height100">
+				</div>
+			</div>
+		</md-tab>
+		<md-tab md-on-select="changeSelectedIndex()" id="tab5" aria-controls="tab5-content" label="{{'PAYMENT' | translate}}" ng-cloak
+		    style="">
+			<div style="margin-bottom: 26px;">
+				<md-content layout="row" layout-wrap class="" style="">
+					<div id="height100" flex-gt-sm="50" flex-xs="100" flex-sm="100" ng-include src="'views/reservation/subtemplates/payment.html'"></div>
+					<div id="height100" flex-gt-sm flex-gt-sm="50" flex-sm="100" flex-xs="100" style="" ng-include src="'views/reservation/subtemplates/priceList.tmpl.html'"></div>
+				</md-content>
+			</div>
+		</md-tab>
+	</md-tabs>
+</md-content>

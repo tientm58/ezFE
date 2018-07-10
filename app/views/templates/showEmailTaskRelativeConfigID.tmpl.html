@@ -1,0 +1,33 @@
+<md-dialog aria-label="Mango (Fruit)">
+  <form ng-cloak>
+    <md-toolbar class="background-warning">
+      <div class="md-toolbar-tools">
+        <h2>{{'EXIT_TASK_EMAIL_CONNECT_TO_THIS_CONFIG' | translate}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">       
+        <md-list ng-cloak class="listbox">
+          <md-list-item  ng-repeat="task in listTaskEmail" ng-click="goToTask(task)"  class="noright">
+            <div class="md-list-item-text" ayout="column">
+              <p>{{ task.Subject }}</p> 
+              <md-icon class="md-secondary"   aria-label="Chat" md-svg-icon="img/icons/ic_forward_24px.svg"></md-icon>
+            </div>
+          </md-list-item>
+        </md-list>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+        {{'CLOSE'|translate}}
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

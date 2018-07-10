@@ -1,0 +1,12 @@
+
+<md-bottom-sheet class="md-grid" layout="column" ng-cloak>
+    <md-list flex layout="row" layout-align="start center">
+        <md-list-item ng-repeat="menuES in menuTimeline" >
+            <md-button class="md-grid-item-content" ng-click="listItemClick(menuES)" style="min-height:90px !important">
+                <md-icon class="md-grid-text" md-svg-src="img/icons/{{menuES.icon}}"></md-icon>
+                <div class="md-grid-text" style="white-space:normal"> {{ menuES.name | translate }}</div>
+            </md-button>
+        </md-list-item>
+    </md-list>
+  
+</md-bottom-sheet>

@@ -1,0 +1,310 @@
+<style>
+.floating_icon {
+    fill: black;
+    position: absolute;
+    top: 16px;
+    left: 2px;
+    vertical-align: middle
+}
+/*input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }*/
+
+md-tabs.noTabPanel md-tabs-wrapper {
+    display: none !important;
+}
+.tabsdemoDynamicHeight{
+    overflow-y: hidden;
+}
+.tabsdemoDynamicHeight md-content md-tabs {
+    /*      background: #f6f6f6;*/
+    border: 10px solid red;
+}
+
+.tabsdemoDynamicHeight md-content {
+    /*background-color: transparent !important;*/
+}
+
+.tabsdemoDynamicHeight md-content md-tabs {
+    /*          background: #f6f6f6;*/
+    /*    border: 1px solid #e1e1e1;*/
+    border: none !important;
+}
+
+.tabsdemoDynamicHeight md-content md-tabs md-tabs-canvas {
+    background: red;
+}
+
+md-tabs md-tabs-content-wrapper md-tab-content {
+    background: #ffffff;
+}
+
+.avatar svg {
+    position: relative;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0px;
+    padding: 4px;
+    vertical-align: middle;
+    zoom: 0.70;
+    transform: translateZ(0);
+    -webkit-transform: scale(0.70);
+    -moz-transform: scale(0.70);
+}
+
+md-list-item.md-no-proxy,
+md-list-item .md-no-style {
+    min-height: 35px;
+    border-bottom: 1px solid #F6F6F6;
+}
+
+#height100 {
+    min-height: 100px !important;
+    max-height: 5000px !important;
+    overflow-y: hidden !important;
+}
+
+.heightGeneral {
+    overflow-y: hidden;
+    min-height: 650px;
+    max-height: 6000px !important;
+}
+
+.heightRoom {
+    min-height: 100px !important;
+    max-height: 3500px !important;
+    overflow-y: hidden !important;
+    margin-bottom: 10px;
+}
+
+.heightCustomer {
+    min-height: 100px !important;
+    max-height: 3500px !important;
+    overflow-y: hidden !important;
+    margin-bottom: 50px;
+}
+
+.btn-lbl {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 50%;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1;
+}
+.border-right-white{
+    border-right: rgba(255, 255, 255, 0.69) thin solid;
+    padding-right: 10px;
+}
+md-card {
+    margin: 1px !important;
+}
+.btn-print{
+    height: 24px !important;
+    width: auto !important;
+    float: none !important;
+}
+.btn-print md-icon{
+    fill:#fff;
+}
+.md-button.md-raised:not([disabled]){
+    box-shadow:none !important;
+}
+.height60{
+    height: 60px;
+}
+.custom-tabs md-tabs-wrapper{
+    background: #fff;
+    border-width:0 !important;
+}
+md-tabs.md-default-theme .md-tab.md-active, md-tabs .md-tab.md-active, md-tabs.md-default-theme .md-tab.md-active md-icon, md-tabs .md-tab.md-active md-icon, md-tabs.md-default-theme .md-tab.md-focused, md-tabs .md-tab.md-focused, md-tabs.md-default-theme .md-tab.md-focused md-icon, md-tabs .md-tab.md-focused md-icon{
+    color:#2a282a;
+}
+.md-tab{
+    padding:12px 20px !important;
+    font-weight: bold !important;
+}
+md-tab-content{
+    background: #f0f0f0 !important;
+    overflow-y: auto !important;
+    max-height: calc(100% - 108px) ;
+}
+md-tabs-canvas{
+    border-bottom:lightgray thin solid
+}
+.custom-header .md-toolbar-tools{
+    padding:0px !important;
+    height:57px !important;
+}
+md-icon{
+    cursor: pointer;
+}
+.height-content-payment{
+    min-height: 375px;
+}
+.bt-add{
+    fill:#15abe4;
+    margin-top:2px !important;
+    height: 30px;
+    width:30px;
+    margin-right: 5px !important; 
+}
+.launch{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+.launch md-icon{
+    fill:#fff;
+}
+.CHECKOUTED{
+    color: #F65021;font-size: 21px;font-weight: bold;padding-right:10px;
+}
+.CHECKOUTED-Mobile{
+    color: #F65021;font-size: 17px;padding-right:2px;
+}
+
+
+</style>
+<md-content class="tabsdemoDynamicHeight">
+    <div flex="100" class="custom-header" layout="row" layout-align="space-between start">
+        <div flex-gt-sm="55" flex-xs="60" flex-sm="65" class="md-toolbar-tools">
+            <h2 class="md-headline" flex="100" >
+                <span ng-if="$mdMedia('xs') == false && $mdMedia('sm') == false">
+                    <span class="text-white border-right-white">
+                        {{'RES_NO_SHORT' | translate}}
+                        <span class="text-yellow text-bold" >{{ walkinCtrl.reservationNumber }}</span>
+                        <span class="text-yellow text-bold" ng-if="!walkinCtrl.reservationNumber">#</span>
+                    </span>
+                    <span class="text-white padding-left10 border-right-white">
+                        {{'ROOM_SHORT' | translate}}
+                         <span class="text-yellow text-bold">{{ walkinCtrl.roomInfo.RoomName }}</span>
+                         <span class="text-yellow text-bold" ng-if="!walkinCtrl.roomInfo.RoomName">#</span>
+                    </span>
+                </span>
+                <span class="text-white padding-left10" ng-if="$mdMedia('xs') == false">{{'TOTAL' | translate}}</span>
+                <span class="text-yellow text-bold" ng-bind="walkinCtrl.Amount | currency"></span>
+                <md-button ng-class="{'margin0':$mdMedia('xs')}" ng-if="walkinCtrl.hasRRIDParam && walkinCtrl.room.RoomId > 0" md-no-ink class="md-icon-button btn-print" ng-click="walkinCtrl.showInvoice($event)">
+                    <md-icon class="margin0" md-svg-src="img/icons/ic_print_24px.svg"></md-icon>
+                </md-button>
+            </h2>
+        </div>
+        <div flex-gt-sm="35" flex-xs="40" ng-if="$mdMedia('gt-xs') == false" layout="row" layout-align="end center">
+            <div layout="column" layout-align="center center" ng-if="walkinCtrl.nextStatuses[walkinCtrl.room.BookingStatus].CANCELLED === 1">
+                <md-button class="md-icon-button launch" ng-click="walkinCtrl.processCancel($event)">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" ></md-icon>
+                </md-button>
+                <span class="btn-lbl text-white">
+                    {{'CANCEL_RESERVATION' | translate}}
+                </span>
+            </div>
+            <div layout="column" layout-align="center center"  ng-if="walkinCtrl.nextStatuses[walkinCtrl.room.BookingStatus].BOOKED === 1 || !walkinCtrl.room.BookingStatus">
+                <md-button class="md-icon-button launch" ng-click="walkinCtrl.Save('BOOKED')">
+                    <md-icon md-svg-src="img/icons/ic_check_24px.svg" ></md-icon>
+                </md-button>
+                <span class="btn-lbl text-white">
+                    {{'RESERVE' | translate}}
+                </span>
+            </div>
+            <div layout="column" layout-align="center center" ng-if="(walkinCtrl.nextStatuses[walkinCtrl.room.BookingStatus].CHECKIN == 1 && walkinCtrl.showCheckIn == true) || !walkinCtrl.room.BookingStatus">
+                <md-button class="md-icon-button launch"  ng-click="walkinCtrl.Save('CHECKIN')">
+                    <md-icon md-svg-src="img/icons/ic_local_hotel_24px.svg" ></md-icon>
+                </md-button>
+                <span class="btn-lbl text-white">
+                    {{'CHECK-IN' | translate}}
+                </span>
+            </div>
+            <div layout="column" layout-align="center center"  ng-if="walkinCtrl.room.BookingStatus == 'CHECKIN' && walkinCtrl.Amount == 0">
+                <md-button class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="walkinCtrl.Save('CHECKOUT')">
+                    <md-icon md-svg-src="img/icons/ic_arrow_forward_24px.svg" style="fill: #666;"></md-icon>
+                </md-button>
+                <span class="btnMobile">
+                    {{'CHECK-OUT' | translate}}
+                </span>
+            </div>
+            <div layout="column" layout-align="center center"  ng-if="walkinCtrl.room.BookingStatus == 'CHECKIN' && walkinCtrl.Amount != 0 ">
+                <md-button class="md-icon-button launch" style="" ng-click="walkinCtrl.Save('PAYMENT_AND_CHECKOUT')">
+                    <md-icon md-svg-src="img/icons/ic_payment_24px.svg" style=""></md-icon>
+                </md-button>
+                <span class="btn-lbl text-white">
+                    {{'PAYMENT' | translate}}
+                </span>
+            </div>
+            <div layout="column" class="height60" layout-align="center center"  ng-if="walkinCtrl.isCheckOut">
+                <div class="CHECKOUTED-Mobile">{{'CHECKOUTED' | translate}}</div>
+                <!--<md-button class="md-icon-button launch" style="padding: 0px; margin: 0px;">
+                    <md-icon md-svg-src="img/icons/ic_phone_forwarded_24px.svg" style="fill: #666;"></md-icon>
+                </md-button>
+                <span class="btnMobile">
+                    {{'CHECKOUTED' | translate}}
+                </span>-->
+            </div>
+            <div layout="column" layout-align="center center" style="margin: auto: 0px;" ng-if="walkinCtrl.room.HouseStatus =='DIRTY'">
+                <md-button class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="walkinCtrl.goToHome(hotel)">
+                    <md-icon md-svg-src="img/icons/ic_format_paint_24px.svg" style="fill: #666;"></md-icon>
+                </md-button>
+                <span class="btnMobile">
+                    {{'DIRTY' | translate}}
+                </span>
+            </div>
+        </div>
+        <div class="height60 padding-right15" ng-if="$mdMedia('xs') == false && !walkinCtrl.isCheckOut" flex layout="row" layout-align="end center">
+                <md-button class=" md-raised text-blue" ng-if="walkinCtrl.nextStatuses[walkinCtrl.room.BookingStatus].CANCELLED === 1" ng-click="walkinCtrl.processCancel()" >
+                    {{'CANCEL_RESERVATION'| translate}}
+                </md-button>
+                 <md-button ng-if="walkinCtrl.nextStatuses[walkinCtrl.room.BookingStatus].BOOKED == 1 || !walkinCtrl.room.BookingStatus" class=" md-raised text-blue" ng-click="walkinCtrl.Save('BOOKED')">
+                    {{'RESERVE' | translate}}
+                </md-button> 
+                <!--<md-button class="md-raised md-primary" ng-if="walkinCtrl.nextStatuses[walkinCtrl.room.BookingStatus].BOOKED == 1 || !walkinCtrl.room.BookingStatus" ng-click="walkinCtrl.Save('BOOKED')" style="">
+                    {{'RESERVE'| translate}}
+                </md-button>-->
+                <md-button class="md-raised md-warn" ng-if="walkinCtrl.nextStatuses[walkinCtrl.room.BookingStatus].CHECKIN === 1 || !walkinCtrl.room.BookingStatus" ng-click="walkinCtrl.Save('CHECKIN')" style="">
+                    {{'CHECK-IN' | translate}}
+                </md-button>
+                <md-button class="md-warn md-raised" ng-if="walkinCtrl.room.BookingStatus === 'CHECKIN' && walkinCtrl.Amount == 0" ng-click="walkinCtrl.Save('CHECKOUT')" style="">
+                    {{'CHECK-OUT' | translate}}
+                </md-button>
+                <md-button class="md-warn md-raised" ng-if="walkinCtrl.room.BookingStatus === 'CHECKIN' && walkinCtrl.Amount != 0 " ng-click="walkinCtrl.Save('PAYMENT_AND_CHECKOUT')" style="">
+                    {{'PAYMENT' | translate}}
+                </md-button>
+        </div>
+        <div flex class="height60" layout layout-align="end center" ng-if="walkinCtrl.isCheckOut && $mdMedia('xs') == false">
+            <div class="CHECKOUTED">{{'CHECKOUTED' | translate}}</div>
+        </div>
+    </div>
+    <md-tabs class="custom-tabs bg-greay fullheight" md-dynamic-height md-border-bottom md-selected="walkinCtrl.data.selectedIndex"  ng-cloak md-center-tabs="true">
+        <md-tab md-on-select="walkinCtrl.changeSelectedIndex()" id="tab1" aria-controls="tab1-content" label="{{'GENERAL' | translate}}"  ng-cloak>
+            <md-content class="bg-greay">
+                <md-content ng-if="!walkinCtrl.hasRRIDParam" layout="row" layout-wrap layout-margin flex class="bg-greay" >
+                    <div class="heightRoom" flex flex-gt-sm="50" id="height100"  flex-sm="100" flex-xs="100" ng-include src="'views/walk-in/walk-in.general.newReservationRoom.html'" ng-controller="WalkinGeneralNewReservationRoomCtrl as newRRCtrl"></div>
+                    <div class="heightCustomer" flex flex-gt-sm flex-sm="100" flex-xs="100" id="height100" ng-include src="'views/walk-in/walk-in.general.newCustomer.html'" ng-controller="WalkinGeneralNewCustomerCtrl as newCustomerCtrl"></div>
+                </md-content>
+                <md-content ng-show="walkinCtrl.hasRRIDParam " layout="row" layout-wrap flex class="bg-greay" layout-margin>
+                    <div class="heightRoom" flex flex-gt-sm="50" id="height100" flex-sm="100" flex-xs="100" ng-include src="'views/walk-in/walk-in.general.reservationRoomDetail.html'" ng-controller="WalkinGeneralReservationRoomCtrl as rrDetailCtrl"></div>
+                    <div class="heightCustomer" flex flex-gt-sm flex-sm="100" flex-xs="100" id="height100" ng-include src="'views/walk-in/walk-in.general.customerDetail.html'" ng-controller="WalkinGeneralCustomerCtrl as customerCtrl"></div>
+                </md-content>
+            </md-content>
+        </md-tab>
+        <md-tab md-on-select="walkinCtrl.changeSelectedIndex()" id="tab6" aria-controls="tab6-content" label="{{'OPTIONS' | translate}}"  ng-cloak>
+            <md-content class="bg-greay" layout-margin ng-include src="'views/walk-in/walk-in.options.html'" class="padding-bottom10" layout="row" layout-align="space-between start" layout-wrap flex="100" id="height100" ng-controller="WalkinOptionsCtrl as optionCtrl">
+            </md-content>
+        </md-tab>
+        <md-tab md-on-select="walkinCtrl.changeSelectedIndex()" id="tab2" aria-controls="tab2-content" ng-disabled="!walkinCtrl.hasRRIDParam" label="{{ 'EXTRA_SERVICES' | translate }}" ng-cloak>
+            <div ng-include src="'views/walk-in/walk-in.extraservices.html'" ng-controller="WalkinExtraServicesCtrl as extraServiceCtrl" class="padding-bottom10" id="height100">
+            </div>
+        </md-tab>
+        <md-tab md-on-select="walkinCtrl.changeSelectedIndex()" id="tab5" aria-controls="tab5-content" label="{{'PAYMENT' | translate}}" ng-cloak >
+            <div class="margin-bottom25">
+                <md-content class="bg-greay" layout="row" layout-margin layout-wrap >
+                    <div id="height100" flex-gt-sm="50" flex-xs="100" flex-sm="100" ng-include src="'views/walk-in/walk-in.payment.html'" ng-controller="WalkinPaymentCtrl as paymentCtrl"></div>
+                    <div id="height100" flex-gt-sm flex-gt-sm="50" flex-sm="100" flex-xs="100" style="" ng-include src="'views/walk-in/walk-in.priceList.html'" ng-controller="WalkinPriceListCtrl as priceListCtrl"></div>
+                </md-content>
+            </div>
+        </md-tab>
+    </md-tabs>
+</md-content>

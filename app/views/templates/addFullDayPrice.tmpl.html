@@ -1,0 +1,45 @@
+<md-dialog aria-label="Add Hourly Price" layout="column" flex="30" flex-sm="100">
+	<form name="newRoomTypeForm">
+		<md-toolbar class="md-warn">
+			<div class="md-toolbar-tools">
+				<h2>{{::'ADD_FULL_DAY_PRICE' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<!--            <ng-md-icon class="md-inline-list-icon" icon="close"></ng-md-icon>-->
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-dialog-content layout="row" layout-sm="column" layout-align="center start">
+			<div style="width: 100%;" layout="column" flex="60" flex-sm="100">
+
+				<form>
+
+					<md-input-container>
+						<label>{{::'NUMBER_OF_HOUR' | translate}}</label>
+						<input ng-model="newFullDayPrice.NumberOfHour">
+					</md-input-container>
+					<md-input-container>
+						<label>{{::'PRICE' | translate}}</label>
+						<input ng-model="newFullDayPrice.Price">
+					</md-input-container>
+
+
+				</form>
+
+			</div>
+		</md-dialog-content>
+
+		<div class="md-actions" layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{::'CANCEL' | translate}}
+			</md-button>
+			<md-button ng-click="saveNewFullDayPrice(newFullDayPrice)" class="md-primary">
+				{{::'SAVE' | translate}}
+			</md-button>
+		</div>
+
+	</form>
+
+</md-dialog>

@@ -1,0 +1,314 @@
+<style>
+  /* table,
+    th,
+    td {
+      width: 100%;
+    } */
+
+  table thead {
+    background: antiquewhite;
+  }
+
+  table table tr:first-child {
+    font-weight: bolder;
+  }
+
+  .md-list-item.md-2-line .md-list-item-text,
+  md-list-item.md-2-line>._md-no-style .md-list-item-text,
+  md-list-item.md-3-line .md-list-item-text,
+  md-list-item.md-3-line>._md-no-style .md-list-item-text {
+    margin: auto;
+  }
+
+  .md-list-item ._md-list-item-inner ._md-secondary-container,
+  md-list-item ._md-secondary-container {
+    height: auto;
+  }
+
+  .md-subheader ._md-subheader-inner {
+    color: rgba(255, 87, 34, 0.67);
+    font-weight: 600;
+  }
+
+  md-list-item>p {
+    width: 100%;
+  }
+
+  .md-subheader ._md-subheader-inner {
+    color: rgba(255, 87, 34, 0.67);
+    font-weight: 600;
+    background: bisque;
+  }
+
+  md-list md-list-item p>label {
+    font-size: 15px;
+  }
+
+  md-card {
+    max-height: 450px !important;
+  }
+
+  .md-toolbar-tools {
+    font-size: 16px;
+    letter-spacing: .005em;
+    box-sizing: border-box;
+    font-weight: 400;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    width: 100%;
+    height: 64px;
+    max-height: 64px;
+    padding: 0 16px;
+    margin: 0;
+  }
+
+  .formInfo {
+    border-bottom: 5px solid #f35800;
+  }
+
+  md-tab label {
+    font-weight: bold;
+  }
+
+  table.md-table thead.md-head>tr.md-row {
+    height: 34px;
+  }
+
+  /* md-table-container {
+      box-shadow: 1px 1px 5px 1px;
+    } */
+
+  .lineHeight40 {
+    line-height: 40px;
+  }
+
+  .fontWeight {
+    font-weight: bold;
+  }
+
+  .height48 {
+    height: 48px;
+  }
+
+  .width20p {
+    width: 20%;
+  }
+
+  .width40p {
+    width: 40%;
+  }
+
+  .textR {
+    text-align: right !important;
+  }
+  
+	
+	.topHear {
+		background-color: rgb(214, 214, 214);
+	}
+
+	.topHear th,
+	.topHear th md-icon {
+		color: #5c5c5d !important;
+	}
+
+	.hightli {
+		border-right: 1px solid #9e9e9e57 !important;
+		background-color: #f2f2f2;
+	}
+
+	.invoiceDeleted {
+		text-decoration-line: line-through !important;
+	}
+
+	.icon-btn {
+		cursor: pointer;
+	}
+	.row_btn button{
+		min-width: 45px;
+	}
+	.btn_hear md-icon{
+		fill: #fff;
+	}
+	.box_info_dc{
+		font-size: 14px;
+	}
+	.bg_thu{
+		background: #4caf5063;
+	}
+	.bg_chi{
+		background: #ff572278;
+	}
+	.hightli{
+		border-right: 1px solid #9e9e9e57 !important;
+    	background-color: #f2f2f27d;
+	}
+	.hightlicol{
+		border-right: 1px solid #9e9e9e57 !important;
+	}
+	.dat{
+		padding-right: 7px;
+	}
+	.tdlastchild{ padding-left:10px !important;}
+</style>
+<div layout="column" layout-fill layout-padding data-ng-init="action.init()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <div layout="row" layout-sm="column" style="width:100%;" layout-align="space-between center">
+        <div layout="row">
+          <md-icon md-svg-src="img/icons/ic_payment_48px.svg"></md-icon>&nbsp;&nbsp;
+          <h2 md-truncate flex class="lineHeight40">
+            {{'HANDOVER' | translate}}
+          </h2>
+        </div>
+        <div layout="row" layout-align="center center" layout-wrap>
+          <div layout="row">
+            <label>{{'SHIFT' | translate}}:</label>
+            <label>&nbsp;{{attributes.data.Shift||""}}</label>
+          </div>
+          <div layout="row">
+            <label>{{'FROM_DATE_REPORT' | translate}}:</label>
+            <label>&nbsp;{{attributes.data.StartTime | date:"MM/dd/yyyy" | translate}}</label>
+          </div>
+          <div layout="row">&nbsp;-&nbsp;</div>
+          <div layout="row">
+            <label>{{'TO_DATE_REPORT'| translate}}: </label>
+            <label>&nbsp;{{attributes.data.EndTime | date:"MM/dd/yyyy"| translate}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </md-toolbar>
+  <md-content layout="row">
+    <form name="addPayment" ng-cloak>
+      <section layout="row" layout-align="center center" layout-wrap>
+      </section>
+      <section>
+        <div>
+          <div class="formInfo" layout="row" layout-sm="column" layout-xs="column" flex="100">
+
+            <md-card flex-gt-sm="40" flex-sm="100" flex-xs="100" flex>
+              <md-subheader class="md-no-sticky md-accent">
+                <h3 class="margin00">{{ 'GIAO_DICH_TRONG_CA' | translate }}</h3>
+              </md-subheader>
+              <md-divider></md-divider>
+              <md-table-container>
+
+                <table md-table ng-model="selected" md-progress="promise">
+                  <thead class="md-table-progress">
+                    <tr>
+                      <th colspan="{{2 + attributes.currency.length*2 || 3}}">
+                        <md-progress-linear ng-show="deferred()" md-mode="indeterminate" aria-valuemin="0" aria-valuemax="100" role="progressbar"
+                          aria-hidden="true" class="ng-hide" style="">
+                          <div class="md-container md-mode-indeterminate">
+                            <div class="md-dashed"></div>
+                            <div class="md-bar md-bar1"></div>
+                            <div class="md-bar md-bar2"></div>
+                          </div>
+                        </md-progress-linear>
+                      </th>
+                    </tr>
+                  </thead>
+                  <thead md-head md-order="pager.query.order" md-on-reorder="">
+                    <tr md-row>
+                      <th md-column class="width40p">
+                        <span>{{'' | translate}}</span>
+                      </th>
+                      <th md-column class="width20p textR" ng-repeat="curr in attributes.currency">
+                        {{curr || "VND"}}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody md-body>
+                    <tr ng-show="attributes.data.ListTranction !== null && attributes.data.ListTranction.length > 0" md-row ng-repeat="record in attributes.data.ListTranction track by $index">
+                      <td md-cell class="width40p">{{record.Name |translate}}</td>
+                      <td class="width20p textR" ng-repeat="curr in attributes.currency" md-cell>
+                        {{action.getAmountByCurrency(curr, record.ListMoney)}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </md-table-container>
+            </md-card>
+
+            <md-card flex-gt-sm="60" flex-sm="100" flex-xs="100" flex>
+              <md-subheader class="md-no-sticky">
+                <h3 class="margin00">{{ 'BAN_GIAO_CA' | translate }}</h3>
+              </md-subheader>
+              <md-divider></md-divider>
+              <md-table-container>
+
+                <table md-table ng-model="selected" md-progress="promise">
+                  <thead class="md-table-progress">
+                    <tr>
+                      <th colspan="{{2 + attributes.currency.length*2 || 3}}">
+                        <md-progress-linear ng-show="deferred()" md-mode="indeterminate" aria-valuemin="0" aria-valuemax="100" role="progressbar"
+                          aria-hidden="true" class="ng-hide" style="">
+                          <div class="md-container md-mode-indeterminate">
+                            <div class="md-dashed"></div>
+                            <div class="md-bar md-bar1"></div>
+                            <div class="md-bar md-bar2"></div>
+                          </div>
+                        </md-progress-linear>
+                      </th>
+                    </tr>
+                  </thead>
+                  <thead md-head md-order="pager.query.order" md-on-reorder="">
+                    <tr md-row>
+                      <th md-column class="width40p">
+                        <span>{{'' | translate}}</span>
+                      </th>
+                      <th md-column class="textR" ng-repeat="curr in attributes.currency">
+                        {{curr || "VND"}}
+                      </th>
+                  </thead>
+                  <tbody md-body>
+                    <tr>
+                      <td md-cell class="width40p fontWeight height48">{{'CASH' | translate}}</td>
+                      <td class="textR" ng-repeat="curr in attributes.currency" md-cell>
+
+                      </td>
+                    </tr>
+                    <tr ng-show="attributes.data.Detail !== null && attributes.data.Detail.length > 0" md-row ng-repeat="record in attributes.data.Detail track by $index">
+                      <td md-cell class="width40p">{{record.HandoverDetailName | translate}}</td>
+                      <td class="textR" ng-repeat="curr in attributes.currency" md-cell>
+                        <div>
+                          {{action.getAmountByCurrency(curr, record.ListMoney)}}
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </md-table-container>
+            </md-card>
+          </div>
+
+          <md-card flex-gt-sm="100" flex-sm="100" flex-xs="100" flex>
+            <md-subheader class="md-no-sticky">
+              <h3 class="margin00">{{ 'INFO_DESCRIPTION_HANDOVER' | translate }}</h3>
+            </md-subheader>
+            <md-divider></md-divider>
+            <md-table-container>
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>{{'NOTE' | translate}}</label>
+                <input ng-model="attributes.data.HandoverNote" name="handovernote" ez-focus="data.focusCode" md-no-asterisk placeholder="{{'NOTE' | translate}}">
+              </md-input-container>
+
+              <md-input-container class="md-block">
+                <label>{{'MEMBER_HANDOVER' | translate}} </label>
+                <input md-no-asterisk name="receiverHandover" ng-model="attributes.data.ReceiverHandover" placeholder="{{'MEMBER_HANDOVER' | translate}}">
+              </md-input-container>
+            </md-table-container>
+          </md-card>
+        </div>
+      </section>
+    </form>
+  </md-content>
+</div>

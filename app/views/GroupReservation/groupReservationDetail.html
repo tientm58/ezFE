@@ -1,0 +1,972 @@
+<style>
+    .demo-legend {
+        color: #3F51B5;
+    }
+
+    .demo-fieldset {
+        border-style: solid;
+        border-width: 1px;
+    }
+
+    .textDiabled {
+        text-decoration: line-through
+    }
+
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+
+    .item-menu-email {
+        border-bottom: 1px dashed #ddd;
+    }
+
+    .item-menu-email:hover {
+        cursor: pointer;
+        background: #f5f5f5;
+    }
+
+    .item-menu-email .time-text {
+        font-size: 12px;
+        margin-top: 4px;
+        color: #969696;
+    }
+
+    .item-menu-email .time-text2 {
+        font-size: 12px;
+        margin-top: 4px;
+    }
+
+    md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+        height: auto;
+    }
+
+    md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+    }
+
+    md-card md-card-title {
+        padding: 12px;
+    }
+
+    md-card md-card-content {
+        padding: 12px;
+    }
+
+    .md-headline {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 32px;
+        /*color: #3F51B5;*/
+    }
+
+    md-menu-item {
+        min-height: 40px;
+        height: 40px;
+        font-size: 15px
+    }
+
+    .mdcard {
+        margin: 1px !important;
+        border-top: 1px solid #eee;
+        height: 600px;
+        margin-bottom: 7px !important;
+        min-height: 650px !important;
+    }
+
+    .md-list-item-text {
+        font-size: 17px;
+    }
+
+    .md-whiteframe-1dp,
+    .md-whiteframe-z1 {
+        box-shadow: none;
+    }
+
+    .paddingTop-Bottom {
+        padding-top: 13px;
+        padding-bottom: 13px
+    }
+
+    #toolbar-tools {
+        padding: 3px;
+        padding-top: 0px;
+        background-color: #ffffff;
+    }
+
+    .content-detail {
+        /*margin-bottom: 24px;
+        margin-top: 12px;*/
+        overflow-y: hidden;
+        height: 100%
+    }
+
+    .groupX {
+        font-size: 16px;
+        /*margin: 20px 0;*/
+        margin: 3px;
+        padding: 3px 15px 3px 15px;
+        color: rgb(49, 46, 46);
+        background-color: rgba(224, 224, 224, 0.96);
+        text-transform: none;
+        font-weight: 400;
+        min-width: 100px;
+    }
+
+    .md-button.left {
+        border-radius: 10px 0 0 10px;
+    }
+
+    .md-button.middle {
+        border-radius: 0;
+        border-left: 1px solid rgba(230, 230, 230, 0.96);
+        border-right: 1px solid rgba(230, 230, 230, 0.96);
+    }
+
+    .md-button.right {
+        border-radius: 0 10px 10px 0;
+    }
+
+    /*.md-button:not([disabled]):hover {*/
+
+    .heightPayment {
+        min-height: 400px !important;
+        max-height: 4000px !important;
+        overflow-y: hidden;
+    }
+
+    .buttondemoBasicUsage section {
+        background: #f7f7f7;
+        border-radius: 3px;
+        text-align: center;
+        margin: 1em;
+        position: relative !important;
+        padding-bottom: 10px;
+    }
+
+    .buttondemoBasicUsage md-content {
+        margin-right: 7px;
+    }
+
+    .buttondemoBasicUsage section .md-button {
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .buttondemoBasicUsage .label {
+        position: absolute;
+        bottom: 5px;
+        left: 7px;
+        font-size: 14px;
+        opacity: 0.54;
+    }
+
+    .ipsum {
+        color: gray;
+        font-size: 0.9em;
+        display: block;
+        padding-top: 6px;
+    }
+
+    .inform {
+        fill: #ff5722 !important;
+    }
+
+    .icon-gray {
+        fill: #666 !important;
+        margin-top: -6px;
+    }
+
+    .md-warn .icon-gray {
+        fill: #ffffff !important;
+    }
+
+    .normal_btn {
+        min-width: 35px;
+    } 
+    .wp_table::-webkit-scrollbar{
+        height: 70px !important;
+    }
+</style>
+<div layout="column" flex ng-cloak class="md-padding">
+    <md-toolbar class="md-whiteframe-glow-z2 site-content-toolbar">
+        <div class="md-toolbar-tools" id="toolbar-tools" style="" layout="row" layout-align="space-between center">
+            <span flex="50" flex-xs="55">
+                <h1 class="md-headline">
+                    <span hide-xs hide-sm>{{'RES_NO_SHORT' | translate}}{{GeneralInfo.Reservations.ReservationNumber}} / {{groupLeader.Fullname}}</span>
+                    <br hide-xs hide-sm>
+                    <span hide-xs>{{'TOTAL' | translate}}</span>
+                    <span style="color: #f44336;">{{groupData.groupSummary.Balance | currency}}
+                        <!-- ng-bind="Amount | currency" -->
+                    </span>
+                    <!-- Balance information -->
+                    <md-menu md-offset="3 33" md-prevent-menu-close="md-prevent-menu-close" style="margin:-5px">
+                        <md-button style="margin:0px" aria-label="Open phone interactions menu" class="md-icon-button" ng-click="showBalanceDetail($mdOpenMenu, $event)">
+                            <md-icon class="icon-gray" md-menu-origin md-svg-src="img/icons/ic_view_headline_48px.svg"></md-icon>
+                        </md-button>
+                        <md-menu-content width="4">
+                            <md-menu-item>
+                                <div layout="row" flex>
+                                    <p flex>{{'TOTAL_CHARGES' | translate}}</p>
+                                    <span style="margin: auto 3px auto 0;">{{groupData.groupSummary.totalCharges | currency:""}}</span>
+                                </div>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <div layout="row" flex>
+                                    <p flex>{{'TOTAL_CREDITS' | translate}}</p>
+                                    <span style="margin: auto 3px auto 0;">{{groupData.groupSummary.totalCredits | currency:""}}</span>
+                                </div>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <div layout="row" flex>
+                                    <p flex>{{'BALANCE' | translate}}</p>
+                                    <span style="margin: auto 3px auto 0;color:red">{{groupData.groupSummary.Balance | currency:""}}</span>
+                                </div>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                    <!-- print invoice -->
+                    <md-menu md-offset="200 40" md-prevent-menu-close="md-prevent-menu-close" style="margin:-5px">
+                        <md-button style="margin:0px" aria-label="Open phone interactions menu" class="md-icon-button" ng-click="showGroupInvoice($mdOpenMenu, $event)">
+                            <md-icon style="fill:#666;margin-top:-6px" md-menu-origin md-svg-src="img/icons/ic_print_24px.svg"></md-icon>
+                        </md-button>
+                        <md-menu-content width="4">
+                            <md-menu-item>
+                                <md-button ng-click="showInvoice($event,'SIMPLE')">
+                                    <div layout="row" flex>
+                                        <p flex>{{'INVOICE_SIMPLE' | translate}}</p>
+                                        <md-icon md-menu-align-target md-svg-icon="img/icons/ic_view_compact_24px.svg"></md-icon>
+                                    </div>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="showInvoice($event,'DETAIL')">
+                                    <div layout="row" flex>
+                                        <p flex>{{'INVOICE_DETAIL' | translate}}</p>
+                                        <md-icon md-menu-align-target md-svg-icon="img/icons/ic_view_comfortable_24px.svg"></md-icon>
+                                    </div>
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                    <!-- VAT -->
+                    <md-menu>
+                        <md-button style="margin:0px" aria-label="Open phone interactions menu" class="md-icon-button" ng-click="showVATInvoice($event)"
+                            ng-if="!isHideVAT">
+                            <md-tooltip md-direction="right">{{'VAT_INVOICE_VIEW' | translate}}</md-tooltip>
+                            <md-icon style="fill:#666;margin-top:-6px" md-menu-origin md-svg-src="img/icons/ic_payment_24px.svg"></md-icon>
+                        </md-button>
+                    </md-menu>
+                    <!-- Email -->
+                    <md-menu class="margin-left0" ng-if="showEmail">
+                        <md-button class=" animated wobble" ng-class="[{'md-warn md-raised':(LogsEmail.failEmail>0)},{'normal_btn':!(LogsEmail.failEmail>0)}]"
+                            ng-click="openMenuLogsEmail($mdOpenMenu, $event)">
+                            <md-icon class="icon-gray" md-menu-origin md-svg-icon="img/icons/ic_email_24px.svg"></md-icon>
+                            <span ng-if="LogsEmail.failEmail>0">{{LogsEmail.failEmail}}</span>
+                        </md-button>
+                        <md-menu-content width="5" class="content_mennu_email ">
+                            <div class="item-menu-email" ng-click="copyTeamplate()">
+                                <div flex layout='row' layout-padding layout-align="start center">
+                                    <md-icon md-menu-origin md-svg-icon="img/icons/ic_add_circle_48px.svg" class="margin5 padding0"></md-icon>
+                                    <div layout="column">
+                                        <div flex>
+                                            {{'SEND_EMAIL' | translate}}
+                                        </div>
+                                        <p class="margin0 time-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-repeat='log in LogsEmail.result' class="item-menu-email" ng-class="[{'bg_warning':(log.Status==-1)}]" ng-click="openDetailLogEmail(log )">
+                                <div flex layout='row' layout-padding layout-align="start center">
+                                    <md-icon md-menu-origin ng-if="log.Status==0" md-svg-icon="img/icons/ic_access_alarms_24px.svg" class="margin5 padding0"></md-icon>
+                                    <md-icon md-menu-origin ng-if="log.Status==1" md-svg-icon="img/icons/ic_done_48px.svg" class="margin5 fill-success padding0"></md-icon>
+                                    <md-icon md-menu-origin ng-if="log.Status==-1" md-svg-icon="img/icons/ic_replay_48px.svg" class="margin5 fill-warning padding0"></md-icon>
+                                    <div layout="column" flex>
+                                        <div flex>
+                                            {{log.HotelEmailTask.Subject}}
+                                            <span class="number_email_fail" ng-if="log.count>1">({{log.count}})</span>
+                                        </div>
+                                        <!-- <p class="margin0 time-text"><span class="type_logs_email">{{TypeEmailM[log.HotelEmailTask.TypeId-1].title | translate}}</span> - {{TypeStatusM[log.HotelEmailTask.TypeStatus].name | translate}} {{log.HotelEmailTask.Day}} {{'DAY' | translate}}</p> -->
+                                        <p class="margin0 time-text2">{{'SEND_TO' | translate}}: {{log.Travellers.Fullname}} - {{log.Email}}</p>
+                                        <p class="margin0 time-text">{{log.UserId}} {{'CREATE' | translate}} {{log.CreatedAt| date:'dd/MM, HH:mm'}}
+                                            <span ng-if="log.UpdatedAt != null">{{'SEND_FROM' |translate}} {{log.UpdatedAt| date:'dd/MM, HH:mm'}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-menu-content>
+                        <!-- </md-button> -->
+                    </md-menu>
+                </h1>
+            </span>
+            <div hide-xs flex layout="row" layout-align="end end">
+                <md-button class="md-warn md-raised" ng-click="addTransaction()">
+                    {{'ADD_TRANSACTION' | translate}}
+                </md-button>
+                <md-button class="md-warn md-raised" ng-click="addNewGuest()">
+                    {{'ADD_NEW_GUEST' | translate}}
+                </md-button>
+            </div>
+            <div show-xs hide-gt-xs flex-xs="45" flex layout layout-align="end center">
+                <div layout="column" layout-align="center center">
+                    <md-button class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="addTransaction()">
+                        <md-icon md-svg-src="img/icons/ic_playlist_add_24px.svg" style="fill:#666"></md-icon>
+                    </md-button>
+                    <span style="display: inline;
+                          padding: .2em .6em .3em;
+                          font-size: 50%;
+                          font-weight: bold;
+                          text-transform: uppercase;
+                          line-height: 1;
+                          color: dodgerblue;
+                          text-align: left;
+                          white-space: nowrap;
+                          vertical-align: baseline;
+                          border-radius: .25em;">
+                        {{'ADD_TRANSACTION' | translate}}
+                    </span>
+                </div>
+                <div layout="column" layout-align="center center">
+                    <md-button class="md-icon-button launch" style="padding: 0px; margin: 0px;" ng-click="addNewGuest()">
+                        <md-icon md-svg-src="img/icons/ic_person_add_24px.svg" style="fill:#666"></md-icon>
+                    </md-button>
+                    <span style="display: inline;
+                          padding: .2em .6em .3em;
+                          font-size: 50%;
+                          font-weight: bold;
+                          text-transform: uppercase;
+                          line-height: 1;
+                          color: dodgerblue;
+                          text-align: left;
+                          white-space: nowrap;
+                          vertical-align: baseline;
+                          border-radius: .25em;">
+                        {{'ADD_NEW_GUEST' | translate}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--  <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <div flex="60" layout="row" layout-align="start center">
+                <span style="display: block;float: left;margin-right: 6px;">
+                    <h4 style="font-size: 12px;margin: 0px; margin-top: 4px;">Check-In</h4>
+                    <h3 style="font-size: 14px;margin-top: 6px;">22/07/2016</h3>
+                </span>
+                <span style="display: block;float: left;">
+                    <h4 style="font-size: 12px;margin: 0px; margin-top: 4px;margin-right: 6px;">Check-Out</h4>
+                    <h3 style="font-size: 14px;margin-top: 6px;">24/07/2016</h3>
+                </span>
+
+            </div>
+        </div> -->
+    </md-toolbar>
+    <md-content class="content-detail">
+        <md-tabs style="min-height:800px">
+            <md-tab label="{{'GENERAL_INFOMATION' | translate}}" flex layout="row">
+                <md-content layout="row" layout-align="start start" flex="100" layout-wrap style="max-height:4000px;">
+                    <md-card style="" class="mdcard" flex-gt-sm="33" flex-sm="100" flex-xs="100" layout="column">
+                        <section style="">
+                            <div layout="row" layout-align="space-between center" style="padding: 10px;padding-top:13px">
+                                <span style="font-size: 20px; font-weight: 400; line-height: 16px;">{{'GROUP_INFORMATION' | translate}}</span>
+                            </div>
+                        </section>
+                        <md-card-content flex="100">
+                            <section flex="100" layout="row" layout-align="space-between center" layout-wrap style=" ">
+                                <span flex="45" style="">{{'COLOR' | translate}}</span>
+                                <div flex style="text-align:right">
+                                    <input ng-disabled="groupData.GeneralInfo.IsGroupCheckOut" style="width:35%" type="color" ng-model="GeneralInfo.Reservations.Color"
+                                        value="{{GeneralInfo.Reservations.Color}}}" />
+                                </div>
+                            </section>
+                            <section flex="100" layout="row" layout-align="space-between center" layout-wrap style=" margin-top:10px">
+                                <span flex="25" style="">{{'NOTE' | translate}}</span>
+                                <section>
+                                    <md-button md-no-ink class="md-icon-button" ng-if="!groupData.GeneralInfo.IsGroupCheckOut" style="height: 24px;margin: 0px; padding: 0px;"
+                                        ng-click="editNote(GeneralInfo.Reservations.Note)">
+                                        <md-icon md-svg-src="img/icons/ic_edit_24px.svg" aria-label="edit note" style="cursor: pointer;"></md-icon>
+                                    </md-button>
+                                </section>
+                                <textarea columns="1" ng-bind="GeneralInfo.Reservations.Note" ng-disabled="true" rows="5" style="width: 100%; border: none;"></textarea>
+                            </section>
+                            <section flex="100" layout="row">
+                                <span style="padding:10px;padding-left:0px;font-size:18px">{{'BUSINESS' | translate}}
+                                    <!-- <md-icon  md-svg-src="img/icons/ic_save_48px.svg" ng-if="!groupData.GeneralInfo.IsGroupCheckOut" ng-click="processSaveMarket()" aria-label="change leader" style="cursor: pointer;fill:red"></md-icon> -->
+                                    <md-button ng-if="!groupData.GeneralInfo.IsGroupCheckOut" class="md-primary md-fab md-mini" ng-click="processSaveMarket()">
+                                        <md-icon md-svg-src="img/icons/ic_save_48px.svg" aria-label="Save Company"></md-icon>
+                                    </md-button>
+                                </span>
+
+                            </section>
+                            <div flex="100" layout-padding layout="row" layout-align="space-between center" style="height:85px">
+                                <md-input-container style="width: 100%;">
+                                    <label>{{'COMPANY' | translate}}</label>
+                                    <md-autocomplete md-selected-item="selectedCompany" md-search-text-change="searchCompanyTextChange(searchCompanyText)" md-search-text="searchCompanyText"
+                                        md-selected-item-change="selectedCompanyChange(item,Group)" md-items="item in queryCompanySearch(searchCompanyText)"
+                                        md-item-text="item.CompanyName" md-min-length="0" md-menu-class="autocomplete-custom-template"
+                                        ng-disabled="groupData.GeneralInfo.IsGroupCheckOut">
+                                        <md-item-template>
+                                            <span class="item-title">
+                                                <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                                <span style="margin: auto;"> {{item.CompanyName}} </span>
+                                            </span>
+                                            <span class="item-metadata">
+                                                <span class="item-metastat">
+                                                    <strong>{{'CODE' | translate}}:</strong> {{item.CompanyCode}}
+                                                </span>
+                                                <span class="item-metastat">
+                                                    <strong>{{'EMAIL' | translate}}:</strong> {{item.CompanyEmail}}
+                                                </span>
+                                            </span>
+                                        </md-item-template>
+                                    </md-autocomplete>
+                                </md-input-container>
+                                <md-icon md-svg-src="img/icons/ic_edit_48px.svg" ng-if="!groupData.GeneralInfo.IsGroupCheckOut" style="padding:0px;cursor: pointer;"
+                                    aria-label="Edit dialog" ng-click="editBusiness(selectedCompany)"></md-icon>
+                                <md-icon md-svg-src="img/icons/ic_add_48px.svg" ng-if="!groupData.GeneralInfo.IsGroupCheckOut" style="padding: 0px;cursor: pointer;"
+                                    aria-label="Edit dialog" ng-click="addNewCompany()"></md-icon>
+                            </div>
+                            <div flex="100" layout-padding layout="row" layout-align="space-between center" style="height:85px">
+                                <md-input-container style="width: 100%;">
+                                    <label>{{'SOURCE' | translate}}</label>
+                                    <md-autocomplete md-selected-item="selectedSource" md-search-text-change="searchSourceTextChange(searchSourceText)" md-search-text="searchSourceText"
+                                        md-selected-item-change="selectedSourceChange(item)" md-items="item in querySourceSearch(searchSourceText)"
+                                        md-item-text="item.SourceName" md-min-length="0" md-menu-class="autocomplete-custom-template"
+                                        ng-disabled="groupData.GeneralInfo.IsGroupCheckOut">
+                                        <md-item-template>
+                                            <span class="item-title">
+                                                <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                                <span style="margin: auto;"> {{item.SourceName}} </span>
+                                            </span>
+                                            <span class="item-metadata">
+                                                <span class="item-metastat">
+                                                    <strong>{{'CODE' | translate}}:</strong> {{item.ShortCode}}
+                                                </span>
+                                            </span>
+                                        </md-item-template>
+                                    </md-autocomplete>
+                                </md-input-container>
+                                <md-icon md-svg-src="img/icons/ic_edit_48px.svg" ng-if="!groupData.GeneralInfo.IsGroupCheckOut" style="padding:0px;cursor: pointer;"
+                                    aria-label="Edit dialog" ng-click="editBusiness(selectedSource)"></md-icon>
+                                <md-icon md-svg-src="img/icons/ic_add_48px.svg" ng-if="!groupData.GeneralInfo.IsGroupCheckOut" style="padding: 0px;cursor: pointer;"
+                                    aria-label="Edit dialog" ng-click="addNewSource()"></md-icon>
+                            </div>
+                            <div flex="100" layout-padding layout="row" layout-align="space-between center" style="height:85px">
+                                <md-input-container style="width: 100%;">
+                                    <label>{{'MARKET' | translate}}</label>
+                                    <md-autocomplete md-selected-item="selectedMarket" md-search-text-change="searchMarketTextChange(searchMarketText)" md-search-text="searchMarketText"
+                                        md-selected-item-change="selectedMarketChange(item)" md-items="item in queryMarketSearch(searchMarketText)"
+                                        md-item-text="item.MarketName" md-min-length="0" md-menu-class="autocomplete-custom-template"
+                                        ng-disabled="groupData.GeneralInfo.IsGroupCheckOut">
+                                        <md-item-template>
+                                            <span class="item-title">
+                                                <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                                <span style="margin: auto;"> {{item.MarketName}} </span>
+                                            </span>
+                                            <span class="item-metadata">
+                                                <span class="item-metastat">
+                                                    <strong>{{'CODE' | translate}}:</strong> {{item.MarketCode}}
+                                                </span>
+                                            </span>
+                                        </md-item-template>
+                                    </md-autocomplete>
+                                </md-input-container>
+                                <md-icon md-svg-src="img/icons/ic_edit_48px.svg" ng-if="!groupData.GeneralInfo.IsGroupCheckOut" style="padding:0px;cursor: pointer;"
+                                    aria-label="Edit dialog" ng-click="editBusiness(selectedMarket)"></md-icon>
+                                <md-icon md-svg-src="img/icons/ic_add_48px.svg" ng-if="!groupData.GeneralInfo.IsGroupCheckOut" style="padding: 0px;cursor: pointer;"
+                                    aria-label="Edit dialog" ng-click="addNewMarket()"></md-icon>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                    <md-card style="" class="mdcard" flex-gt-sm="33" flex-sm="100" flex-xs="100" layout="column">
+                        <section style="height:39px">
+                            <div layout="row" layout-align="space-between center" style="padding: 10px;padding-top:5px;">
+                                <span style="font-size: 20px; font-weight: 400; line-height: 16px;">{{'GROUP_LEADER' | translate}}
+                                    <md-icon ng-if="!groupData.GeneralInfo.IsGroupCheckOut" md-svg-src="img/icons/ic_autorenew_24px.svg" ng-click="processChangeOwnership(null, null)"
+                                        aria-label="change leader" style="cursor: pointer;"></md-icon>
+                                </span>
+                                <md-button md-no-ink class="md-icon-button" ng-if="!groupData.GeneralInfo.IsGroupCheckOut" style="height: 24px;margin: 0px; padding: 0px;"
+                                    ng-click="addNewLeader()">
+                                    <md-icon md-svg-src="img/icons/ic_group_add_24px.svg" aria-label="Add Customer" style="cursor: pointer;"></md-icon>
+                                </md-button>
+                            </div>
+                        </section>
+                        <md-card-content flex="100">
+                            <section flex="100" layout="row" layout-align="space-between center" layout-wrap style="padding-top:2px;padding-bottom:13px">
+                                <span flex="30" style="">{{'NAME' | translate}}</span>
+                                <div flex style="text-align:right;">
+                                    {{groupLeader.Fullname}}
+                                    <md-icon ng-if="!groupData.GeneralInfo.IsGroupCheckOut" md-svg-src="img/icons/ic_edit_24px.svg" ng-click="editCustomer()"
+                                        aria-label="edit leader" style="height:20px;width:20px;margin-top:-3px;cursor: pointer;"></md-icon>
+                                </div>
+                            </section>
+                            <section flex="100" layout="row" layout-align="space-between center" class="paddingTop-Bottom" layout-wrap style="">
+                                <span flex="30" style="">{{'GENDER' | translate}}</span>
+                                <div flex style="text-align:right">
+                                    <span ng-if="groupLeader.Gender == 0">{{'MALE' | translate}}</span>
+                                    <span ng-if="groupLeader.Gender == 1">{{'FEMALE' | translate}}</span>
+                                    <span ng-if="groupLeader.Gender == 2">{{'OTHER' | translate}}</span>
+                                </div>
+                            </section>
+                            <section flex="100" layout="row" layout-align="space-between center" class="paddingTop-Bottom" layout-wrap style="">
+                                <span flex="30" style="">{{'BIRTHDAY' | translate}}</span>
+                                <div flex style="text-align:right">
+                                    <span ng-if="groupLeader.Birthday != null">{{groupLeader.Birthday | date:'dd/MM/yyyy'}}</span>
+                                    <span ng-if="groupLeader.Birthday == null">N/A</span>
+                                </div>
+                            </section>
+                            <section flex="100" layout="row" layout-align="space-between center" class="paddingTop-Bottom" layout-wrap style="">
+                                <span flex="30" style="">{{'IDENTITY' | translate}}</span>
+                                <div flex style="text-align:right">
+                                    <span ng-if="groupLeader.IdentityNumber != null">{{groupLeader.IdentityNumber}}</span>
+                                    <span ng-if="groupLeader.IdentityNumber == null">N/A</span>
+                                </div>
+                            </section>
+                            <section flex="100" layout="row" layout-align="space-between center" class="paddingTop-Bottom" layout-wrap style="">
+                                <span flex="30" style="">{{'MOBILE' | translate}}</span>
+                                <div flex style="text-align:right">
+                                    <span ng-if="groupLeader.Mobile != null">{{groupLeader.Mobile}}</span>
+                                    <span ng-if="groupLeader.Mobile == null">N/A</span>
+                                </div>
+                            </section>
+                            <section flex="100" layout="row" layout-align="space-between center" class="paddingTop-Bottom" layout-wrap style="">
+                                <span flex="30" style="">{{'EMAIL' | translate}}</span>
+                                <div flex style="text-align:right">
+                                    <span ng-if="groupLeader.Email != null">{{groupLeader.Email}}</span>
+                                    <span ng-if="groupLeader.Email == null">N/A</span>
+                                </div>
+                            </section>
+                            <section flex="100" layout="row" layout-align="space-between center" class="paddingTop-Bottom" layout-wrap style="">
+                                <span flex="30" style="">{{'ADDRESS' | translate}}</span>
+                                <div flex style="text-align:right">
+                                    <span ng-if="groupLeader.Address != null">{{groupLeader.Address}}</span>
+                                    <span ng-if="groupLeader.Address == null">N/A</span>
+                                </div>
+                            </section>
+                            <section flex="100" layout="row" layout-align="space-between center" class="paddingTop-Bottom" layout-wrap style="">
+                                <span flex="30" style="">{{'COUNTRY' | translate}}</span>
+                                <div flex style="text-align:right">
+                                    <span ng-if="groupLeader.Countries != null">{{groupLeader.Countries.CountryName}}</span>
+                                    <span ng-if="groupLeader.Countries == null">N/A</span>
+                                </div>
+                            </section>
+                            <section flex="100" layout="row" layout-align="space-between center" class="paddingTop-Bottom" layout-wrap style="margin-top:5px;">
+                                <span flex="30" style="">{{'NOTE' | translate}}</span>
+                                <span flex="75"></span>
+                                <textarea columns="1" ng-bind="groupLeader.Note" ng-disabled="true" rows="5" style="width: 100%; border: none;margin-top:12px"></textarea>
+                            </section>
+                        </md-card-content>
+                    </md-card>
+                    <md-card style="" class="mdcard" flex-gt-sm="auto" flex-sm="100" flex-xs="100" layout="column">
+                        <section style="">
+                            <div layout="row" layout-align="space-between center" style="padding: 10px;padding-top:13px">
+                                <span style="font-size: 20px; font-weight: 400; line-height: 16px;">{{'ROOM_STATUS' | translate}}</span>
+                            </div>
+                        </section>
+                        <md-card-content flex="100">
+                            <section flex="100" layout="row" layout-align="space-between center" layout-wrap style="padding-top:2px;padding-bottom:13px"
+                                ng-repeat="status in groupData.roomsStatus">
+                                <span flex="30" style="">{{ status.BookingStatus | translate}}</span>
+                                <div flex style="text-align:right;">
+                                    {{status.Total}}
+                                </div>
+                            </section>
+                            <section flex="100" layout="row" layout-align="space-between center" class="paddingTop-Bottom" layout-wrap style="font-weight:bold ">
+                                <span flex="30" style="">{{'TOTAL' | translate}}</span>
+                                <div flex style="text-align:right">
+                                    {{groupData.RoomInformation.length}}
+                                </div>
+                            </section>
+                        </md-card-content>
+                    </md-card>
+                </md-content>
+            </md-tab>
+            <md-tab label="{{'ROOM_INFORMATION' | translate}}" >
+                <div style="overflow-x: scroll;
+    overflow: auto;">
+                    <!-- <md-card style="margin:0px">
+                        <md-subheader>Filter by search</md-subheader>
+                        <md-input-container style="margin:15px;">
+                            <label>Search</label>
+                            <input type="text" ng-model="filterName">
+                        </md-input-container>
+                        <div ng-hide="true">
+                            {{(filteredItems = (nutritionList | filter: filterName))}}
+                        </div>
+                    </md-card>-->
+                    <md-content layout="column" flex>
+                        <md-card>
+                            <section layout="row" layout-align="center center" ng-if="$mdMedia('gt-sm') == true">
+                                <md-button id="button" class="md-raised md-primary" ng-click="processGroupAutoAssignRoom()">{{'AUTO_ASSIGN_ROOM' | translate}}</md-button>
+                                <md-button id="button" class="md-raised md-primary" ng-click="processGroupCheckIn()">{{'GROUP_CHECKIN' | translate}}</md-button>
+                                <md-button id="button" class="md-raised md-primary" ng-click="processGroupCheckOut()">{{'GROUP_CHECKOUT' | translate}}</md-button>
+                                <md-button id="button" class="md-raised md-primary" ng-click="processGroupDiscount()"> {{'GROUP_DISCOUNT' | translate}}</md-button>
+                                <md-button id="button" class="md-raised md-primary" ng-click="processGroupAmendStay()">{{'GROUP_AMEND_STAY' | translate}}</md-button>
+                                <md-button id="button" class="md-raised md-primary" ng-click="processCancelGroupReservation()">{{'CANCEL_GROUP_RESERVATION' | translate}} </md-button>
+                                <md-button id="button" class="md-raised md-primary" ng-click="processGroupRateOperation()">{{'RATE_OPERATION' | translate}} </md-button>
+                                <md-menu width="4" md-position-mode="target-right bottom">
+                                    <md-button id="button" aria-label="Operation" class="md-icon-button d-warn md-raised md-hue-2" ng-click="openMenu($mdOpenMenu, $event)">
+                                        <md-icon md-svg-src="img/icons/ic_menu_48px.svg"></md-icon>
+                                        <!-- {{'MORE_OPERATION' | translate}} -->
+                                    </md-button>
+                                    <md-menu-content>
+                                        <!-- <md-menu-item>
+                                            <md-button ng-click="processCancelGroupReservation()">
+                                                {{'CANCEL_GROUP_RESERVATION' | translate}}
+                                            </md-button>
+                                        </md-menu-item> -->
+                                        <md-menu-item>
+                                            <md-button ng-click="processUnassignGroupRoom()">
+                                                {{'UNASSIGN_GROUP_ROOM' | translate}}
+                                            </md-button>
+                                        </md-menu-item>
+                                        <!-- <md-menu-item>
+                                            <md-button ng-click="processGroupRateOperation()">
+                                                {{'RATE_OPERATION' | translate}}
+                                            </md-button>
+                                        </md-menu-item> -->
+                                        <md-menu-item>
+                                            <md-button ng-click="processGroupPaxOperation()">
+                                                {{'PAX_OPERATION' | translate}}
+                                            </md-button>
+                                        </md-menu-item>
+                                        <md-menu-item>
+                                            <md-button ng-click="processGroupBreakfast()">
+                                                {{'GROUP_BREAKFAST' | translate}}
+                                            </md-button>
+                                        </md-menu-item>
+                                        <md-menu-item>
+                                            <md-button ng-click="processRemoveReservationRoomFromGroup()">
+                                                {{'REMOVE_FROM_GROUP' | translate}}
+                                            </md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                                <!-- <md-button class="groupX middle">Unassign Group Room</md-button>
+                              <md-button class="groupX middle">Group Discount</md-button>
+                              <md-button class="groupX middle">Group Amend Stay</md-button>
+                              <md-button class="groupX middle">Rate Operation</md-button>
+                              <md-button class="groupX middle">Pax Operation</md-button>
+                              <md-button class="groupX right">Group Breakfast</md-button> -->
+                            </section>
+                            <section flex-xs="100" class="ipsum">
+                                <md-icon md-menu-origin="" md-svg-src="img/icons/ic_warning_48px.svg">
+                                </md-icon>{{'SELECT_ONE_OR_MORE_ROOMS_IN_GROUP_TO_OPERATION' | translate}}
+                            </section>
+
+                            <md-menu width="8" md-position-mode="target-left bottom" ng-if="$mdMedia('xs') == true || $mdMedia('sm') == true">
+                                <md-button aria-label="Operation" class="md-raised md-warn" ng-click="openMenu($mdOpenMenu, $event)">
+                                    {{'OPERATION' | translate}}
+                                    <md-icon md-svg-src="img/icons/ic_menu_48px.svg"></md-icon>
+
+                                </md-button>
+                                <md-menu-content>
+                                    <md-menu-item>
+                                        <md-button ng-click="processGroupAutoAssignRoom()">
+                                            {{'AUTO_ASSIGN_ROOM' | translate}}
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="processGroupCheckIn()">
+                                            {{'GROUP_CHECKIN' | translate}}
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="processGroupCheckOut()">
+                                            {{'GROUP_CHECKOUT' | translate}}
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="processGroupDiscount()">
+                                            {{'GROUP_DISCOUNT' | translate}}
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="processGroupAmendStay()">
+                                            {{'GROUP_AMEND_STAY' | translate}}
+                                        </md-button>
+                                    </md-menu-item>
+
+                                    <md-menu-item>
+                                        <md-button ng-click="processCancelGroupReservation()">
+                                            {{'CANCEL_GROUP_RESERVATION' | translate}}
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="processUnassignGroupRoom()">
+                                            {{'UNASSIGN_GROUP_ROOM' | translate}}
+                                        </md-button>
+                                    </md-menu-item>
+
+                                    <md-menu-item>
+                                        <md-button ng-click="processGroupRateOperation()">
+                                            {{'RATE_OPERATION' | translate}}
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="processGroupPaxOperation()">
+                                            {{'PAX_OPERATION' | translate}}
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="processGroupBreakfast()">
+                                            {{'GROUP_BREAKFAST' | translate}}
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="processRemoveReservationRoomFromGroup()">
+                                            {{'REMOVE_FROM_GROUP' | translate}}
+                                        </md-button>
+                                    </md-menu-item>
+                            </md-menu>
+                            <md-table-container style="min-height: 400px; max-height: 400px;" class="wp_table">
+                                <table md-table md-row-select="true" multiple="true" ng-model="selectedRoom" md-progress="promise">
+                                    <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                                        <tr md-row>
+                                            <th md-column md-numeric md-order-by="Rooms.RoomName">
+                                                <span>{{'ROOM' | translate}} </span>
+                                            </th>
+                                            <th md-column md-numeric md-order-by="BookingStatus">
+                                                <span>{{'STATUS' | translate}}</span>
+                                            </th>
+                                            <th md-column md-numeric md-order-by="Travellers.Fullname" md-desc>
+                                                <span>{{'NAME' | translate}}</span>
+                                            </th>
+                                            <th md-column md-numeric md-order-by="ArrivalDate">
+                                                <span>{{'ARRIVAL' | translate}}</span>
+                                            </th>
+                                            <th md-column md-numeric md-order-by="DepartureDate">
+                                                <span>{{'DEPARTURE' | translate}} </span>
+                                            </th>
+                                            <th md-column md-numeric md-order-by="Total">
+                                                <span>{{'TOTAL' | translate}}</span>
+                                            </th>
+                                            <th md-column md-numeric md-order-by="Paid" hide-gt-xs show-gt-md>
+                                                <span>{{'PAID' | translate}}</span>
+                                            </th>
+                                            <th md-column md-numeric md-order-by="Balance" hide-gt-xs show-gt-md>
+                                                <span>{{'BALANCE' | translate}}</span>
+                                            </th>
+                                            <th md-column md-numeric style="padding-right: 4px;">
+                                                <span>{{'OPERATION' | translate}}</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                        <tr md-row md-select="room" md-on-select="logItem" md-auto-select="true" ng-repeat="room in groupData.RoomInformation | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                            <td md-cell style="text-align:center">{{room.Rooms.RoomName}} ({{room.RoomTypes.RoomTypeCode}})
+                                                <md-icon ng-if="room.IsCreateCard" md-svg-src="img/icons/ic_credit_card_24px.svg" aria-label="Rate Type Operation"></md-icon>
+                                            </td>
+                                            <td md-cell>{{room.BookingStatus | translate}}</td>
+                                            <td md-cell>
+                                                <md-icon ng-if="room.IsGroupMaster == true" md-svg-src="img/icons/ic_flag_24px.svg" style="fill: {{room.Color}};height: 21px; width: 21px; color: #666; "></md-icon>{{room.Travellers.Fullname}}</td>
+                                            <td md-cell style="min-width:72px">{{room.ArrivalDate | date:'dd/MM, HH:mm'}}</td>
+                                            <td md-cell style="min-width:72px">{{room.DepartureDate | date:'dd/MM, HH:mm'}}</td>
+                                            <td md-cell>{{room.Total | currency:""}}</td>
+                                            <td md-cell hide-gt-xs show-gt-md>{{room.Paid | currency:""}}</td>
+                                            <td md-cell hide-gt-xs show-gt-md>{{room.Balance | currency:""}}</td>
+                                            <td md-cell style="padding-right: 0px;">
+                                                <!-- <md-icon ng-if="!room.Rooms.RoomId" md-svg-src="img/icons/ic_add_circle_outline_48px.svg" aria-label="Assign Room" style="cursor: pointer;" ng-click="processAssignRoom($event,room)"></md-icon>
+                                                <md-icon md-svg-src="img/icons/ic_attach_money_48px.svg" aria-label="Rate Type Operation" style="cursor: pointer;" ng-click="processGroupRateTypeOperation($event,room)"></md-icon> -->
+                                                <md-menu md-position-mode="target-right target" md-offset="0 -5">
+                                                    <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" style="margin: 0px;">
+                                                        <md-icon md-menu-origin md-svg-icon="img/icons/ic_forward_24px.svg"></md-icon>
+                                                    </md-button>
+                                                    <md-menu-content width="4" style="min-height:50px;max-height:350px">
+                                                        <md-menu-item>
+                                                            <md-button ng-click="viewDetail($event,room)">
+                                                                <div layout="row" flex>
+                                                                    <p flex>{{'VIEW_DETAIL' | translate}}</p>
+                                                                    <md-icon md-svg-src="img/icons/ic_pageview_48px.svg" aria-label="{{VIEW_DETAIL | translate}}" style="cursor: pointer;"></md-icon>
+                                                                </div>
+                                                            </md-button>
+                                                        </md-menu-item>
+                                                        <md-menu-item ng-if="!$parent.room.Rooms.RoomId && $parent.room.BookingStatus != 'CHECKOUT' && $parent.room.BookingStatus != 'CANCELLED'">
+                                                            <md-button ng-click="processAssignRoom($event,room)">
+                                                                <div layout="row" flex>
+                                                                    <p flex>{{'ASSIGN_ROOM' | translate}}</p>
+                                                                    <md-icon md-svg-src="img/icons/ic_add_circle_outline_48px.svg" aria-label="Assign Room" style="cursor: pointer;"></md-icon>
+                                                                </div>
+                                                            </md-button>
+                                                        </md-menu-item>
+                                                        <md-menu-item ng-if="$parent.room.BookingStatus != 'CHECKOUT' && $parent.room.BookingStatus != 'CANCELLED'">
+                                                            <md-button ng-click="processGroupRateTypeOperation($event,room)">
+                                                                <div layout="row" flex>
+                                                                    <p flex>{{'RATE_TYPE_OPERATION' | translate}}</p>
+                                                                    <md-icon md-svg-src="img/icons/ic_attach_money_48px.svg" aria-label="Rate Type Operation" style="cursor: pointer;"></md-icon>
+                                                                </div>
+                                                            </md-button>
+                                                        </md-menu-item>
+                                                        <md-menu-item ng-if="currentHotelConnectivities.isUsed == true && $parent.room.BookingStatus != 'CHECKOUT' && $parent.room.BookingStatus != 'CANCELLED' && room.Rooms.RoomName !='N/A' && room.Rooms.UseLock == true">
+                                                            <md-button ng-click="processCreateCard(room)">
+                                                                <div layout="row" flex>
+                                                                    <p flex>{{'CREATE_CARD' | translate}}</p>
+                                                                    <md-icon md-svg-src="img/icons/ic_credit_card_24px.svg" aria-label="Rate Type Operation" style="cursor: pointer;"></md-icon>
+                                                                </div>
+                                                            </md-button>
+                                                        </md-menu-item>
+                                                    </md-menu-content>
+                                                </md-menu>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+                            <!-- <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{groupData.RoomInformation.length}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination> -->
+                        </md-card>
+                    </md-content>
+                </div>
+            </md-tab>
+            <md-tab label="{{'PAYMENT' | translate}}">
+                <md-content layout="row" layout-row style="height: auto;" flex>
+                    <md-card style="border-top: 1px solid #eee;" flex="50" flex-xs="100" class="heightPayment">
+                        <section style="">
+                            <div layout="row" layout-align="space-between center" style="padding: 16px;">
+                                <span style="font-size: 20px; font-weight: 400; line-height: 16px;">{{'PAYMENT' | translate}}</span>
+                                <div>
+                                    <!-- <md-button ng-if="!groupData.GeneralInfo.IsGroupCheckOut" class="md-warn md-raised" ng-click="addGroupPayment()">
+                                        {{'ADD_PAYMENT' | translate}}
+                                    </md-button> -->
+                                    <md-button ng-if="!groupData.GeneralInfo.IsGroupCheckOut" class="md-primary md-fab md-mini" ng-click="addGroupPayment()">
+                                        <md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+                                            {{'ADD_PAYMENT' | translate}}
+                                        </md-tooltip>
+                                        <md-icon md-svg-src="img/icons/ic_add_24px.svg" style="fill:white"></md-icon>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </section>
+                        <md-card-content>
+                            <div layout layout-wrap flex="100">
+                                <md-input-container flex="50">
+                                    <label>{{'METHOD' | translate}}</label>
+                                    <md-select ng-model="payment.PaymentMethodId">
+                                        <md-option ng-repeat="method in groupData.GeneralInfo.PaymentMethods" ng-value="method.PaymentMethodId">{{ method.PaymentMethodName | translate}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container flex>
+                                    <label>{{'CURRENCY' | translate}}</label>
+                                    <md-select ng-model="payment.MoneyId">
+                                        <md-option ng-repeat="mon in groupData.GeneralInfo.Money" ng-value="mon.MoneyId">{{ mon.MoneyName}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+
+                            <div ng-if="payment.PaymentMethodId===4" layout layout-wrap flex="100">
+                                <md-input-container style="width: 100%;">
+                                    <label>{{'COMPANY' | translate}}</label>
+                                    <md-autocomplete md-selected-item="selectedCompanyCityLedger" md-search-text-change="searchCompanyTextChangeCityLedger(searchCompanyTextCityLedger)"
+                                        md-search-text="searchCompanyTextCityLedger" md-selected-item-change="selectedCompanyChangeCityLedger(item)"
+                                        md-items="item in queryCompanySearchCityLedger(searchCompanyTextCityLedger)" md-item-text="item.CompanyName"
+                                        md-min-length="0" md-menu-class="autocomplete-custom-template">
+                                        <md-item-template>
+                                            <span class="item-title">
+                                                <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                                <span style="margin: auto;"> {{item.CompanyName}} </span>
+                                            </span>
+                                        </md-item-template>
+                                    </md-autocomplete>
+                                </md-input-container>
+
+                            </div>
+                            <div layout layout-wrap flex="100">
+                                <md-input-container flex="33">
+                                    <label>{{'AMOUNT' | translate}}</label>
+                                    <input type="text" ng-model="payment.Amount" ui-number-mask="decimal" ui-negative-number />
+                                </md-input-container>
+                                <md-input-container flex id="description" style="">
+                                    <label>{{'DESCRIPTION' | translate}}</label>
+                                    <input type="textarea" ng-model="payment.PaymentDescription" />
+                                </md-input-container>
+                            </div>
+                            <md-subheader class="md-no-sticky">{{'GROUP_PAYMENT_LIST' | translate}}</md-subheader>
+                            <div ng-if="groupData.GroupPayments.length === 0" style="text-align: center;">
+                                <span style="display: inline;padding: 1.6em .6em .3em; font-family: 'Voltaire'; font-size: 90%; font-weight: bold;font-style: italic;text-transform: none;line-height: 1;color: #f44336;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius:.25em;">
+                                    {{'NO_PAYMENT_ADDED' | translate}}
+                                </span>
+                            </div>
+                            <md-table-container ng-if="groupData.GroupPayments.length > 0">
+                                <table md-table md-row-select="false" multiple="false" md-progress="promise">
+                                    <thead md-head md-order="query.order" md-on-reorder="logOrder">
+                                        <tr md-row>
+                                            <th md-column md-numeric md-order-by="PaymentNumber" style="text-align: left; padding-left: 0px;">
+                                                <span>{{'PAYMENT_NO.' | translate}} #</span>
+                                            </th>
+                                            <th md-column md-numeric md-order-by="Amount">
+                                                <span>{{'AMOUNT' | translate}}</span>
+                                            </th>
+                                            <th md-column md-numeric md-order-by="PaymentDescription">
+                                                <span>{{'DESCRIPTION' | translate}}</span>
+                                            </th>
+                                            <th md-column md-numeric>
+                                                <span>{{'OPERATION'| translate}}</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                        <tr md-row md-select="room" md-on-select="logItem" md-auto-select="true" ng-repeat="payment in groupData.GroupPayments | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                            <td ng-class="{ 'textDiabled' : payment.IsPaymentGroupDeleted }" md-cell style="text-align: center;">{{payment.PaymentNumber}}</td>
+                                            <td ng-class="{ 'textDiabled' : checkIsDeleted(payment) }" md-cell>
+                                                {{payment.Amount | currency}}
+                                                <span ng-if="payment.AmountInSpecificMoney != 0" style="font-weight: bold;">({{payment.MoneyName}} {{payment.AmountInSpecificMoney | number:payment.MinorUnitInSpecificMoney}})</span>
+                                            </td>
+                                            <td ng-class="{ 'textDiabled' : payment.IsPaymentGroupDeleted }" md-cell>{{payment.PaymentDescription}}</td>
+                                            <td md-cell>
+                                                <md-icon ng-if="!checkIsDeleted(payment)" md-svg-src="img/icons/ic_highlight_remove_24px.svg" aria-label="Delete Payment"
+                                                    style="cursor: pointer; " ng-click="processDeleteGroupPayment(payment) "></md-icon>
+                                                <md-icon md-svg-src="img/icons/ic_info_outline_24px.svg" ng-class="[{'inform':checkInform(payment)}]" aria-label="Detail "
+                                                    style="cursor: pointer; " ng-click="processShowGroupPaymentDetail(payment) "></md-icon>
+                                                <md-icon ng-if="!checkIsDeleted(payment)" ng-click="showPayment($event,payment)
+                                                    " md-svg-src="img/icons/ic_print_24px.svg " style="cursor: pointer;fill:#666 "></md-icon>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+                        </md-card-content>
+                    </md-card>
+                    <md-card style="border-top: 1px solid #eee; " flex>
+                        <section style=" ">
+                            <div layout="row " layout-align="space-between center " style="padding: 30px; ">
+                                <span style="font-size: 20px; font-weight: 400; line-height: 16px; ">{{'GROUP_PAYMENT_STATUS' | translate}}</span>
+                            </div>
+                        </section>
+                        <md-table-container>
+                            <table md-table md-row-select="false " multiple="false " md-progress="promise ">
+                                <thead md-head md-order="query.order " md-on-reorder="logOrder ">
+                                    <tr md-row>
+                                        <th md-column md-numeric md-order-by="Rooms.RoomName " style="padding-left: 0px; ">
+                                            <span>{{'ROOM' | translate}}</span>
+                                        </th>
+                                        <th md-column md-numeric md-order-by="Total ">
+                                            <span>{{'TOTAL' | translate}}</span>
+                                        </th>
+                                        <th md-column md-numeric md-order-by="Paid " hide-gt-xs show-gt-md>
+                                            <span> {{'PAID' | translate}}</span>
+                                        </th>
+                                        <th md-column md-numeric md-order-by="Balance " hide-gt-xs show-gt-md>
+                                            <span>{{'BALANCE' | translate}}</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row md-select="room " md-on-select="logItem " md-auto-select="true
+                                                    " ng-repeat="room in groupData.RoomInformation | filter: filter.search | orderBy: query.order
+                                                    | limitTo: query.limit : (query.page -1) * query.limit ">
+                                        <td md-cell>{{room.Rooms.RoomName}}</td>
+                                        <td md-cell>{{room.Total | currency:""}}</td>
+                                        <td md-cell hide-gt-xs show-gt-md>{{room.Paid | currency:""}}</td>
+                                        <td md-cell hide-gt-xs show-gt-md>{{room.Balance | currency:""}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                    </md-card>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+        <!-- </md-card> -->
+        </md-content>
+</div>

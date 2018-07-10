@@ -1,0 +1,94 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>{{'EDIT_ROOM_REPAIR' | translate}} - {{'ROOM' | translate}} {{editRRCtrl.currentRoom.RoomName}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="editRRCtrl.cancel()">
+            <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-dialog-content>
+    <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+        <div layout="row" layout-align="start center" flex="100" style="padding-bottom: 24px;">
+            <span flex="25" style="">{{'START_DATE' | translate}}</span>
+            <div flex>
+                <input kendo-date-time-picker ng-model="editRRCtrl.str" ng-disabled="editRRCtrl.roomRepair.disableStartDate" k-ng-model="editRRCtrl.roomRepair.RepairStartDate" style="font-size:16px;width: 100%;" k-options="editRRCtrl.DateTimePickerOption" />
+            </div>
+        </div>
+        <div layout="row" layout-align="start center" flex="100" style="padding-bottom: 24px;">
+            <span flex="25" style="">{{'END_DATE' | translate}}</span>
+            <div flex>
+                <input kendo-date-time-picker ng-model="editRRCtrl.str2" k-ng-model="editRRCtrl.roomRepair.RepairEndDate" style="width: 100%;font-size:16px" k-options="editRRCtrl.DateTimePickerOption" />
+            </div>
+        </div>
+        <div layout="row" layout-align="start center" flex="100" style="padding-bottom: 24px;">
+            <span flex="25" style="">{{'REASON' | translate}}</span>
+            <md-input-container flex style="margin: 0px;">
+                <label></label>
+                <input type="text" ng-model="editRRCtrl.roomRepair.RepairReason" />
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="start center" flex="100" style="padding-bottom: 24px;">
+            <md-button class="md-warn md-raised" ng-click="editRRCtrl.showConfirm = true">
+                {{'UNBLOCK' | translate}}
+            </md-button>
+        </div>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="editRRCtrl.showConfirm === true">
+            <span style="font-weight: 600; color: #f44336;">{{'DO_YOU_WANT_TO_UNBLOCK_ROOM_IN_THIS_BLOCK_TIME?' | translate}}</span>
+            <span>
+                <md-button class="md-primary md-raised" ng-click="editRRCtrl.unblockRoomRepair()">
+                    {{'YES' | translate}}
+                </md-button>
+                <md-button class="md-raised" ng-click="editRRCtrl.showConfirm = false">
+                    {{'NO' | translate}}
+                </md-button>
+            </span>
+            <!-- <span style="background-color: #259b24; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;" ng-click="	unblockRoomRepair()">{{'YES' | translate}}
+            </span>
+            <span style="background-color: #259b24; color: #fff;padding: 6px;margin: auto;cursor: pointer;border-radius: 3px;" ng-click="	showConfirm = false">{{'NO' | translate}}
+            </span> -->
+        </fieldset>
+
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="editRRCtrl.warning.DateCurrentTime === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                    {{'BLOCK_END_DATE_CAN_NOT_LESS_THAN_CURRENT_TIME' | translate}}.
+                </span>
+        </fieldset>
+
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="editRRCtrl.warning.DateNull === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                    {{'BLOCK_START_DATE_AND_BLOCK_END_DATE_CAN_NOT_BE_NULL' | translate}}.
+                </span>
+        </fieldset>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="editRRCtrl.warning.Reason === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                    {{'BLOCK_REASON_CAN_NOT_BE_NULL' | translate}}.
+                </span>
+        </fieldset>
+
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="editRRCtrl.warning.DateInvalid === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                    {{'BLOCK_END_DATE_CAN_NOT_LESS_THAN_BLOCK_START_DATE' | translate}}.
+                </span>
+        </fieldset>
+
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="editRRCtrl.warning.Conflict === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                    {{'CONFLICT_WITH_OTHER_BLOCK' | translate}}.
+                </span>
+        </fieldset>
+    </div>
+</md-dialog-content>
+<md-dialog-actions layout="row">
+    <md-button ng-click="editRRCtrl.cancel()" class="md-primary">
+        {{'CLOSE' | translate}}
+    </md-button>
+    <md-button ng-click="editRRCtrl.saveEditRoomPrice()" class="md-primary">
+        {{'SAVE_SETTING' | translate}}
+    </md-button>
+</md-dialog-actions>

@@ -1,0 +1,569 @@
+<style>
+  md-table-container table,
+  md-table-container table th,
+  md-table-container table th td {
+    width: 100%;
+  }
+
+  md-tabs {
+    background: #f2f2f2;
+  }
+
+  table table tr:first-child {
+    font-weight: bolder;
+  }
+
+  .md-list-item.md-2-line .md-list-item-text,
+  md-list-item.md-2-line>._md-no-style .md-list-item-text,
+  md-list-item.md-3-line .md-list-item-text,
+  md-list-item.md-3-line>._md-no-style .md-list-item-text {
+    margin: auto;
+  }
+
+  .md-list-item ._md-list-item-inner ._md-secondary-container,
+  md-list-item ._md-secondary-container {
+    height: auto;
+  }
+
+  .md-subheader ._md-subheader-inner {
+    color: rgba(255, 255, 255, 0.87);
+    font-weight: bold;
+  }
+
+  .md-subheader ._md-subheader-inner>.totalPayment {
+    color: rgb(3, 155, 229);
+    font-weight: bold;
+  }
+
+  md-list-item>p {
+    width: 100%;
+  }
+
+  md-list md-list-item p>label {
+    font-size: 15px;
+  }
+
+  .totalPayment {
+    padding: 10px;
+    top: 10px;
+    position: relative;
+    background: rgb(76, 175, 80);
+    color: white;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .md-toolbar-tools {
+    font-size: 16px;
+    letter-spacing: .005em;
+    box-sizing: border-box;
+    font-weight: 400;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    width: 100%;
+    height: 64px;
+    max-height: 64px;
+    padding: 0 16px;
+    margin: 0;
+  }
+
+  .padding-bottom10 {
+    padding-bottom: 20px;
+  }
+
+  .height450 {
+    max-height: 450px !important;
+  }
+
+  .height550 {
+    max-height: 500px !important;
+  }
+
+  /* .formInfo{border-bottom: 5px solid #f35800;} */
+
+  md-tab label {
+    font-weight: bold;
+  }
+
+  /* .voucher:hover{
+    transform: translate3d(0,-20px,0);
+    -webkit-transform: translate3d(0,-10px,0); 
+  }
+
+  .generalInfor:hover{
+    transform: translate3d(0,-20px,0);
+    -webkit-transform: translate3d(0,-10px,0); 
+  }*/
+
+  table.md-table thead.md-head>tr.md-row {
+    height: 34px;
+  }
+
+  .padding-top0 {
+    padding-top: 0;
+  }
+
+  .top-page {
+    background: url(img/bg-header.png);
+    background-repeat: no-repeat;
+    min-height: 55px;
+    border-radius: 0 !important;
+    background-size: cover;
+  }
+
+  md-table-container {
+    box-shadow: 0px 0px 1px 0px #656565;
+  }
+
+  .last_row_ th {
+    border-bottom: 2px solid #ddd;
+  }
+
+  .table>thead>tr>th {
+    vertical-align: bottom;
+    padding: 10px;
+    vertical-align: middle;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2),
+  table.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2),
+  table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
+  table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+    padding: 10px;
+  }
+
+  .table>thead>tr>th,
+  .table>tbody>tr>th,
+  .table>tfoot>tr>th,
+  .table>thead>tr>td,
+  .table>tbody>tr>td,
+  .table>tfoot>tr>td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+  }
+
+  .topHear {
+    background-color: rgb(63, 81, 181);
+  }
+
+  .topHear th,
+  .topHear th md-icon {
+    color: #fff !important;
+  }
+
+  .hightli {
+    border-right: 1px solid #9e9e9e57 !important;
+    background-color: #f2f2f27d;
+  }
+
+  .form-title {
+    top: 5px;
+    position: relative;
+    font-weight: bold;
+  }
+
+  .margin20 {
+    margin-bottom: 100px !important;
+  }
+  .box-header {
+		padding-left: 17px;
+		padding-right: 17px;
+		/*background: rgba(242, 242, 242, 0.35) !important;*/
+  }
+  .max-height50,
+	.max-height50 div {
+		max-height: 50px !important;
+		min-height: 50px !important;
+  }
+  
+	.sub-title {
+		text-transform: uppercase;
+		font-weight: 600;
+		color: rgba(58, 56, 56, 0.71);
+		line-height: 50px;
+		/*margin-left: 17px !important;*/
+  }
+  .box_numberpt{
+    margin-top: 14px;
+  }
+  
+	.topHear {
+		background-color: rgb(214, 214, 214);
+	}
+
+	.topHear th,
+	.topHear th md-icon {
+		color: #5c5c5d !important;
+	}
+
+	.hightli {
+		border-right: 1px solid #9e9e9e57 !important;
+		background-color: #f2f2f2;
+	}
+
+	.invoiceDeleted {
+		text-decoration-line: line-through !important;
+	}
+
+	.icon-btn {
+		cursor: pointer;
+	}
+	.row_btn button{
+		min-width: 45px;
+	}
+	.btn_hear md-icon{
+		fill: #fff;
+	}
+</style>
+<div  layout="column" layout-fill data-ng-init="init()">
+  <md-toolbar md-scroll-shrink class="top-page md-primary md-default-theme md-whiteframe-z1">
+    <div class="md-toolbar-tools">
+    <div layout="row" layout-sm="column" style="width:100%;" layout-align="space-between center">
+      <div layout="row">
+        <md-icon md-svg-src="img/icons/ic_payment_48px.svg"></md-icon>&nbsp;&nbsp;
+        <h2 md-truncate flex class="form-title">
+          <p ng-if="invoiceFund == 2">{{ 'DEPOSIT_PAYMENT' | translate }}</p>
+          <p ng-if="invoiceFund == 1">{{ 'CASH_PAYMENT' | translate }}</p>
+        </h2>
+      </div> 
+      <md-button ng-disabled="isView" ng-if="ShowSaveBtn" class="btn-c md-raised md-warn md-button" onclick="jQuery('#btnAddPayment').click()">
+        <md-icon md-svg-src="img/icons/ic_done_48px.svg"></md-icon>&nbsp;{{ 'SAVE' | translate }}
+      </md-button>
+    </div>
+
+    <!-- <div class="md-toolbar-tools">
+      <md-icon md-svg-src="img/icons/ic_payment_48px.svg"></md-icon>&nbsp;&nbsp;
+      <h2 md-truncate flex>
+        {{ 'DEPOSIT_PAYMENT' | translate }}
+      </h2>
+      <span flex></span>
+    </div> -->
+  </div>
+  </md-toolbar>
+  <md-content  layout="row" class="padding-top0" style="overflow-y: hidden;min-height: fit-content;">
+    <form name="addPayment" id="addPayment" ng-submit="addInvoices()" ng-cloak>
+        <button id="btnAddPayment" class="hide">submit</button>
+      <section  layout-padding class="padding-top0">
+        <div class="padding-top0">
+          <div class="formInfo padding-top0" layout="row" layout-sm="column" layout-xs="column">
+
+            <md-card class="generalInfor max-fit-content" flex-gt-sm="55" flex-sm="100" flex-xs="100" flex >
+              <div class="box-header">
+                <div layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+                  <div flex="85" flex-xs="75">
+                    <span class="sub-title">{{'GENERAL_INFOMATION' | translate}}</span>
+                  </div>
+                  <div>
+                  </div>
+                </div>
+                <md-divider></md-divider>
+              </div>
+              <md-card-content flex="100" layout-padding class="max-fit-content">
+                <md-list>
+                  <md-list-item>
+                    <p>
+                      <md-autocomplete ng-disabled="false" ng-model="selectedCustomer" md-items="item in querySearch(searchCustomer)" md-item-text="item.CompanyName"
+                        md-search-text="searchCustomer" md-selected-item-change="setSelected(item)" md-min-length="0" placeholder="{{ 'CUSTOMER_SEARCH' | translate }}">
+                        <md-item-template>
+                          <span md-highlight-text="searchCustomer" md-highlight-flags="^i">{{item.CompanyName}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                          No states matching "{{searchCustomer}}" were found.
+                        </md-not-found>
+                      </md-autocomplete>
+                    </p>
+                  </md-list-item>
+                  <md-list-item>
+                    <p>
+                      <md-input-container class="md-block margin-bottom0" flex-gt-xs>
+                        <label>{{ 'RECEIVER' | translate }}</label>
+                        <input ng-model="selectedCustomer.CompanyName" disabled>
+                      </md-input-container>
+                    </p>
+                    <p class="md-secondary"></p>
+                  </md-list-item>
+                  <!-- <md-divider></md-divider> -->
+                  <md-list-item>
+                    <p>
+                      <md-input-container class="md-block margin-bottom0" flex-gt-xs>
+                        <label>{{ 'EZCLOUD_ADDRESS' | translate }}</label>
+                        <input ng-model="selectedCustomer.ContactAddress" disabled>
+                      </md-input-container>
+                    </p>
+                    <p class="md-secondary"></p>
+                  </md-list-item>
+                  <!-- <md-divider></md-divider> -->
+                  <md-list-item>
+                    <p style="max-width:25%;" class="">
+                      {{ 'CONTENT_PAY' | translate }}
+                    </p>
+                    <p class="md-secondary" layout="row" layout-align="space-around center">
+                      <!-- <md-select ng-model="typeCate" placeholder="" class="md-no-underline">
+                        <md-option ng-value="cat.PaymentTypeDetailId" ng-repeat="cat in categories" ng-selected="$index == 0 ? true : false">
+                          {{cat.Name}}
+                        </md-option>
+                      </md-select> -->
+                      <tree-dropdown flex-gt-sm class="tree-dropdown margin-bottom0" parent="typeCate" data="categories" is-add-invoice="true" selected="categories[0]"></tree-dropdown>
+                      <md-input-container style="top:9px;left:20px;" class="md-block margin-bottom0" flex-gt-xs>
+                        <label></label>
+                        <input ng-model="content" maxlength="250" md-maxlength="250" type="text" md-no-asterisk placeholder="">
+                      </md-input-container>
+                    </p>
+                  </md-list-item>
+                  <md-list-item ng-show="invoiceFund == 2">
+                    <p>
+                      <md-select ng-model="bankAccountPaid" placeholder="{{ 'BANK_ACCOUNT_PAY' | translate }}" class="md-no-underline">
+                        <md-option ng-repeat="(index, item) in banklist" ng-value="{{item.HotelBankAccountId}}"
+                                   ng-selected="$first">    
+                            {{item.BankName}} - {{item.BankBranch}} [{{item.AcctNo || ""}}]
+                        </md-option>
+                      </md-select>
+                      <!-- <md-input-container class="md-block" flex-gt-xs>
+                        <label>{{ 'BANK_ACCOUNT_PAY' | translate }}</label>
+                        <input ng-model="bankAccountPaid" type="text">
+                      </md-input-container> -->
+                    </p>
+                    <p class="md-secondary">
+                    </p>
+                  </md-list-item>
+                </md-list>
+              </md-card-content>
+            </md-card>
+
+            <md-card flex-gt-sm="55" flex-sm="100" flex-xs="100" flex class=" max-fit-content">
+              <div class="box-header">
+                <div layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+                  <div flex="85" flex-xs="75">
+                    <span class="sub-title">{{'VOUCHER' | translate}}</span>
+                  </div>
+                  <div>
+                  </div>
+                </div>
+                <md-divider></md-divider>
+              </div>
+
+              <md-card-content flex="100" layout-padding class="max-fit-content">
+                <md-list>
+                  <md-list-item>
+                    <p>
+                      <md-input-container class="md-block margin-bottom0" flex-gt-xs>
+                        <label>{{ 'EXPENDITURE_MANAGE_PAY_NUMBER' | translate }}</label>
+                        <input ng-model="receiptNum">
+                      </md-input-container>
+                    </p>
+                  </md-list-item>
+                  <!-- <md-divider></md-divider> -->
+                  <md-list-item>
+                    <p style="width:15%;">
+                      <label class="md-warn">{{ 'DAY_PAID' | translate }}</label>
+                    </p>
+                    <p class="md-secondary margin00">
+                      <md-datepicker md-max-date="maxDate" ng-model="receiptedDate" md-placeholder="{{ 'DAILYCLEAN_DETAILS_CHANGEDATE' | translate }}" md-open-on-focus></md-datepicker>
+                    </p>
+                  </md-list-item>
+                  <!-- <md-divider></md-divider> -->
+                  <md-list-item>
+                    <p style="position: relative;left:17px;">
+                      <label>{{ 'EXPENDITURE_MANAGE_PAY' | translate }}</label>
+                    </p>
+                    <p class="md-secondary margin00" layout="row" layout-align="space-around center">
+                      <md-select ng-model="type" ng-change="checkDisplayInvoiceForm()" placeholder="{{ 'TYPE' | translate }}" class="md-no-underline" ng-disabled="type === 3">
+                        <!-- off chi tra NCC <md-option value="2">{{ 'PAY_SUPPLIERS' | translate }}</md-option> -->
+                        <md-option value="1" selected>{{ 'OTHER_PAY' | translate }}</md-option>
+                      </md-select>
+                      <md-button ng-show="isChooseInvoice" class="md-raised md-primary" ng-click="showDialog($event)" ng-disabled="!isChooseInvoice">
+                        <md-icon md-svg-src="img/icons/ic_search_48px.svg"></md-icon>&nbsp;
+                        {{ 'POS_INVOICE_SEARCH' | translate }}
+                      </md-button>
+                    </p>
+                  </md-list-item>
+                
+                  <!-- <md-divider></md-divider> -->
+                  <md-list-item>
+                    <p style="margin:24px auto 20px auto;">
+                      <md-autocomplete ng-disabled="false" ng-model="selectedEmployee" md-items="item in querySearch(searchEmployee, 'employee')" md-selected-item="selectedEmployee"
+                        md-item-text="item.name" md-search-text="searchEmployee" md-selected-item-change="setSelected(item, 'employee')" md-min-length="0"
+                        placeholder="{{ 'SEARCH_EMPLOYEE' | translate }}">
+                        <md-item-template>
+                          <span md-highlight-text="searchEmployee" md-highlight-flags="^i">{{item.name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                          No states matching "{{searchEmployee}}" were found.
+                        </md-not-found>
+                      </md-autocomplete>
+                      <!-- <md-input-container class="md-block " flex-gt-xs>
+                        <label>{{ 'EMPLOYEE' | translate }}</label>
+                        <input ng-model="selectedEmployee.name">
+                      </md-input-container> -->
+                    </p>
+                  </md-list-item>
+                  <md-list-item ng-show="invoiceFund == 2">
+                    <p>
+                      <md-input-container style="position:relative; top:22px;" class="md-block" flex-gt-xs>
+                        <label>{{ 'BANK_ACCOUNT_RECEIVE' | translate }}</label>
+                        <input ng-model="bankAccountReceive" type="text">
+                      </md-input-container>
+                    </p>
+                    <p class="md-secondary">
+                    </p>
+                  </md-list-item>
+                </md-list>
+              </md-card-content>
+            </md-card> 
+          </div> 
+
+          <div class="margin20">
+            <md-tabs md-dynamic-height md-border-bottom style="background-color: #EEEEEE;" md-active="paymentsSelected.length == 0">
+              <md-tab label="{{'DETAIL' | translate}}">
+                <md-content class="md-padding padding0">
+                  <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+                    <md-table-container>
+                      <table md-table>
+                        <thead md-head md-order="query.order" class="topHear">
+                          <tr md-row>
+                            <th md-column>
+                              <span>{{ 'DESCRIPTION' | translate }}</span>
+                            </th>
+                            <th md-column colspan="2" style="text-align: center;">{{ 'AMOUNT' | translate }}</th>
+                            <!-- <th md-column>
+                              <span>{{ 'AMOUNT_CONVERTED' | translate }}</span>
+                            </th>
+                            <th md-column>
+                              <span>{{ 'STAFF_EXPENSE' | translate }}</span>
+                            </th> -->
+                          </tr>
+                        </thead>
+                        <tbody md-body>
+                          <tr md-row ng-repeat="paymentDetail in paymentDetails track by $index">
+                            <td md-cell layout="row">
+                              <md-button style="top:24px;" class="md-fab md-mini md-primary" aria-label="Add line"
+                                ng-click="addPayDetail($index)">
+                                <md-tooltip md-direction="right">{{ 'ADD_PAYMENT_DETAIL' | translate }}</md-tooltip>
+                                <md-icon md-svg-src="img/icons/ic_add_24px.svg"></md-icon>
+                              </md-button>
+                              <md-button style="top:24px;" class="md-fab md-mini md-warn" aria-label="Remove line"
+                                ng-click="removePayDetail(paymentDetail, $index)">
+                                <md-tooltip md-direction="left">{{ 'REMOVE_PAYMENT_DETAIL' | translate }}</md-tooltip>
+                                <md-icon md-svg-src="img/icons/ic_remove_24px.svg"></md-icon>
+                              </md-button>
+                              <md-input-container class="md-block" flex-gt-xs>
+                                <input ez-focus="focusRequire" required maxlength="250" md-maxlength="250" type="text" ng-model="paymentDetail.PaymentDescription">
+                              </md-input-container>
+                            </td>
+                            <td md-cell>
+                              <md-select required="true" ez-focus="focusRequire" style="position: relative;top:-12px;min-width:80px;" ng-model="paymentDetail.MoneyId" placeholder="" class="md-no-underline">
+                                <md-option value="{{curr.MoneyId}}" ng-value="curr.MoneyId" ng-repeat="curr in listCurrencies" ng-selected="paymentDetail.MoneyId == curr.MoneyId">{{curr.MoneyName}}</md-option>
+                              </md-select>
+                            </td>
+                            <td md-cell>
+                              <md-input-container class="md-block" style="min-width:80px;" flex-gt-xs ng-if="paymentDetail.MoneyId">
+                                <input ez-focus="focusRequire" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" min="0" ng-model="paymentDetail.Amount" type="text" ng-click="getMinorUnitCurrency(paymentDetail.MoneyId)" ui-number-mask="getMinorUnitCurrency(paymentDetail.MoneyId)" class="ng-pristine ng-valid md-input ng-empty ng-touched" aria-invalid="false" required ui-negative-number>
+                              </md-input-container>
+                            </td>
+                            <!-- <td md-cell>{{paymentDetail.transferMoney || 0 | currency}}</td>
+                            <td md-cell>
+                              <md-input-container class="md-block" style="min-width:80px;" flex-gt-xs>
+                                <input ng-model="paymentDetail.payer" type="text">
+                              </md-input-container>
+                            </td> -->
+                          </tr>
+                        </tbody>
+                        <tfoot md-foot>
+                          <tr md-row>
+                            <td md-cell></td>
+                            <td md-cell colspan="2">
+                              <strong layout-align="end center" class="totalPayment">
+                                {{ 'TOTAL' | translate }}
+                                <b>{{ getTotalPayment(paymentDetails) | currency }}</b>
+                              </strong>
+                             </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </md-table-container>
+                  </section>
+                </md-content>
+              </md-tab>
+              <md-tab label="{{'VOUCHER' | translate}}" ng-disabled="!isChooseInvoice" md-active="isChooseInvoice && paymentsSelected.length > 0">
+                <md-content class="md-padding">
+                  <section layout="row" layout-sm="column" layout-align="start center" layout-wrap>
+                    <md-table-container>
+                      <table md-table>
+                        <thead md-head md-order="query.order">
+                          <tr md-row class="topHear">
+                            <th md-column>
+                              <span>{{ 'VOUCHERS_DATE' | translate }}</span>
+                            </th>
+                            <th md-column>
+                              <span>{{ 'EXPENDITURE_MANAGE_PAY_NUMBER' | translate }}</span>
+                            </th>
+                            <th md-column>
+                              <span>{{ 'EXPENDITURE_TOTAL_AMOUNT' | translate }}</span>
+                            </th>
+                            <th md-column>
+                              <span>{{ 'UNPAY_AMOUNT' | translate }}</span> 
+                            </th>
+                            <th md-column>
+                              <span>{{ 'THE_NUMBER_PAYMENT' | translate }}</span>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody md-body>
+                          <tr md-row ng-repeat="payment in paymentsSelected" class="md-body-2">
+                            <td md-cell>
+                              {{payment.CreatedDate | date: 'yyyy/MM/dd'}}
+                            </td>
+                            <td md-cell>
+                              {{payment.PaymentNumber}}
+                            </td>
+                            <td md-cell>
+                              {{ payment.Amount | currency:"":indexCurrencies[payment.MoneyName].Currencies.MinorUnit }}
+                            </td>
+                            <td md-cell>
+                              {{payment.SubAmount || 0 | currency:"":indexCurrencies[payment.MoneyName].Currencies.MinorUnit}}
+                            </td>
+                            <td md-cell>
+                              {{ payment.payAmount || 0 | currency:"":indexCurrencies[payment.MoneyName].Currencies.MinorUnit}}
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot md-foot>
+                          <tr md-row>
+                            <td md-cell></td>
+                            <td md-cell></td>
+                            <td md-cell></td>
+                            <td md-cell colspan="2">
+                              <strong layout-align="end center" class="totalPayment">
+                                {{ 'TOTAL' | translate }}
+                                <b>{{getTotalPayment(paymentsSelected) | currency}}</b>
+                              </strong>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </md-table-container>
+                  </section>
+                </md-content>
+              </md-tab>
+            </md-tabs>
+          </div>
+          <!-- <div layout="row" layout-sm="column" layout-align="start center">
+            <md-button ng-disabled="addPayment.$invalid" class="md-primary md-raised" ng-click="addInvoices()">
+              <md-icon md-svg-src="img/icons/ic_done_48px.svg"></md-icon>&nbsp;{{ 'SAVE' | translate }}
+            </md-button>
+          </div> -->
+        </div>
+      </section>
+    </form>
+  </md-content>
+</div>

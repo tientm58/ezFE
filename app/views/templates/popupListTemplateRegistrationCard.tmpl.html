@@ -1,0 +1,295 @@
+<style>
+    md-list-item.md-1-line.md-clickable.active {
+        background: #ccc;
+ width: 100%;
+    }
+    .white-box2 table{
+        background: #fff;
+        margin: auto;
+    }
+    .width100pec{
+        min-width: 100%;
+        min-height: 100%;
+    }
+    ._md-list-item-inner{
+        color: #b3b3b3;
+    }
+    .active ._md-list-item-inner{
+        color: black;
+    }
+    @media screen and (max-width: 760px) {
+
+        .fullscreen-dialog {
+            height: 100% !important;
+            width: 100% !important;
+            max-height: 100%;
+            max-width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 0;
+        }
+    }
+
+    #reportViewer1 {
+        top: 61px !important;
+    }
+
+    .k-menu .k-item,
+    .k-menu.k-header {}
+
+    .k-header,
+    .k-autocomplete,
+    .k-button,
+    .k-draghandle,
+    .k-dropdown-wrap,
+    .k-grid-header,
+    .k-grouping-header,
+    .k-header,
+    .k-numeric-wrap,
+    .k-pager-wrap,
+    .k-panelbar .k-tabstrip-items .k-item,
+    .k-picker-wrap,
+    .k-progressbar,
+    .k-state-highlight,
+    .k-tabstrip-items .k-item,
+    .k-textbox,
+    .k-toolbar,
+    .km-pane-wrapper>.km-pane>.km-view>.km-content {
+        background: url(textures/highlight.png) !important;
+        background: none, -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, .6)), to(rgba(255, 255, 255, 0))) !important;
+        background: none, -webkit-linear-gradient(top, rgba(255, 255, 255, .6) 0, rgba(255, 255, 255, 0) 100%) !important;
+        background: none, linear-gradient(to bottom, rgba(255, 255, 255, .6) 0, rgba(255, 255, 255, 0) 100%) !important;
+        background-position: 50% 50% !important;
+    }
+
+    .footer {
+        /*display:none;*/
+    }
+
+    .page-container {
+        position: relative;
+    }
+
+    .table2 {
+        border-top: 1px solid #313131;
+    }
+
+    .sign {
+        border-top: 1px solid #DDDDDD;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+    .none_topBorder {
+        border-top: 0 !important;
+    }
+
+    .responsive-message {
+        position: absolute;
+        bottom: .5in;
+        /*height: 1.6in;*/
+        /*left: .5in;*/
+        left: 0in;
+        right: .5in;
+    }
+
+    .nonePadding {
+        padding: 0px !important;
+    }
+
+    .fontBold {
+        font-weight: bold;
+    }
+
+    thead td {
+        /*text-transform: uppercase;*/
+        font-weight: bold;
+    }
+
+    .pdf-page {
+        margin: 0 auto;
+        box-sizing: border-box;
+        /* box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .3); */
+        background-color: #fff;
+        color: #333;
+        position: relative;
+        padding-left: 15px;
+    }
+
+    .pdf-header {
+        position: absolute;
+        top: .1in;
+        /*height: 1.6in;*/
+        left: .5in;
+        /*left: 0in;*/
+        right: .5in;
+        /*border-bottom: 1px solid #e5e5e5;*/
+    }
+
+    .invoice-number {
+        /*padding-top: .17in;*/
+        float: right;
+        margin-top: -6px;
+    }
+
+    .invoice-number div.lin {
+        /*line-height: 29px;*/
+        padding-bottom: 18px;
+    }
+
+    .pdf-footer {
+        position: absolute;
+        /*bottom: .5in;*/
+        /*bottom: 1in;*/
+        bottom: 0.2in;
+        height: .6in;
+        /*left: .5in;*/
+        left: 0in;
+        right: .5in;
+        padding-top: 10px;
+        border-top: 1px solid #e5e5e5;
+        text-align: left;
+        color: #787878;
+        font-size: 12px !important;
+    }
+
+    .pdf-footer .left-footer p {
+        color: #979797;
+        line-height: 20px;
+        text-align: right;
+    }
+
+    .pdf-footer .right-footer p {
+        color: #979797;
+        line-height: 26px;
+    }
+
+    .pdf-body {
+        position: absolute;
+        top: 199px;
+        bottom: 1.2in;
+        left: .5in;
+        /*left: 0in;*/
+        right: .5in;
+    }
+
+    .size-a5 {
+        /*height: 8.3in; */
+        height: 11.7in;
+        width: 7.53in;
+    }
+
+    .size-a4 {
+        height: 11.7in;
+        /*height: 7.52in;*/
+        width: 8.7in;
+    }
+
+    .size-letter {
+        width: 8.5in;
+        height: 11in;
+    }
+
+    .size-executive {
+        width: 7.25in;
+        height: 10.5in;
+    }
+
+    .company-logo {
+        font-size: 30px !important;
+        font-weight: bold;
+        color: #3aabf0;
+    }
+
+    .for {
+        position: absolute;
+        top: 1.4in;
+        left: .5in;
+        right: .5in;
+    }
+
+    .from {
+        position: absolute;
+        top: 1.5in;
+        right: .5in;
+        width: 1.5in;
+    }
+
+    .from p,
+    .from td,
+    .for p,
+    .for td {
+        color: #787878;
+    }
+
+    .signature {
+        padding-top: .5in;
+    }
+
+    @media print {
+        .pdf-header {
+            left: 0in;
+        }
+        .for {
+            left: 0;
+        }
+        .pdf-body {
+            left: 0in;
+        }
+        #btn-print,
+        .hideP {
+            display: none;
+        }
+        .pdf-page {
+            padding-left: 0;
+        }
+    }
+</style>
+<md-dialog class="width100pec gray-box" aria-label="{{'TEMPLATE_FORM' | translate}}">
+    <form ng-cloak>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>{{'TEMPLATE_FORM' | translate}}</h2>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="hide()">
+            <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+  
+      <md-dialog-content>
+        <div class="md-dialog-content">
+           <div layout="row">
+                <div flex="30"  flex-xs="100">
+                    <md-list flex class="padding0">
+                        <md-list-item class="md-1-line" ng-class="[{'active':(isChoose == $index)}]" ng-repeat="temp in Templates" ng-click="choose(temp, $index)"> 
+                            <p>{{temp.name}}</p> 
+                        </md-list-item> 
+                    </md-list>
+                </div>
+                <div flex>  
+                    <div class="white-box white-box2">
+                        <br>
+                            <div class="page-container hidden-on-narrow">
+                                <div id="content_page_print" class="pdf-page size-a4" data-ng-bind-html="trustAsHtml(contentShow)">
+                                </div>
+                            </div>
+                        <br>
+                    </div>                
+                </div>
+           </div>
+        </div>
+      </md-dialog-content>
+  
+      <md-dialog-actions layout="row">
+        <span flex></span> 
+        <md-button class="md-raised" ng-click="answer('')">
+            {{'CANCEL' | translate}}
+        </md-button>
+        <md-button class="md-raised" ng-click="answer(contentShow)">
+            {{'CHOOSE' | translate}}
+        </md-button>
+      </md-dialog-actions>
+    </form>
+  </md-dialog>

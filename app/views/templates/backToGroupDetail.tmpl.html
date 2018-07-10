@@ -1,0 +1,32 @@
+<style>
+	
+</style>
+<md-dialog aria-label="{{'BACK_TO_GROUP_DETAIL' | translate}}" flex-gt-xs="98" flex-xs="98">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{'ROOM_IN_GROUP' | translate}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content" layout="row" layout-wrap flex="100" layout-align="space-between start">
+            <div layout="row" layout-align="start center" flex="100">
+                <div flex>
+                    <span style="color:red;font-weight: bold">{{'BACK_TO_GROUP_SUGGEST' | translate}}</span>
+                </div>
+            </div>
+        </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+        <md-button ng-click="cancel()" class="md-primary">
+            {{'CANCEL' | translate}}
+        </md-button>
+        <md-button ng-click="goToGroup()" class="md-warn">
+            {{'GO_TO' | translate}}
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

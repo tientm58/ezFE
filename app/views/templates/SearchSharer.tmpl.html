@@ -1,0 +1,236 @@
+<style>
+
+  md-input-container.md-default-theme label,
+  md-input-container.md-default-theme .md-placeholder {
+    color: grey !important;
+    font-weight: bold !important;
+  }
+
+  .marginTop2 {
+    /*margin-top: 4px;*/
+  }
+
+  md-autocomplete.md-default-theme,
+  md-autocomplete {
+    background: rgb(255, 255, 255);
+  }
+
+  .md-autocomplete-suggestions li {
+    line-height: 12px;
+  }
+
+  
+    .md-whiteframe-1dp, .md-whiteframe-z1{
+    box-shadow:none !important;
+  }
+  md-dialog .md-dialog-content{
+    padding:9px;
+  }
+  md-card{
+    /*margin:0px;*/
+  }
+  .k-datetimepicker .k-picker-wrap .k-icon {
+    margin: 6px 2px;
+  }
+  
+  .k-i-calendar {
+    background-position: -32px -176px !important;
+  }
+  
+  .k-i-clock {
+    background-position: -32px -192px !important;
+  }
+  
+  .k-picker-wrap .k-icon {
+    margin: 6px 2px;
+  }
+  md-card md-card-content{
+    /*margin:0px;
+    padding:2px;*/
+  }
+  md-list-item{
+    height: 85px !important;
+  }
+  md-list{
+    padding: 0px;
+  }
+   @media (max-width: 768px) {
+        md-dialog#dialogAddShare{
+            min-width: 100%;
+            min-height: 100%;
+        }
+    }
+</style>
+<md-dialog aria-label="TRANSACTION"  ng-cloak flex-xs="98" flex-sm="80" flex-gt-sm="80">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{'GUEST_SEARCH' | translate}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()" aria-label="cancel" >
+          <md-icon md-svg-src="img/icons/ic_close_48px.svg"  style="fill: white;"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content >
+      <div class="md-dialog-content">
+        <md-card style="margin:0px;">
+          <md-card-content style="margin:0px;padding:2px;">
+          <section layout="row" layout-align="space-between center" layout-wrap flex="100" >
+          <section flex-xs="100" flex-sm="100" flex-gt-sm="45" flex-md="100" layout="row" layout-align="space-between center" layout-wrap>
+            <md-input-container style="margin-bottom: 16px;" flex="45">
+              <label>{{'GUEST_NAME' | translate}} </label>
+              <input type="text" ng-model="search.GuestName">
+            </md-input-container>
+            <md-input-container style="margin-bottom: 18px;" flex="45">
+              <label>{{'PHONE' | translate}}</label>
+              <input type="text" ng-model="search.Phone">
+            </md-input-container>
+          </section>
+
+          <section flex-xs="100" flex-sm="100" flex-gt-sm="45" flex-md="100" layout="row" layout-align="space-between center" layout-wrap>
+            <md-input-container style="margin-bottom: 16px;" flex="45">
+              <label>{{'IDENTITY_NUMBER' | translate}} </label>
+              <input type="text" ng-model="search.IdentityNumber">
+            </md-input-container>
+            <md-input-container flex="45" flex-sm="100" flex-xs="100" style="margin-top: 4px;" >
+              <label></label>
+              <md-autocomplete md-selected-item="selectedCountries" md-search-text-change="searchCountriesTextChange(searchCountriesText)" md-search-text="searchCountriesText"
+                                    md-selected-item-change="selectedCountriesChange(item)" md-items="item in queryCountriesSearch(searchCountriesText)"
+                                    md-item-text="item.CountryName" md-min-length="0" md-menu-class="autocomplete-custom-template"
+                                    placeholder="{{ 'COUNTRY' | translate }}"
+                                    >
+                                    <md-item-template>
+                                        <span class="item-title">
+                                                <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                                <span style="margin: auto;"> {{item.CountryName}} </span>
+                                        </span>
+                                    </md-item-template>
+                                </md-autocomplete>
+            </md-input-container> 
+          </section>
+          <section flex-xs="100" flex-sm="100" flex-gt-sm="45" flex-md="100" layout="row" layout-align="space-between center" layout-wrap>
+            <div flex-xs="55" flex-sm="55" flex-md="50" flex-gt-sm="55" layout="row" layout-align="start center" layout-wrap style="margin: 0px 0px 26px 0px;">
+              <div layout="row" layout-align="start center" flex="100">
+                <div layout="row" layout-align="space-between center" flex="45">
+                  <span flex="75" flex-xs="65" style="margin: auto 0px;">{{'RES._DATE' | translate}}</span>
+                  <md-checkbox aria-label="checkbox" flex style="margin: 0px; min-width: 0px;max-width: 25px;" flex ng-model="search.CreateDateIncluded">
+                  </md-checkbox>
+                </div>
+                <div flex="55">
+                  <input kendo-date-picker ng-disabled="!search.CreateDateIncluded" ng-model="createDateFromString" k-ng-model="search.createDateFrom" style="width: 100%;" k-options="DatePickerOption" />
+                </div>
+              </div>
+            </div>
+            <div flex-xs="45" flex-md="50" flex-sm="33" flex-gt-sm="45" layout="row" layout-align="start center" layout-wrap style="margin: 0px 0px 26px 0px;">
+              <div layout="row" layout-align="start center" flex="100">
+                <span flex="20" style="margin: auto 0px;">{{'TO' | translate}}</span>
+                <div flex>
+                  <input kendo-date-picker ng-disabled="!search.CreateDateIncluded" ng-model="createDateToString" min="search.createDateFrom" k-ng-model="search.createDateTo" style="width: 100%;" k-options="DatePickerOption" />
+                </div>
+              </div>
+            </div>
+
+          </section>
+          <section flex-gt-sm="55" style="margin-top:-30px">
+            <section>
+              <div flex="100" layout-align="end start" layout="row">
+                <md-button id="search" class="md-warn md-raised" ng-click="processSearch()">
+                  {{'SEARCH' | translate}}
+                </md-button>
+              </div>
+            </section>
+          </section>
+        </section>
+          </md-card-content>
+        </md-card>
+        <md-card flex style="border-top: 1px solid #eee;margin:0px;;margin-top:10px">
+          <md-card-content >
+            <div layout="row" layout-align="center center" ng-hide="searchResult.length > 0">
+              <span   style="text-align: middle;font-style: italic;font-weight: bold; color: #f44336;height:40px;padding-top:12px">
+                  {{'NO_GUEST_FOUND' | translate}}
+              </span>
+            </div>
+            <div ng-if="TotalRecord - search.SkipRecord > 10" layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+              <!-- <md-button class="md-raised" ng-disabled="search.PageNumber -1 <= 0" ng-click="pageSearchGuestDB(0)">
+                <md-icon md-svg-src="img/icons/ic_keyboard_arrow_left_24px.svg"></md-icon>
+              </md-button>
+                {{search.PageNumber}} /{{numberOfPages}}
+              <md-button class="md-raised" ng-disabled="search.PageNumber >= numberOfPages" ng-click="pageSearchGuestDB(1)">
+                <md-icon md-svg-src="img/icons/ic_keyboard_arrow_right_24px.svg"></md-icon>
+              </md-button> -->
+              <md-button md-prevent-menu-close="md-prevent-menu-close" ng-click="moreCustomer()">
+                <span md-menu-align-target style="text-align:center;">
+                  <code>{{'MORE_CUSTOMER' | translate}}</code>
+                </span>
+              </md-button>
+            </div>
+            <md-list ng-if="searchResult.length > 0" id="hight100">
+              <md-list-item id="hight100" flex="100" layout ng-repeat="result in searchResult" style="padding: 0px; border-bottom: 1px solid #eee;">
+                <md-list-item flex-gt-sm="90" flex-sm="90" flex-xs="85" class="md-3-line" layout layout-align="start center" ng-if="!result.IsDeleted">
+                  <div class="md-list-item-text" flex="100" ng-class="{IsDelete:result.IsDeleted}" >
+                    <h3 flex="100">
+                        <span><md-icon md-svg-src="img/icons/ic_perm_identity_48px.svg" ></md-icon></span> 
+                        <span hide-xs ng-if="result.IdentityNumber">{{result.IdentityNumber}} |</span>
+                        <span hide-xs ng-if="!result.IdentityNumber">{{'NOT_UPDATED' | translate}} |</span> 
+                        <span > {{ result.Fullname| truncate:16 }}
+                          <span ng-show="result.Fullname.length> 16">...</span>
+                        </span> 
+                        <span hide-xs>| {{ result.GenderName | translate }}</span>
+                        <span ng-if="result.birthdayValid" hide-xs>| {{result.Birthday | date: 'dd/MM/yyyy'}}</span>
+                        <span ng-if="!result.birthdayValid" hide-xs>| {{'NOT_UPDATED' | translate}}</span>
+                    </h3>
+                    <p flex="100">
+                      <span><md-icon md-svg-src="img/icons/ic_phone_android_48px.svg" ></md-icon></span>
+                      <span ng-if="result.Mobile">{{result.Mobile}}</span>
+                      <span ng-if="!result.Mobile">{{'NOT_UPDATED' | translate}}</span>
+
+                      <span hide-xs><md-icon md-svg-src="img/icons/ic_email_48px.svg" ></md-icon> </span>
+                      <span hide-xs ng-if="result.Email">{{result.Email}}</span>
+                      <span hide-xs ng-if="!result.Email">{{'NOT_UPDATED' | translate}}</span>
+                    </p>
+                    <p hide-xs flex="100">
+                      <span><md-icon md-svg-src="img/icons/ic_place_48px.svg" ></md-icon></span>
+                      <span ng-if="result.Address">{{result.Address}}</span>
+                      <span ng-if="!result.Address">{{'NOT_UPDATED' | translate}}</span>
+
+                      <span><md-icon md-svg-src="img/icons/ic_home_48px.svg" ></md-icon> </span>
+                      <span ng-if="result.Countries.CountryName">{{result.Countries.CountryName}}</span>
+                      <span ng-if="!result.Countries.CountryName">{{'NOT_UPDATED' | translate}}</span>
+                    </p>
+                  </div>
+                </md-list-item>
+                <div flex-gt-sm="10" flex-sm="10" flex-xs="15" class="md-list-item-text" layout="row" layout-align="end center" ng-if="!result.IsDeleted">
+                     <div  layout="column" layout-align="center center" style="margin: auto: 0px;">
+                      <md-button class="md-icon-button launch" style="padding: 0px; margin: 0px;" aria-label="ADD" ng-click="SelectGuest(result)">
+                        <md-icon md-svg-src="img/icons/ic_check_24px.svg" style="fill: dodgerblue;"></md-icon>
+                      </md-button>
+                      <span style="display: inline;
+                          padding: .2em .6em .3em;
+                          font-size: 50%;
+                          font-weight: bold;
+                          text-transform: uppercase;
+                          line-height: 1;
+                          color: dodgerblue;
+                          text-align: left;
+                          white-space: nowrap;
+                          vertical-align: baseline;
+                          border-radius: .25em;">
+                        {{'CHOOSE' | translate}}
+                      </span>
+                    </div>
+                </div>
+              </md-list-item>
+            </md-list>
+          </md-card-content >
+        </md-card>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" style="width: 100%">
+      <md-button ng-click="cancel()" class="md-primary">
+          {{'CANCEL' | translate}}
+      </md-button>
+      <span flex></span>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

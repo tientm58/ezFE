@@ -1,0 +1,185 @@
+<style>
+    .disabled {
+        background: #dddddd;
+    }
+
+    .textDiabled {
+        text-decoration: line-through
+    }
+
+    md-list-item ._md-no-style,
+    md-list-item._md-no-proxy {
+        padding: 0px;
+    }
+
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+
+    .md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+    }
+
+    .flex-sm-80,
+    .layout-row>.flex-sm-80,
+    .layout-sm-row>.flex-sm-80 {
+        max-height: 80% !important;
+    }
+</style>
+<md-dialog aria-label="Live Check Out" flex-gt-sm="55" flex-sm="80" flex-xs="100">
+    <form name="liveCheckOutForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'ROOM' | translate}} {{currentItem.RoomName}}</h2>
+                <span flex></span>
+                <span>
+                    <md-checkbox ng-model="SendEmail" class="font-size12 line-height30 margin00 width100pec">
+                        {{'SEND_FOR_GUEST' | translate}}
+                    </md-checkbox>
+                </span>
+                <md-button class="md-icon-button" ng-click="ShowInvoice($event)">
+                    <md-icon md-svg-src="img/icons/ic_print_24px.svg" style="fill: white;"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-tabs md-center-tabs flex="100" class="fit-content" md-dynamic-height md-border-bottom>
+                <md-tab ng-disabled="removeItem" label="{{'CHECKOUT' | translate}}" ng-click="changeTab('CHECKOUT')" md-active="true">
+                    <md-content style="padding-left:30px;color:red;">
+                        <span flex="100" style="" ng-if="Amount!=0">
+                            <h3>
+                                {{'PAYMENT_AND_CHECKOUT_CONFIRM' | translate}}
+                                <p>{{Amount | currency}}</p>
+                            </h3>
+                        </span>
+                        <span ng-if="Amount==0">
+                            <span flex="100" style="">
+                                <h3>
+                                    {{'DO_YOU_WANT_TO_CHECKOUT?' | translate}}
+                                    <p>{{Amount | currency}}</p>
+                                </h3>
+                            </span>
+                            </h3>
+                        </span>
+                        </span>
+                    </md-content>
+                </md-tab>
+                <md-tab class="max-fit-content fit-content" ng-repeat="list in extraservice.ExtraServiceTypes" ng-if="list.IsHide == false && list.ExtraServiceTypeName!='EXTRA_SERVICES'&& list.ExtraServiceTypeName!='WORK_ORDER'"
+                    label="{{list.ExtraServiceTypeName | translate}}" layout="row" layout-wrap flex="100" ng-click="changeTab('SERVICE')">
+                    <md-content class="max-fit-content fit-content" layout-align="center start">
+                        <div layout flex="100" layout-align="center start" ng-show="list.ExtraServiceTypeName!='EXTRA_SERVICES' && list.ExtraServiceTypeName!='WORK_ORDER'">
+                            <md-input-container flex="90" style="">
+                                <label>{{'SELECT_CATEGORY' | translate}}</label>
+                                <md-select ng-model="selectedExtraServiceCategory" ng-init="selectedExtraServiceCategory=0">
+                                    <md-option value="0">{{'ALL_CATEGORY' | translate}}</md-option>
+                                    <md-option md-no-ink ng-repeat="extraServiceCategory in extraservice.ExtraServiceCategories" value="{{extraServiceCategory.ExtraServiceCategoryId}}"
+                                        ng-if="extraServiceCategory.ExtraServiceTypeId==list.ExtraServiceTypeId">{{extraServiceCategory.ExtraServiceCategoryName}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div flex="100" layout layout-align="center start" class="max-fit-content fit-content">
+                            <md-list flex="90" ng-show="list.ExtraServiceTypeName!='EXTRA_SERVICES' && list.ExtraServiceTypeName!='WORK_ORDER'" class="max-fit-content fit-content">
+                                <md-list-item ng-repeat="item in extraservice.ExtraServiceItems | filter: selectedExtraServiceCategory | orderBy:'Priority'"
+                                    " flex="100 "  layout="row " layout-align="space-between center "  ng-if="item.ExtraServiceTypeId==list.ExtraServiceTypeId
+                                    " ng-show="(item.ExtraServiceCategoryId==selectedExtraServiceCategory) || (selectedExtraServiceCategory==0) ">
+                                        <p flex="40 ">
+                                            {{item.ExtraServiceItemName | truncate:25}}
+                                            <span ng-show="item.ExtraServiceItemName.length> 25">...</span>
+                                    </p>
+                                    <md-slider flex="40" ng-model="item.quantity" min="0" max="10" step="1">
+                                    </md-slider>
+                                    <div flex="20" layout layout-align="end center">
+                                        <input flex type="number" min="0" ng-model="item.quantity" aria-controls="red-slider">
+                                    </div>
+                                </md-list-item>
+                            </md-list>
+
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab md-active="isSelectedTab" label="{{'EXTRA_SERVICE' | translate}}" layout="row" layout-wrap flex="100" ng-click="changeTab('SERVICE')">
+                    <md-content layout-align="center start" flex="100">
+                        <div flex="100" layout layout-align="center start">
+                            <md-list flex="90">
+                                <md-list-item flex="100" style="overflow-y:hidden" layout layout-wrap layout-align="center center">
+                                    <md-input-container flex="90" flex-xs="100">
+                                        <label>{{'EXTRA_SERVICE_NAME' | translate}} ({{'REQUIRED' | translate}})</label>
+                                        <input ng-model="ExtraServiceDescription" required type="text">
+                                    </md-input-container>
+                                    <div flex="90" flex-xs="100" layout layout-align="start start">
+                                        <p flex="20">
+                                            {{'QUANTITY' | translate}}
+                                        </p>
+                                        <md-slider flex="60" ng-model="ExtraServiceQuantity" min="1" max="10" step="1">
+                                        </md-slider>
+                                        <input style="margin-top:10px" flex type="number" min="1" ng-model="ExtraServiceQuantity" aria-controls="red-slider">
+                                    </div>
+                                    <!--<md-input-container flex="25" flex-offset="5" flex-xs="100">
+                                                <label>{{'QUANTITY' | translate}} ({{'REQUIRED' | translate}}) </label>
+                                                <input ng-model="ExtraServiceQuantity" required min="0" max="99"  type="number"  >
+                                            </md-input-container>
+                                            <span flex="5" style="margin-top:-17px;padding-left:5px"> X </span>           -->
+                                    <md-input-container flex-offset="5" flex="90" flex-xs="100">
+                                        <label>{{'PRICE' | translate}} ({{'REQUIRED' | translate}}) </label>
+                                        <input ng-model="ExtraServiceAmount" type="text" required ui-number-mask="decimal" ui-negative-number>
+                                    </md-input-container>
+                                </md-list-item>
+                            </md-list>
+                        </div>
+                        <section layout-margin>
+                            <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+                                ng-if="warningMissingExtraServiceDescription === true">
+                                <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+                                <span style="color: #f44336;">
+                                    {{'PLEASE_SELECT_EXTRA_SERVICE_NAME' | translate}}.
+                                </span>
+                            </fieldset>
+                            <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+                                ng-if="warningMissingExtraServiceAmount === true">
+                                <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+                                <span style="color: #f44336;">
+                                    {{'PLEASE_SELECT_EXTRA_SERVICE_PRICE' | translate}}.
+                                </span>
+                            </fieldset>
+                            <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+                                ng-if="warningMissingExtraServiceQuantity === true">
+                                <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+                                <span style="color: #f44336;">
+                                    {{'PLEASE_SELECT_EXTRA_SERVICE_QUANTITY' | translate}}.
+                                </span>
+                            </fieldset>
+                        </section>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-dialog-content>
+
+        <div class="md-actions" layout="row" ng-if="Amount >=0 ">
+            <md-button ng-click="removeItem=false" class="md-primary" ng-show="removeItem">
+                {{'CANCEL_DELETE' | translate}}
+            </md-button>
+            <md-button ng-click="cancel()" class="md-primary" ng-hide="removeItem">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <span flex></span>
+            <md-button ng-click="addExtraService()" class="md-raised md-primary" ng-if="type=='SERVICE'">
+                {{'TOOLTIP_UPDATESERVICE' | translate}}
+            </md-button>
+            <md-button ng-if="Amount==0 && type!='SERVICE' && !isClickCheckout && !isClick" ng-click="processQuickCheckOut($event)" class="md-raised md-warn">
+                {{'CHECKOUT' | translate}}
+            </md-button>
+            <span ng-if="!isClickCheckout">
+                <md-button ng-click="processQuickCheckOut($event)" class="md-raised md-warn" ng-if="Amount!=0 && type!='SERVICE'  && !isClick">
+                    {{'PAYMENT_AND_CHECKOUT' | translate}}
+                </md-button>
+            </span>
+        </div>
+    </form>
+</md-dialog>

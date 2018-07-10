@@ -1,0 +1,47 @@
+<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+    <span flex="100" ng-if="checkOutCtrl.isCheckoutAndPayment" style="color:red;padding-left:20px"><h3>
+      {{'PAYMENT_AND_CHECKOUT_CONFIRM' | translate}}
+    <p>{{checkOutCtrl.paymentAmountString}}</p> </h3></span>
+
+  <span flex="100" ng-if="!checkOutCtrl.isCheckoutAndPayment" style="color:red;padding-left:20px"><h3>
+      {{'DO_YOU_WANT_TO_CHECKOUT?' | translate}}
+     </h3></span>
+    <md-list>
+        <md-subheader class="md-primary" ng-if="checkOutCtrl.roomRemarks.length>0">{{'ROOM_REMARK_LIST' | translate}}</md-subheader>
+        <md-list-item ng-repeat="remark in checkOutCtrl.roomRemarks" class="md-3-line">
+            <div class="md-list-item-text" layout="column">
+                <h3 style="font-weight: bold;">
+             <span style="font-style: italic; color: #f44336;" ng-if="remark.IsDeleted">[ {{'DELETED' | translate}} ] </span>{{remark.Description}}
+        </h3>
+                <h4 style="padding-bottom: 6px;">
+            {{remark.CreatedDate | date:'dd/MM/yyyy (HH:mm)'}}
+        </h4>
+                <p><span style="color: #fff;padding: 6px;border-radius: 3px;" class="{{remark.RemarkEventCode}}">
+                {{remark.RemarkEventCode | translate}}
+            </span> &nbsp;
+                    <span ng-if="remark.IsCompleted" style="background-color: #259b24; color: #fff;padding: 6px;border-radius: 3px;" >
+                {{'COMPLETED' | translate}}
+            </span>
+                    <span ng-if="!remark.IsCompleted" style="background-color: #795548; color: #fff;padding: 6px;border-radius: 3px;">
+                {{'IN_PROGRESS' | translate}}
+            </span></p>
+            </div>
+        </md-list-item>
+    </md-list>
+
+</div>
+<md-dialog-actions layout="row" layout-wrap>
+    <md-button ng-click="checkOutCtrl.cancel()" class="md-primary" hide-xs hide-sm>
+        {{'CANCEL' | translate}}
+    </md-button>
+  <span flex ></span>
+    <md-button ng-click="checkOutCtrl.processQuickCheckOut()" class="md-raised md-warn" ng-if="!checkOutCtrl.isCheckoutAndPayment" flex-xs="45" flex-md="60" flex-gt-md="60">
+        {{'PROCESS' | translate}}
+    </md-button>
+    <md-button ng-click="checkOutCtrl.processPayment()" class="md-raised md-warn" ng-if="checkOutCtrl.isCheckoutAndPayment"  flex-xs="45" flex-md="30" flex-gt-md="30">
+        {{'PAYMENT_ONLY' | translate}}
+    </md-button>
+    <md-button ng-click="checkOutCtrl.processQuickCheckOut()" class="md-raised md-warn" ng-if="checkOutCtrl.isCheckoutAndPayment"  flex-xs="50" flex-md="30" flex-gt-md="40">
+        {{'PAYMENT_AND_CHECKOUT' | translate}}
+    </md-button>
+</md-dialog-actions>

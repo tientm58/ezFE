@@ -1,0 +1,82 @@
+<md-dialog aria-label="Edit Staff" flex-gt-xs="50" flex-xs="98">
+	<form name="editStaffForm" autocomplete="off" ng-submit="saveStaff(staffEditing)">
+		<button class="hide" id="btn_saveStaff"></button>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'EDIT_STAFF' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon class="md-inline-list-icon" md-svg-icon="img/icons/ic_close_48px.svg" aria-label="Close dialog">
+					</md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+				<!-- <div class="inset" flex="100">
+					<md-switch autocorrect="off" autocapitalize="off" autocomplete="off" aria-label="{{'ROLE_SWITCH' | translate}}" id="roleSwitch" name="roleSwitch" ng-model="staffEditing.staffRoleId" class="md-warn" ng-false-value="'4'" ng-true-value="'3'" ng-disabled="currentRole != 'ROLE_HOTEL_OWNER'">
+						<span>
+                            {{(staffEditing.staffRoleId == "3") ? "ROLE_HOTEL_MANAGER" : "ROLE_HOTEL_STAFF" | translate}}
+                        </span>
+					</md-switch>
+				</div> -->
+
+				<md-input-container flex class="" style="margin: 12px 0px;">
+                    <label>{{'STAFF_ROLE'|translate}}</label>
+                    <md-select ng-model="staffEditing.staffRoleId">
+                        <md-option ng-value="role.Id" ng-if="role.Name != 'ROLE_HOTEL_OWNER' && role.Name != 'ROLE_SYS_ADMIN'" required ng-repeat="role in Roles">{{role.Name|translate}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+				<md-input-container md-is-error="!editStaffForm.UN.$valid" flex="100" style="margin: 12px 0px;">
+					<label>{{'STAFF_USER_NAME' | translate}}</label>
+					<input autocomplete="off" required type="text" ng-model="staffEditing.staffUser.UserName" name="UN" ng-readonly="true" style="background-color: #dddddd" />
+				</md-input-container>
+				<!-- <md-input-container ng-hide="true" md-is-error="!editStaffForm.email.$valid" flex="100">
+					<label>{{'EMAIL' | translate}}</label>
+					<input type="text" ng-model="staffEditing.staff.Email" name="email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" />
+				</md-input-container> -->
+
+
+				<md-input-container md-is-error="!editStaffForm.PW.$valid" flex="100" style="margin: 12px 0px;">
+					<label>
+						{{'PASSWORD' | translate}}
+					</label>
+					<input  autocomplete="off"  autocorrect="off" autocapitalize="off" required ng-model="staffEditing.staffUser.PasswordHash" type="password" id="PW" name="PW" ng-pattern="/^(?=.*\d)(?=.*[a-z]).{6,}$/">
+
+					<div ng-messages="editStaffForm.PW.$error">
+						<div ng-show="editStaffForm.PW.$error.pattern" style="word-wrap: break-word;">
+							<span>
+							{{'PASSWORD_LENGTH_MUST_BE_AT_LEAST_SIX_(6)_CHARACTERS_AND_ONLY_CONTAIN_BOTH_NUMBER_AND_ALPHABET' | translate}}
+                            </span>
+						</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container flex="100" style="margin: 12px 0px;">
+					<label>{{'STAFF_NAME' | translate}}</label>
+					<input type="text" md-autofocus required ng-model="staffEditing.staff.StaffName" name="staffName" />
+
+				</md-input-container>
+
+				<md-input-container md-is-error="!editStaffForm.mobile.$valid" flex="100" style="margin: 12px 0px;">
+					<label>{{'MOBILE' | translate}}</label>
+					<input type="text" ng-model="staffEditing.staff.Mobile" name="mobile" />
+
+				</md-input-container>
+
+				<md-input-container md-is-error="!editStaffForm.description.$valid" flex="100" style="margin: 12px 0px;">
+					<label>{{'DESCRIPTION' | translate}}</label>
+					<input type="textarea" ng-model="staffEditing.staff.Description" name="description" />
+				</md-input-container>
+            </div>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button onclick="jQuery('#btn_saveStaff').click()" class="md-primary">
+				{{'SAVE' | translate}}
+			</md-button>
+		</md-dialog-actions>
+</md-dialog>

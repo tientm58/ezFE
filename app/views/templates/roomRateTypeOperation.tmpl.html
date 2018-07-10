@@ -1,0 +1,58 @@
+<md-dialog aria-label="Rate Type Operation" ng-cloak flex-xs="100" flex-sm="100" flex-gt-sm="60">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'RATE_TYPE_OPERATION' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100" layout-align="center center">
+                <div flex="100">
+                    <md-list>
+                        <md-subheader>
+                            {{'CURRENT_ROOM' | translate}}
+                        </md-subheader>
+                        <md-list-item>
+                            <p>{{'ROOM_TYPE' | translate}}</p>
+                            <p class="md-secondary">{{currentRoom.RoomTypes.RoomTypeName}}({{currentRoom.RoomTypes.RoomTypeCode}})</p>
+                        </md-list-item>
+                        <md-list-item>
+                            <p>{{'PRICE' | translate}}</p>
+                            <p class="md-secondary">{{currentRoom.Price | currency}}</p>
+                        </md-list-item>
+                    </md-list>
+                </div>
+                <div flex="100">
+                    <md-subheader>
+                        {{'CHANGE_RATE_TYPE' | translate}}
+                    </md-subheader>
+                    <div layout="row" layout-align="center center" style="padding: 0 16px;">
+                        <span flex="25">{{'NEW_RATE' | translate}}</span>
+                        <md-select flex="45" ng-model="newRoomPrice.RoomPriceId" style="">
+                            <md-select-label style="width:100%"></md-select-label>
+                            <md-option ng-repeat="plan in planList" ng-value="plan.RoomPriceId" ng-selected="plan.RoomPriceId == currentRoom.RoomPrices.RoomPriceId">
+                                    {{plan.RoomPriceName | translate}}
+                            </md-option>
+                        </md-select>
+                        <span flex></span>
+                        <md-checkbox ng-model="newRoomPrice.IsUpdatePrice" style="margin: 0px;">
+                            {{'UPDATE_PRICE' | translate}}
+                        </md-checkbox>
+                    </div>
+                </div> 
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button ng-click="saveGroupRateTypeOperation()" class="md-primary">
+                {{'APPLY' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

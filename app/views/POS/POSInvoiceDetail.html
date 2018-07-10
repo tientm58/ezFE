@@ -1,0 +1,210 @@
+<style>
+    .md-list-item.md-2-line .md-list-item-text,
+    md-list-item.md-2-line>._md-no-style .md-list-item-text,
+    md-list-item.md-3-line .md-list-item-text,
+    md-list-item.md-3-line>._md-no-style .md-list-item-text {
+        margin: auto;
+    }
+
+    md-list-item._md-button-wrap>div.md-button:first-child ._md-list-item-inner {
+        height: auto;
+    }
+
+    md-list-item ._md-list-item-inner ._md-secondary-container,
+    md-list-item ._md-secondary-container {
+        height: auto;
+    }
+
+    .whiteframedemoBasicClassUsage {
+        /* For breakpoint `-xs` */
+        /* For breakpoint `-sm` */
+        /* For breakpoint `-md` */
+        /* For breakpoint `-gt-md` */
+    }
+
+    .auto-overflow {
+        overflow: auto;
+    }
+
+    .whiteframedemoBasicClassUsage md-whiteframe {
+        background: #fff;
+        margin: 30px;
+        height: 100px;
+    }
+
+    @media (max-width: 599px) {
+        .whiteframedemoBasicClassUsage md-whiteframe {
+            margin: 7px;
+            height: 50px;
+            background-color: #c8e4fa;
+        }
+        .whiteframedemoBasicClassUsage md-whiteframe>span {
+            font-size: 0.4em;
+        }
+    }
+
+    @media (min-width: 600px) and (max-width: 959px) {
+        .whiteframedemoBasicClassUsage md-whiteframe {
+            margin: 20px;
+            height: 75px;
+        }
+        .whiteframedemoBasicClassUsage md-whiteframe>span {
+            font-size: 0.6em;
+        }
+    }
+
+    @media (min-width: 960px) and (max-width: 1279px) {
+        .whiteframedemoBasicClassUsage md-whiteframe {
+            margin: 20px;
+            height: 90px;
+            background-color: #fcddde;
+        }
+        .whiteframedemoBasicClassUsage md-whiteframe>span {
+            font-size: 0.9em;
+        }
+    }
+
+    @media (min-width: 1280px) {
+        .whiteframedemoBasicClassUsage md-whiteframe {
+            margin: 25px;
+            height: 100px;
+            background-color: #F2FCE2;
+        }
+        .whiteframedemoBasicClassUsage md-whiteframe>span {
+            font-size: 1.0em;
+        }
+    }
+
+    header>md-content>h1 {
+        margin: 0px;
+        font-weight: 500;
+        color: #E44424;
+        /*background: lavender;*/
+    }
+    .btn_save_invoice{
+        padding-top: 0px;
+    }
+    .icon-white{
+        fill: #fff;
+    }
+</style>
+
+<md-content layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak>
+    <md-whiteframe class="md-whiteframe-1dp" flex-xs="100" flex-sm="100" flex-md="100" flex-gt-md="50">
+        <header>
+            <md-content layout-padding layout="row" layout-align="start center">
+                <h3>{{'INVOICE_INFORMATION' | translate}}</h3>
+                <md-button md-no-ink class="md-icon-button" style="height: 24px;margin: 0px; padding: 0px;" ng-click="showInvoice($event, InvoiceDetails.POSPaymentTravellerId)">
+                    <md-icon md-svg-src="img/icons/ic_print_24px.svg" style="height: 24px; width: 24px;fill:#666"></md-icon>
+                </md-button>
+                <md-button class="btn-c md-primary btn_save_invoice md-raised md-button ng-scope md-ink-ripple" aria-hidden="true" ng-click="goToCrateInvoice()" >
+                    <md-icon md-svg-src="img/icons/ic_add_shopping_cart_24px.svg" class="icon-white"></md-icon>
+                    <span>{{ 'POS_INVOICE' | translate }}</span>
+                </md-button>
+            </md-content>
+        </header>
+        <md-list>
+            <md-list-item>
+                <p>{{'INVOICE_NO' | translate}}</p>
+                <p class="md-secondary">{{InvoiceDetails.POSPaymentNumber}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'STATUS' | translate}}</p>
+                <p class="md-secondary" style="color: #f44336;font-weight: bold;">{{'PAID' | translate}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'CREATED_BY' | translate}}</p>
+                <p class="md-secondary">{{InvoiceDetails.CreatedUser}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'CREATED_DATE' | translate}}</p>
+                <p class="md-secondary">{{InvoiceDetails.CreatedDate | date:'dd/MM/yyyy, HH:mm'}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'DISCOUNT_MONEY_OFF' | translate}}</p>
+                <p class="md-secondary">{{CurrencyMaster.AlphabeticCode}} {{InvoiceDetails.DiscountFlat | currency:"":decimals}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'DISCOUNT_PERCENT_OFF' | translate}}</p>
+                <p class="md-secondary">{{InvoiceDetails.DiscountPercentage}} (%)</p>
+            </md-list-item>
+            <md-list-item ng-if="InvoiceDetails.DiscountAmount != null && InvoiceDetails.DiscountAmount.trim() != '' && InvoiceDetails.DiscountAmount != 0">
+                <p>{{'DISCOUNT_REASON' | translate}}</p>
+                <p class="md-secondary">{{InvoiceDetails.DiscountReason}}</p>
+            </md-list-item>
+        </md-list>
+    </md-whiteframe>
+    <md-whiteframe class="md-whiteframe-1dp" flex-xs="100" flex-sm="100" flex-md="100" flex-gt-md="50">
+        <header>
+            <md-content layout-padding layout="row" layout-align="start center">
+                <h3>{{'CONTACT_INFORMATION' | translate}}</h3>
+            </md-content>
+        </header>
+        <md-list>
+            <md-list-item>
+                <p>{{'FULL_NAME' | translate}}</p>
+                <p class="md-secondary">{{ContactInformation.Fullname}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'BIRTHDAY' | translate}}</p>
+                <p class="md-secondary">{{ContactInformation.Birthday | date:'dd/MM/yyyy'}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'IDENTITY_NUMBER' | translate}}</p>
+                <p class="md-secondary">{{ContactInformation.IdentityNumber}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'MOBILE' | translate}}</p>
+                <p class="md-secondary">{{ContactInformation.Mobile}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'EMAIL' | translate}}</p>
+                <p class="md-secondary">{{ContactInformation.Email}}</p>
+            </md-list-item>
+            <md-list-item>
+                <p>{{'NOTE' | translate}}</p>
+                <p class="md-secondary">{{ContactInformation.Note}}</p>
+            </md-list-item>
+        </md-list>
+    </md-whiteframe>
+    <md-whiteframe class="md-whiteframe-1dp auto-overflow" flex-xs="100" flex-sm="100" flex-md="100" flex-gt-md="50">
+        <header>
+            <md-content layout-padding layout="row" layout-align="start center">
+                <h3>{{'EXTRA_SERVICE_LIST' | translate}}</h3>
+            </md-content>
+        </header>
+        <md-list>
+            <md-list-item ng-repeat="charge in Charges" class="md-2-line">
+                <div class="md-list-item-text">
+
+                    <h3>{{ charge.chargeName }} (x{{charge.chargeQuantity}})</h3>
+                    <p>{{'CREATED_DATE' | translate}}: {{charge.chargeCreatedDate | date:'dd/MM/yyyy, HH:mm'}}, {{'CREATED_BY'
+                        | translate}}: {{charge.chargeCreatedUser}}</p>
+                </div>
+                <p class="md-secondary">{{CurrencyMaster.AlphabeticCode}} {{charge.chargeTotal | currency:"":decimals}}</p>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+    </md-whiteframe>
+    <md-whiteframe class="md-whiteframe-1dp auto-overflow" flex-xs="100" flex-sm="100" flex-md="100" flex-gt-md="50">
+        <header>
+            <md-content layout-padding layout="row" layout-align="start center">
+                <h3>{{'PAYMENT' | translate}}</h3>
+            </md-content>
+        </header>
+        <md-list>
+            <md-list-item ng-repeat="payment in Payments" class="md-2-line">
+
+                <div class="md-list-item-text">
+
+                    <h3>{{'CREATED_BY' | translate}}: {{ payment.paymentCreatedUser }}</h3>
+                    <p>{{'CREATED_DATE' | translate}}: {{payment.paymentCreatedDate | date:'dd/MM/yyyy, HH:mm'}}</p>
+                </div>
+                <p class="md-secondary">{{payment.paymentAmount}} ({{payment.PaymentMethodName | translate}})</p>
+
+
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+    </md-whiteframe>
+</md-content>

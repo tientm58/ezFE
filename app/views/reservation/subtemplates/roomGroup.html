@@ -1,0 +1,51 @@
+<fieldset class="standard" flex>
+	<section class="md-default-theme" layout="row" layout-wrap flex="100">
+		<div flex-sm="100" flex-gt-sm="45" flex-md="100" layout="row" layout-align="start center" layout-wrap style="padding-bottom: 15px;">
+			<div flex="33" layout="row">
+				<md-select ng-disabled="$stateParams.reservationRoomId || $stateParams.roomId" flex ng-model="room.RoomTypeId" placeholder="{{'SELECT_TYPE' | translate}}" style="margin: 0px; margin-top: 19px; margin-bottom: 12px;">
+					<md-select-label style="width:100%"></md-select-label>
+					<md-option ng-repeat="rt in roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName }}</md-option>
+				</md-select>
+
+			</div>
+			<div flex="30" layout="row" layout-align="center center">
+				<md-select ng-disabled="$stateParams.reservationRoomId || $stateParams.roomId" flex ng-model="room.RoomId" md-on-close="onSelectRoom(room.RoomId)" placeholder="{{'SELECT_ROOM'|translate}}" style="margin: 0px;margin-top: 19px; margin-bottom: 12px;">
+					<md-select-label style="width:100%"></md-select-label>
+					<md-option ng-repeat="r in availableRoom | filter: {RoomTypeId:room.RoomTypeId}" ng-value="r.RoomId">{{r.RoomName}}</md-option>
+				</md-select>
+
+			</div>
+
+			<div flex="30" layout="row" layout-align="center center">
+				<md-select flex ng-model="room.RoomPriceId" placeholder="{{'RATE' | translate}}" style="margin: 0px; margin-top: 19px; margin-bottom: 12px;">
+					<md-select-label style="width:100%"></md-select-label>
+					<md-option ng-repeat="plan in planList | filter: {RoomTypeId:room.RoomTypeId}" ng-value="plan.RoomPriceId">{{plan.RoomPriceName}}</md-option>
+				</md-select>
+
+			</div>
+		</div>
+		<div flex-sm="100" flex-gt-sm="45" flex-md="100" layout="row" layout-align="space-between center" layout-wrap style="padding-bottom: 15px;">
+			<div flex="100" layout="row" layout-align="start center" layout-wrap>
+				<div flex="25" layout="row" style="position:relative">
+					<md-select flex="100" ng-model="customer.Gender" placeholder="{{'GENDER' | translate}}" style="margin: 0px; margin-top: 19px; margin-bottom: 12px;">
+						<md-select-label style="width:100%"></md-select-label>
+						<md-option ng-value="0">{{'MALE' | translate}}</md-option>
+						<md-option ng-value="1">{{'FEMALE' | translate}}</md-option>
+						<md-option ng-value="2">{{'OTHER' | translate}}</md-option>
+					</md-select>
+				</div>
+				<md-input-container flex="40" style="padding-bottom: 12px;">
+					<label>{{'CUSTOMER_NAME'|translate}}</label>
+					<input type="text" ng-model="customer.Fullname">
+				</md-input-container>
+				<md-input-container flex style="padding-bottom: 12px;">
+					<label>{{'IDENTITY_NUMBER'|translate}}</label>
+					<input type="text" ng-model="customer.IdentityNumber">
+				</md-input-container>
+
+			</div>
+		</div>
+	</section>
+
+
+</fieldset>

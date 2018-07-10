@@ -1,0 +1,63 @@
+<md-dialog aria-label="SHOW_RESERVATION" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'RESERVATIONS' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <div ng-if="reservationRooms.length === 0" flex="100" layout="row" layout-align="center center">
+                    <span style="font-weight: bold; color: #f44336;">{{ 'NO_RESERVATION_FOUND' | translate }}</span>
+                </div>
+                <div layout="row" layout-wrap flex="100" ng-if="reservationRooms.length > 0">
+                    <div flex="100" layout="row" layout-align="left center">
+                        <span style="font-weight: bold; color: #f44336;">{{ 'CUSTOMER_NO' | translate }}: {{customer.TravellerId}} | {{ 'CUSTOMER' | translate }}: {{customer.Fullname}}</span>
+                    </div>
+                    <md-list flex="100">
+                        <md-list-item ng-repeat="reservation in reservationRooms" class="md-2-line" style="padding: 0px; border-bottom: 1px solid #eee;">
+                            <div class="md-list-item-text">
+                                 <h3 style="font-weight: bold;"> {{'RES_NO' | translate}}: {{ reservation.ReservationRooms.Reservations.ReservationNumber }} </h3>
+                                <p> {{'ROOM' | translate}}: {{ reservation.ReservationRooms.Rooms.RoomName }} ({{reservation.ReservationRooms.RoomTypes.RoomTypeCode}}) </p>
+                                <p> {{  reservation.ReservationRooms.ArrivalDate | date:'dd/MM/yyyy HH:mm' }}  | {{  reservation.ReservationRooms.DepartureDate | date:'dd/MM/yyyy HH:mm' }} </p>
+                                
+                                <p> {{ reservation.ReservationRooms.BookingStatus | translate }} </p>
+                            </div>
+                            <div class="md-list-item-text" layout="row" layout-align="end center">
+                                <div layout="column" layout-align="center center" style="margin: auto: 0px;">
+                                    <md-button class="md-icon-button launch" style="padding: 0px; margin: 0px;" aria-label="Reservatioins" ng-click="cancel()" ng-href="#/reservation/{{reservation.ReservationRooms.ReservationRoomId}}">
+                                        <md-icon md-svg-src="img/icons/ic_open_in_new_24px.svg" style="fill: dodgerblue;"></md-icon>
+                                    </md-button>
+                                    <span style="display: inline;
+									  padding: .2em .6em .3em;
+									  font-size: 50%;
+									  font-weight: bold;
+									  text-transform: none;
+									  line-height: 1;
+									  color: dodgerblue;
+									  text-align: left;
+									  white-space: nowrap;
+									  vertical-align: baseline;
+									  border-radius: .25em;">
+									{{'GO_TO_RESERVATION' | translate}}
+								</span>
+                                </div>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+
+
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">
+                {{'CANCEL' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,125 @@
+<style>
+    .al-wrap-def {
+        background: url(img/pattern.jpg) repeat;
+        min-height: 100%;
+    }
+
+    .x-container-def { 
+        max-width: 950px !important;
+        margin: 30px auto;
+        max-height: 266px !important;
+    }
+
+    .x-card-def {
+        width: 300px !important;
+        max-height: 250px !important;
+        -moz-box-shadow: 0px 3px 8px rgb(100, 100, 100);
+        -webkit-box-shadow: 0px 3px 8px rgb(100, 100, 100);
+        box-shadow: 0px 3px 8px rgb(100, 100, 100);
+        margin: 5px auto;
+        cursor: pointer;
+    }
+
+    .x-title {
+        font-size: 14px;
+    }
+
+    .x-detail {
+        outline: none;
+        border: 0;
+    }
+
+    .x-card-def2 {
+        width: 300px !important;
+        max-height: 250px !important;
+        -moz-box-shadow: 0px 3px 8px rgb(100, 100, 100);
+        -webkit-box-shadow: 0px 3px 8px rgb(100, 100, 100);
+        box-shadow: 0px 3px 8px rgb(100, 100, 100);
+        margin: 5px auto;
+        outline: none;
+        border: 0;
+    }
+
+    .x-title-def {
+        font-size: 14px;
+    }
+
+    .x-detail-def {
+        font-size: 12px;
+        color: gray;
+    }
+ 
+    .md-card-header {
+        padding: 0 !important;
+        min-width: 300px !important;
+    }
+
+    .md-card-content {
+        min-width: 300px !important;
+        font-family: Arial !important;
+    }
+
+    md-card:hover .x-title-def {
+        color: #2aade3 !important;
+    }
+</style>
+<div class="al-wrap-def" ng-style="alwrapdefstyle">
+    <div class="x-container-def" layout="row" layout-xs="column">
+        <div flex="50" flex-xs="100">
+            <md-card layout-align="column" class="x-card-def" ng-click="changeView('art01')">
+                <md-card-header flex="65" class="md-card-header">
+                    <img ng-src="{{'IMAGE_BANNER_FACEBOOK' | translate}}" style="min-width:300px">
+                </md-card-header>
+                <md-card-content flex="35" layout="column" class="md-card-content">
+                    <div flex="70" class="x-title-def">
+                        <b>{{'SHARE_TO_GET' | translate}}</b>
+                    </div>
+                    <div flex="30" class="x-detail-def">{{'SHOW_TAKES_PLACE_ONE' | translate}}</div> 
+                </md-card-content>
+            </md-card>
+        </div>
+        <div flex="50" flex-xs="100"> 
+            <md-card class="x-card-def" ayout-align="column" ng-click="changeView('art02')">
+                <md-card-header flex="65" class="md-card-header">
+                    <img ng-src="{{'IMAGE_REF_PROGRAM' | translate}}" style="min-width:300px">
+                </md-card-header>
+                <md-card-content flex="35" layout="column" class="md-card-content">
+                    <div flex="70" class="x-title-def">
+                        <b>{{'INTRODUCE_TO_CUSTOMERS' | translate}}</b>
+                    </div>
+                    <div flex="30" class="x-detail-def">{{'SHOW_TAKES_PLACE_TWO' | translate}}</div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+    <div class="x-container-def" layout="row" layout-xs="column">
+        <div flex="50" flex-xs="100">
+            <md-card class="x-card-def" ayout-align="column" ng-click="changeView('pro01')">
+                <md-card-header flex="65" class="md-card-header">
+                    <img src="img/Promotion/promotion01.jpg" style="min-width:300px">
+                </md-card-header>
+                <md-card-content flex="35" layout="column" class="md-card-content">
+                    <div flex="70" class="x-title-def" title="{{'INTRODUCE_TO_PROMOTION01' | translate}}">
+                        <b>{{'INTRODUCE_TO_PROMOTION01' | translate | truncate:69}}..</b>
+                    </div>
+                    <div flex="30" class="x-detail-def" title="{{'DESCRIPTION_TO_PROMOTION0' | translate}}">{{'DESCRIPTION_TO_PROMOTION0' | translate | truncate:95}}..</div>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div flex="50" flex-xs="100">
+
+            <md-card class="x-card-def" ayout-align="column" ng-click="changeView('pro02')">
+                <md-card-header flex="65" class="md-card-header">
+                    <img src="img/Promotion/promotion02.jpg" style="min-width:300px">
+                </md-card-header>
+                <md-card-content flex="35" layout="column" class="md-card-content">
+                    <div flex="70" class="x-title-def" title="{{'INTRODUCE_TO_PROMOTION02' | translate }}...">
+                        <b>{{'INTRODUCE_TO_PROMOTION02' | translate | truncate:75}}...</b>
+                    </div>
+                    <div flex="30" class="x-detail-def" title="{{'DESCRIPTION_TO_PROMOTION02' | translate}}">{{'DESCRIPTION_TO_PROMOTION02' | translate | truncate:95}}..</div>
+                </md-card-content>
+            </md-card>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<form>
+    <!-- <button class="hide" id="btn-undocheckin"></button> -->
+    <div class="md-dialog-content" flex="100" layout="row" layout-wrap>
+        <span flex="100" style="font-style: italic; color: #f44336;" ng-if="undoCheckInCtrl.action === 'PRE_CHECKIN'">
+            (*){{'WARNING' | translate}}: {{'ALL_EXTRA_SERVICES_AND_PAYMENT_POSTED_AFTER_CHECKIN_POINT_WAS_DELETED_AUTOMATICALLY' | translate}}. {{'PLEASE_PROVIDE_DETAIL_REASON_TO_PERFORM_PRE_CHECKIN_ACTION' | translate}}
+        </span>
+        <span flex="100" style="font-style: italic; color: #f44336;" ng-if="undoCheckInCtrl.action === 'PRE_CHECKOUT'">
+            {{'PLEASE_PROVIDE_DETAIL_REASON_TO_PERFORM_PRE_CHECKOUT_ACTION' | translate}}
+        </span>
+        <md-input-container flex="100">
+            <label></label>
+            <input md-autofocus name="undoCheckInCtrl.reason" type="text" required minlength="3" ng-model="undoCheckInCtrl.reason"/>
+        </md-input-container>
+    </div>
+</form>
+<md-dialog-actions layout="row">
+    <md-button ng-click="undoCheckInCtrl.cancel()" class="md-primary">
+        {{'CANCEL' | translate}}
+    </md-button>
+    <md-button ng-if="undoCheckInCtrl.IsDashboard == 0 && undoCheckInCtrl.isDisabled == false" ng-click="undoCheckInCtrl.processUndoCheckIn()" class="md-primary" ng-disabled="!undoCheckInCtrl.reason || undoCheckInCtrl.reason.trim() ==''">
+        {{'PROCESS' | translate}}
+    </md-button>
+    <md-button ng-if="undoCheckInCtrl.IsDashboard == 1 && undoCheckInCtrl.isDisabled == false" ng-click="undoCheckInCtrl.processUndoCheckInDB()" class="md-primary" ng-disabled="!undoCheckInCtrl.reason || undoCheckInCtrl.reason.trim() ==''">
+        {{'PROCESS' | translate}}
+    </md-button>
+</md-dialog-actions>

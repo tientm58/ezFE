@@ -1,0 +1,88 @@
+<md-dialog aria-label="Room Edit">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'CHECKOUT_DETAIL' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <md-input-container class="md-block" flex-gt-xs>
+                    <p style="font-weight: bold;">{{'RES_NO' | translate}} : {{checkoutDetail.Reservations.ReservationNumber}}
+                        <span show-xs hide-gt-xs>- {{ checkoutDetail.Reservations.CreatedDate | date:'dd/MM(HH:mm)' }}</span>
+                    </p>
+                   
+                     <div show-xs hide-gt-xs layout="row" layout-align="left center">
+                        <p>
+                            <span style="text-align: middle;font-weight: bold;">{{'CUSTOMER' | translate}}:</span>
+                        <span>
+                        {{checkoutDetail.Travellers.Fullname}} 
+                        </span>
+                        </p>
+                    </div>  
+                    <div show-xs hide-gt-xs  layout="row" layout-align="left center">
+                        <p>
+                            <span style="text-align: middle;font-weight: bold;"> {{'RATE' | translate}}:</span>
+                        <span>
+                        {{checkoutDetail.RoomPrices.RoomPriceName | translate}} 
+                        </span>
+                        </p>
+                    </div>
+                   
+                    <div show-xs hide-gt-xs layout="row" layout-align="left center">
+                        <p>
+                            <span style="text-align: middle;font-weight: bold;">{{'ARRIVAL' | translate}}/{{'DEPARTURE' | translate}}:</span>
+                        <span>
+                       {{ checkoutDetail.ArrivalDate | date:'dd/MM/yyyy HH:mm' }} - {{ checkoutDetail.DepartureDate | date:'dd/MM/yyyy HH:mm' }}
+                        </span>
+                        </p>
+                    </div>    
+                    <div show-xs hide-gt-xs layout="row" layout-align="left center">
+                        <p>
+                            <span style="text-align: middle;font-weight: bold;">{{'NOTE' | translate}}:</span>
+                        <span>
+                        {{checkoutDetail.Note}} 
+                        </span>
+                        </p>
+                    </div>  
+                     <p><span style="font-weight: bold;">{{'CREATED' | translate}}</span> {{checkoutDetail.CreatedDate | date:'dd/MM/yyyy (HH:mm)'}} | {{checkoutDetail.CreatedUserName}}</p>
+                    <div ng-if="checkoutDetail.CreatedDate.toString() !== checkoutDetail.CheckInDate.toString()" layout="row" layout-align="left center">
+                        <p>
+                            <span style="text-align: middle;font-style: italic;font-weight: bold;">{{'BOOKED' | translate}}</span>
+                        <span>
+                        {{checkoutDetail.CreatedDate | date:'dd/MM/yyyy (HH:mm)'}} | {{checkoutDetail.CreatedUserName}}
+                        </span>
+                        </p>
+                    </div>
+                    <div ng-if="checkoutDetail.CheckInDate" layout="row" layout-align="left center">
+                        <p>
+                            <span style="text-align: middle;font-weight: bold;">{{'CHECKIN' | translate}}</span>
+                        <span>
+                        {{checkoutDetail.CheckInDate | date:'dd/MM/yyyy (HH:mm)'}} | {{checkoutDetail.CheckInUserName}}
+                        </span>
+                        </p>
+                    </div> 
+                    <div ng-if="checkoutDetail.CheckOutDate" layout="row" layout-align="left center">
+                        <p>
+                            <span style="text-align: middle;font-weight: bold;">{{'CHECKOUT' | translate}}</span>
+                        <span>
+                        {{checkoutDetail.CheckOutDate | date:'dd/MM/yyyy (HH:mm)'}} | {{checkoutDetail.CheckOutUserName}}
+                        </span>
+                        </p>
+                    </div>  
+                </md-input-container>                
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

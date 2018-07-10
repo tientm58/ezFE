@@ -1,0 +1,55 @@
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+    
+    .k-datetimepicker .k-picker-wrap .k-icon {
+        margin: 6px 2px;
+    }
+    
+    .k-i-calendar {
+        background-position: -32px -176px !important;
+    }
+    
+    .k-i-clock {
+        background-position: -32px -192px !important;
+    }
+</style>
+<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+    <md-checkbox ng-model="editPastCheckOutTimeCtrl.ApplyPastCheckOut" aria-label="Checkbox 1" flex="100">
+        {{'APPLY_CHECKOUT_IN_THE_PAST_PAST' | translate}}
+    </md-checkbox>
+    <div layout="row" layout-align="start center" flex="100">
+        <span flex="25" style="">{{'DEPARTURE' | translate}}</span>
+        <div flex>
+            <input kendo-date-time-picker ng-model="editPastCheckOutTimeCtrl.str" k-ng-model="editPastCheckOutTimeCtrl.newDepartureDate" min="editPastCheckOutTimeCtrl.CurrentArrivalDate" style="width: 100%;" k-options="editPastCheckOutTimeCtrl.DateTimePickerOption" />
+        </div>
+    </div>
+    <md-input-container flex="100">
+        <label>{{'REASON(REQUIRED)' | translate}}</label>
+        <input type="textarea" ng-model="editPastCheckOutTimeCtrl.PastCheckOutReason">
+    </md-input-container>
+</div>
+<section>
+    <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="editPastCheckOutTimeCtrl.warningMissingReason === true">
+        <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+        <span style="color: #f44336;">
+                {{'PAST_CHECKOUT_REASON_CAN_NOT_BE_EMPTY' | translate}}. 
+            </span>
+    </fieldset>
+    <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="editPastCheckOutTimeCtrl.warningInvalidDepartureDate === true">
+        <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+        <span style="color: #f44336;">
+                {{'INVALID_DEPARTURE_DATE' | translate}}. 
+            </span>
+    </fieldset>
+</section>
+<md-dialog-actions layout="row">
+    <md-button ng-click="editPastCheckOutTimeCtrl.cancel()" class="md-primary">
+        {{'CANCEL' | translate}}
+    </md-button>
+    <md-button ng-click="editPastCheckOutTimeCtrl.processEditDepartureDate()" class="md-primary">
+        {{'SAVE' | translate}}
+    </md-button>
+</md-dialog-actions>

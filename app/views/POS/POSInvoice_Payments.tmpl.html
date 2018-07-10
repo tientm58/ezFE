@@ -1,0 +1,200 @@
+<style>
+.disabled {
+    background: #dddddd;
+}
+
+.textDiabled {
+    text-decoration: line-through
+}
+
+.md-list-item.md-2-line .md-list-item-text,
+md-list-item.md-2-line>._md-no-style .md-list-item-text,
+md-list-item.md-3-line .md-list-item-text,
+md-list-item.md-3-line>._md-no-style .md-list-item-text {
+    margin: auto;
+}
+
+md-list-item ._md-list-item-inner ._md-secondary-container,
+md-list-item ._md-secondary-container {
+    height: auto;
+}
+
+#heightPayment {
+    min-height: 281px !important;
+    max-height: 3500px !important;
+    overflow-y: hidden !important;
+}
+.max-height50, .max-height50 div{
+    max-height: 50px !important;
+    min-height: 50px !important;
+}
+.margin-top7{
+    margin-top: 7px;
+}
+
+#PaymentForm{
+    width: 100%;
+}
+.amount-box{
+    margin-bottom: 0;
+    margin-top: 9px;
+}
+@media (min-width: 960px){
+    .flex-gt-sm-60, .layout-gt-sm-row>.flex-gt-sm-60, .layout-row>.flex-gt-sm-60, .flex-height { 
+        max-height: 73%; 
+    }
+}
+.box-payment{
+    min-height: 192px;
+}
+.box-discount{
+    min-height: 150px;
+}
+@media (max-width: 959px) and (min-width: 600px){
+    .min-heightbox{
+        min-height: 427px;
+    }
+}
+
+</style>
+<md-card style="border-top: 1px solid #eee;" ng-cloak flex-xs="100" flex-sm="100" flex-gt-sm="60" class="min-heightbox">
+
+        <div flex="100" flex-xs="100" layout="row" layout-align="space-between center" class="max-height50 bg-gray2" layout-wrap>
+            <div flex="85" flex-xs="75" >
+                <span class="md-toolbar-tools  " >
+                    {{'PAYMENT' | translate}}
+                </span>
+            </div>
+            <div>
+                <md-button class="md-primary md-fab md-mini" onclick="jQuery('#BtnPaymentForm').click()" >
+                    <md-icon md-svg-src="img/icons/ic_add_24px.svg" style="fill:white"></md-icon>
+                </md-button>
+            </div>
+        </div>
+        <md-divider></md-divider>
+
+        <md-card-content class="auto-overflow box-payment">
+            <div layout="row" layout-wrap flex="100" layout-align="space-between center">
+                <form id="PaymentForm" name="PaymentForm" class="margin0" ng-submit="addPOSPayment()">
+                    <div layout="row" class="margin-top7" layout-wrap flex="100" layout-align="space-between center">
+                        <button class="hide" id="BtnPaymentForm">Ok</button>
+                        <div layout="row" layout-wrap flex="100" layout-align="space-between center">
+                            <md-input-container flex="45">
+                                <label>{{'METHOD' | translate}}</label>
+                                <md-select ng-model="payment.PaymentMethodId">
+                                    <md-option ng-repeat="method in paymentMethods" ng-value="method.PaymentMethodId" ng-selected="method.PaymentMethodName.toLowerCase() == 'cash'">{{ method.PaymentMethodName | translate}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container flex="45">
+                                <label>{{'CURRENCY' | translate}}</label>
+                                <md-select ng-model="payment.MoneyId">
+                                    <md-option ng-repeat="cur in currencies" ng-value="cur.MoneyId">{{ cur.MoneyName}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div ng-if="payment.PaymentMethodId == 4" layout layout-wrap flex="100">
+                            <md-input-container style="width: 100%;">
+                                <label>{{'COMPANY' | translate}}</label>
+                                <md-autocomplete md-selected-item="selectedCompanyCityLedger"
+                                                md-search-text-change="searchCompanyTextChangeCityLedger(searchCompanyTextCityLedger)" md-search-text="searchCompanyTextCityLedger"
+                                                md-selected-item-change="selectedCompanyChangeCityLedger(item)"
+                                                md-items="item in queryCompanySearchCityLedger(searchCompanyTextCityLedger)"
+                                                md-item-text="item.CompanyName"
+                                                md-min-length="0"
+                                                md-menu-class="autocomplete-custom-template">
+                                    <md-item-template>
+                                        <span class="item-title">
+                                                <md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+                                                <span style="margin: auto;"> {{item.CompanyName}} </span>
+                                        </span>
+                                    </md-item-template>
+                                </md-autocomplete>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <!--<div layout="row" layout-align="start start" flex="100" style="margin-bottom:32px;">-->
+
+                        <div layout="row" layout-wrap flex="100" layout-align="space-between center">
+                            <md-input-container flex="45" class="amount-box">
+                                <label>{{'AMOUNT' | translate}}</label>
+                                <input type="text" ng-model="$parent.payment.Amount" id="tmp_amount" name="Amount" minlength="1" required ui-number-mask="$parent.decimal">
+                                <!-- <input type="text" ng-model="payment.Amount"> -->
+                            </md-input-container>
+                            <div layout="row" layout-align="start start" flex="45" style="margin-top: -23px;">
+                                <div flex>
+                                    <input kendo-date-time-picker ng-model="str" k-ng-model="payment.CreatedDate" style="width: 100%;" k-options="DateTimePickerOption" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div layout="row" layout-wrap flex="100" layout-align="space-between center">
+                            <md-input-container flex="100" id="description" style="" class="margin0">
+                                <label>{{'DESCRIPTION' | translate}}</label>
+                                <input type="textarea" ng-model="payment.PaymentDescription" />
+                            </md-input-container>
+                        </div>
+                </form>
+            </div>
+        </md-card-content>
+        <md-divider></md-divider>
+        <div flex="100" layout="row"   class="bg-gray2 max-height50" layout-wrap>
+            <span class="md-toolbar-tools" >
+                {{'DISCOUNT' | translate}}
+            </span>
+        </div>
+        <md-divider></md-divider>
+        <md-card-content class="box-discount">
+            <div layout="row" layout-wrap flex="100" layout-align="space-between center">
+                 <form ng-submit="applyPOSDiscount()" id="form_discount" ><button class="hide"></button>
+                <div flex="100" layout="row" layout-align="space-between center" layout-wrap>
+                   
+                        <div flex="100" layout="row" layout-align="space-between center">
+                            <md-input-container flex="45" style="margin-bottom: 0px;">
+                                <label>{{'DISCOUNT' | translate}}(%)</label>
+                                <input type="number" style="width: 100%;" ng-model="POSModel.DiscountPercentage" min="0" max="100">
+                            </md-input-container>
+                            <md-input-container flex="45" style="margin-bottom: 0px;">
+                                <label>{{'DISCOUNT' | translate}}($)</label>
+                                <input type="text" style="width: 100%;" ng-model="POSModel.DiscountFlat" ui-number-mask="defaultDecimal">
+                            </md-input-container>
+                        </div>
+
+                        <div flex="100" layout="row" layout-align="space-between center">
+                            <md-input-container flex="80" id="description" style="" class="margin0">
+                                <label>{{'DISCOUNT_REASON' | translate}}</label>
+                                <input type="textarea" ng-model="POSModel.DiscountReason" required />
+                            </md-input-container>
+                            <md-button flex="15" class="md-raised md-primary" style="margin: 0px;margin-bottom: 16px;text-transform: none;" ng-click="applyPOSDiscount()">
+                                {{ 'APPLY' | translate }}
+                            </md-button>
+                        </div>
+                    
+                </div>
+                </form>
+            </div>
+        </md-card-content> 
+</md-card>
+<md-card style="border-top: 1px solid #eee;" flex class="auto-overflow flex-height">
+    <div>
+        <span class="md-toolbar-tools bg-gray2 ">
+            {{'PAYMENT_LIST' | translate}}
+        </span>
+    </div>
+    <md-divider></md-divider>
+
+    <md-card-content style="overflow: auto; padding: 0px;" class="auto-overflow">
+        <div layout="row" layout-wrap flex="100" style="width: 100%;">
+            <md-list flex="100">
+                <md-list-item ng-repeat="payment in POSModel.Payments">
+                    <p>
+                        <md-icon md-svg-src="img/icons/ic_highlight_remove_24px.svg " style="height: 21px; width: 21px; margin: auto 0px; cursor: pointer;" ng-click="removePOSPayment(payment)"></md-icon> {{payment.CreatedDate | date:'dd/MM/yyyy, HH:mm'}}
+                    </p>
+                    <span class="md-secondary">{{payment.Amount | currency}} <span ng-if="payment.AmountInSpecificMoney > 0">({{payment.AmountInSpecificMoneyString}})</span></span>
+                </md-list-item>
+                <md-divider ng-if="paymentsTotal != 0"></md-divider>
+                <md-list-item ng-if="paymentsTotal != 0">
+                    <p><strong>{{'TOTAL' | translate}}: </p><span class="md-secondary" style="font-weight:bold">{{paymentsTotal | currency}}</span></strong>
+                </md-list-item>
+            </md-list>
+        </div>
+    </md-card-content>
+</md-card>

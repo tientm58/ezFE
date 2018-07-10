@@ -1,0 +1,38 @@
+<md-dialog aria-label="CREATE FLOOR">
+    <form ng-submit="saveNewFloor(newFloor)">
+		<button class="hide" id="btn_saveNewFloor"></button>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'CREATE_FLOOR' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <md-input-container flex="100">
+                    <label>{{'FLOOR_NAME' | translate}} ({{'REQUIRED' | translate}})</label>
+                    <input md-autofocus required ng-model="newFloor.FloorName" md-maxlength="10" ng-trim="true" >
+                </md-input-container>
+                <!--<md-input-container flex="100">
+                    <label>{{'ORDER_NUMBER' | translate}}</label>
+                    <input ng-model="newFloor.OrderNumber" type="number">
+                </md-input-container>-->
+                <md-input-container flex="100">
+                    <label>{{'DESCRIPTON' | translate}}</label>
+                    <input ng-model="newFloor.FloorDescription">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button onclick="jQuery('#btn_saveNewFloor').click()" class="md-primary" ng-disabled="!newFloor.FloorName">
+                {{'CREATE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

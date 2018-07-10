@@ -1,0 +1,55 @@
+<style>
+    .disabled {
+        background: #dddddd;
+    }
+    
+    .textDisabled {
+        text-decoration: line-through
+    }
+</style>
+<md-dialog aria-label="Extra Service Detail" flex="40">
+	<form name="esDetailForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{currentExtraService.RoomExtraServiceName | translate}} ({{currentExtraService.CreatedDate | date:'dd/MM, HH:mm'}})</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap flex="100" ng-if="currentExtraService.RoomExtraServiceName !== 'EXTRA_SERVICES'">
+				<md-list flex="100">
+					<md-list-item ng-repeat="item in currentItemList">
+						<p ng-class="{ 'textDisabled' : item.IsDeleted }">
+							{{item.ExtraServiceItemName}}({{item.Quantity}})
+						</p>
+						<p class="md-secondary" ng-class="{ 'textDisabled' : item.IsDeleted }">
+							{{item.Price | currency}}
+						</p>
+					</md-list-item>
+					<md-list-item>
+						<p style="font-weight: 600;">{{'TOTAL' | translate}}:</p>
+						<p class="md-secondary" style="font-weight: 600;">
+							{{currentExtraService.Amount | currency}}
+						</p>
+					</md-list-item>
+				</md-list>
+			</div>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100" ng-if="currentExtraService.RoomExtraServiceName === 'EXTRA_SERVICES'">
+                <md-list flex="100">
+                    <md-list-item>
+                        <p ng-class="{ 'textDisabled' : currentExtraService.IsDeleted }">{{currentExtraService.RoomExtraServiceDescription}}</p>
+                        <p class="md-secondary" ng-class="{ 'textDisabled' : currentExtraService.IsDeleted }">{{currentExtraService.Amount | currency}}</p>
+                    </md-list-item>
+                </md-list>
+            </div>
+		</md-dialog-content>
+		<div class="md-actions" layout="row" layout-align="end center">
+			<md-button ng-click="cancel()" class="md-primary md-raised">
+				{{'CANCEL' | translate}}
+			</md-button>
+		</div>
+	</form>
+</md-dialog>

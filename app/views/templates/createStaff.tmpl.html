@@ -1,0 +1,170 @@
+<style>
+    md-input-container:not(.md-input-invalid)>md-icon.email {
+        color: green;
+    }
+
+    md-input-container:not(.md-input-invalid)>md-icon.name {
+        color: dodgerblue;
+    }
+
+    md-input-container.md-input-invalid>md-icon.email,
+    md-input-container.md-input-invalid>md-icon.name {
+        color: red;
+    }
+
+    .has-error {
+        /* label classes */
+        display: inline;
+        /*		padding: .2em .6em .3em;*/
+        padding: 0px;
+        font-size: 75%;
+        font-weight: bold;
+        line-height: 1;
+        color: #f44336;
+        text-align: left;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+        /* label danger classes */
+        background-color: #ffffff;
+    }
+</style>
+<md-dialog aria-label="Create Staff" flex-gt-xs="50" flex-xs="98">
+    <form name="createStaffForm" autocomplete="off" ng-submit="saveNewStaff(newStaff)">
+        <button class="hide" id="btn_saveNewStaff"></button>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'CREATE_NEW_STAFF' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel();$event.preventDefault();">
+                    <md-icon class="md-inline-list-icon" md-svg-icon="img/icons/ic_close_48px.svg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                <!-- <section flex="100">
+                    <md-switch style="margin: 0px;" aria-label="{{'ROLE_SWITCH' | translate}}" id="roleSwitch" name="roleSwitch" ng-model="newStaff.StaffRole" class="md-warn" ng-false-value="'ROLE_HOTEL_STAFF'" ng-true-value="'ROLE_HOTEL_MANAGER'">
+                        <span>
+                            {{(newStaff.StaffRole === "ROLE_HOTEL_MANAGER") ? "ROLE_HOTEL_MANAGER" : "ROLE_HOTEL_STAFF" | translate}}
+                        </span>
+
+                    </md-switch>
+                </section> -->
+
+                <md-input-container flex class="" style="margin: 12px 0px;">
+                    <label>{{'STAFF_ROLE'|translate}}</label>
+                    <md-select ng-model="newStaff.StaffRole">
+                        <md-option ng-value="role.Name" ng-if="role.Name != 'ROLE_HOTEL_OWNER' && role.Name != 'ROLE_SYS_ADMIN'" required ng-repeat="role in Roles">{{role.Name|translate}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex="100" md-is-error="!createStaffForm.newUN.$valid" class="" style="margin: 12px 0px;">
+                    <label>{{'USER_NAME(REQUIRED)' | translate}}</label>
+                    <input md-autofocus type="text" required ng-model="newStaff.UserName" required name="newUN" ng-pattern="/^[a-zA-Z0-9]*$/"
+                    />
+                    <div ng-messages="createStaffForm.newUN.$error">
+                        <div ng-show="createStaffForm.newUN.$error.pattern">
+                            {{'USER_NAME_CAN_NOT_CONTAIN_WHITE_SPACE_OR_HYPHEN' | translate}}
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <!-- <md-input-container ng-hide="true" flex="100" md-is-error="!createStaffForm.email.$valid" class="" style="margin: 12px 0px;">
+                    <label>{{'EMAIL' | translate}}</label>
+                    <input type="text" ng-model="newStaff.Email"  name="email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" />
+                    <div ng-messages="createStaffForm.email.$error">
+                        <div ng-show="createStaffForm.email.$error.pattern">
+                            {{'EMAIL_NOT_VALID' | translate}}
+                        </div>
+                    </div>
+                </md-input-container> -->
+
+                <!-- <md-input-container flex="100" md-is-error="!createStaffForm.password.$valid" class="" style="margin: 12px 0px;">
+                    <label>{{'PASSWORD(REQUIRED)' | translate}} </label>
+                    <input required ng-model="newStaff.Password" type="password" id="password" name="password" ng-pattern="/^(?=.*\d)(?=.*[a-z]).{6,}$/" />
+
+                    <div ng-messages="createStaffForm.password.$error">
+                        <div ng-show="createStaffForm.password.$error.pattern">
+                            {{'PASSWORD_LENGTH_MUST_BE_AT_LEAST_SIX_(6)_CHARACTERS_AND_ONLY_CONTAIN_BOTH_NUMBER_AND_ALPHABET' | translate}}
+                        </div>
+                    </div>
+
+                </md-input-container>-->
+
+                <md-input-container flex="100" md-is-error="!createStaffForm.newPass.$valid" class="" style="margin: 12px 0px;">
+                    <label>
+                        {{'PASSWORD(REQUIRED)' | translate}}
+                    </label>
+
+                    <input required style="margin-bottom: 10px;" ng-model="newStaff.Password" type="password" id="newPass" name="newPass" minlength="6"
+                        ng-pattern="/^(?=.*\d)(?=.*[a-z]).{6,}$/">
+
+                    <div ng-messages="createStaffForm.newPass.$error">
+                        <div ng-show="createStaffForm.newPass.$error.pattern" style="word-wrap: break-word;">
+                            <span>
+                                {{'PASSWORD_LENGTH_MUST_BE_AT_LEAST_SIX_(6)_CHARACTERS_AND_ONLY_CONTAIN_BOTH_NUMBER_AND_ALPHABET' | translate}}
+                            </span>
+                        </div>
+                    </div>
+
+                </md-input-container>
+
+                <md-input-container flex="100" md-is-error="!createStaffForm.passwordConfirm.$valid" class="" style="margin: 12px 0px;">
+                    <label>
+                        {{'PASSWORD_CONFIRM(REQUIRED)' | translate}}
+                    </label>
+                    <input required style="margin-bottom: 10px;" type="password" ng-model="newStaff.ConfirmPassword" ng-model-options="{ updateOn: 'blur' }"
+                        id="passwordConfirm" name="passwordConfirm">
+                    <div ng-messages="createStaffForm.passwordConfirm.$error" class="has-Error" ng-if="newStaff.Password && newStaff.ConfirmPassword && newStaff.Password !== newStaff.ConfirmPassword"
+                        style="">
+                        <span>
+                            {{'PASSWORD_NOT_MATCH' | translate}}
+                        </span>
+                    </div>
+                </md-input-container>
+
+
+                <!--<md-input-container flex="100" md-is-error="!createStaffForm.passwordConfirm.$valid" class="" style="margin: 12px 0px;">
+                    <label>{{'PASSWORD_CONFIRM(REQUIRED)' | translate}} </label>
+                    <input required type="password" ng-model="newStaff.ConfirmPassword" id="passwordConfirm" name="passwordConfirm">
+                    <div ng-messages="createStaffForm.passwordConfirm.$error">
+                        <div ng-show="newStaff.Password && newStaff.ConfirmPassword && newStaff.Password != newStaff.ConfirmPassword">
+                            {{'PASSWORD_NOT_MATCH' | translate}}
+                        </div>
+                    </div>
+                </md-input-container>-->
+
+                <md-input-container flex="100" class="" style="margin: 12px 0px;">
+                    <label>{{'STAFF_NAME' | translate}}</label>
+                    <input type="textarea" required ng-model="newStaff.StaffName" id="staffName" name="StaffName">
+
+
+                </md-input-container>
+
+                <md-input-container flex="100" class="" style="margin: 12px 0px;">
+                    <label>{{'MOBILE' | translate}}</label>
+                    <input type="textarea" ng-model="newStaff.Mobile" id="mobile" name="Mobile">
+
+
+                </md-input-container>
+
+                <md-input-container flex="100" class="" style="margin: 12px 0px;">
+                    <label>{{'DESCRIPTION' | translate}}</label>
+                    <input type="textarea" ng-model="newStaff.Description" id="description" name="description">
+
+
+                </md-input-container>
+
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button onclick="jQuery('#btn_saveNewStaff').click()" class="md-primary" ng-disabled="createStaffForm.$invalid">
+                {{'SAVE' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

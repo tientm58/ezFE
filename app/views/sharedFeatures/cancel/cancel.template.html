@@ -1,0 +1,120 @@
+<style>
+.md-list-item.md-2-line .md-list-item-text,
+md-list-item.md-2-line>._md-no-style .md-list-item-text,
+md-list-item.md-3-line .md-list-item-text,
+md-list-item.md-3-line>._md-no-style .md-list-item-text {
+    margin: auto;
+}
+
+.md-list-item ._md-list-item-inner ._md-secondary-container,
+md-list-item ._md-secondary-container {
+    height: auto;
+}
+</style>
+<div class="md-dialog-content" layout="row" layout-wrap layout-align="space-between center" style="padding-bottom: 20px;width: 100%;">
+    <md-content layout="row" layout-align="space-between start" layout-wrap style="width: 100%;">
+        <div flex-gt-xs="45" flex-xs="100" layout="column" style="padding-bottom: 20px;">
+            <md-list style="padding: 0px;">
+                <md-subheader>{{'CANCEL_PROCESS' | translate}}</md-subheader>
+                <md-list-item>
+                    <p>{{'RES_NO' | translate}}</p>
+                    <p class="md-secondary">{{cancelCtrl.ReservationNumber}}</p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'ROOM' | translate }}</p>
+                    <p class="md-secondary">{{cancelCtrl.currentRoom.RoomName}} ({{cancelCtrl.currentRoom.roomType.RoomTypeCode}})</p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'DEPOSIT' | translate }}</p>
+                    <p class="md-secondary">{{cancelCtrl.currentRoom.TotalDeposit | currency}}</p>
+                </md-list-item>
+                <md-list-item ng-if="cancelCtrl.currentRoom.TotalDeposit > 0">
+                    <p>{{ 'CANCELLATION_FEES' | translate }}
+                    </p>
+                </md-list-item>
+                <div layout="row" layout-wrap flex="100" style="padding: 0 16px;" ng-show="cancelCtrl.currentRoom.TotalDeposit > 0">
+                    <md-checkbox ng-model="cancelCtrl.applyCancellationFees" aria-label="Show Discount" flex="100" class="md-warn">
+                        {{ 'APPLY_CANCELLATION_FEES' | translate }}
+                    </md-checkbox>
+                    <fieldset class="standard" flex ng-if="cancelCtrl.applyCancellationFees">
+                        <div layout="row" layout-align="space-between center" layout-wrap flex="100">
+                            <md-input-container style="margin-bottom: 0px;" flex="45">
+                                <label>{{'FEE' | translate}}(%)</label>
+                                <input type="number" style="width: 100%;" ng-model="cancelCtrl.cancelPercentage" min="0">
+                            </md-input-container>
+                            <md-input-container flex="45" style="margin-bottom: 0px;">
+                                <label>{{'FEE' | translate}}($)</label>
+                                <input type="text" style="width: 100%;" ng-model="cancelCtrl.cancelFlat" min="0" ui-number-mask="cancelCtrl.decimal">
+                            </md-input-container>
+                        </div>
+                    </fieldset>
+                </div>
+                <md-list-item>
+                    <p>{{'CANCEL_REASON' | translate}} ({{'REQUIRED' | translate}})
+                    </p>
+                </md-list-item>
+                <md-list-item>
+                    <md-input-container style="margin: 0px;width: 100%;">
+                        <textarea required ng-model="cancelCtrl.cancelReason" md-maxlength="150" ng-trim="true"></textarea>
+                    </md-input-container>
+                </md-list-item>
+            </md-list>
+        </div>
+        <div flex-gt-xs="45" flex-xs="100" style="padding-bottom: 20px;">
+            <md-list style="padding: 0px;">
+                <md-subheader>{{'RESERVATION_INFO' | translate}}</md-subheader>
+                <md-list-item>
+                    <p>{{ 'GUEST' | translate }}</p>
+                    <p class="md-secondary">{{cancelCtrl.currentRoom.reservationRoom.Travellers.Fullname}}</p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'ARRIVAL' | translate }}</p>
+                    <p class="md-secondary">{{cancelCtrl.currentRoom.reservationRoom.ArrivalDate | date:'dd/MM/yyyy, HH:mm'}}</p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'DEPARTURE' | translate }}</p>
+                    <p class="md-secondary">{{cancelCtrl.currentRoom.reservationRoom.DepartureDate | date:'dd/MM/yyyy, HH:mm'}}</p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'ADULTS' | translate }}</p>
+                    <p class="md-secondary">{{cancelCtrl.currentRoom.reservationRoom.Adults}}</p>
+                </md-list-item>
+                <md-list-item>
+                    <p>{{ 'CHILDREN' | translate }}</p>
+                    <p class="md-secondary">{{cancelCtrl.currentRoom.reservationRoom.Child}}</p>
+                </md-list-item>
+            </md-list>
+        </div>
+    </md-content>
+    <section>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="cancelCtrl.warningCancellationFeeInvalid === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'CANCELLATION_FEE_INVALID._THE_TOTAL_OF_CANCELLATION_FEE_CAN_NOT_EXCEED_THE_CURRENT_TOTAL_DEPOSIT' | translate}}.
+            </span>
+        </fieldset>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="cancelCtrl.warningMissingReason === true">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'CANCEL_REASON_CAN_NOT_BE_EMPTY' | translate}}.
+            </span>
+        </fieldset>
+        <fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;" ng-if="cancelCtrl.warningMissingFees === true ">
+            <span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+            <span style="color: #f44336;">
+                {{'MISSING_CANCELLATION_FEES' | translate}}.
+            </span>
+        </fieldset>
+    </section>
+</div>
+<div class="md-actions" layout="row">
+    <md-button ng-click="cancelCtrl.cancel()" class="md-primary">
+        {{'CANCEL' | translate}}
+    </md-button>
+    <md-button ng-if="cancelCtrl.IsDashboard == 0" ng-click="cancelCtrl.processCancel()" class="md-primary">
+        {{'PROCESS' | translate}}
+    </md-button>
+    <md-button ng-if="cancelCtrl.IsDashboard == 1" ng-click="cancelCtrl.processCancelDB()" class="md-primary">
+        {{'PROCESS' | translate}}
+    </md-button>
+</div>

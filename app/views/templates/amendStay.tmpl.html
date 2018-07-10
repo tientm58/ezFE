@@ -1,0 +1,515 @@
+<style>
+	input[type=number]::-webkit-inner-spin-button,
+	input[type=number]::-webkit-outer-spin-button {
+		opacity: 1;
+	}
+
+	.k-datetimepicker .k-picker-wrap .k-icon {
+		margin: 6px 2px;
+	}
+
+	.k-i-calendar {
+		background-position: -32px -176px !important;
+	}
+
+	.k-i-clock {
+		background-position: -32px -192px !important;
+	}
+
+	.font2 {
+		font-size: 11px;
+		margin: 0;
+	}
+
+	p {
+		margin: 0;
+	}
+</style>
+<md-dialog aria-label="Amend Stay" flex-gt-xs="80" flex-xs="98" ng-cloak>
+	<form name="amendStayForm" ng-submit="saveAmendStay()">
+		<button class="hide" id="btnAmendStay"></button>
+		<md-toolbar style="min-height:64px !important">
+			<div class="md-toolbar-tools">
+				<h2>{{'AMEND_STAY_DURATION' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<div class="md-dialog-content" layout="row" layout-wrap layout-align="space-between center" flex="100" style="padding-bottom: 20px;width: 100%;">
+				<section flex-gt-xs="45" flex-xs="100" ng-if="currentRoom.reservationRoom" style="width: 100%;" layout="column" layout-align="center center">
+					<div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+						<span style="font-weight: 600" flex="30">
+							{{'RES_NO' | translate}}
+						</span>
+						<span flex>
+							{{ currentRoom.reservationRoom.Reservations.ReservationNumber }}
+						</span>
+					</div>
+					<div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+						<span style="font-weight: 600" flex="30">{{'ROOM' | translate}}</span>
+						<span flex>{{currentRoom.RoomName}}</span>
+					</div>
+					<div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+						<span style="font-weight: 600" flex="30">
+							{{'GUEST' | translate}}
+						</span>
+						<span flex>
+							{{currentRoom.reservationRoom.Travellers.Fullname}}
+						</span>
+					</div>
+					<div layout="row" layout-align="start center" style="margin: 8px auto;width: 100%;">
+						<span style="font-weight: 600" flex="30">
+							{{'ARRIVAL' | translate}}
+						</span>
+
+						<div flex ng-if="currentRoom.BookingStatus === 'CHECKIN' || currentRoom.BookingStatus === 'OVERDUE' ">
+							<input kendo-date-time-picker ng-model="str" k-ng-model="currentRoom.reservationRoom.ArrivalDate" ng-disabled="true" style="width: 100%;"
+							 k-options="DateTimePickerOption" />
+						</div>
+						<div flex ng-if="currentRoom.BookingStatus === 'NOSHOW'">
+							<input kendo-date-time-picker ng-model="str" k-ng-model="currentRoom.reservationRoom.ArrivalDate" style="width: 100%;" min="currentRoom.reservationRoom.ArrivalDate"
+							 k-options="DateTimePickerOption" />
+						</div>
+						<div flex ng-if="currentRoom.BookingStatus === 'BOOKED'">
+							<input kendo-date-time-picker ng-model="str" k-ng-model="currentRoom.reservationRoom.ArrivalDate" style="width: 100%;" min="minDate"
+							 k-options="DateTimePickerOption" />
+						</div>
+					</div>
+					<div layout="row" layout-align="start center" style="margin: 8px 0;width: 100%;">
+						<span style="font-weight: 600" flex="30">
+							{{'DEPARTURE' | translate}}
+						</span>
+						<div flex>
+							<input kendo-date-time-picker ng-model="str2" k-ng-model="currentRoom.reservationRoom.DepartureDate" style="width: 100%;"
+							 min="$parent.currentRoom.reservationRoom.ArrivalDate" k-options="DateTimePickerOption" />
+						</div>
+					</div>
+					<div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+						<span style="font-weight: 600" flex="30">
+							{{'ADULT' | translate}}
+						</span>
+						<div flex>
+							<md-input-container style="padding: 0px;">
+								<input type="number" min="1" ng-model="currentRoom.reservationRoom.Adults" style="width: 80%;" />
+							</md-input-container>
+						</div>
+
+					</div>
+					<div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+						<span style="font-weight: 600" flex="30">
+							{{'CHILDREN' | translate}}
+						</span>
+						<div flex>
+							<md-input-container style="padding: 0px;">
+								<input type="number" min="0" ng-model="currentRoom.reservationRoom.Child" style="width: 80%;" />
+							</md-input-container>
+						</div>
+
+					</div>
+				</section>
+				<section flex-gt-xs="45" flex-xs="100" ng-if="!currentRoom.reservationRoom" style="width: 100%;" layout="column" layout-align="center center">
+					<div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+						<span style="font-weight: 600" flex="30">
+							{{'RES_NO' | translate}}
+						</span>
+						<span flex>
+							{{ currentRoom.Reservations.ReservationNumber }}
+						</span>
+					</div>
+					<div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+						<span style="font-weight: 600" flex="30">{{'ROOM' | translate}}</span>
+						<span flex>{{currentRoom.Rooms.RoomName}} ({{currentRoom.RoomTypes.RoomTypeName | translate}})</span>
+					</div>
+
+					<div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+						<span style="font-weight: 600" flex="30">
+							{{'GUEST' | translate}}
+						</span>
+						<span flex>
+							{{currentRoom.Travellers.Fullname}}
+						</span>
+					</div>
+
+					<div layout="row" layout-align="start center" style="margin: 8px auto;width: 100%;">
+						<span style="font-weight: 600" flex="30">
+							{{'ARRIVAL' | translate}}
+						</span>
+
+						<div flex ng-if="currentRoom.BookingStatus === 'BOOKED'">
+							<input kendo-date-time-picker ng-model="str" k-ng-model="currentRoom.ArrivalDate" ng-disabled="currentRoom.BookingStatus==='CHECKIN' || currentRoom.BookingStatus==='OVERDUE'"
+							 style="font-size:16px;width: 100%;" k-options="DateTimePickerOption" min="minDate" />
+						</div>
+
+						<div flex ng-if="currentRoom.BookingStatus === 'CHECKIN' || currentRoom.BookingStatus === 'OVERDUE' ">
+							<input kendo-date-time-picker ng-model="str" k-ng-model="currentRoom.ArrivalDate" ng-disabled="true" style="font-size:16px;width: 100%;"
+							 k-options="DateTimePickerOption" />
+						</div>
+
+						<div flex ng-if="currentRoom.BookingStatus === 'NOSHOW'">
+							<input kendo-date-time-picker ng-model="str" k-ng-model="currentRoom.ArrivalDate" style="font-size:16px;width: 100%;" min="currentRoom.ArrivalDate"
+							 k-options="DateTimePickerOption" />
+						</div>
+					</div>
+					<div layout="row" layout-align="start center" style="margin: 8px 0;width: 100%;">
+						<span style="font-weight: 600" flex="30">
+							{{'DEPARTURE' | translate}}
+						</span>
+						<div flex>
+							<input name="departureDate" kendo-date-time-picker ng-model="str2" k-ng-model="currentRoom.DepartureDate" style="font-size:16px;width: 100%;"
+							 k-options="DateTimePickerOption" />
+						</div>
+					</div>
+					<div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+						<span style="font-weight: 600" flex="30">
+							{{'ADULT' | translate}}
+						</span>
+						<div flex>
+							<md-input-container style="padding: 0px;">
+								<input type="number" min="1" ng-model="currentRoom.Adults" style="width: 80%;" />
+							</md-input-container>
+						</div>
+
+					</div>
+					<div layout="row" layout-align="space-between center" style="margin: 8px auto;width: inherit;">
+						<span style="font-weight: 600" flex="30">
+							{{'CHILDREN' | translate}}
+						</span>
+						<div flex>
+							<md-input-container style="padding: 0px;">
+								<input type="number" min="0" ng-model="currentRoom.Child" style="width: 80%;" />
+							</md-input-container>
+						</div>
+
+					</div>
+				</section>
+				<!-- <section flex-gt-xs="45" flex-xs="100" style="" layout="column" ng-if="currentRoom.reservationRoom && currentRoom.BookingStatus === 'CHECKIN' || currentRoom.BookingStatus === 'OVERDUE'"> -->
+				<section flex-gt-xs="45" flex-xs="100" style="" layout="column" ng-if="currentRoom.reservationRoom">
+					<fieldset ng-if="currentRoom.roomBookingList.length!=null" layout="column" layout-align="center center" class="standard"
+					 style="">
+						<div layout="row" layout-align="center center" style="margin: 12px auto;">
+							<span style="font-weight: 600; color: dodgerblue">
+								{{'NEXT_RESERVATION' | translate}}
+								<span ng-if="currentRoom.roomBookingList[0].Reservations.ReservationNumber">| {{'RES_NO' | translate}} {{currentRoom.roomBookingList[0].Reservations.ReservationNumber}}</span>
+							</span>
+						</div>
+						<md-divider></md-divider>
+						<!-- <div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+									{{'RES_NO' | translate}}
+								</span>
+							<span flex ng-if="currentRoom.roomBookingList[0]">
+									{{currentRoom.roomBookingList[0].Reservations.ReservationNumber}}
+								</span>
+							<span flex ng-if="!currentRoom.roomBookingList[0]">
+									-
+								</span>
+						</div> -->
+
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'GUEST' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList[0]">
+								{{currentRoom.roomBookingList[0].Travellers.Fullname}}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList[0]">
+								-
+							</span>
+						</div>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'ARRIVAL' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList[0]">
+								{{currentRoom.roomBookingList[0].ArrivalDate | date:'dd/MM/yyyy, HH:mm' }}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList[0]">
+								-
+							</span>
+						</div>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'DEPARTURE' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList[0]">
+								{{currentRoom.roomBookingList[0].DepartureDate | date:'dd/MM/yyyy, HH:mm' }}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList[0]">
+								-
+							</span>
+
+						</div>
+						<!-- <div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+									{{'ADULT' | translate}}
+								</span>
+							<span flex ng-if="currentRoom.roomBookingList[0]">
+									{{currentRoom.roomBookingList[0].Adults}}
+								</span>
+							<span flex ng-if="!currentRoom.roomBookingList[0]">
+									-
+								</span>
+						</div>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+									{{'CHILDREN' | translate}}
+								</span>
+							<span flex ng-if="currentRoom.roomBookingList[0]">
+									{{currentRoom.roomBookingList[0].Child}}
+								</span>
+							<span flex ng-if="!currentRoom.roomBookingList[0]">
+									-
+								</span>
+						</div> -->
+					</fieldset>
+					<fieldset layout="column" layout-align="center center" class="standard" ng-if="currentRoom.roomBookingList.PreviousReservation!=null">
+						<div layout="row" layout-align="center center" style="margin: 12px auto;">
+							<span style="font-weight: 600; color: #f44336">
+								{{'PREV_RESERVATION' | translate}}
+								<span ng-if="currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">| {{'RES_NO' | translate}} {{currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length
+									-1].Reservations.ReservationNumber}}</span>
+							</span>
+						</div>
+						<md-divider></md-divider>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'GUEST' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								{{currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1].Travellers.Fullname}}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								-
+							</span>
+						</div>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'ARRIVAL' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								{{currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1].ArrivalDate
+								| date:'dd/MM/yyyy, HH:mm' }}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								-
+							</span>
+						</div>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'DEPARTURE' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								{{currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1].DepartureDate
+								| date:'dd/MM/yyyy, HH:mm' }}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								-
+							</span>
+
+						</div>
+					</fieldset>
+					<fieldset layout="column" layout-align="center center" class="standard" style="" ng-if="currentRoom.roomBookingList.NextReservation!=null">
+						<div layout="row" layout-align="center center" style="margin: 12px auto;">
+							<span style="font-weight: 600; color: dodgerblue">
+								{{'NEXT_RESERVATION' | translate}}
+								<span ng-if="currentRoom.roomBookingList.NextReservation[0]"> | {{'RES_NO' | translate}} {{currentRoom.roomBookingList.NextReservation[0].Reservations.ReservationNumber}}</span>
+							</span>
+						</div>
+						<md-divider></md-divider>
+
+
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'GUEST' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.NextReservation[0]">
+								{{currentRoom.roomBookingList.NextReservation[0].Travellers.Fullname}}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.NextReservation[0]">
+								-
+							</span>
+						</div>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'ARRIVAL' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.NextReservation[0]">
+								{{currentRoom.roomBookingList.NextReservation[0].ArrivalDate | date:'dd/MM/yyyy, HH:mm' }}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.NextReservation[0]">
+								-
+							</span>
+						</div>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'DEPARTURE' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.NextReservation[0]">
+								{{currentRoom.roomBookingList.NextReservation[0].DepartureDate | date:'dd/MM/yyyy, HH:mm' }}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.NextReservation[0]">
+								-
+							</span>
+						</div>
+					</fieldset>
+				</section>
+				<section flex-gt-xs="45" flex-xs="100" style="width: 100%;" layout="column" ng-if="!currentRoom.reservationRoom">
+					<fieldset layout="column" layout-align="center center" class="standard" ng-if="(currentRoom.BookingStatus === 'BOOKED' || currentRoom.BookingStatus ==='NOSHOW') && currentRoom.roomBookingList!=null">
+						<!-- <section flex-gt-xs="45" flex-xs="100" style="width: 100%;" layout="column" ng-if="currentRoom.BookingStatus === 'BOOKED' || currentRoom.BookingStatus ==='NOSHOW'">
+					<fieldset layout="column" layout-align="center center" class="standard" > -->
+						<div layout="row" layout-align="center center" style="margin: 12px auto;">
+							<span style="font-weight: 600; color: #f44336">
+								{{'PREV_RESERVATION' | translate}}
+								<span ng-if="currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">| {{'RES_NO' | translate}} {{currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length
+									-1].Reservations.ReservationNumber}}</span>
+							</span>
+						</div>
+						<md-divider></md-divider>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'GUEST' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								{{currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1].Travellers.Fullname}}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								-
+							</span>
+						</div>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'ARRIVAL' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								{{currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1].ArrivalDate
+								| date:'dd/MM/yyyy, HH:mm' }}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								-
+							</span>
+						</div>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'DEPARTURE' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								{{currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1].DepartureDate
+								| date:'dd/MM/yyyy, HH:mm' }}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.PreviousReservation[currentRoom.roomBookingList.PreviousReservation.length -1]">
+								-
+							</span>
+
+						</div>
+					</fieldset>
+
+					<fieldset layout="column" layout-align="center center" class="standard" style="" ng-if="currentRoom.roomBookingList!=null">
+						<div layout="row" layout-align="center center" style="margin: 12px auto;">
+							<span style="font-weight: 600; color: dodgerblue">
+								{{'NEXT_RESERVATION' | translate}}
+								<span ng-if="currentRoom.roomBookingList.NextReservation[0]"> | {{'RES_NO' | translate}} {{currentRoom.roomBookingList.NextReservation[0].Reservations.ReservationNumber}}</span>
+							</span>
+						</div>
+						<md-divider></md-divider>
+
+
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'GUEST' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.NextReservation[0]">
+								{{currentRoom.roomBookingList.NextReservation[0].Travellers.Fullname}}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.NextReservation[0]">
+								-
+							</span>
+						</div>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'ARRIVAL' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.NextReservation[0]">
+								{{currentRoom.roomBookingList.NextReservation[0].ArrivalDate | date:'dd/MM/yyyy, HH:mm' }}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.NextReservation[0]">
+								-
+							</span>
+						</div>
+						<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+							<span style="font-weight: 600" flex="40">
+								{{'DEPARTURE' | translate}}
+							</span>
+							<span flex ng-if="currentRoom.roomBookingList.NextReservation[0]">
+								{{currentRoom.roomBookingList.NextReservation[0].DepartureDate | date:'dd/MM/yyyy, HH:mm' }}
+							</span>
+							<span flex ng-if="!currentRoom.roomBookingList.NextReservation[0]">
+								-
+							</span>
+
+						</div>
+						<!--<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+	<span style="font-weight: 600" flex="40">
+									{{'ADULT' | translate}}
+								</span>
+	<span flex>
+									{{currentRoom.roomBookingList[0].Adults}}
+								</span>
+</div>
+<div layout="row" layout-align="space-between center" style="margin: 10px auto;width: inherit;">
+	<span style="font-weight: 600" flex="40">
+									{{'CHILDREN' | translate}}
+								</span>
+	<span flex>
+									{{currentRoom.roomBookingList[0].Child}}
+								</span>
+</div>-->
+					</fieldset>
+				</section>
+				<!--                </div>-->
+				<section>
+					<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+					 ng-if="warningDate === true">
+						<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+						<span style="color: #f44336;">
+							{{'ARRIVAL_DATE_CAN_NOT_GREATER_THAN_DEPARTURE_DATE' | translate}}.
+						</span>
+					</fieldset>
+					<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+					 ng-if="warning === true">
+						<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+						<span style="color: #f44336;">
+							{{'ROOM_IS_NOT_AVAILABLE_FOR_SELECTED_DATES' | translate}}.
+						</span>
+					</fieldset>
+					<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+					 ng-if="warningDepartureDate === true">
+						<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+						<span style="color: #f44336;">
+							{{'DEPARTURE_DATE_CAN_NOT_LESS_THAN_CURRENT_TIME' | translate}}.
+						</span>
+					</fieldset>
+					<fieldset layout="column" layout-align="center center" class="standard" style="border-style: solid; border-width: 1px;border-color: #f44336;"
+					 ng-if="warningArrivalDate === true">
+						<span style="font-weight: 600; color: #f44336;">{{'WARNING' | translate}}!</span>
+						<span style="color: #f44336;">
+							{{'ARRIVAL_DATE_CAN_NOT_LESS_THAN_CURRENT_TIME' | translate}}.
+						</span>
+					</fieldset>
+				</section>
+			</div>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="cancel()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+			<md-button onclick="jQuery('#btnAmendStay').click()" class="md-primary">
+				{{'AMEND' | translate}}
+			</md-button>
+		</md-dialog-actions>
+
+	</form>
+
+</md-dialog>

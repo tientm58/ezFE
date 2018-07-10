@@ -1,0 +1,49 @@
+<style>
+	md-list-item,
+	md-list-item .md-list-item-inner {
+		min-height: 48px;
+		height: 50px;
+	}
+</style>
+<md-dialog aria-label="Room Type Edit" ng-cloak>
+	<form name="conflictReservation">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>{{'CONFLICT' | translate}}</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancelDialog()">
+					<md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			
+				<div class="md-dialog-content" layout="row" layout-wrap flex="100">
+					<p flex="100">{{'CONFLICT_WITH_RESERVATION' | translate}}</p> 
+					<md-list flex="100">
+						<md-list-item>
+							<p>{{'RES_NO' | translate}}</p>
+							<p class="md-secondary">{{conflictReservationDialog.Reservations.ReservationNumber}}</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'ARRIVAL' | translate}}</p>
+							<p class="md-secondary">{{conflictReservationDialog.ArrivalDate | date:'dd/MM/yyyy, HH:mm'}}</p>
+						</md-list-item>
+						<md-list-item>
+							<p>{{'DEPARTURE' | translate}}</p>
+							<p class="md-secondary">{{conflictReservationDialog.DepartureDate | date:'dd/MM/yyyy, HH:mm'}}</p>
+						</md-list-item>
+					</md-list>
+				</div>
+			
+		</md-dialog-content>
+
+		<md-dialog-actions layout="row">
+						<md-button class="md-raised md-primary" ng-click="cancelDialog()" ng-href="#/reservation/{{conflictReservationDialog.ReservationRoomId}}">{{'DETAIL' | translate}}</md-button>
+
+			<md-button ng-click="cancelDialog()" class="md-primary">
+				{{'CANCEL' | translate}}
+			</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>

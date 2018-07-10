@@ -1,0 +1,387 @@
+<!-- VIEW FOR WALKIN -->
+<!-- STAY INFORMATION & CUSTOMER LAYOUT -->
+<style>
+	.fabToolbardemoBasicUsage md-fab-toolbar.md-left md-fab-trigger.align-with-text {
+		left: 7px;
+	}
+
+	md-input-container.md-default-theme label,
+	md-input-container.md-default-theme .md-placeholder {
+		color: grey !important;
+		font-weight: bold !important;
+	}
+	.k-datetimepicker .k-picker-wrap .k-icon {
+		margin: 6px 2px;
+	}
+	.k-i-calendar {
+		background-position: -32px -176px !important;
+	}
+
+	.k-i-clock {
+		background-position: -32px -192px !important;
+	}
+
+	.k-picker-wrap .k-icon {
+		margin: 6px 2px;
+	}
+
+	.none_paddingTop {
+		padding-top: 0;
+	}
+
+	.marginTop2 {
+		margin-top: -2px;
+	}
+
+	md-autocomplete.md-default-theme,
+	md-autocomplete {
+		background: rgb(255, 255, 255);
+	}
+
+	.md-whiteframe-1dp,
+	.md-whiteframe-z1 {
+		box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+	}
+
+	.font2 {
+		font-size: 11px;
+		margin: 0;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	.selectC {
+		/*margin-bottom: 12px;*/
+	}
+
+	.md-autocomplete-suggestions li {
+		line-height: 12px;
+	}
+
+	.container {
+		font-size: 16px;
+		line-height: 16px;
+		height: 32px;
+		overflow: hidden;
+	}
+
+	.show {
+		overflow: visible;
+		height: auto;
+	}
+    .stayInfo{
+      border-top: 1px solid #eee;
+      min-height:610px  !important;
+    }
+    .cus{
+        border-top: 1px solid #eee;
+        min-height:610px  !important;
+        margin-bottom: 35px !important;
+    }
+	/*md-icon:focus{
+		outline: -webkit-focus-ring-color auto 0px !important;
+	}*/
+</style>
+<!-- STAY INFORMATION LAYOUT -->
+	<md-card class="stayInfo"  flex-gt-sm="55" flex-sm="100" flex-xs="100" flex  > 
+	   <div class="box-header">
+			<div   layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+				<div flex="85" flex-xs="75">
+					<span  class="sub-title">{{'STAY_INFORMATION' | translate}}</span>
+				</div>
+				<div >
+					<md-button class="md-primary md-fab md-mini" ng-click="saveCustomerChanges()" ng-if="isRoomChanged && $stateParams.reservationRoomId">
+						<md-icon md-svg-src="img/icons/ic_save_24px.svg" style="fill:white"></md-icon>
+					</md-button>
+				</div>
+			</div>
+			<md-divider></md-divider>
+		</div>
+	   <md-card-content class="md-default-theme none_paddingTop" >
+    		<div ng-if="availableAlert !== ''">
+    			{{availableAlert | translate}}
+    		</div>
+    		<div flex="100" layout="row" layout-align="space-between center" layout-wrap style=" ">
+    			<div flex="45" layout="row">
+    				<md-select flex ng-model="room.RoomTypeId" placeholder="{{'SELECT_TYPE' | translate}} *" style="margin: 0px; margin-top: 19px; margin-bottom: 12px;">
+    					<md-select-label style="width:100%"></md-select-label>
+    					<md-option ng-repeat="rt in roomTypes" ng-value="rt.RoomTypeId">{{ rt.RoomTypeName | translate }}</md-option>
+    				</md-select>
+    			</div>
+    			<div flex="45" layout="row" layout-align="center center" >
+    				<md-select flex ng-model="room.RoomId" placeholder="{{'SELECT_ROOM'|translate}}" aria-required="" style="margin: 0px;margin-top: 19px; margin-bottom: 12px;" ng-if="availableRoom != null || (!$stateParams.roomId)" ng-cloak>
+    					<md-select-label style="width:100%"></md-select-label>
+    					<md-option value="0">{{'SELECT_ROOM' | translate}} *</md-option>
+    					<md-option ng-repeat="r in availableRoom | filter: {RoomTypeId:room.RoomTypeId}" ng-value="r.RoomId">{{r.RoomName}}</md-option>
+    				</md-select>
+    			</div>
+    		</div>
+
+
+            <div flex="100" layout="row" layout-align="space-between center" layout-wrap style=" ">
+                <div flex="45" layout="row" layout-align="space-between center">
+    				<md-select flex ng-model="room.RoomPriceId" placeholder="{{'RATE' | translate}}" style="margin-bottom: 25px;">
+    					<md-select-label style="width:100%"></md-select-label>
+    					<md-option ng-if="!room.RoomId && !room.RoomPriceId" selected value="0">{{'SELECT_RATE' | translate}}</md-option>
+    					<md-option ng-repeat="plan in availablePlanList" ng-value="plan.RoomPriceId" ng-selected="plan.RoomPriceId.toString() === availablePlanList[0].RoomPriceId.toString()">{{plan.RoomPriceName | translate}}</md-option>
+    				</md-select>
+
+    			</div>
+                <div flex="45" layout="row" layout-align="space-between">
+                    <md-input-container style="margin-bottom: 0px;" flex="100">
+                        <label>{{'PRICE' | translate}}</label>
+                        <input type="text" format="number" ng-model="room.Price" ui-number-mask="decimal">
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div flex="100" layout="row" layout-align="space-between center" layout-wrap style=" ">
+                <div layout="row" layout-align="start center" flex-xs="100" flex="66">
+                    <span flex="30" style="">{{'ARRIVAL' | translate}}</span>
+					<div flex>
+					<input kendo-date-time-picker ng-model="str" k-ng-model="room.ArrivalDate" style="width: 100%;" min="minDate" k-options="DateTimePickerOption" />
+					</div>
+				</div>
+				<div layout="row" layout-align="space-between center" flex-xs="100" flex="30">
+					<span flex="50" style="">{{'ADULTS' | translate}}</span>
+					<md-input-container flex-gt-xs="50" flex-xs="50" flex="35" style="margin-bottom: 0px;">
+						<label></label>
+						<input type="number" ng-model="room.Adults" min="1">
+					</md-input-container>
+				</div>
+			</div>
+			<div flex="100" layout="row" layout-align="space-between center" layout-wrap style=" ">
+				<div layout="row" layout-align="start center" flex-xs="100" flex="66">
+					<span flex="30" style="">{{'DEPARTURE' | translate}}</span>
+					<div flex>
+						<input kendo-date-time-picker ng-model="str2" k-ng-model="room.DepartureDate" style="width: 100%;" min="room.ArrivalDate" k-options="DateTimePickerOption" />
+					</div>
+				</div>
+				<div layout="row" layout-align="space-between center" flex-xs="100" flex="30">
+					<span flex="50" style="">{{'CHILDREN' | translate}}</span>
+					<md-input-container flex-gt-xs="50" flex-xs="50" flex="35" style="margin-bottom: 0px;">
+						<label></label>
+						<input type="number" ng-disabled="$stateParams.reservationRoomId && (room.BookingStatus ==='CHECKIN' || room.BookingStatus ==='OVERDUE')" ng-model="room.Child" min="0">
+					</md-input-container>
+				</div>
+				<!--<md-input-container flex="15" style="padding-bottom: 17px;">
+			                                <label>{{'CHILDREN' | translate}}</label>
+			                                <input type="number" ng-disabled="$stateParams.reservationRoomId && (room.BookingStatus ==='CHECKIN' || room.BookingStatus ==='OVERDUE')" ng-model="room.Child" min="0">
+			                            </md-input-container>-->
+			</div>
+			<div flex="100" layout="row" layout-align="space-between center" layout-wrap>
+				<div flex="30">
+					<md-checkbox ng-model="room.FOC" aria-label="FOC" style="font-size: 12px;margin-bottom: 24px;" >
+						<span style="margin: auto 0px;">{{'FREE_OF_CHARGE' | translate}}</span>
+					</md-checkbox>
+				</div>
+				<md-input-container flex="20" style="">
+					<label>{{'DISCOUNT' | translate}}(%)</label>
+					<input type="number" min="0" max="100" style="width: 100%;" ng-model="room.DiscountPercentage" ng-disabled="room.FOC">
+				</md-input-container>
+				<md-input-container flex="45" style="">
+					<label>{{'DISCOUNT' | translate}}($)</label>
+					<!--        <input type="text" style="width: 100%;" pattern="[0-9]+([\.,][0-9]+)*" ng-model="room.DiscountFlat" format="number">-->
+					<input type="text" style="width: 100%;" ng-model="room.DiscountFlat" ui-number-mask="decimal" ng-disabled="room.FOC"  >
+				</md-input-container>
+			</div>
+			<div flex="100" layout="row" layout-align="space-between center" layout-wrap>
+				<md-input-container flex="100">
+					<label>{{'NOTE' | translate}}</label>
+					<textarea style="width: 100%;" columns="1" rows="5" ng-model="room.Note" />
+				</md-input-container>
+			</div>
+		</md-card-content>
+	</md-card>
+
+<!-- CUSTOMER LAYOUT -->
+	<md-card class="cus" flex-gt-sm flex-sm="100" flex-xs="100" flex   >
+		<div class="box-header">
+			<div layout="row" layout-align="space-between center" class="max-height50" layout-wrap>
+				<div flex="85" flex-xs="75">
+					<span  class="sub-title">{{'CUSTOMER' | translate}}</span>		
+					<span id="btnSavePassportInfo" ng-click="saveInfoPassport()" class="hide"></span>			
+				</div>
+				<div >
+					<md-button  ng-if="reservationNumber" class="md-primary md-fab md-mini md-button md-ink-ripple" ng-click="addSharer($event)" ng-if="!isCheckOut && !isCancel">
+						<md-icon md-svg-src="img/icons/ic_group_add_24px.svg"></md-icon>
+						<md-tooltip md-direction="left" flex-gt-md="100" hide-xs hide-sm hide-md>
+							{{'TOOLTIP_EDITCUSTOMER' | translate}}
+						</md-tooltip>
+					</md-button>
+				</div>
+			</div>
+			<md-divider></md-divider>
+		</div>
+		<md-card-content class="md-default-theme none_paddingTop" style="">
+			<div ng-if="isUsePassport" flex="100" layout="row" layout-align="space-between center" layout-wrap style="">
+				<!--<md-input-container flex="65" style="margin-bottom: 0px;">
+					<label>{{'CUSTOMER_NAME'|translate}}</label>
+					<md-autocomplete ng-disabled="isDisabled" md-no-cache="noCache" md-selected-item="selectedItem" md-search-text-change="searchTextChange(searchText)" md-search-text="searchText" md-selected-item-change="selectedItemChange(item)" md-items="item in customerList | filter:{Fullname:searchText}" md-item-text="item.Fullname" md-min-length="2" md-menu-class="autocomplete-custom-template" ng-model="customer.Fullname" ng-keyup="customer.Fullname=searchText">
+						<md-item-template>
+							<span class="item-metadata">
+                            <p> <md-icon md-svg-src="img/icons/ic_face_24px.svg" style="height: 20px; width: 20px;margin-bottom: 4px;"></md-icon>
+                            <strong>{{item.Fullname}}</strong></p>
+                            <p class=" font2" ng-show="item.Mobile"> <md-icon md-svg-src="img/icons/ic_phone_iphone_24px.svg" style="height: 15px; width: 15px;margin-bottom: 4px;" ng-show="item.Mobile"></md-icon> {{item.Mobile}}  </p>
+                            <p class=" font2" ng-show="item.Email"> <md-icon md-svg-src="img/icons/ic_email_24px.svg" style="height: 15px; width: 15px;margin-bottom: 4px;" ng-show="item.Email"></md-icon> {{item.Email}} </p>
+                          </span>
+						</md-item-template>
+					</md-autocomplete>
+				</md-input-container>-->
+				<md-input-container flex="85" style="margin-bottom: 0px">
+					<label>{{'CUSTOMER_NAME'| translate}}</label>
+					<input md-autofocus type="text" ng-model="customer.Fullname" />
+					<md-icon style="height:22px;width:22px;float:right;cursor: pointer" aria-label="Search Customer"  md-svg-src="img/icons/ic_search_24px.svg" ng-click="searchCustomer()"></md-icon>
+				</md-input-container>
+				<md-button flex="10" class="md-icon-button" onclick="su.open(receivePassportInfo)">
+					<md-icon class="md-inline-list-icon" md-svg-icon="img/icons/ic_account_box_48px.svg">
+						</md-icon>
+				</md-button>
+				<!-- <div flex="30" layout="row" style="position:relative">
+					<md-select class="selectC" flex="100" ng-model="customer.Gender" placeholder="{{'GENDER' | translate}}" style=" ">
+						<md-select-label style="width:100%"></md-select-label>
+						<md-option ng-value="0">{{'MALE' | translate}}</md-option>
+						<md-option ng-value="1">{{'FEMALE' | translate}}</md-option>
+						<md-option ng-value="2">{{'OTHER' | translate}}</md-option>
+					</md-select>
+				</div> -->
+			</div>
+			<div ng-if="!isUsePassport" flex="100" layout="row" layout-align="space-between center" layout-wrap style="">				
+				<md-input-container flex="100" style="margin-bottom: 0px">
+					<label>{{'CUSTOMER_NAME'| translate}}</label>
+					<input md-autofocus type="text" ng-model="customer.Fullname" />
+					<md-icon style="height:22px;width:22px;float:right;cursor: pointer" aria-label="Search Customer"  md-svg-src="img/icons/ic_search_24px.svg" ng-click="searchCustomer()"></md-icon>
+				</md-input-container>						
+			</div>
+			<div flex="100" layout="row" layout-align="space-between center" layout-wrap>
+				<div layout="row" layout-align="start center" flex="100" flex-sm="100" flex-xs="100">
+					<span flex="30" style="">{{'BIRTHDAY' | translate}}</span>
+					<div flex>
+						<input kendo-date-picker ng-model="dateString" k-ng-model="customer.Birthday" style="width: 100%;" k-options="DatePickerOption" ng-keypress="isValidKeyPress($event)"/>
+					</div>
+				</div>
+			</div>
+			<div flex="100" layout="row" layout-align="space-between center" layout-wrap>
+				<!--<md-input-container flex="100" style="margin-bottom: 0px;" flex-sm="100" flex-xs="100">
+					<label>{{'IDENTITY_NUMBER'|translate}}</label>
+					<md-autocomplete ng-disabled="isDisabled" md-no-cache="noCache" md-selected-item="selectedItem" md-search-text-change="searchTextChange(searchTextIdentityNumber)" md-search-text="searchTextIdentityNumber" md-selected-item-change="selectedItemChange(item)" md-items="item in customerList | filter:{IdentityNumber:searchTextIdentityNumber}" md-item-text="item.IdentityNumber" md-min-length="1" md-menu-class="autocomplete-custom-template" ng-model="customer.IdentityNumber" ng-keyup="customer.IdentityNumber=searchTextIdentityNumber">
+						<md-item-template>
+							<span class="item-metadata">
+                            <p> <md-icon md-svg-src="img/icons/ic_face_24px.svg" style="height: 20px; width: 20px;margin-bottom: 4px;"></md-icon>
+                            <strong>{{item.Fullname}}</strong></p>
+                            <p class=" font2" ng-show="item.Mobile"> <md-icon md-svg-src="img/icons/ic_phone_iphone_24px.svg" style="height: 15px; width: 15px;margin-bottom: 4px;" ng-show="item.Mobile"></md-icon> {{item.Mobile}}  </p>
+                            <p class=" font2" ng-show="item.Email"> <md-icon md-svg-src="img/icons/ic_email_24px.svg" style="height: 15px; width: 15px;margin-bottom: 4px;" ng-show="item.Email"></md-icon> {{item.Email}} </p>
+                          </span>
+						</md-item-template>
+					</md-autocomplete>
+				</md-input-container>-->
+				<md-input-container flex="65" style="margin-bottom: 0px">
+					<label>{{'IDENTITY_NUMBER'| translate}}</label>
+					<input type="text" ng-model="customer.IdentityNumber" />
+				</md-input-container>
+				<div flex="30" layout="row" style="position:relative">
+					<md-select class="selectC" flex="100" ng-model="customer.Gender" placeholder="{{'GENDER' | translate}}" style=" ">
+						<md-select-label style="width:100%"></md-select-label>
+						<md-option ng-value="0">{{'MALE' | translate}}</md-option>
+						<md-option ng-value="1">{{'FEMALE' | translate}}</md-option>
+						<md-option ng-value="2">{{'OTHER' | translate}}</md-option>
+					</md-select>
+				</div>
+			</div>
+			<div flex="100" layout="row" layout-align="space-between center" layout-wrap>
+				<!--<md-input-container flex="50" flex-sm="100" flex-xs="100" style="">
+					<label>{{'MOBILE'|translate}}</label>
+					<md-autocomplete ng-disabled="isDisabled" md-no-cache="noCache" md-selected-item="selectedItem" md-search-text-change="searchTextChange(searchTextMobile)" md-search-text="searchTextMobile" md-selected-item-change="selectedItemChange(item)" md-items="item in customerList | filter:{Mobile:searchTextMobile}" md-item-text="item.Mobile" md-min-length="2" md-menu-class="autocomplete-custom-template" ng-model="customer.Mobile" ng-keyup="customer.Mobile=searchTextMobile">
+						<md-item-template>
+							<span class="item-metadata">
+                            <p> <md-icon md-svg-src="img/icons/ic_face_24px.svg" style="height: 20px; width: 20px;margin-bottom: 4px;"></md-icon>
+                            <strong>{{item.Fullname}}</strong></p>
+                            <p class=" font2" ng-show="item.Mobile"> <md-icon md-svg-src="img/icons/ic_phone_iphone_24px.svg" style="height: 15px; width: 15px;margin-bottom: 4px;" ng-show="item.Mobile"></md-icon> {{item.Mobile}}  </p>
+                            <p class=" font2" ng-show="item.Email"> <md-icon md-svg-src="img/icons/ic_email_24px.svg" style="height: 15px; width: 15px;margin-bottom: 4px;" ng-show="item.Email"></md-icon> {{item.Email}} </p>
+                          </span>
+						</md-item-template>
+					</md-autocomplete>
+				</md-input-container>-->
+				<md-input-container flex="50" flex-sm="100" flex-xs="100" style="margin-bottom: 0px">
+					<label>{{'MOBILE'| translate}}</label>
+					<input type="text" ng-model="customer.Mobile" />
+				</md-input-container>
+
+				<!--<md-input-container flex="50" flex-sm="100" flex-xs="100" style="">
+					<label>{{'EMAIL'|translate}}</label>
+					<md-autocomplete ng-disabled="isDisabled" md-no-cache="noCache" md-selected-item="selectedItem" md-search-text-change="searchTextChange(searchTextEmail)" md-search-text="searchTextEmail" md-selected-item-change="selectedItemChange(item)" md-items="item in customerList | filter:{Email:searchTextEmail}" md-item-text="item.Email" md-min-length="2" md-menu-class="autocomplete-custom-template" ng-model="customer.Email" ng-keyup="customer.Email=searchTextEmail">
+						<md-item-template>
+							<span class="item-metadata">
+                            <p> <md-icon md-svg-src="img/icons/ic_face_24px.svg" style="height: 20px; width: 20px;margin-bottom: 4px;"></md-icon>
+                            <strong>{{item.Fullname}}</strong></p>
+                            <p class=" font2" ng-show="item.Mobile"> <md-icon md-svg-src="img/icons/ic_phone_iphone_24px.svg" style="height: 15px; width: 15px;margin-bottom: 4px;" ng-show="item.Mobile"></md-icon> {{item.Mobile}}  </p>
+                            <p class=" font2" ng-show="item.Email"> <md-icon md-svg-src="img/icons/ic_email_24px.svg" style="height: 15px; width: 15px;margin-bottom: 4px;" ng-show="item.Email"></md-icon> {{item.Email}} </p>
+                          </span>
+						</md-item-template>
+					</md-autocomplete>
+				</md-input-container>-->
+				<md-input-container flex="50" flex-sm="100" flex-xs="100" style="margin-bottom: 0px">
+					<label>{{'EMAIL'| translate}}</label>
+					<input type="text" ng-model="customer.Email" />
+				</md-input-container>
+			</div>
+			<div flex="100" layout="row" layout-align="space-between center" layout-wrap>
+				<md-input-container flex="50" flex-sm="100" flex-xs="100">
+					<label>{{'ADDRESS'| translate}}</label>
+					<input type="text" ng-model="customer.Address" />
+				</md-input-container>
+				<md-input-container flex="45" flex-sm="100" flex-xs="100" class="marginTop2">
+					<label>{{ 'COUNTRY' | translate }}</label>
+				 	<md-autocomplete md-selected-item="selectedCountries" md-search-text-change="searchCountriesTextChange(searchCountriesText)" md-search-text="searchCountriesText"
+                                md-selected-item-change="selectedCountriesChange(item)" md-items="item in queryCountriesSearch(searchCountriesText)"
+                                md-item-text="item.CountryName" md-min-length="0" md-menu-class="autocomplete-custom-template"
+                                >
+						<md-item-template>
+							<span class="item-title">
+									<md-icon md-svg-src="img/icons/ic_business_24px.svg"></md-icon>
+									<span style="margin: auto;"> {{item.CountryName}} </span>
+							</span>
+						</md-item-template>
+					</md-autocomplete>
+				</md-input-container>
+			</div>
+			<div flex="100" layout="row" layout-align="space-between center" layout-wrap>
+				<md-input-container flex="100">
+						<label>{{'NOTE' | translate}}</label>
+						<textarea style="width: 100%;" columns="1" rows="5" ng-model="customer.Note" />
+				</md-input-container>
+			</div>
+			<div flex="100" ng-if="sharerList.length > 0">
+				<md-list style="padding: 0px;">
+					<md-subheader class="md-no-sticky">{{'SHARER_INFORMATION' | translate}}</md-subheader>
+					<md-list-item ng-repeat="sharer in sharerList">
+						<p>{{sharer.customer.Fullname}} </p>
+						<p class="md-secondary">
+							<md-icon style="cursor: pointer" md-svg-src="img/icons/ic_person_24px.svg" ng-if="sharer.TravellerId.toString() !== customer.TravellerId.toString()" ng-click="setMainCustomer(sharer)"></md-icon>
+							<md-icon style="cursor: pointer" md-svg-src="img/icons/ic_edit_24px.svg" ng-if="!isCheckOut && !isCancel " ng-click="editSharer($event, sharer)"></md-icon>
+							<md-icon style="cursor: pointer" md-svg-src="img/icons/ic_delete_24px.svg" ng-click="deleteSharer(sharer)"></md-icon>
+						</p>
+						<md-divider></md-divider>
+					</md-list-item>
+				</md-list>
+			</div>
+		</md-card-content>
+	</md-card>
+	<script>
+		function receivePassportInfo(data) {
+			console.log("passport infor",data);
+			var info = angular.copy(data);       
+			
+			FullnameCustomer =  info.LastName + " " + info.FirstName; 
+			Gender = info.Gender;
+			IdentityNumber = info.DocumentNumber;
+			Birthday = info.DateOfBirth;
+			ValidUntil = info.ValidUntil;
+			CountryCode = info.NationalityCode;
+			ImageLocation = info.ImageLocation;
+			
+			document.getElementById('btnSavePassportInfo').click(); 
+		}
+	</script>

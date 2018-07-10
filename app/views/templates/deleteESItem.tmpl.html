@@ -1,0 +1,35 @@
+<md-dialog aria-label="DELETE_ITEM">
+    <!--<form name="deleteES">-->
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'REMOVE_EXTRA_SERVICE_ITEM' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <form name="deleteES" ng-submit="processDelete()">
+                <button id="btn_processdelete" class="hide"></button>
+                <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                    <md-input-container flex="100">
+                        <label>{{'REASON_TO_REMOVE_EXTRA_SERVICE_ITEM' | translate}} ({{'REQUIRED' | translate}})</label>                    
+                        <input required ng-model="deleteReason" md-autofocus md-maxlength="150" ng-trim="true" required minlength="3"/>                   
+                    </md-input-container>
+                </div>
+            </form>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button onclick="jQuery('#btn_processdelete').click()" class="md-primary" ng-disabled="!deleteReason || deleteReason.trim() === ''">
+                {{'OK' | translate}}
+            </md-button>
+        </md-dialog-actions>                
+
+    <!--</form>-->
+
+</md-dialog>

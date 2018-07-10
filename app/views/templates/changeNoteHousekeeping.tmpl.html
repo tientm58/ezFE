@@ -1,0 +1,32 @@
+<md-dialog aria-label="CHANGE_NOTE" style="width:45%;">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{'CHANGE_NOTE_HOUSEKEEPING' | translate}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <form name="changeNote" ng-submit="processChange()">
+                <button id="btn_processchange" class="hide"></button>
+                <div class="md-dialog-content" layout="row" layout-wrap flex="100">
+                    <md-input-container flex="100">
+                        <label>{{'NOTE' | translate}} ({{'REQUIRED' | translate}})</label>                    
+                        <input required ng-model="NoteHouseKeeping" md-autofocus ng-trim="true" required minlength="1"/>                   
+                    </md-input-container>
+                </div>
+            </form>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                {{'CANCEL' | translate}}
+            </md-button>
+            <md-button onclick="jQuery('#btn_processchange').click()" class="md-primary" ng-disabled="!NoteHouseKeeping || NoteHouseKeeping.trim() === ''">
+                {{'OK' | translate}}
+            </md-button>
+        </md-dialog-actions>                
+
+</md-dialog>

@@ -1,0 +1,9 @@
+{
+    "jscodehints.detectedExclusions": [
+        "D:/Workspace/ezCloud/ezCloud/app/lib/kendo/js/kendo.mobile.scrollview.min.js",
+        "kendo.angular2.min.js",
+        "kendo.mobile.shim.min.js",
+        "C:/Working/Codes/ezCloudHotel/ezCloud/app/lib/kendo/js/kendo.mobile.scrollview.min.js",
+        "dataviz/diagram/svg.min.js"
+    ]
+}

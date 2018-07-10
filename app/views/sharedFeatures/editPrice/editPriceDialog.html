@@ -1,0 +1,20 @@
+<md-dialog aria-label="Edit Price" flex-gt-xs="50" flex-xs="98">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    {{'EDIT_PRICE' | translate}}
+                </h2>
+                <span flex="">
+                </span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="Close dialog" md-svg-src="img/icons/ic_close_48px.svg" style="fill: white;">
+                    </md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+             <edit-price></edit-price>
+        </md-dialog-content>
+    </form>
+</md-dialog>
